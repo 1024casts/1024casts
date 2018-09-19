@@ -13,7 +13,7 @@ ldflags="-w -X ${versionDir}.gitTag=${gitTag} -X ${versionDir}.buildDate=${build
 all: gotool
 	@go build -v -ldflags ${ldflags} .
 clean:
-	rm -f 1024casts/backend
+	rm -f backend
 	find . -name "[._]*.s[a-w][a-z]" | xargs -i rm -f {}
 gotool:
 	gofmt -w .
