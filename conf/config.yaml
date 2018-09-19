@@ -11,7 +11,7 @@ tls:
 log:
   writers: file,stdout
   logger_level: DEBUG
-  logger_file: log/backend.log
+  logger_file: logs/backend.log
   log_format_text: true
   rollingPolicy: daily
   log_rotate_date: 1
