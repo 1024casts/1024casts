@@ -13,3 +13,4 @@
 - 文档使用 [swagger](https://swagger.io/) 生成
 - 配置文件解析库 [viper](https://github.com/spf13/viper)
 - 使用 [JWT](https://jwt.io/) 进行身份鉴权认证
+- 第三方包管理工具 [govendor](https://github.com/kardianos/govendor)
