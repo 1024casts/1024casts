@@ -5,6 +5,12 @@
 - 后台api使用go进行开发
 - ui使用vue进行开发
 
+## 规范
+
+### 错误码设计
+
+参考 新浪开放平台 [Error code](http://open.weibo.com/wiki/Error_code) 的设计
+
 ## 后端技术栈
 
 - 框架路由使用 [gin](https://github.com/gin-gonic/gin) 路由
