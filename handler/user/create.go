@@ -49,10 +49,10 @@ func Create(c *gin.Context) {
 		return
 	}
 
-	rsp := CreateResponse{
+	resp := CreateResponse{
 		Username: r.Username,
 	}
 
 	// Show the user information.
-	SendResponse(c, nil, rsp)
+	SendResponse(c, nil, resp)
 }
