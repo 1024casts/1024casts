@@ -4,6 +4,7 @@ name: 1024casts/backend         # API Server的名字
 url: http://127.0.0.1:8080      # pingServer函数请求的API服务器的ip:port
 max_ping_count: 10              # pingServer函数try的次数
 jwt_secret: Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5
+gormlog: true                   # 是否打印SQL日志
 tls:
   addr: :8081
   cert: conf/server.crt
