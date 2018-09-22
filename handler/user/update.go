@@ -37,6 +37,13 @@ func Update(c *gin.Context) {
 	// We update the record based on the user id.
 	u.Id = uint64(userId)
 
+	_, err := model.GetUserById(userId)
+	if  err != nil {
+		SendResponse(c, errno.ErrUserNotFound, nil)
+		log.Warn("user info", lager.Data{"id": userId})
+		return
+	}
+
 	// Validate the data.
 	if err := u.Validate(); err != nil {
 		SendResponse(c, errno.ErrValidation, nil)
@@ -50,7 +57,7 @@ func Update(c *gin.Context) {
 	}
 
 	// Save changed fields.
-	if err := u.Update(); err != nil {
+	if err := u.Update(u.Username); err != nil {
 		SendResponse(c, errno.ErrDatabase, nil)
 		return
 	}
