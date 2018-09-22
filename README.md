@@ -2,7 +2,7 @@
 
 包含后台api和后台ui：
 
-- 后台api使用go进行开发
+- api使用go进行开发
 - ui使用vue进行开发
 
 ## 技术栈
@@ -19,7 +19,7 @@
 
 ### 前端
 
-> 针对后端页面的技术栈
+> 主要指后端页面相关技术栈
 
 - [vue](https://cn.vuejs.org/)
 - [element](http://element-cn.eleme.io/#/zh-CN)
