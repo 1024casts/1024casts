@@ -37,14 +37,14 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.POST("/login", user.Login)
 
 	// The user handlers, requiring authentication
-	u := g.Group("/v1/user")
+	u := g.Group("/v1/users")
 	u.Use(middleware.AuthMiddleware())
 	{
 		u.POST("", user.Create)
 		u.DELETE("/:id", user.Delete)
 		u.PUT("/:id", user.Update)
 		u.GET("", user.List)
-		u.GET("/:username", user.Get)
+		u.GET("/:id", user.Get)
 	}
 
 	// The health check handlers
