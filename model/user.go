@@ -44,6 +44,13 @@ func GetUser(username string) (*UserModel, error) {
 	return u, d.Error
 }
 
+// GetUser gets an user by the user identifier.
+func GetUserById(id int) (*UserModel, error) {
+	u := &UserModel{}
+	d := DB.Self.Where("id = ?", id).First(&u)
+	return u, d.Error
+}
+
 // ListUser List all users
 func ListUser(username string, offset, limit int) ([]*UserModel, uint64, error) {
 	if limit == 0 {
