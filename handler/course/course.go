@@ -5,13 +5,17 @@ import (
 )
 
 type CreateRequest struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Email    string `json:"email"`
+	Name string `json:"username"`
+	Type string `json:"password"`
+	Description    string `json:"email"`
+	Slug string `json:"slug"`
+	CoverImage string `json:"cover_image"`
+	UserId int `json:"user_id"`
+	IsPublish int `json:"is_publish"`
 }
 
 type CreateResponse struct {
-	Username string `json:"username"`
+	Id string `json:"id"`
 }
 
 type ListRequest struct {
@@ -21,11 +25,11 @@ type ListRequest struct {
 }
 
 type ListResponse struct {
-	TotalCount uint64            `json:"totalCount"`
-	List   []*model.CourseModel `json:"list"`
+	TotalCount uint64               `json:"totalCount"`
+	List       []*model.CourseModel `json:"list"`
 }
 
 type SwaggerListResponse struct {
-	TotalCount uint64           `json:"totalCount"`
-	List   []model.CourseModel `json:"list"`
+	TotalCount uint64              `json:"totalCount"`
+	List       []model.CourseModel `json:"list"`
 }
