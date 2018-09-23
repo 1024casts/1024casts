@@ -3,10 +3,9 @@ package user
 import (
 	. "1024casts/backend/handler"
 	"1024casts/backend/pkg/errno"
-	"1024casts/backend/service"
-
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
+	"1024casts/backend/service"
 )
 
 // @Summary List the users in the database

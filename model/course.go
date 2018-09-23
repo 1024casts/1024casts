@@ -26,6 +26,11 @@ type CourseList struct {
 	IdMap map[uint64]*CourseModel
 }
 
+// Create creates a new course.
+func (c *CourseModel) Create() error {
+	return DB.Self.Create(&c).Error
+}
+
 // gets a course by the course identifier.
 func GetCourseById(id int) (*CourseModel, error) {
 	c := &CourseModel{}
