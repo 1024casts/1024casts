@@ -30,6 +30,7 @@ func Create(c *gin.Context) {
 	u := model.UserModel{
 		Username: r.Username,
 		Password: r.Password,
+		Email:    r.Email,
 	}
 
 	// Validate the data.

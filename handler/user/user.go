@@ -7,6 +7,7 @@ import (
 type CreateRequest struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
+	Email    string `json:"email"`
 }
 
 type CreateResponse struct {
@@ -21,10 +22,10 @@ type ListRequest struct {
 
 type ListResponse struct {
 	TotalCount uint64            `json:"totalCount"`
-	UserList   []*model.UserInfo `json:"userList"`
+	UserList   []*model.UserModel `json:"userList"`
 }
 
 type SwaggerListResponse struct {
 	TotalCount uint64           `json:"totalCount"`
-	UserList   []model.UserInfo `json:"userList"`
+	UserList   []model.UserModel `json:"userList"`
 }

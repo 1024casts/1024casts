@@ -1,15 +1,14 @@
 package service
 
 import (
-	"fmt"
+	//"fmt"
 	"sync"
 
 	"1024casts/backend/model"
-	"1024casts/backend/util"
 )
 
-func ListUser(username string, offset, limit int) ([]*model.UserInfo, uint64, error) {
-	infos := make([]*model.UserInfo, 0)
+func ListUser(username string, offset, limit int) ([]*model.UserModel, uint64, error) {
+	infos := make([]*model.UserModel, 0)
 	users, count, err := model.ListUser(username, offset, limit)
 	if err != nil {
 		return nil, count, err
@@ -23,7 +22,7 @@ func ListUser(username string, offset, limit int) ([]*model.UserInfo, uint64, er
 	wg := sync.WaitGroup{}
 	userList := model.UserList{
 		Lock:  new(sync.Mutex),
-		IdMap: make(map[uint64]*model.UserInfo, len(users)),
+		IdMap: make(map[uint64]*model.UserModel, len(users)),
 	}
 
 	errChan := make(chan error, 1)
@@ -35,22 +34,15 @@ func ListUser(username string, offset, limit int) ([]*model.UserInfo, uint64, er
 		go func(u *model.UserModel) {
 			defer wg.Done()
 
-			shortId, err := util.GenShortId()
-			if err != nil {
-				errChan <- err
-				return
-			}
+			//shortId, err := util.GenShortId()
+			//if err != nil {
+			//	errChan <- err
+			//	return
+			//}
 
 			userList.Lock.Lock()
 			defer userList.Lock.Unlock()
-			userList.IdMap[u.Id] = &model.UserInfo{
-				Id:        u.Id,
-				Username:  u.Username,
-				SayHello:  fmt.Sprintf("Hello %s", shortId),
-				Password:  u.Password,
-				CreatedAt: u.CreatedAt.Format("2006-01-02 15:04:05"),
-				UpdatedAt: u.UpdatedAt.Format("2006-01-02 15:04:05"),
-			}
+			userList.IdMap[u.Id] = u
 		}(u)
 	}
 

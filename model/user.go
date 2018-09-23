@@ -7,37 +7,44 @@ import (
 	"1024casts/backend/pkg/constvar"
 
 	"gopkg.in/go-playground/validator.v9"
+	"sync"
 	"time"
 )
 
 // User represents a registered user.
 type UserModel struct {
 	BaseModel
-	Username string `json:"username" gorm:"column:username;not null" binding:"required" validate:"min=1,max=32"`
-	Password string `json:"password" gorm:"column:password;not null" binding:"required" validate:"min=5,max=128"`
+	Username          string    `json:"username" gorm:"column:username;not null" binding:"required" validate:"min=1,max=32"`
+	Password          string    `json:"password" gorm:"column:password;not null" binding:"required" validate:"min=5,max=128"`
+	Email             string    `json:"email" gorm:"column:email;not null"`
+	Avatar            string    `json:"avatar" gorm:"column:avatar" binding:"omitempty"`
+	RealName          string    `json:"real_name" gorm:"column:real_name" binding:"omitempty"`
+	City              string    `json:"city" gorm:"column:city" binding:"omitempty"`
+	Company           string    `json:"company" gorm:"column:company" binding:"omitempty"`
+	WeiboUrl          string    `json:"weibo_url" gorm:"column:weibo_url" binding:"omitempty"`
+	WechatId          string    `json:"wechat_id" gorm:"column:wechat_id" binding:"omitempty"`
+	PersonalWebsite   string    `json:"personal_website" gorm:"column:personal_website" binding:"omitempty"`
+	Introduction      string    `json:"introduction" gorm:"column:introduction" binding:"omitempty"`
+	TopicCount        int       `json:"topic_count" gorm:"column:topic_count" binding:"omitempty"`
+	ReplyCount        int       `json:"reply_count" gorm:"column:reply_count" binding:"omitempty"`
+	FollowerCount     int       `json:"follower_count" gorm:"column:follower_count" binding:"omitempty"`
+	NotificationCount int       `json:"notification_count" gorm:"column:notification_count" binding:"omitempty"`
+	Status            int       `json:"status" gorm:"column:status" binding:"omitempty"`
+	LastLoginTime     time.Time `json:"last_login_time" gorm:"column:last_login_time" binding:"omitempty"`
+	LastLoginIp       string    `json:"last_login_ip" gorm:"column:last_login_ip" binding:"omitempty"`
+	GithubId          string    `json:"github_id" gorm:"column:github_id" binding:"omitempty"`
+	RememberToken     string    `json:"remember_token" gorm:"column:remember_token" binding:"omitempty"`
+	IsActivated       int       `json:"is_activated" gorm:"column:is_activated" binding:"omitempty"`
 }
 
-type UserProfile struct {
-	UserModel
-	Email string `json:"email" gorm:"column:email;not null" binding:"required" validate:"min=6,max=32"`
-	Avatar string `json:"avatar" gorm:"column:avatar" binding:"omitempty"`
-	RealName string `json:"real_name" gorm:"column:real_name" binding:"omitempty" validate:"min=6,max=32"`
-	City string `json:"city" gorm:"column:city" binding:"omitempty"`
-	Company string `json:"city" gorm:"column:city" binding:"omitempty"`
-	WeiboUrl string `json:"weibo_url" gorm:"column:weibo_url" binding:"omitempty"`
-	WechatId string `json:"wechat_id" gorm:"column:wechat_id" binding:"omitempty"`
-	PersonalWebsite string `json:"personal_website" gorm:"column:personal_website" binding:"omitempty"`
-	Introduction string `json:"introduction" gorm:"column:introduction" binding:"omitempty"`
-	TopicCount int `json:"topic_count" gorm:"column:topic_count" binding:"omitempty"`
-	ReplyCount int `json:"reply_count" gorm:"column:reply_count" binding:"omitempty"`
-	FollowerCount int `json:"follower_count" gorm:"column:follower_count" binding:"omitempty"`
-	NotificationCount int `json:"notification_count" gorm:"column:notification_count" binding:"omitempty"`
-	Status int `json:"status" gorm:"column:status" binding:"omitempty"`
-	LastLoginTime time.Time `json:"last_login_time" gorm:"column:last_login_time" binding:"omitempty"`
-	LastLoginIp string `json:"last_login_ip" gorm:"column:last_login_ip" binding:"omitempty"`
-	GithubId string `json:"github_id" gorm:"column:github_id" binding:"omitempty"`
-	RememberToken string `json:"remember_token" gorm:"column:remember_token" binding:"omitempty"`
-	IsActivated int `json:"is_activated" gorm:"column:is_activated" binding:"omitempty"`
+type UserList struct {
+	Lock  *sync.Mutex
+	IdMap map[uint64]*UserModel
+}
+
+// Token represents a JSON web token.
+type Token struct {
+	Token string `json:"token"`
 }
 
 func (c *UserModel) TableName() string {
