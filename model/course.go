@@ -26,6 +26,13 @@ type CourseList struct {
 	IdMap map[uint64]*CourseModel
 }
 
+// gets a course by the course identifier.
+func GetCourseById(id int) (*CourseModel, error) {
+	c := &CourseModel{}
+	d := DB.Self.Where("id = ?", id).First(&c)
+	return c, d.Error
+}
+
 // ListUser List all users
 func ListCourse(course CourseModel, offset, limit int) ([]*CourseModel, uint64, error) {
 	if limit == 0 {

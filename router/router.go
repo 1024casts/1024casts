@@ -56,7 +56,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		c.DELETE("/:id", user.Delete)
 		c.PUT("/:id", user.Update)
 		c.GET("", course.List)
-		c.GET("/:id", user.Get)
+		c.GET("/:id", course.Get)
 	}
 
 	// The health check handlers
