@@ -11,14 +11,14 @@ import (
 	"github.com/lexkong/log/lager"
 )
 
-// @Summary Add new user to the database
-// @Description Add a new user
-// @Tags user
+// @Summary Add new course to the database
+// @Description Add a new course
+// @Tags course
 // @Accept  json
 // @Produce  json
-// @Param user body user.CreateRequest true "Create a new user"
-// @Success 200 {object} user.CreateResponse "{"code":0,"message":"OK","data":{"username":"kong"}}"
-// @Router /user [post]
+// @Param course body course.CreateRequest true "Create a new course"
+// @Success 200 {object} course.CreateResponse "{"code":0,"message":"OK","data":{"name":"test"}}"
+// @Router /courses [post]
 func Create(c *gin.Context) {
 	log.Info("Course Create function called.", lager.Data{"X-Request-Id": util.GetReqID(c)})
 	var r CreateRequest
@@ -28,22 +28,23 @@ func Create(c *gin.Context) {
 	}
 
 	course := model.CourseModel{
-		Name: r.Name,
-		Type: r.Type,
-		Description:    r.Description,
-		Slug:r.Slug,
-		CoverImage: r.CoverImage,
-		IsPublish: r.IsPublish,
+		Name:        r.Name,
+		Type:        r.Type,
+		Description: r.Description,
+		Slug:        r.Slug,
+		CoverImage:  r.CoverImage,
+		UserId:      r.UserId,
+		IsPublish:   r.IsPublish,
 	}
 
-	// Insert the user to the database.
+	// Insert the course to the database.
 	if err := course.Create(); err != nil {
 		SendResponse(c, errno.ErrDatabase, nil)
 		return
 	}
 
 	resp := CreateResponse{
-		Name: course.Name,
+		Id: course.Id,
 	}
 
 	// Show the user information.
