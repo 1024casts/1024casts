@@ -34,14 +34,10 @@ func ListUser(username string, offset, limit int) ([]*model.UserModel, uint64, e
 		go func(u *model.UserModel) {
 			defer wg.Done()
 
-			//shortId, err := util.GenShortId()
-			//if err != nil {
-			//	errChan <- err
-			//	return
-			//}
-
 			userList.Lock.Lock()
 			defer userList.Lock.Unlock()
+
+			//u.CreatedAt = time.Time(u.CreatedAt).Format("2006-01-02 15:04:05")
 			userList.IdMap[u.Id] = u
 		}(u)
 	}
