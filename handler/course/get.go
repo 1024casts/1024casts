@@ -11,12 +11,12 @@ import (
 	"github.com/lexkong/log"
 )
 
-// @Summary Get an user by the user identifier
-// @Description Get an user by username
+// @Summary Get a course by the course identifier
+// @Description Get a course by id
 // @Tags user
 // @Accept  json
 // @Produce  json
-// @Param username path string true "Username"
+// @Param id path int true "id"
 // @Success 200 {object} model.CourseModel "{"code":0,"message":"OK","data":{"username":"kong","password":"$2a$10$E0kwtmtLZbwW/bDQ8qI8e.eHPqhQOW9tvjwpyo/p05f/f4Qvr3OmS"}}"
 // @Router /courses/{id} [get]
 func Get(c *gin.Context) {

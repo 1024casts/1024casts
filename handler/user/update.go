@@ -21,7 +21,7 @@ import (
 // @Param id path uint64 true "The user's database id index num"
 // @Param user body model.UserModel true "The user info"
 // @Success 200 {object} handler.Response "{"code":0,"message":"OK","data":null}"
-// @Router /user/{id} [put]
+// @Router /users/{id} [put]
 func Update(c *gin.Context) {
 	log.Info("Update function called.", lager.Data{"X-Request-Id": util.GetReqID(c)})
 	// Get the user id from the url parameter.

@@ -18,7 +18,7 @@ import (
 // @Produce  json
 // @Param username path string true "Username"
 // @Success 200 {object} model.UserModel "{"code":0,"message":"OK","data":{"username":"kong","password":"$2a$10$E0kwtmtLZbwW/bDQ8qI8e.eHPqhQOW9tvjwpyo/p05f/f4Qvr3OmS"}}"
-// @Router /user/{username} [get]
+// @Router /users/{username} [get]
 func Get(c *gin.Context) {
 	log.Info("Get function called.")
 
