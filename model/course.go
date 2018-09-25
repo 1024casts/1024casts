@@ -38,6 +38,11 @@ func GetCourseById(id int) (*CourseModel, error) {
 	return c, d.Error
 }
 
+// Update updates an user account information.
+func (u *CourseModel) Update(courseMap map[string]interface{}) error {
+	return DB.Self.Model(u).Updates(courseMap).Error
+}
+
 // ListUser List all users
 func ListCourse(course CourseModel, offset, limit int) ([]*CourseModel, uint64, error) {
 	if limit == 0 {
