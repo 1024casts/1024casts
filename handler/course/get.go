@@ -13,7 +13,7 @@ import (
 
 // @Summary Get a course by the course identifier
 // @Description Get a course by id
-// @Tags user
+// @Tags course
 // @Accept  json
 // @Produce  json
 // @Param id path int true "id"
