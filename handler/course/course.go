@@ -5,13 +5,13 @@ import (
 )
 
 type CreateRequest struct {
-	Name string `json:"name"`
-	Type string `json:"type"`
-	Description    string `json:"description"`
-	Slug string `json:"slug"`
-	CoverImage string `json:"cover_image"`
-	UserId int `json:"user_id"`
-	IsPublish int `json:"is_publish"`
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
+	Slug        string `json:"slug"`
+	CoverImage  string `json:"cover_image"`
+	UserId      int    `json:"user_id"`
+	IsPublish   int    `json:"is_publish"`
 }
 
 type CreateResponse struct {
