@@ -43,22 +43,16 @@ func (repo *UserRepo) GetUserList(username string, offset, limit int) ([]*model.
 	return users, count, nil
 }
 
-func (repo *UserRepo) FindByEmail(email string) (*model.UserModel, error) {
-	users := model.UserModel{}
-	return &users, nil
+func (repo *UserRepo) GetUserByEmail(email string) (*model.UserModel, error) {
+	user := model.UserModel{}
+	result := repo.db.Self.Where("email = ?", email).First(&user)
+
+	return &user, result.Error
 }
 
 func (repo *UserRepo) FindByChangePasswordHash(hash string) (*model.UserModel, error) {
 	users := model.UserModel{}
 	return &users, nil
-}
-
-func (repo *UserRepo) FindAll() ([]*model.UserModel, error) {
-	users := make([]*model.UserModel, 0)
-
-	//repo.db.Self.Model()
-
-	return users, nil
 }
 
 func (repo *UserRepo) Update(userMap map[string]interface{}, id int) error {
@@ -75,8 +69,3 @@ func (repo *UserRepo) Update(userMap map[string]interface{}, id int) error {
 //	users := model.UserModel{}
 //	return &users, nil
 //}
-
-func (repo *UserRepo) FindByValidationHash(hash string) (*model.UserModel, error) {
-	users := model.UserModel{}
-	return &users, nil
-}
