@@ -29,6 +29,16 @@ func (srv *UserService) GetUserById(id int) (*model.UserModel, error) {
 	return user, nil
 }
 
+func (srv *UserService) GetUserByUsername(username string) (*model.UserModel, error) {
+	user, err := srv.userRepo.GetUserByUsername(username)
+
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
+}
+
 func (srv *UserService) GetUserList(username string, offset, limit int) ([]*model.UserModel, uint64, error) {
 	infos := make([]*model.UserModel, 0)
 	users, count, err := srv.userRepo.GetUserList(username, offset, limit)

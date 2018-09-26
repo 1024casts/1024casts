@@ -7,6 +7,7 @@ import (
 	"1024casts/backend/pkg/errno"
 	"1024casts/backend/pkg/token"
 
+	"1024casts/backend/service"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,8 +25,9 @@ func Login(c *gin.Context) {
 		return
 	}
 
+	srv := service.NewUserService()
 	// Get the user information by the login username.
-	d, err := model.GetUser(u.Username)
+	d, err := srv.GetUserByUsername(u.Username)
 	if err != nil {
 		SendResponse(c, errno.ErrUserNotFound, nil)
 		return

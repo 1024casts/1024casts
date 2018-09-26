@@ -59,13 +59,6 @@ func DeleteUser(id uint64) error {
 	return DB.Self.Delete(&user).Error
 }
 
-// GetUser gets an user by the user identifier.
-func GetUser(username string) (*UserModel, error) {
-	u := &UserModel{}
-	d := DB.Self.Where("username = ?", username).First(&u)
-	return u, d.Error
-}
-
 // Compare with the plain text password. Returns true if it's the same as the encrypted one (in the `User` struct).
 func (u *UserModel) Compare(pwd string) (err error) {
 	err = auth.Compare(u.Password, pwd)
