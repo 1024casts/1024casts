@@ -4,11 +4,11 @@ import (
 	"strconv"
 
 	. "1024casts/backend/handler"
-	"1024casts/backend/model"
 	"1024casts/backend/pkg/errno"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
+	"1024casts/backend/service"
 )
 
 // @Summary Get an user by the user identifier
@@ -22,15 +22,12 @@ import (
 func Get(c *gin.Context) {
 	log.Info("Get function called.")
 
-	// Get the user by the `username` from the database.
-	//username := c.Param("username")
-	//user, err := model.GetUser(username)
-
 	// Get the user by the `id` from the database.
 	// Get the user id from the url parameter.
+	srv := service.NewUserService()
 	userId, _ := strconv.Atoi(c.Param("id"))
 
-	user, err := model.GetUserById(userId)
+	user, err:= srv.GetUserById(userId)
 	if err != nil {
 		SendResponse(c, errno.ErrUserNotFound, nil)
 		return

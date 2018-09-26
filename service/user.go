@@ -5,11 +5,32 @@ import (
 	"sync"
 
 	"1024casts/backend/model"
+	"1024casts/backend/repository"
 )
 
-func ListUser(username string, offset, limit int) ([]*model.UserModel, uint64, error) {
+type UserService struct {
+	userRepo *repository.UserRepo
+}
+
+func NewUserService() *UserService {
+	return &UserService{
+		repository.NewUserRepo(),
+	}
+}
+
+func (srv *UserService) GetUserById(id int) (*model.UserModel, error)  {
+	user, err := srv.userRepo.GetUserById(id)
+
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
+}
+
+func (srv *UserService) GetUserList(username string, offset, limit int) ([]*model.UserModel, uint64, error) {
 	infos := make([]*model.UserModel, 0)
-	users, count, err := model.ListUser(username, offset, limit)
+	users, count, err := srv.userRepo.GetUserList(username, offset, limit)
 	if err != nil {
 		return nil, count, err
 	}
