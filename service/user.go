@@ -6,6 +6,7 @@ import (
 
 	"1024casts/backend/model"
 	"1024casts/backend/repository"
+	"time"
 )
 
 type UserService struct {
@@ -58,7 +59,7 @@ func (srv *UserService) GetUserList(username string, offset, limit int) ([]*mode
 			userList.Lock.Lock()
 			defer userList.Lock.Unlock()
 
-			//u.CreatedAt = time.Time(u.CreatedAt).Format("2006-01-02 15:04:05")
+			u.CreatedAt, _ = time.Parse("2006-01-02 15:04:05", u.CreatedAt.String())
 			userList.IdMap[u.Id] = u
 		}(u)
 	}
