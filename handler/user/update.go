@@ -65,7 +65,7 @@ func Update(c *gin.Context) {
 	userMap["avatar"] = u.Avatar
 	userMap["real_name"] = u.RealName
 
-	if err := srv.Update(userMap, userId); err != nil {
+	if err := srv.UpdateUser(userMap, userId); err != nil {
 		SendResponse(c, errno.ErrDatabase, nil)
 		return
 	}

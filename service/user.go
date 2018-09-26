@@ -82,7 +82,7 @@ func (srv *UserService) GetUserList(username string, offset, limit int) ([]*mode
 	return infos, count, nil
 }
 
-func (srv *UserService) Update(userMap map[string]interface{}, id int) error {
+func (srv *UserService) UpdateUser(userMap map[string]interface{}, id int) error {
 	err := srv.userRepo.Update(userMap, id)
 
 	if err != nil {
