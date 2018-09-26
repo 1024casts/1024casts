@@ -2,8 +2,8 @@ package repository
 
 import (
 	"1024casts/backend/model"
-	"fmt"
 	"1024casts/backend/pkg/constvar"
+	"fmt"
 )
 
 type UserRepo struct {
@@ -61,8 +61,14 @@ func (repo *UserRepo) FindAll() ([]*model.UserModel, error) {
 	return users, nil
 }
 
-func (repo *UserRepo) Update(user *model.UserModel) error {
-	return nil
+func (repo *UserRepo) Update(userMap map[string]interface{}, id int) error {
+
+	user, err := repo.GetUserById(id)
+	if err != nil {
+		return err
+	}
+
+	return repo.db.Self.Model(user).Updates(userMap).Error
 }
 
 //func (repo *UserRepo) Store(user *model.UserModel) (entity.ID, error) {

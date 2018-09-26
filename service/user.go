@@ -19,7 +19,7 @@ func NewUserService() *UserService {
 	}
 }
 
-func (srv *UserService) GetUserById(id int) (*model.UserModel, error)  {
+func (srv *UserService) GetUserById(id int) (*model.UserModel, error) {
 	user, err := srv.userRepo.GetUserById(id)
 
 	if err != nil {
@@ -80,4 +80,14 @@ func (srv *UserService) GetUserList(username string, offset, limit int) ([]*mode
 	}
 
 	return infos, count, nil
+}
+
+func (srv *UserService) Update(userMap map[string]interface{}, id int) error {
+	err := srv.userRepo.Update(userMap, id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

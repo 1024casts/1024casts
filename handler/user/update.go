@@ -8,6 +8,7 @@ import (
 	"1024casts/backend/pkg/errno"
 	"1024casts/backend/util"
 
+	"1024casts/backend/service"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/lexkong/log/lager"
@@ -37,8 +38,10 @@ func Update(c *gin.Context) {
 	// We update the record based on the user id.
 	u.Id = uint64(userId)
 
-	_, err := model.GetUserById(userId)
-	if  err != nil {
+	srv := service.NewUserService()
+	//user, err := model.GetUserById(userId)
+	_, err := srv.GetUserById(userId)
+	if err != nil {
 		SendResponse(c, errno.ErrUserNotFound, nil)
 		log.Warn("user info", lager.Data{"id": userId})
 		return
@@ -57,7 +60,12 @@ func Update(c *gin.Context) {
 	}
 
 	// Save changed fields.
-	if err := u.Update(u.Username); err != nil {
+	userMap := make(map[string]interface{}, 0)
+	userMap["username"] = u.Username
+	userMap["avatar"] = u.Avatar
+	userMap["real_name"] = u.RealName
+
+	if err := srv.Update(userMap, userId); err != nil {
 		SendResponse(c, errno.ErrDatabase, nil)
 		return
 	}

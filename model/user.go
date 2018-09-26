@@ -59,11 +59,6 @@ func DeleteUser(id uint64) error {
 	return DB.Self.Delete(&user).Error
 }
 
-// Update updates an user account information.
-func (u *UserModel) Update(username string) error {
-	return DB.Self.Model(u).Updates(UserModel{Username: username}).Error
-}
-
 // GetUser gets an user by the user identifier.
 func GetUser(username string) (*UserModel, error) {
 	u := &UserModel{}
