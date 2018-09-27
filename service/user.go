@@ -19,6 +19,16 @@ func NewUserService() *UserService {
 	}
 }
 
+func (srv *UserService) CreateUser(user model.UserModel) (id uint64, err error) {
+	id, err = srv.userRepo.CreateUser(user)
+
+	if err != nil {
+		return id, err
+	}
+
+	return id, nil
+}
+
 func (srv *UserService) GetUserById(id int) (*model.UserModel, error) {
 	user, err := srv.userRepo.GetUserById(id)
 

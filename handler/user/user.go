@@ -11,7 +11,7 @@ type CreateRequest struct {
 }
 
 type CreateResponse struct {
-	Username string `json:"username"`
+	Id uint64 `json:"id"`
 }
 
 type ListRequest struct {
@@ -21,11 +21,11 @@ type ListRequest struct {
 }
 
 type ListResponse struct {
-	TotalCount uint64            `json:"totalCount"`
+	TotalCount uint64             `json:"totalCount"`
 	UserList   []*model.UserModel `json:"userList"`
 }
 
 type SwaggerListResponse struct {
-	TotalCount uint64           `json:"totalCount"`
+	TotalCount uint64            `json:"totalCount"`
 	UserList   []model.UserModel `json:"userList"`
 }

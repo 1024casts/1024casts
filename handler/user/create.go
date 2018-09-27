@@ -6,6 +6,7 @@ import (
 	"1024casts/backend/pkg/errno"
 	"1024casts/backend/util"
 
+	"1024casts/backend/service"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/lexkong/log/lager"
@@ -45,13 +46,15 @@ func Create(c *gin.Context) {
 		return
 	}
 	// Insert the user to the database.
-	if err := u.Create(); err != nil {
+	srv := service.NewUserService()
+	userId, err := srv.CreateUser(u)
+	if err != nil {
 		SendResponse(c, errno.ErrDatabase, nil)
 		return
 	}
 
 	resp := CreateResponse{
-		Username: r.Username,
+		Id: userId,
 	}
 
 	// Show the user information.

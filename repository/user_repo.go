@@ -16,6 +16,15 @@ func NewUserRepo() *UserRepo {
 	}
 }
 
+func (repo *UserRepo) CreateUser(user model.UserModel) (id uint64, err error) {
+	err = repo.db.Self.Create(&user).Error
+	if err != nil {
+		return 0, err
+	}
+
+	return user.Id, nil
+}
+
 func (repo *UserRepo) GetUserById(id int) (*model.UserModel, error) {
 	user := model.UserModel{}
 	result := repo.db.Self.Where("id = ?", id).First(&user)
