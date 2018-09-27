@@ -111,3 +111,13 @@ func (srv *UserService) UpdateUser(userMap map[string]interface{}, id int) error
 
 	return nil
 }
+
+func (srv *UserService) DeleteUser(id int) error {
+	err := srv.userRepo.DeleteUser(id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

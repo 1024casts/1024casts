@@ -47,18 +47,6 @@ func (c *UserModel) TableName() string {
 	return "users"
 }
 
-// Create creates a new user account.
-func (u *UserModel) Create() error {
-	return DB.Self.Create(&u).Error
-}
-
-// DeleteUser deletes the user by the user identifier.
-func DeleteUser(id uint64) error {
-	user := UserModel{}
-	user.BaseModel.Id = id
-	return DB.Self.Delete(&user).Error
-}
-
 // Compare with the plain text password. Returns true if it's the same as the encrypted one (in the `User` struct).
 func (u *UserModel) Compare(pwd string) (err error) {
 	err = auth.Compare(u.Password, pwd)

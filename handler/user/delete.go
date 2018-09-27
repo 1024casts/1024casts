@@ -4,9 +4,9 @@ import (
 	"strconv"
 
 	. "1024casts/backend/handler"
-	"1024casts/backend/model"
 	"1024casts/backend/pkg/errno"
 
+	"1024casts/backend/service"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,7 +20,11 @@ import (
 // @Router /users/{id} [delete]
 func Delete(c *gin.Context) {
 	userId, _ := strconv.Atoi(c.Param("id"))
-	if err := model.DeleteUser(uint64(userId)); err != nil {
+
+	srv := service.NewUserService()
+	err := srv.DeleteUser(userId)
+
+	if err != nil {
 		SendResponse(c, errno.ErrDatabase, nil)
 		return
 	}

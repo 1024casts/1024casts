@@ -82,6 +82,15 @@ func (repo *UserRepo) Update(userMap map[string]interface{}, id int) error {
 	return repo.db.Self.Model(user).Updates(userMap).Error
 }
 
+func (repo *UserRepo) DeleteUser(id int) error {
+	user, err := repo.GetUserById(id)
+	if err != nil {
+		return err
+	}
+
+	return repo.db.Self.Delete(&user).Error
+}
+
 //func (repo *UserRepo) Store(user *model.UserModel) (entity.ID, error) {
 //	users := model.UserModel{}
 //	return &users, nil
