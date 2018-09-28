@@ -56,14 +56,14 @@ export default {
 }
 </script>
 
-<!--<style rel="stylesheet/scss" lang="scss" scoped>-->
-  <!--.scroll-container {-->
-    <!--white-space: nowrap;-->
-    <!--position: relative;-->
-    <!--overflow: hidden;-->
-    <!--width: 100%;-->
-  <!--.scroll-wrapper {-->
-    <!--position: absolute;-->
-  <!--}-->
-  <!--}-->
-<!--</style>-->
+<style rel="stylesheet/scss" lang="scss" scoped>
+  .scroll-container {
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  .scroll-wrapper {
+    position: absolute;
+  }
+  }
+</style>
