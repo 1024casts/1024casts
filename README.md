@@ -1,9 +1,6 @@
 # backend
 
-包含后台api和后台ui：
-
-- api使用go进行开发
-- ui使用vue进行开发
+主要是提供API
 
 ## 技术栈
 
@@ -16,13 +13,6 @@
 - 使用 [JWT](https://jwt.io/) 进行身份鉴权认证
 - 校验器 [validator](https://gopkg.in/go-playground/validator.v9)  也是 gin 框架默认的校验器，当前最新是v9版本
 - 第三方包管理工具 [govendor](https://github.com/kardianos/govendor)
-
-### 前端
-
-> 主要指后端页面相关技术栈
-
-- [vue](https://cn.vuejs.org/)
-- [element](http://element-cn.eleme.io/#/zh-CN)
 
 ## API风格和媒体类型
 
@@ -104,8 +94,21 @@ REST 风格虽然适用于很多传输协议，但在实际开发中，REST 由�
 ## 模块
 
 - 用户模块
-- 论坛模块
+    - 用户列表
 - 课程模块
+    - 课程列表
+    - 添加课程
+    - 修改课程
+    - 对应课程的section列表
+    - 对应课程的视频列表
+- 论坛模块
+    - 主题列表
+    - 回复列表
 - 评论模块
+    - 评论列表
 - plan模块
+    - 列表
+    - 添加
+    - 删除
 - 订单模块
+    - 订单列表
