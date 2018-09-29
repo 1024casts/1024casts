@@ -40,5 +40,3 @@ backend
 # vendor
 vendor/*
 !vendor/vendor.json
-
-frontend/node_modules/*
