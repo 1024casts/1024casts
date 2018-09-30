@@ -9,6 +9,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"1024casts/backend/service"
+	"github.com/lexkong/log/lager"
+	"1024casts/backend/pkg/token"
 )
 
 // @Summary Get an user by the user identifier
@@ -27,11 +29,22 @@ func Get(c *gin.Context) {
 	srv := service.NewUserService()
 	userId, _ := strconv.Atoi(c.Param("id"))
 
+	// 从token 中解析 userId
+	if userId == 0 {
+		log.Info("user debug", lager.Data{"header": c.Request.Header.Get("Authorization")})
+		// get userId from token
+		ctx, _ := token.ParseRequest(c)
+		userId = int(ctx.ID)
+	}
+
 	user, err:= srv.GetUserById(userId)
 	if err != nil {
 		SendResponse(c, errno.ErrUserNotFound, nil)
 		return
 	}
+
+	roles := []string{"admin"}
+	user.Roles = roles
 
 	SendResponse(c, nil, user)
 }
