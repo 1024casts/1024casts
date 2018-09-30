@@ -36,6 +36,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 	// api for authentication functionalities
 	g.POST("/login", user.Login)
+	g.POST("/logout", user.Logout)
 
 	// The user handlers, requiring authentication
 	u := g.Group("/v1/users")
@@ -45,7 +46,8 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		u.DELETE("/:id", user.Delete)
 		u.PUT("/:id", user.Update)
 		u.GET("", user.List)
-		u.GET("/:id", user.Get)
+		u.GET("/token", user.Get)
+		//u.GET("/:id", user.Get)
 	}
 
 	// The course handlers, requiring authentication
