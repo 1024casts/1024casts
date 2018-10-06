@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
+	"strconv"
 )
 
 // @Summary List the courses in the database
@@ -25,7 +26,18 @@ func List(c *gin.Context) {
 		return
 	}
 
-	infos, count, err := service.GetCourseList(r.Username, r.Offset, r.Limit)
+	page, err := strconv.Atoi(c.Query("page"))
+	if err != nil {
+		log.Error("get page error", err)
+	}
+	limit, err := strconv.Atoi(c.Query("limit"))
+	if err != nil {
+		log.Error("get litmit error", err)
+	}
+
+	offset := (page - 1) * limit
+
+	infos, count, err := service.GetCourseList(r.Username, offset, limit)
 	if err != nil {
 		SendResponse(c, err, nil)
 		return
