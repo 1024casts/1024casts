@@ -1,10 +1,12 @@
 package model
 
 import (
-	"1024casts/backend/pkg/auth"
-	"gopkg.in/go-playground/validator.v9"
 	"sync"
 	"time"
+
+	"1024casts/backend/pkg/auth"
+
+	"gopkg.in/go-playground/validator.v9"
 )
 
 // User represents a registered user.

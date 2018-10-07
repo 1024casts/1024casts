@@ -2,8 +2,9 @@ package user
 
 import (
 	. "1024casts/backend/handler"
-	"github.com/gin-gonic/gin"
 	"1024casts/backend/model"
+
+	"github.com/gin-gonic/gin"
 )
 
 // @Summary Login generates the authentication token

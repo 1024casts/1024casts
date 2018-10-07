@@ -6,8 +6,8 @@ import (
 	"1024casts/backend/pkg/auth"
 	"1024casts/backend/pkg/errno"
 	"1024casts/backend/pkg/token"
-
 	"1024casts/backend/service"
+
 	"github.com/gin-gonic/gin"
 )
 

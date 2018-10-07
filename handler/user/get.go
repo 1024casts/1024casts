@@ -6,11 +6,12 @@ import (
 	. "1024casts/backend/handler"
 	"1024casts/backend/pkg/errno"
 
+	"1024casts/backend/pkg/token"
+	"1024casts/backend/service"
+
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
-	"1024casts/backend/service"
 	"github.com/lexkong/log/lager"
-	"1024casts/backend/pkg/token"
 )
 
 // @Summary Get an user by the user identifier
@@ -37,7 +38,7 @@ func Get(c *gin.Context) {
 		userId = int(ctx.ID)
 	}
 
-	user, err:= srv.GetUserById(userId)
+	user, err := srv.GetUserById(userId)
 	if err != nil {
 		SendResponse(c, errno.ErrUserNotFound, nil)
 		return

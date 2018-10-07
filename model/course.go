@@ -52,7 +52,7 @@ func ListCourse(course CourseModel, offset, limit int) ([]*CourseModel, uint64, 
 	courses := make([]*CourseModel, 0)
 	var count uint64
 
-	where :=  "is_publish >=0 "
+	where := "is_publish >=0 "
 	if err := DB.Self.Model(&CourseModel{}).Where(where).Count(&count).Error; err != nil {
 		return courses, count, err
 	}

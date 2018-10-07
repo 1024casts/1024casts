@@ -5,9 +5,10 @@ import (
 	"1024casts/backend/pkg/errno"
 	"1024casts/backend/service"
 
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
-	"strconv"
 )
 
 // @Summary List the courses in the database
