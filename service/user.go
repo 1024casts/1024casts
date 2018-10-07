@@ -1,12 +1,11 @@
 package service
 
 import (
-	//"fmt"
 	"sync"
+	"time"
 
 	"1024casts/backend/model"
 	"1024casts/backend/repository"
-	"time"
 )
 
 type UserService struct {
