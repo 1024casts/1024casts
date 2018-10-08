@@ -33,12 +33,29 @@ func List(c *gin.Context) {
 	}
 	limit, err := strconv.Atoi(c.Query("limit"))
 	if err != nil {
-		log.Error("get litmit error", err)
+		log.Error("get limit error", err)
 	}
 
 	offset := (page - 1) * limit
 
-	infos, count, err := service.GetCourseList(r.Username, offset, limit)
+	srv := service.NewCourseService()
+
+	courseMap := make(map[string]interface{})
+
+	name := c.Query("name")
+	if name != "" {
+		courseMap["name"] = name
+	}
+
+	updateStatus, err := strconv.Atoi(c.Query("update_status"))
+	if err != nil {
+		log.Error("get update_status error", err)
+	}
+	if updateStatus != 0 {
+		courseMap["update_status"] = updateStatus
+	}
+
+	infos, count, err := srv.GetCourseList(courseMap, offset, limit)
 	if err != nil {
 		SendResponse(c, err, nil)
 		return

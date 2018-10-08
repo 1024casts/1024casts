@@ -4,11 +4,23 @@ import (
 	"sync"
 
 	"1024casts/backend/model"
+	"1024casts/backend/repository"
 )
 
-func GetCourseList(username string, offset, limit int) ([]*model.CourseModel, uint64, error) {
+type CourseService struct {
+	courseRepo *repository.CourseRepo
+}
+
+func NewCourseService() *CourseService {
+	return &CourseService{
+		repository.NewCourseRepo(),
+	}
+}
+
+func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset, limit int) ([]*model.CourseModel, uint64, error) {
 	infos := make([]*model.CourseModel, 0)
-	courses, count, err := model.ListCourse(model.CourseModel{}, offset, limit)
+
+	courses, count, err := srv.courseRepo.GetCourseList(courseMap, offset, limit)
 	if err != nil {
 		return nil, count, err
 	}
@@ -41,6 +53,7 @@ func GetCourseList(username string, offset, limit int) ([]*model.CourseModel, ui
 
 			courseList.Lock.Lock()
 			defer courseList.Lock.Unlock()
+
 			courseList.IdMap[course.Id] = course
 		}(c)
 	}

@@ -19,9 +19,10 @@ type CreateResponse struct {
 }
 
 type ListRequest struct {
-	Username string `json:"username"`
-	Page     int    `json:"page"`
-	Limit    int    `json:"limit"`
+	Name         string `json:"name"`
+	UpdateStatus int    `json:"update_status"`
+	Page         int    `json:"page"`
+	Limit        int    `json:"limit"`
 }
 
 type ListResponse struct {
