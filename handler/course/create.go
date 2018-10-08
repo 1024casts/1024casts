@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/lexkong/log/lager"
+	"1024casts/backend/service"
 )
 
 // @Summary Add new course to the database
@@ -37,9 +38,12 @@ func Create(c *gin.Context) {
 		IsPublish:   r.IsPublish,
 	}
 
-	// Insert the course to the database.
-	if err := course.Create(); err != nil {
-		SendResponse(c, errno.ErrDatabase, nil)
+	srv := service.NewCourseService()
+	//user, err := model.GetUserById(userId)
+	id, err := srv.CreateCourse(course)
+	if  err != nil {
+		SendResponse(c, errno.ErrCourseCreateFail, nil)
+		log.Warn("course info", lager.Data{"id": id})
 		return
 	}
 

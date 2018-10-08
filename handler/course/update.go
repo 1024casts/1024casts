@@ -12,6 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/lexkong/log/lager"
+	"1024casts/backend/service"
 )
 
 // @Summary Update a course info by the course identifier
@@ -38,7 +39,9 @@ func Update(c *gin.Context) {
 	// We update the record based on the user id.
 	course.Id = uint64(courseId)
 
-	_, err := model.GetCourseById(courseId)
+	srv := service.NewCourseService()
+	//user, err := model.GetUserById(userId)
+	_, err := srv.GetCourseById(courseId)
 	if  err != nil {
 		SendResponse(c, errno.ErrCourseNotFound, nil)
 		log.Warn("course info", lager.Data{"id": courseId})
@@ -59,8 +62,9 @@ func Update(c *gin.Context) {
 	courseMap["slug"] = course.Slug
 	courseMap["cover_image"] = course.CoverImage
 	courseMap["is_publish"] = course.IsPublish
+	courseMap["update_status"] = course.UpdateStatus
 
-	if err := course.Update(courseMap); err != nil {
+	if err := srv.UpdateCourse(courseMap, courseId); err != nil {
 		SendResponse(c, errno.ErrDatabase, nil)
 		return
 	}

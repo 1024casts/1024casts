@@ -17,6 +17,26 @@ func NewCourseService() *CourseService {
 	}
 }
 
+func (srv *CourseService) CreateCourse(user model.CourseModel) (id uint64, err error) {
+	id, err = srv.courseRepo.CreateCourse(user)
+
+	if err != nil {
+		return id, err
+	}
+
+	return id, nil
+}
+
+func (srv *CourseService) GetCourseById(id int) (*model.CourseModel, error) {
+	course, err := srv.courseRepo.GetCourseById(id)
+
+	if err != nil {
+		return course, err
+	}
+
+	return course, nil
+}
+
 func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset, limit int) ([]*model.CourseModel, uint64, error) {
 	infos := make([]*model.CourseModel, 0)
 
@@ -74,4 +94,14 @@ func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset
 	}
 
 	return infos, count, nil
+}
+
+func (srv *CourseService) UpdateCourse(courseMap map[string]interface{}, id int) error {
+	err := srv.courseRepo.UpdateCourse(courseMap, id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

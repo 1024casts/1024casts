@@ -4,11 +4,12 @@ import (
 	"strconv"
 
 	. "1024casts/backend/handler"
-	"1024casts/backend/model"
 	"1024casts/backend/pkg/errno"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
+	"github.com/lexkong/log/lager"
+	"1024casts/backend/service"
 )
 
 // @Summary Get a course by the course identifier
@@ -30,9 +31,12 @@ func Get(c *gin.Context) {
 	// Get the user id from the url parameter.
 	courseId, _ := strconv.Atoi(c.Param("id"))
 
-	course, err := model.GetCourseById(courseId)
-	if err != nil {
-		SendResponse(c, errno.ErrUserNotFound, nil)
+	srv := service.NewCourseService()
+	//user, err := model.GetUserById(userId)
+	course, err := srv.GetCourseById(courseId)
+	if  err != nil {
+		SendResponse(c, errno.ErrCourseNotFound, nil)
+		log.Warn("course info", lager.Data{"id": courseId})
 		return
 	}
 

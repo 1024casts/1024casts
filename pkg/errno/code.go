@@ -18,4 +18,5 @@ var (
 
 	// course errors
 	ErrCourseNotFound      = &Errno{Code: 20201, Message: "The course was not found."}
+	ErrCourseCreateFail      = &Errno{Code: 20202, Message: "The course create fail."}
 )
