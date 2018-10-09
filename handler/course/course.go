@@ -25,9 +25,22 @@ type ListRequest struct {
 	Limit        int    `json:"limit"`
 }
 
+type SectionListRequest struct {
+	CourseId uint64 `json:"course_id"`
+	Name     string `json:"name"`
+	Order    int    `json:"order"`
+	Page     int    `json:"page"`
+	Limit    int    `json:"limit"`
+}
+
 type ListResponse struct {
 	TotalCount uint64               `json:"totalCount"`
 	List       []*model.CourseModel `json:"list"`
+}
+
+type SectionListResponse struct {
+	TotalCount uint64                `json:"totalCount"`
+	List       []*model.SectionModel `json:"list"`
 }
 
 type SwaggerListResponse struct {

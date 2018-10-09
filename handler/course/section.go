@@ -2,7 +2,6 @@ package course
 
 import (
 	. "1024casts/backend/handler"
-	"1024casts/backend/pkg/errno"
 	"1024casts/backend/service"
 
 	"strconv"
@@ -19,13 +18,11 @@ import (
 // @Param course body course.ListRequest true "List courses"
 // @Success 200 {object} course.SwaggerListResponse "{"code":0,"message":"OK","data":{"totalCount":1,"userList":[{"id":0,"username":"admin","random":"user 'admin' get random string 'EnqntiSig'","password":"$2a$10$veGcArz47VGj7l9xN7g2iuT9TF21jLI1YGXarGzvARNdnt4inC9PG","createdAt":"2018-05-28 00:25:33","updatedAt":"2018-05-28 00:25:33"}]}}"
 // @Router /courses [get]
-func List(c *gin.Context) {
-	log.Info("List function called.")
-	var r ListRequest
-	if err := c.Bind(&r); err != nil {
-		SendResponse(c, errno.ErrBind, nil)
-		return
-	}
+func Section(c *gin.Context) {
+	log.Info("Section function called.")
+
+	courseId, _ := strconv.Atoi(c.Param("id"))
+	courseIdd := uint64(courseId)
 
 	page, err := strconv.Atoi(c.Query("page"))
 	if err != nil {
@@ -39,29 +36,13 @@ func List(c *gin.Context) {
 	offset := (page - 1) * limit
 
 	srv := service.NewCourseService()
-
-	courseMap := make(map[string]interface{})
-
-	name := c.Query("name")
-	if name != "" {
-		courseMap["name"] = name
-	}
-
-	updateStatus, err := strconv.Atoi(c.Query("update_status"))
-	if err != nil {
-		log.Error("get update_status error", err)
-	}
-	if updateStatus >= 0 {
-		courseMap["update_status"] = updateStatus
-	}
-
-	infos, count, err := srv.GetCourseList(courseMap, offset, limit)
+	infos, count, err := srv.GetCourseSectionList(courseIdd, offset, limit)
 	if err != nil {
 		SendResponse(c, err, nil)
 		return
 	}
 
-	SendResponse(c, nil, ListResponse{
+	SendResponse(c, nil, SectionListResponse{
 		TotalCount: count,
 		List:       infos,
 	})

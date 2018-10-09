@@ -96,6 +96,65 @@ func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset
 	return infos, count, nil
 }
 
+func (srv *CourseService) GetCourseSectionList(courseId uint64, offset, limit int) ([]*model.SectionModel, uint64, error) {
+	infos := make([]*model.SectionModel, 0)
+
+	sections, count, err := srv.courseRepo.GetSectionList(courseId, offset, limit)
+	if err != nil {
+		return nil, count, err
+	}
+
+	ids := []uint64{}
+	for _, section := range sections {
+		ids = append(ids, section.Id)
+	}
+
+	wg := sync.WaitGroup{}
+	sectionList := model.SectionList{
+		Lock:  new(sync.Mutex),
+		IdMap: make(map[uint64]*model.SectionModel, len(sections)),
+	}
+
+	errChan := make(chan error, 1)
+	finished := make(chan bool, 1)
+
+	// Improve query efficiency in parallel
+	for _, c := range sections {
+		wg.Add(1)
+		go func(section *model.SectionModel) {
+			defer wg.Done()
+
+			//shortId, err := util.GenShortId()
+			//if err != nil {
+			//	errChan <- err
+			//	return
+			//}
+
+			sectionList.Lock.Lock()
+			defer sectionList.Lock.Unlock()
+
+			sectionList.IdMap[section.Id] = section
+		}(c)
+	}
+
+	go func() {
+		wg.Wait()
+		close(finished)
+	}()
+
+	select {
+	case <-finished:
+	case err := <-errChan:
+		return nil, count, err
+	}
+
+	for _, id := range ids {
+		infos = append(infos, sectionList.IdMap[id])
+	}
+
+	return infos, count, nil
+}
+
 func (srv *CourseService) UpdateCourse(courseMap map[string]interface{}, id int) error {
 	err := srv.courseRepo.UpdateCourse(courseMap, id)
 
