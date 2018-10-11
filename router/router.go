@@ -9,6 +9,8 @@ import (
 	"1024casts/backend/handler/user"
 	"1024casts/backend/router/middleware"
 
+	"1024casts/backend/handler/comment"
+
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
@@ -60,6 +62,13 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		c.GET("", course.List)
 		c.GET("/:id", course.Get)
 		c.GET("/:id/sections", course.Section)
+	}
+
+	// The comment handlers, requiring authentication
+	cmt := g.Group("/v1/comments")
+	cmt.Use(middleware.AuthMiddleware())
+	{
+		cmt.GET("", comment.List)
 	}
 
 	// The health check handlers
