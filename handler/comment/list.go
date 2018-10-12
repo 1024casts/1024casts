@@ -38,7 +38,7 @@ func List(c *gin.Context) {
 
 	offset := (page - 1) * limit
 
-	srv := service.NewCourseService()
+	srv := service.NewCommentService()
 
 	courseMap := make(map[string]interface{})
 
@@ -47,15 +47,7 @@ func List(c *gin.Context) {
 		courseMap["name"] = name
 	}
 
-	updateStatus, err := strconv.Atoi(c.Query("update_status"))
-	if err != nil {
-		log.Error("get update_status error", err)
-	}
-	if updateStatus >= 0 {
-		courseMap["update_status"] = updateStatus
-	}
-
-	infos, count, err := srv.GetCourseList(courseMap, offset, limit)
+	infos, count, err := srv.GetCommentList(courseMap, offset, limit)
 	if err != nil {
 		SendResponse(c, err, nil)
 		return
