@@ -255,6 +255,24 @@
 			"revisionTime": "2018-06-20T02:27:46Z"
 		},
 		{
+			"checksumSHA1": "S8HOwhDrcgqDyywBZHDVf0/8j0Q=",
+			"path": "github.com/qiniu/api.v7/auth/qbox",
+			"revision": "10e8409dc200604e26653f2bbd118f4d3d66b1ab",
+			"revisionTime": "2018-08-13T08:59:39Z"
+		},
+		{
+			"checksumSHA1": "nUyWDaL427ctaDO2iWjmQrvwwZE=",
+			"path": "github.com/qiniu/api.v7/conf",
+			"revision": "10e8409dc200604e26653f2bbd118f4d3d66b1ab",
+			"revisionTime": "2018-08-13T08:59:39Z"
+		},
+		{
+			"checksumSHA1": "g5gqSqUO071V3ULvUGWT8uaFB8g=",
+			"path": "github.com/qiniu/x/bytes.v7/seekable",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
 			"checksumSHA1": "eDQ6f1EsNf+frcRO/9XukSEchm8=",
 			"path": "github.com/satori/go.uuid",
 			"revision": "36e9d2ebbde5e3f13ab2e25625fd453271d6522e",
@@ -457,6 +475,12 @@
 			"path": "gopkg.in/yaml.v2",
 			"revision": "5420a8b6744d3b0345ab293f6fcba19c978f1183",
 			"revisionTime": "2018-03-28T19:50:20Z"
+		},
+		{
+			"checksumSHA1": "9t2exgz3OI0iupx2XzTY64dTNTI=",
+			"path": "qiniupkg.com/x/bytes.v7",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
 		}
 	],
 	"rootPath": "1024casts/backend"
