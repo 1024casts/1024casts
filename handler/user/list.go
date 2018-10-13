@@ -3,9 +3,12 @@ package user
 import (
 	. "1024casts/backend/handler"
 	"1024casts/backend/pkg/errno"
+	"1024casts/backend/service"
+	"strconv"
+	"strings"
+
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
-	"1024casts/backend/service"
 )
 
 // @Summary List the users in the database
@@ -24,8 +27,21 @@ func List(c *gin.Context) {
 		return
 	}
 
+	page, err := strconv.Atoi(c.Query("page"))
+	if err != nil {
+		log.Error("get page error", err)
+	}
+	limit, err := strconv.Atoi(c.Query("limit"))
+	if err != nil {
+		log.Error("get limit error", err)
+	}
+
+	offset := (page - 1) * limit
+
+	username := strings.TrimSpace(c.Query("username"))
+
 	srv := service.NewUserService()
-	infos, count, err := srv.GetUserList(r.Username, r.Offset, r.Limit)
+	infos, count, err := srv.GetUserList(username, offset, limit)
 	if err != nil {
 		SendResponse(c, err, nil)
 		return
