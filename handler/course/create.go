@@ -5,11 +5,11 @@ import (
 	"1024casts/backend/model"
 	"1024casts/backend/pkg/errno"
 	"1024casts/backend/util"
+	"1024casts/backend/service"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/lexkong/log/lager"
-	"1024casts/backend/service"
 )
 
 // @Summary Add new course to the database
@@ -41,7 +41,7 @@ func Create(c *gin.Context) {
 	srv := service.NewCourseService()
 	//user, err := model.GetUserById(userId)
 	id, err := srv.CreateCourse(course)
-	if  err != nil {
+	if err != nil {
 		SendResponse(c, errno.ErrCourseCreateFail, nil)
 		log.Warn("course info", lager.Data{"id": id})
 		return
