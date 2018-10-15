@@ -5,6 +5,7 @@ import (
 
 	"1024casts/backend/model"
 	"1024casts/backend/repository"
+	"1024casts/backend/util"
 )
 
 type CourseService struct {
@@ -74,6 +75,7 @@ func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset
 			courseList.Lock.Lock()
 			defer courseList.Lock.Unlock()
 
+			course.CoverImage = util.GetQiniuPrivateAccessUrl(course.CoverImage)
 			courseList.IdMap[course.Id] = course
 		}(c)
 	}

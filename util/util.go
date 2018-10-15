@@ -1,7 +1,12 @@
 package util
 
 import (
+	"time"
+
 	"github.com/gin-gonic/gin"
+	"github.com/qiniu/api.v7/auth/qbox"
+	"github.com/qiniu/api.v7/storage"
+	"github.com/spf13/viper"
 	"github.com/teris-io/shortid"
 )
 
@@ -18,4 +23,19 @@ func GetReqID(c *gin.Context) string {
 		return requestId
 	}
 	return ""
+}
+
+// 获取七牛资源的私有链接
+func GetQiniuPrivateAccessUrl(path string) string {
+	accessKey := viper.GetString("qiniu.AccessKey")
+	secretKey := viper.GetString("qiniu.SecretKey")
+	mac := qbox.NewMac(accessKey, secretKey)
+
+	domain := viper.GetString("qiniu.CDN_URL")
+	key := path
+	deadline := time.Now().Add(time.Second * 3600).Unix() //1小时有效期
+
+	privateAccessURL := storage.MakePrivateURL(mac, domain, key, deadline)
+
+	return privateAccessURL
 }
