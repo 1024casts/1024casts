@@ -53,6 +53,12 @@ func List(c *gin.Context) {
 		}
 	}
 
+	// 支付状态
+	payStatus := c.Query("status")
+	if payStatus != "" {
+		orderMap["status"] = payStatus
+	}
+
 	infos, count, err := srv.GetOrderList(orderMap, offset, limit)
 	if err != nil {
 		SendResponse(c, err, nil)
