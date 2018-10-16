@@ -30,6 +30,6 @@ type ListResponse struct {
 }
 
 type SwaggerListResponse struct {
-	TotalCount uint64              `json:"totalCount"`
-	List       []model.CourseModel `json:"list"`
+	TotalCount uint64             `json:"totalCount"`
+	List       []model.OrderModel `json:"list"`
 }
