@@ -3,6 +3,8 @@ package util
 import (
 	"time"
 
+	"strings"
+
 	"github.com/gin-gonic/gin"
 	"github.com/qiniu/api.v7/auth/qbox"
 	"github.com/qiniu/api.v7/storage"
@@ -32,7 +34,10 @@ func GetQiniuPrivateAccessUrl(path string) string {
 	mac := qbox.NewMac(accessKey, secretKey)
 
 	domain := viper.GetString("qiniu.CDN_URL")
-	key := path
+	key := strings.TrimPrefix(path, "/")
+
+	imageStyle := "imageView2/2/w/200/h/200/q/75|imageslim"
+	key = key + "?" + imageStyle
 	deadline := time.Now().Add(time.Second * 3600).Unix() //1小时有效期
 
 	privateAccessURL := storage.MakePrivateURL(mac, domain, key, deadline)
