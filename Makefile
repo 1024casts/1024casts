@@ -17,6 +17,7 @@ clean:
 	find . -name "[._]*.s[a-w][a-z]" | xargs -i rm -f {}
 gotool:
 	gofmt -w .
+	goimports -w . | grep -v vendor;true
 	go tool vet . | grep -v vendor;true
 
 swag-init:
@@ -24,6 +25,7 @@ swag-init:
 	@echo "swag init done"
 	@echo "see docs by: http://localhost:8080/swagger/index.html"
 
+# gen model struct
 model:
 	db2struct --host localhost -d database_name -t table_name --package model --struct model_name -p --user root --gorm --json
 
