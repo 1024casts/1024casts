@@ -15,6 +15,12 @@
 			"revisionTime": "2017-08-10T14:37:23Z"
 		},
 		{
+			"checksumSHA1": "PCNL5lmXI3Bo3tY0QdeYnwOMufw=",
+			"path": "github.com/Shelnutt2/db2struct",
+			"revision": "c2b8c916853abba212f921e242afcaa65ebf57b5",
+			"revisionTime": "2017-04-04T18:07:17Z"
+		},
+		{
 			"checksumSHA1": "4772zXrOaPVeDeSgdiV7Vp4KEjk=",
 			"path": "github.com/dgrijalva/jwt-go",
 			"revision": "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e",
@@ -267,8 +273,32 @@
 			"revisionTime": "2018-08-13T08:59:39Z"
 		},
 		{
+			"checksumSHA1": "6L1X3LZXisntwnJTgm+V2tR+np0=",
+			"path": "github.com/qiniu/api.v7/storage",
+			"revision": "10e8409dc200604e26653f2bbd118f4d3d66b1ab",
+			"revisionTime": "2018-08-13T08:59:39Z"
+		},
+		{
+			"checksumSHA1": "beTNGx1rXgzHQQKZzLDl6WJPafg=",
+			"path": "github.com/qiniu/x/bytes.v7",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
 			"checksumSHA1": "g5gqSqUO071V3ULvUGWT8uaFB8g=",
 			"path": "github.com/qiniu/x/bytes.v7/seekable",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
+			"checksumSHA1": "nEYHAZwW+PZDXfvtbwJ0ZScoN44=",
+			"path": "github.com/qiniu/x/reqid.v7",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
+			"checksumSHA1": "OQVghp//ATup7BfCaB1BLjYTJb4=",
+			"path": "github.com/qiniu/x/xlog.v7",
 			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
 			"revisionTime": "2015-07-21T03:41:13Z"
 		},
@@ -479,6 +509,18 @@
 		{
 			"checksumSHA1": "9t2exgz3OI0iupx2XzTY64dTNTI=",
 			"path": "qiniupkg.com/x/bytes.v7",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
+			"checksumSHA1": "TeAfwkuKkelqJ9HJ56Z3sboLxhE=",
+			"path": "qiniupkg.com/x/log.v7",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
+			"checksumSHA1": "H8+RHqplH5pNwKVURcANz3Z7+8Y=",
+			"path": "qiniupkg.com/x/reqid.v7",
 			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
 			"revisionTime": "2015-07-21T03:41:13Z"
 		}
