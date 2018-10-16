@@ -8,6 +8,7 @@ import (
 // order
 type OrderModel struct {
 	Id          uint64     `gorm:"primary_key;column:id" json:"id"`
+	OrderId     string     `json:"order_id"`
 	OrderAmount float64    `json:"order_amount" gorm:"column:order_amount;" binding:"required"`
 	PayAmount   float64    `json:"pay_amount" gorm:"column:pay_amount;" binding:"required"`
 	PayMethod   string     `json:"pay_method" gorm:"column:pay_method;" binding:"required"`

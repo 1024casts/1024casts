@@ -5,6 +5,7 @@ import (
 
 	"1024casts/backend/model"
 	"1024casts/backend/repository"
+	"strconv"
 )
 
 type OrderService struct {
@@ -64,6 +65,7 @@ func (srv *OrderService) GetOrderList(orderMap map[string]interface{}, offset, l
 			orderList.Lock.Lock()
 			defer orderList.Lock.Unlock()
 
+			order.OrderId = strconv.FormatInt(int64(order.Id), 10)
 			orderList.IdMap[order.Id] = order
 		}(o)
 	}
