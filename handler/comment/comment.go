@@ -19,13 +19,13 @@ type CreateResponse struct {
 }
 
 type ListRequest struct {
-	Name         string `json:"name"`
-	Page         int    `json:"page"`
-	Limit        int    `json:"limit"`
+	Name  string `json:"name"`
+	Page  int    `json:"page"`
+	Limit int    `json:"limit"`
 }
 
 type ListResponse struct {
-	TotalCount uint64               `json:"totalCount"`
+	TotalCount uint64                `json:"totalCount"`
 	List       []*model.CommentModel `json:"list"`
 }
 

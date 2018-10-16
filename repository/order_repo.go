@@ -15,7 +15,6 @@ func NewOrderRepo() *OrderRepo {
 	}
 }
 
-
 func (repo *OrderRepo) GetOrderById(id int) (*model.OrderModel, error) {
 	order := model.OrderModel{}
 	result := repo.db.Self.Where("id = ?", id).First(&order)

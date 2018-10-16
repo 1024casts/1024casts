@@ -15,7 +15,6 @@ func NewCommentRepo() *CommentRepo {
 	}
 }
 
-
 func (repo *CommentRepo) GetCommentById(id int) (*model.CommentModel, error) {
 	comment := model.CommentModel{}
 	result := repo.db.Self.Where("id = ?", id).First(&comment)

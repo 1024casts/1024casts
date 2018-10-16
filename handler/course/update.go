@@ -1,6 +1,5 @@
 package course
 
-
 import (
 	"strconv"
 
@@ -9,10 +8,11 @@ import (
 	"1024casts/backend/pkg/errno"
 	"1024casts/backend/util"
 
+	"1024casts/backend/service"
+
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/lexkong/log/lager"
-	"1024casts/backend/service"
 )
 
 // @Summary Update a course info by the course identifier
@@ -42,7 +42,7 @@ func Update(c *gin.Context) {
 	srv := service.NewCourseService()
 	//user, err := model.GetUserById(userId)
 	_, err := srv.GetCourseById(courseId)
-	if  err != nil {
+	if err != nil {
 		SendResponse(c, errno.ErrCourseNotFound, nil)
 		log.Warn("course info", lager.Data{"id": courseId})
 		return
@@ -55,7 +55,7 @@ func Update(c *gin.Context) {
 	//}
 
 	// Save changed fields.
-	courseMap :=  make(map[string]interface{}, 0)
+	courseMap := make(map[string]interface{}, 0)
 	courseMap["name"] = course.Name
 	courseMap["type"] = course.Type
 	courseMap["description"] = course.Description
