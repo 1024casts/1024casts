@@ -13,6 +13,8 @@ import (
 
 	"1024casts/backend/handler/order"
 
+	"1024casts/backend/handler/plan"
+
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
@@ -78,6 +80,13 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	o.Use(middleware.AuthMiddleware())
 	{
 		o.GET("", order.List)
+	}
+
+	// The plan handlers, requiring authentication
+	p := g.Group("/v1/plans")
+	p.Use(middleware.AuthMiddleware())
+	{
+		p.GET("", plan.List)
 	}
 
 	// The health check handlers
