@@ -44,3 +44,7 @@ func GetQiniuPrivateAccessUrl(path string) string {
 
 	return privateAccessURL
 }
+
+func TimestampToString(ts time.Time) string {
+	return time.Unix(ts.Unix(), 00).Format("2006-01-02 15:04:05")
+}
