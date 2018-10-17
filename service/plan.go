@@ -5,10 +5,11 @@ import (
 
 	"1024casts/backend/model"
 	"1024casts/backend/repository"
+	"1024casts/backend/util"
 )
 
 type PlanService struct {
-	planRepo *repository.PlanRepo
+	repo *repository.PlanRepo
 }
 
 func NewPlanService() *PlanService {
@@ -18,7 +19,7 @@ func NewPlanService() *PlanService {
 }
 
 func (srv *PlanService) CreateCourse(plan model.PlanModel) (id uint64, err error) {
-	id, err = srv.planRepo.CreatePlan(plan)
+	id, err = srv.repo.CreatePlan(plan)
 
 	if err != nil {
 		return id, err
@@ -28,7 +29,7 @@ func (srv *PlanService) CreateCourse(plan model.PlanModel) (id uint64, err error
 }
 
 func (srv *PlanService) GetPlanById(id int) (*model.PlanModel, error) {
-	plan, err := srv.planRepo.GetPlanById(id)
+	plan, err := srv.repo.GetPlanById(id)
 
 	if err != nil {
 		return plan, err
@@ -38,7 +39,7 @@ func (srv *PlanService) GetPlanById(id int) (*model.PlanModel, error) {
 }
 
 func (srv *PlanService) GetPlanByAlias(alias string) (*model.PlanModel, error) {
-	plan, err := srv.planRepo.GetPlanByAlias(alias)
+	plan, err := srv.repo.GetPlanByAlias(alias)
 
 	if err != nil {
 		return plan, err
@@ -50,7 +51,7 @@ func (srv *PlanService) GetPlanByAlias(alias string) (*model.PlanModel, error) {
 func (srv *PlanService) GetPlanList(courseMap map[string]interface{}, offset, limit int) ([]*model.PlanModel, uint64, error) {
 	infos := make([]*model.PlanModel, 0)
 
-	plans, count, err := srv.planRepo.GetPlanList(courseMap, offset, limit)
+	plans, count, err := srv.repo.GetPlanList(courseMap, offset, limit)
 	if err != nil {
 		return nil, count, err
 	}
@@ -75,15 +76,11 @@ func (srv *PlanService) GetPlanList(courseMap map[string]interface{}, offset, li
 		go func(plan *model.PlanModel) {
 			defer wg.Done()
 
-			//shortId, err := util.GenShortId()
-			//if err != nil {
-			//	errChan <- err
-			//	return
-			//}
-
 			planList.Lock.Lock()
 			defer planList.Lock.Unlock()
 
+			plan.FormatCreatedAt = util.TimestampToString(plan.CreatedAt)
+			plan.FormatUpdatedAt = util.TimestampToString(plan.UpdatedAt)
 			planList.IdMap[plan.ID] = plan
 		}(c)
 	}
@@ -107,7 +104,7 @@ func (srv *PlanService) GetPlanList(courseMap map[string]interface{}, offset, li
 }
 
 func (srv *PlanService) UpdatePlan(courseMap map[string]interface{}, id int) error {
-	err := srv.planRepo.UpdatePlan(courseMap, id)
+	err := srv.repo.UpdatePlan(courseMap, id)
 
 	if err != nil {
 		return err
