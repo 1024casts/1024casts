@@ -8,7 +8,7 @@ import (
 )
 
 type CommentService struct {
-	commentRepo *repository.CommentRepo
+	repo *repository.CommentRepo
 }
 
 func NewCommentService() *CommentService {
@@ -18,7 +18,7 @@ func NewCommentService() *CommentService {
 }
 
 func (srv *CommentService) GetCommentById(id int) (*model.CommentModel, error) {
-	comment, err := srv.commentRepo.GetCommentById(id)
+	comment, err := srv.repo.GetCommentById(id)
 
 	if err != nil {
 		return comment, err
@@ -30,7 +30,7 @@ func (srv *CommentService) GetCommentById(id int) (*model.CommentModel, error) {
 func (srv *CommentService) GetCommentList(commentMap map[string]interface{}, offset, limit int) ([]*model.CommentModel, uint64, error) {
 	infos := make([]*model.CommentModel, 0)
 
-	comments, count, err := srv.commentRepo.GetCommentList(commentMap, offset, limit)
+	comments, count, err := srv.repo.GetCommentList(commentMap, offset, limit)
 	if err != nil {
 		return nil, count, err
 	}
@@ -87,7 +87,7 @@ func (srv *CommentService) GetCommentList(commentMap map[string]interface{}, off
 }
 
 func (srv *CommentService) UpdateComment(commentMap map[string]interface{}, id int) error {
-	err := srv.commentRepo.UpdateComment(commentMap, id)
+	err := srv.repo.UpdateComment(commentMap, id)
 
 	if err != nil {
 		return err
