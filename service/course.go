@@ -9,7 +9,7 @@ import (
 )
 
 type CourseService struct {
-	courseRepo *repository.CourseRepo
+	repo *repository.CourseRepo
 }
 
 func NewCourseService() *CourseService {
@@ -19,7 +19,7 @@ func NewCourseService() *CourseService {
 }
 
 func (srv *CourseService) CreateCourse(user model.CourseModel) (id uint64, err error) {
-	id, err = srv.courseRepo.CreateCourse(user)
+	id, err = srv.repo.CreateCourse(user)
 
 	if err != nil {
 		return id, err
@@ -29,7 +29,7 @@ func (srv *CourseService) CreateCourse(user model.CourseModel) (id uint64, err e
 }
 
 func (srv *CourseService) GetCourseById(id int) (*model.CourseModel, error) {
-	course, err := srv.courseRepo.GetCourseById(id)
+	course, err := srv.repo.GetCourseById(id)
 
 	if err != nil {
 		return course, err
@@ -41,7 +41,7 @@ func (srv *CourseService) GetCourseById(id int) (*model.CourseModel, error) {
 func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset, limit int) ([]*model.CourseModel, uint64, error) {
 	infos := make([]*model.CourseModel, 0)
 
-	courses, count, err := srv.courseRepo.GetCourseList(courseMap, offset, limit)
+	courses, count, err := srv.repo.GetCourseList(courseMap, offset, limit)
 	if err != nil {
 		return nil, count, err
 	}
@@ -101,7 +101,7 @@ func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset
 func (srv *CourseService) GetCourseSectionList(courseId uint64, offset, limit int) ([]*model.SectionModel, uint64, error) {
 	infos := make([]*model.SectionModel, 0)
 
-	sections, count, err := srv.courseRepo.GetSectionList(courseId, offset, limit)
+	sections, count, err := srv.repo.GetSectionList(courseId, offset, limit)
 	if err != nil {
 		return nil, count, err
 	}
@@ -158,7 +158,7 @@ func (srv *CourseService) GetCourseSectionList(courseId uint64, offset, limit in
 }
 
 func (srv *CourseService) UpdateCourse(courseMap map[string]interface{}, id int) error {
-	err := srv.courseRepo.UpdateCourse(courseMap, id)
+	err := srv.repo.UpdateCourse(courseMap, id)
 
 	if err != nil {
 		return err
