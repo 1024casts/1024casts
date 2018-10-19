@@ -27,15 +27,18 @@ func Get(c *gin.Context) {
 
 	// Get the user by the `id` from the database.
 	// Get the user id from the url parameter.
+
+	var userId uint64
 	srv := service.NewUserService()
-	userId, _ := strconv.Atoi(c.Param("id"))
+	uId, _ := strconv.Atoi(c.Param("id"))
+	userId = uint64(uId)
 
 	// 从token 中解析 userId
 	if userId == 0 {
 		log.Info("user debug", lager.Data{"header": c.Request.Header.Get("Authorization")})
 		// get userId from token
 		ctx, _ := token.ParseRequest(c)
-		userId = int(ctx.ID)
+		userId = ctx.ID
 	}
 
 	user, err := srv.GetUserById(userId)

@@ -23,7 +23,7 @@ func Delete(c *gin.Context) {
 	userId, _ := strconv.Atoi(c.Param("id"))
 
 	srv := service.NewUserService()
-	err := srv.DeleteUser(userId)
+	err := srv.DeleteUser(uint64(userId))
 
 	if err != nil {
 		SendResponse(c, errno.ErrDatabase, nil)

@@ -41,7 +41,7 @@ func Update(c *gin.Context) {
 
 	srv := service.NewUserService()
 	//user, err := model.GetUserById(userId)
-	_, err := srv.GetUserById(userId)
+	_, err := srv.GetUserById(uint64(userId))
 	if err != nil {
 		SendResponse(c, errno.ErrUserNotFound, nil)
 		log.Warn("user info", lager.Data{"id": userId})
@@ -66,7 +66,7 @@ func Update(c *gin.Context) {
 	userMap["avatar"] = u.Avatar
 	userMap["real_name"] = u.RealName
 
-	if err := srv.UpdateUser(userMap, userId); err != nil {
+	if err := srv.UpdateUser(userMap, u.Id); err != nil {
 		SendResponse(c, errno.ErrDatabase, nil)
 		return
 	}

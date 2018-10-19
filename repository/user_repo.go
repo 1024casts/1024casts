@@ -25,7 +25,7 @@ func (repo *UserRepo) CreateUser(user model.UserModel) (id uint64, err error) {
 	return user.Id, nil
 }
 
-func (repo *UserRepo) GetUserById(id int) (*model.UserModel, error) {
+func (repo *UserRepo) GetUserById(id uint64) (*model.UserModel, error) {
 	user := model.UserModel{}
 	result := repo.db.Self.Where("id = ?", id).First(&user)
 
@@ -72,7 +72,7 @@ func (repo *UserRepo) FindByChangePasswordHash(hash string) (*model.UserModel, e
 	return &users, nil
 }
 
-func (repo *UserRepo) Update(userMap map[string]interface{}, id int) error {
+func (repo *UserRepo) Update(userMap map[string]interface{}, id uint64) error {
 
 	user, err := repo.GetUserById(id)
 	if err != nil {
@@ -82,7 +82,7 @@ func (repo *UserRepo) Update(userMap map[string]interface{}, id int) error {
 	return repo.db.Self.Model(user).Updates(userMap).Error
 }
 
-func (repo *UserRepo) DeleteUser(id int) error {
+func (repo *UserRepo) DeleteUser(id uint64) error {
 	user, err := repo.GetUserById(id)
 	if err != nil {
 		return err

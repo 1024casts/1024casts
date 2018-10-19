@@ -28,7 +28,7 @@ func (srv *UserService) CreateUser(user model.UserModel) (id uint64, err error) 
 	return id, nil
 }
 
-func (srv *UserService) GetUserById(id int) (*model.UserModel, error) {
+func (srv *UserService) GetUserById(id uint64) (*model.UserModel, error) {
 	user, err := srv.userRepo.GetUserById(id)
 
 	if err != nil {
@@ -101,7 +101,7 @@ func (srv *UserService) GetUserList(username string, offset, limit int) ([]*mode
 	return infos, count, nil
 }
 
-func (srv *UserService) UpdateUser(userMap map[string]interface{}, id int) error {
+func (srv *UserService) UpdateUser(userMap map[string]interface{}, id uint64) error {
 	err := srv.userRepo.Update(userMap, id)
 
 	if err != nil {
@@ -111,7 +111,7 @@ func (srv *UserService) UpdateUser(userMap map[string]interface{}, id int) error
 	return nil
 }
 
-func (srv *UserService) DeleteUser(id int) error {
+func (srv *UserService) DeleteUser(id uint64) error {
 	err := srv.userRepo.DeleteUser(id)
 
 	if err != nil {
