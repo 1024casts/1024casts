@@ -54,6 +54,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		u.GET("", user.List)
 		u.GET("/token", user.Get)
 		//u.GET("/:id", user.Get)
+		u.PUT("/:id/status", user.UpdateStatus)
 	}
 
 	// The course handlers, requiring authentication
@@ -87,6 +88,8 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	p.Use(middleware.AuthMiddleware())
 	{
 		p.GET("", plan.List)
+		p.GET("/:id", plan.Get)
+		//p.GET("/:alias", plan.Get)
 	}
 
 	// The health check handlers
