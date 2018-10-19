@@ -14,6 +14,10 @@ type CreateResponse struct {
 	Id uint64 `json:"id"`
 }
 
+type UpdateReq struct {
+	Status int `json:"status"`
+}
+
 type ListRequest struct {
 	Username string `json:"username"`
 	Offset   int    `json:"offset"`
