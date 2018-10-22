@@ -27,6 +27,12 @@
 			"revisionTime": "2018-03-08T23:13:08Z"
 		},
 		{
+			"checksumSHA1": "Q58NfGP1V4B6tygDQf2/vLZYcpM=",
+			"path": "github.com/dropbox/godropbox/errors",
+			"revision": "31879d3884b90dd94c44c85c0e4f1aff3bbb90e2",
+			"revisionTime": "2018-05-12T21:01:57Z"
+		},
+		{
 			"checksumSHA1": "7NP1qUMF8Kx1y0zANxx0e+oq9Oo=",
 			"path": "github.com/fsnotify/fsnotify",
 			"revision": "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9",
