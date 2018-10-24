@@ -19,7 +19,7 @@ import (
 // @Router /login [post]
 func Login(c *gin.Context) {
 	// Binding the data with the user struct.
-	var u model.UserModel
+	var u LoginCredentials
 	if err := c.Bind(&u); err != nil {
 		SendResponse(c, errno.ErrBind, nil)
 		return
