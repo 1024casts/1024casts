@@ -40,3 +40,5 @@ backend
 # vendor
 vendor/*
 !vendor/vendor.json
+
+conf/config.yaml
