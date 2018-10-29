@@ -12,6 +12,7 @@ import (
 	"1024casts/backend/handler/plan"
 	"1024casts/backend/handler/sd"
 	"1024casts/backend/handler/user"
+	"1024casts/backend/handler/video"
 
 	"1024casts/backend/handler/qiniu"
 
@@ -67,6 +68,17 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		c.GET("", course.List)
 		c.GET("/:id", course.Get)
 		c.GET("/:id/sections", course.Section)
+	}
+
+	// The course handlers, requiring authentication
+	v := g.Group("/v1/videos")
+	v.Use(middleware.AuthMiddleware())
+	{
+		v.GET("/:course_id", video.List)
+		//v.DELETE("/:id", user.Delete)
+		//v.PUT("/:id", course.Update)
+		//v.GET("/:id", course.Get)
+		//v.GET("/:id/sections", course.Section)
 	}
 
 	// The comment handlers, requiring authentication
