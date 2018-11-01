@@ -89,12 +89,13 @@ func Sign(ctx *gin.Context, c Context, secret string) (tokenString string, err e
 	//sub: （Subject）该JWT的主题
 	//nbf: （Not Before）不要早于这个时间
 	//jti: （JWT ID）用于标识JWT的唯一ID
+	var hour = viper.GetDuration("jwt_duration")
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"id":       c.ID,
 		"username": c.Username,
 		"nbf":      time.Now().Unix(),
 		"iat":      time.Now().Unix(),
-		"exp":      time.Now().Add(time.Hour * 2).Unix(),
+		"exp":      time.Now().Add(time.Hour * hour).Unix(),
 	})
 	// Sign the token with the specified secret.
 	tokenString, err = token.SignedString([]byte(secret))
