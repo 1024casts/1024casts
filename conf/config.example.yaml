@@ -38,3 +38,5 @@ qiniu:
   #QINIU_CDN_URL=https://oj1ylm48b.qnssl.com
   Public_Bucket:
   CDN_PUBLIC_URL:
+upload:
+  dst: "/data/wwwroot/uploads"  # 本地上传目录
