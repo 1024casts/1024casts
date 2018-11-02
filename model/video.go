@@ -7,8 +7,8 @@ import (
 
 type VideoModel struct {
 	BaseModel
-	CourseID    int       `form:"course_id" gorm:"column:course_id" json:"course_id"`
-	SectionID   int       `form:"section_id" gorm:"column:section_id" json:"section_id"`
+	CourseID    uint64    `form:"course_id" gorm:"column:course_id" json:"course_id"`
+	SectionID   uint64    `form:"section_id" gorm:"column:section_id" json:"section_id"`
 	EpisodeID   int       `form:"episode_id" gorm:"column:episode_id" json:"episode_id"`
 	Name        string    `form:"name" gorm:"column:name" json:"name"`
 	Description string    `form:"description" gorm:"column:description" json:"description"`
