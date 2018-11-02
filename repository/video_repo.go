@@ -23,7 +23,18 @@ func (repo *VideoRepo) GetVideoById(id int) (*model.VideoModel, error) {
 	return &Video, result.Error
 }
 
-func (repo *VideoRepo) GetVideoList(courseId uint64, name string, offset, limit int) ([]*model.VideoModel, uint64, error) {
+func (repo *VideoRepo) GetVideoList(courseId uint64) ([]*model.VideoModel, error) {
+
+	videos := make([]*model.VideoModel, 0)
+
+	if err := repo.db.Self.Where("course_id=?", courseId).Where("course_id=?", courseId).Order("id asc").Find(&videos).Error; err != nil {
+		return videos, err
+	}
+
+	return videos, nil
+}
+
+func (repo *VideoRepo) GetVideoListPagination(courseId uint64, name string, offset, limit int) ([]*model.VideoModel, uint64, error) {
 	if limit == 0 {
 		limit = constvar.DefaultLimit
 	}
