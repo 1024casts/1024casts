@@ -109,6 +109,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	q.Use(middleware.AuthMiddleware())
 	{
 		q.GET("", qiniu.List)
+		q.POST("/upload", qiniu.Upload)
 	}
 
 	// The health check handlers
