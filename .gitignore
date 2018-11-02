@@ -42,3 +42,4 @@ vendor/*
 !vendor/vendor.json
 
 conf/config.yaml
+public/uploads
