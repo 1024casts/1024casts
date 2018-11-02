@@ -22,21 +22,9 @@ func Section(c *gin.Context) {
 	log.Info("Section function called.")
 
 	courseId, _ := strconv.Atoi(c.Param("id"))
-	courseIdd := uint64(courseId)
-
-	page, err := strconv.Atoi(c.Query("page"))
-	if err != nil {
-		log.Error("get page error", err)
-	}
-	limit, err := strconv.Atoi(c.Query("limit"))
-	if err != nil {
-		log.Error("get limit error", err)
-	}
-
-	offset := (page - 1) * limit
 
 	srv := service.NewCourseService()
-	infos, count, err := srv.GetCourseSectionList(courseIdd, offset, limit)
+	infos, count, err := srv.GetCourseSectionList(uint64(courseId), 0, 100)
 	if err != nil {
 		SendResponse(c, err, nil)
 		return
