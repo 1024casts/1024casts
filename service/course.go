@@ -6,15 +6,19 @@ import (
 	"1024casts/backend/model"
 	"1024casts/backend/repository"
 	"1024casts/backend/util"
+
+	"github.com/lexkong/log"
 )
 
 type CourseService struct {
-	repo *repository.CourseRepo
+	repo     *repository.CourseRepo
+	videoSrv *VideoService
 }
 
 func NewCourseService() *CourseService {
 	return &CourseService{
-		repository.NewCourseRepo(),
+		repo:     repository.NewCourseRepo(),
+		videoSrv: NewVideoService(),
 	}
 }
 
@@ -117,6 +121,11 @@ func (srv *CourseService) GetCourseSectionList(courseId uint64, offset, limit in
 		IdMap: make(map[uint64]*model.SectionModel, len(sections)),
 	}
 
+	videos, err := srv.videoSrv.GetVideoList(courseId)
+	if err != nil {
+		log.Warnf("[course] get video list fail from video repo, course_id: %d", courseId)
+	}
+
 	errChan := make(chan error, 1)
 	finished := make(chan bool, 1)
 
@@ -126,14 +135,14 @@ func (srv *CourseService) GetCourseSectionList(courseId uint64, offset, limit in
 		go func(section *model.SectionModel) {
 			defer wg.Done()
 
-			//shortId, err := util.GenShortId()
-			//if err != nil {
-			//	errChan <- err
-			//	return
-			//}
-
 			sectionList.Lock.Lock()
 			defer sectionList.Lock.Unlock()
+
+			for _, video := range videos {
+				if section.Id == video.SectionID {
+					section.VideoItems = append(section.VideoItems, video)
+				}
+			}
 
 			sectionList.IdMap[section.Id] = section
 		}(c)

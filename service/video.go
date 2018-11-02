@@ -5,6 +5,8 @@ import (
 
 	"1024casts/backend/model"
 	"1024casts/backend/repository"
+
+	"github.com/lexkong/log"
 )
 
 type VideoService struct {
@@ -27,10 +29,22 @@ func (srv *VideoService) GetVideoById(id int) (*model.VideoModel, error) {
 	return Video, nil
 }
 
-func (srv *VideoService) GetVideoList(courseId uint64, name string, offset, limit int) ([]*model.VideoModel, uint64, error) {
+func (srv *VideoService) GetVideoList(courseId uint64) ([]*model.VideoModel, error) {
+	videos := make([]*model.VideoModel, 0)
+
+	videos, err := srv.repo.GetVideoList(courseId)
+	if err != nil {
+		log.Warnf("[video] get video list err, course_id: %d", courseId)
+		return nil, err
+	}
+
+	return videos, nil
+}
+
+func (srv *VideoService) GetVideoListPagination(courseId uint64, name string, offset, limit int) ([]*model.VideoModel, uint64, error) {
 	infos := make([]*model.VideoModel, 0)
 
-	Videos, count, err := srv.repo.GetVideoList(courseId, name, offset, limit)
+	Videos, count, err := srv.repo.GetVideoListPagination(courseId, name, offset, limit)
 	if err != nil {
 		return nil, count, err
 	}
