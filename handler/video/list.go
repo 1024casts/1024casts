@@ -35,7 +35,7 @@ func List(c *gin.Context) {
 	name := strings.TrimSpace(c.Query("name"))
 
 	srv := service.NewVideoService()
-	infos, count, err := srv.GetVideoList(uint64(courseId), name, 0, 100)
+	infos, count, err := srv.GetVideoListPagination(uint64(courseId), name, 0, 100)
 	if err != nil {
 		SendResponse(c, err, nil)
 		return
