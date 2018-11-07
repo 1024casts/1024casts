@@ -4,7 +4,7 @@ name: 1024casts/backend         # API Server的名字
 url: http://127.0.0.1:8080      # pingServer函数请求的API服务器的ip:port
 max_ping_count: 10              # pingServer函数try的次数
 jwt_secret: Rtg9BPKNE62mB4mgvK9NGPZvQSaJWNxijxR42qRgq0iBv5
-jwt_duration: 2 # token 有效时长，单位小时
+jwt_duration: 2                 # token 有效时长，单位小时
 tls:
   addr: :8081
   cert: conf/server.crt
