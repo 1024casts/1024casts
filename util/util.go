@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/qiniu/api.v7/auth/qbox"
 	"github.com/qiniu/api.v7/storage"
+	hashids "github.com/speps/go-hashids"
 	"github.com/spf13/viper"
 	"github.com/teris-io/shortid"
 )
@@ -25,6 +26,32 @@ func GetReqID(c *gin.Context) string {
 		return requestId
 	}
 	return ""
+}
+
+// encode uid 为字符串
+func EncodeUid(uid int64) string {
+	hd := hashids.NewData()
+	hd.Salt = "1024casts_uid"
+	hd.MinLength = 30
+	h, _ := hashids.NewWithData(hd)
+	e, _ := h.EncodeInt64([]int64{uid})
+	return e
+
+}
+
+// decode uid 为int64
+func DecodeUid(encodedUid string) (uid int64) {
+	hd := hashids.NewData()
+	hd.Salt = "1024casts_uid"
+	hd.MinLength = 30
+	h, _ := hashids.NewWithData(hd)
+	d, _ := h.DecodeInt64WithError(encodedUid)
+	if len(d) > 0 {
+		return d[0]
+	}
+
+	return 0
+
 }
 
 // 获取七牛资源的私有链接
