@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/lexkong/log"
 	"github.com/qiniu/api.v7/auth/qbox"
 	"github.com/qiniu/api.v7/storage"
 	hashids "github.com/speps/go-hashids"
@@ -34,7 +35,11 @@ func EncodeUid(uid int64) string {
 	hd.Salt = "1024casts_uid"
 	hd.MinLength = 30
 	h, _ := hashids.NewWithData(hd)
-	e, _ := h.EncodeInt64([]int64{uid})
+	e, err := h.EncodeInt64([]int64{uid})
+	if err != nil {
+		log.Warn("encode uid err")
+	}
+
 	return e
 
 }
@@ -45,7 +50,12 @@ func DecodeUid(encodedUid string) (uid int64) {
 	hd.Salt = "1024casts_uid"
 	hd.MinLength = 30
 	h, _ := hashids.NewWithData(hd)
-	d, _ := h.DecodeInt64WithError(encodedUid)
+	d, err := h.DecodeInt64WithError(encodedUid)
+
+	if err != nil {
+		log.Warn("decode uid err")
+	}
+
 	if len(d) > 0 {
 		return d[0]
 	}
