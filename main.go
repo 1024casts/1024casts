@@ -93,6 +93,11 @@ func main() {
 		}()
 	}
 
+	// init web routes
+	go func(engine *gin.Engine) {
+		router.InitWebRouter(engine)
+	}(g)
+
 	log.Infof("Start to listening the incoming requests on http address: %s", viper.GetString("addr"))
 	log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error())
 }
