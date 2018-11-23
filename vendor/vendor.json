@@ -39,6 +39,12 @@
 			"revisionTime": "2018-05-12T21:01:57Z"
 		},
 		{
+			"checksumSHA1": "FJtuuv04YEH/m0YzCAigEK1+wUM=",
+			"path": "github.com/foolin/gin-template",
+			"revision": "089e62d1d723b168b89e8dbb0e823228b7366358",
+			"revisionTime": "2018-05-15T08:30:52Z"
+		},
+		{
 			"checksumSHA1": "7NP1qUMF8Kx1y0zANxx0e+oq9Oo=",
 			"path": "github.com/fsnotify/fsnotify",
 			"revision": "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9",
@@ -349,6 +355,12 @@
 			"path": "github.com/shirou/gopsutil/mem",
 			"revision": "63728fcf6b24475ecfea044e22242447666c2f52",
 			"revisionTime": "2018-07-05T13:28:12Z"
+		},
+		{
+			"checksumSHA1": "tecPenwUiv3ST5SXOzmM4MqBTUU=",
+			"path": "github.com/speps/go-hashids",
+			"revision": "6ba254bc2e328fdc3fca46bfbccea4ab8052755f",
+			"revisionTime": "2018-10-22T18:56:52Z"
 		},
 		{
 			"checksumSHA1": "wsfbX7YxbkeBp+xm9M9nBFzrCnA=",
