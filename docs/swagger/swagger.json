@@ -2,11 +2,11 @@
     "swagger": "2.0",
     "info": {
         "description": "1024casts/backend demo",
-        "title": "1024casts/backend Example API",
+        "title": "backend Example API",
         "contact": {
-            "name": "qloog",
+            "name": "lkong",
             "url": "http://www.swagger.io/support",
-            "email": "449128759@qq.com"
+            "email": "466701708@qq.com"
         },
         "license": {},
         "version": "1.0"
@@ -14,6 +14,109 @@
     "host": "localhost:8080",
     "basePath": "/v1",
     "paths": {
+        "/courses": {
+            "get": {
+                "description": "List courses",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "course"
+                ],
+                "summary": "List the courses in the database",
+                "parameters": [
+                    {
+                        "description": "List courses",
+                        "name": "course",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/course.ListRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":0,\"message\":\"OK\",\"data\":{\"totalCount\":1,\"userList\":[{\"id\":0,\"username\":\"admin\",\"random\":\"user 'admin' get random string 'EnqntiSig'\",\"password\":\"$2a$10$veGcArz47VGj7l9xN7g2iuT9TF21jLI1YGXarGzvARNdnt4inC9PG\",\"createdAt\":\"2018-05-28 00:25:33\",\"updatedAt\":\"2018-05-28 00:25:33\"}]}}",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/course.SwaggerListResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Add a new course",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "course"
+                ],
+                "summary": "Add new course to the database",
+                "parameters": [
+                    {
+                        "description": "Create a new course",
+                        "name": "course",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/course.CreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":0,\"message\":\"OK\",\"data\":{\"name\":\"test\"}}",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/course.CreateResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/courses/{id}": {
+            "get": {
+                "description": "Get a course by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "course"
+                ],
+                "summary": "Get a course by the course identifier",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":0,\"message\":\"OK\",\"data\":{\"username\":\"kong\",\"password\":\"$2a$10$E0kwtmtLZbwW/bDQ8qI8e.eHPqhQOW9tvjwpyo/p05f/f4Qvr3OmS\"}}",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.CourseModel"
+                        }
+                    }
+                }
+            }
+        },
         "/login": {
             "post": {
                 "produces": [
@@ -142,7 +245,7 @@
                 }
             }
         },
-        "/user": {
+        "/users": {
             "get": {
                 "description": "List users",
                 "consumes": [
@@ -212,7 +315,7 @@
                 }
             }
         },
-        "/user/{id}": {
+        "/users/{id}": {
             "put": {
                 "description": "Update a user by ID",
                 "consumes": [
@@ -286,7 +389,7 @@
                 }
             }
         },
-        "/user/{username}": {
+        "/users/{username}": {
             "get": {
                 "description": "Get an user by username",
                 "consumes": [
@@ -321,6 +424,68 @@
         }
     },
     "definitions": {
+        "course.CreateRequest": {
+            "type": "object",
+            "properties": {
+                "cover_image": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "is_publish": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "course.CreateResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "course.ListRequest": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "course.SwaggerListResponse": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "type": "\u0026{model CourseModel}"
+                    }
+                },
+                "totalCount": {
+                    "type": "integer"
+                }
+            }
+        },
         "handler.Response": {
             "type": "object",
             "properties": {
@@ -335,17 +500,103 @@
                 }
             }
         },
+        "model.CourseModel": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "cover_image": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "is_publish": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
         "model.UserModel": {
             "type": "object",
             "required": [
-                "username",
-                "password"
+                "password",
+                "username"
             ],
             "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "follower_count": {
+                    "type": "integer"
+                },
+                "github_id": {
+                    "type": "string"
+                },
+                "introduction": {
+                    "type": "string"
+                },
+                "is_activated": {
+                    "type": "integer"
+                },
+                "last_login_ip": {
+                    "type": "string"
+                },
+                "last_login_time": {
+                    "type": "string"
+                },
+                "notification_count": {
+                    "type": "integer"
+                },
                 "password": {
                     "type": "string"
                 },
+                "personal_website": {
+                    "type": "string"
+                },
+                "real_name": {
+                    "type": "string"
+                },
+                "remember_token": {
+                    "type": "string"
+                },
+                "reply_count": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "topic_count": {
+                    "type": "integer"
+                },
                 "username": {
+                    "type": "string"
+                },
+                "wechat_id": {
+                    "type": "string"
+                },
+                "weibo_url": {
                     "type": "string"
                 }
             }
@@ -353,6 +604,9 @@
         "user.CreateRequest": {
             "type": "object",
             "properties": {
+                "email": {
+                    "type": "string"
+                },
                 "password": {
                     "type": "string"
                 },
@@ -392,7 +646,7 @@
                 "userList": {
                     "type": "array",
                     "items": {
-                        "type": "\u0026{model UserInfo}"
+                        "type": "\u0026{model UserModel}"
                     }
                 }
             }
