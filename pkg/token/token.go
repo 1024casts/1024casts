@@ -76,7 +76,7 @@ func ParseRequest(c *gin.Context) (*Context, error) {
 }
 
 // Sign signs the context with the specified secret.
-func Sign(ctx *gin.Context, c Context, secret string) (tokenString string, err error) {
+func Sign(c *gin.Context, ctx Context, secret string) (tokenString string, err error) {
 	// Load the jwt secret from the Gin config if the secret isn't specified.
 	if secret == "" {
 		secret = viper.GetString("jwt_secret")
@@ -91,8 +91,8 @@ func Sign(ctx *gin.Context, c Context, secret string) (tokenString string, err e
 	//jti: （JWT ID）用于标识JWT的唯一ID
 	var hour = viper.GetDuration("jwt_duration")
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"id":       c.ID,
-		"username": c.Username,
+		"id":       ctx.ID,
+		"username": ctx.Username,
 		"nbf":      time.Now().Unix(),
 		"iat":      time.Now().Unix(),
 		"exp":      time.Now().Add(time.Hour * hour).Unix(),
