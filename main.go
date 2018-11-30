@@ -28,11 +28,11 @@ var (
 
 // @title backend Example API
 // @version 1.0
-// @description 1024casts/backend demo
+// @description backend
 
-// @contact.name lkong
+// @contact.name wql
 // @contact.url http://www.swagger.io/support
-// @contact.email 466701708@qq.com
+// @contact.email wql@1024casts.com
 
 // @host localhost:8080
 // @BasePath /v1
