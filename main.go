@@ -32,7 +32,7 @@ var (
 
 // @contact.name wql
 // @contact.url http://www.swagger.io/support
-// @contact.email wql@1024casts.com
+// @contact.email admin@1024casts.com
 
 // @host localhost:8080
 // @BasePath /v1
