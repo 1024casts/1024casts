@@ -43,4 +43,3 @@ vendor/*
 
 conf/config.yaml
 public/uploads
-admin/node_modules
