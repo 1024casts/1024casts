@@ -5,6 +5,10 @@ import (
 
 	"strings"
 
+	"fmt"
+	"math/rand"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/qiniu/api.v7/auth/qbox"
@@ -88,4 +92,27 @@ func TimestampToString(ts time.Time) string {
 
 func GetDate() string {
 	return time.Now().Format("2006/01/02")
+}
+
+func GetImageFullUrl(uri string) string {
+	return viper.GetString("image_domain") + uri
+}
+
+func GenerateOrderNo() (uint64, error) {
+	dateStr := time.Now().Format("20060102150405")
+	log.Infof("data str: %s", dateStr)
+
+	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
+	randStr := fmt.Sprintf("%05v", rnd.Intn(10000))
+	log.Infof("rand str: %s", randStr)
+
+	orderNoStr := dateStr + randStr
+	orderNo, err := strconv.ParseUint(orderNoStr, 10, 64)
+	if err != nil {
+		log.Warnf("[util] convert: %s err: %+v", randStr, err)
+		return 0, err
+	}
+	log.Infof("orderNo: %d", orderNo)
+
+	return orderNo, nil
 }
