@@ -1,5 +1,23 @@
 basePath: /v1
 definitions:
+  comment.ListRequest:
+    properties:
+      limit:
+        type: integer
+      name:
+        type: string
+      page:
+        type: integer
+    type: object
+  comment.SwaggerListResponse:
+    properties:
+      list:
+        items:
+          type: '&{model CommentModel}'
+        type: array
+      totalCount:
+        type: integer
+    type: object
   course.CreateRequest:
     properties:
       cover_image:
@@ -26,10 +44,12 @@ definitions:
     properties:
       limit:
         type: integer
-      offset:
-        type: integer
-      username:
+      name:
         type: string
+      page:
+        type: integer
+      update_status:
+        type: integer
     type: object
   course.SwaggerListResponse:
     properties:
@@ -53,8 +73,12 @@ definitions:
     properties:
       cover_image:
         type: string
+      created_at:
+        type: string
       description:
         type: string
+      id:
+        type: integer
       is_publish:
         type: integer
       name:
@@ -62,6 +86,10 @@ definitions:
       slug:
         type: string
       type:
+        type: string
+      update_status:
+        type: integer
+      updated_at:
         type: string
       user_id:
         type: integer
@@ -76,12 +104,16 @@ definitions:
         type: string
       company:
         type: string
+      created_at:
+        type: string
       email:
         type: string
       follower_count:
         type: integer
       github_id:
         type: string
+      id:
+        type: integer
       introduction:
         type: string
       is_activated:
@@ -102,10 +134,16 @@ definitions:
         type: string
       reply_count:
         type: integer
+      roles:
+        items:
+          type: string
+        type: array
       status:
         type: integer
       topic_count:
         type: integer
+      updated_at:
+        type: string
       username:
         type: string
       wechat_id:
@@ -113,8 +151,26 @@ definitions:
       weibo_url:
         type: string
     required:
-    - password
     - username
+    - password
+    type: object
+  order.ListRequest:
+    properties:
+      limit:
+        type: integer
+      order_id:
+        type: integer
+      page:
+        type: integer
+    type: object
+  order.SwaggerListResponse:
+    properties:
+      list:
+        items:
+          type: '&{model OrderModel}'
+        type: array
+      totalCount:
+        type: integer
     type: object
   user.CreateRequest:
     properties:
@@ -127,8 +183,8 @@ definitions:
     type: object
   user.CreateResponse:
     properties:
-      username:
-        type: string
+      id:
+        type: integer
     type: object
   user.ListRequest:
     properties:
@@ -159,6 +215,32 @@ info:
   title: backend Example API
   version: "1.0"
 paths:
+  /comments:
+    get:
+      consumes:
+      - application/json
+      description: List comments
+      parameters:
+      - description: List courses
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/comment.ListRequest'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":0,"message":"OK","data":{"totalCount":1,"userList":[{"id":0,"username":"admin","random":"user
+            ''admin'' get random string ''EnqntiSig''","password":"$2a$10$veGcArz47VGj7l9xN7g2iuT9TF21jLI1YGXarGzvARNdnt4inC9PG","createdAt":"2018-05-28
+            00:25:33","updatedAt":"2018-05-28 00:25:33"}]}}'
+          schema:
+            $ref: '#/definitions/comment.SwaggerListResponse'
+            type: object
+      summary: List the comments in the database
+      tags:
+      - comment
   /courses:
     get:
       consumes:
@@ -230,6 +312,34 @@ paths:
       summary: Get a course by the course identifier
       tags:
       - course
+    put:
+      consumes:
+      - application/json
+      description: Update a course by ID
+      parameters:
+      - description: The course's database id index num
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: The course info
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.CourseModel'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":0,"message":"OK","data":null}'
+          schema:
+            $ref: '#/definitions/handler.Response'
+            type: object
+      summary: Update a course info by the course identifier
+      tags:
+      - course
   /login:
     post:
       parameters:
@@ -253,6 +363,55 @@ paths:
           schema:
             type: string
       summary: Login generates the authentication token
+  /logout:
+    post:
+      parameters:
+      - description: Username
+        in: body
+        name: username
+        required: true
+        schema:
+          type: object
+      - description: Password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":0,"message":"OK","data":{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MjgwMTY5MjIsImlkIjowLCJuYmYiOjE1MjgwMTY5MjIsInVzZXJuYW1lIjoiYWRtaW4ifQ.LjxrK9DuAwAzUD8-9v43NzWBN7HXsSLfebw92DKd1JQ"}}'
+          schema:
+            type: string
+      summary: Login generates the authentication token
+  /orders:
+    get:
+      consumes:
+      - application/json
+      description: List orders
+      parameters:
+      - description: List orders
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/order.ListRequest'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":0,"message":"OK","data":{"totalCount":1,"list":[{"id":0,"username":"admin","random":"user
+            ''admin'' get random string ''EnqntiSig''","password":"$2a$10$veGcArz47VGj7l9xN7g2iuT9TF21jLI1YGXarGzvARNdnt4inC9PG","createdAt":"2018-05-28
+            00:25:33","updatedAt":"2018-05-28 00:25:33"}]}}'
+          schema:
+            $ref: '#/definitions/order.SwaggerListResponse'
+            type: object
+      summary: 获取订单列表
+      tags:
+      - order
   /sd/cpu:
     get:
       consumes:

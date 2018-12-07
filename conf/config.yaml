@@ -4,6 +4,7 @@ name: 1024casts/backend         # API Server的名字
 url: http://127.0.0.1:8080      # pingServer函数请求的API服务器的ip:port
 max_ping_count: 10              # pingServer函数try的次数
 jwt_secret: Rtg9BPKNEf2mB4mgvKONGPZvQSaJWNLijxR42qRgq0iBv5
+jwt_duration: 2 # token 有效时长，单位小时
 tls:
   addr: :8081
   cert: conf/server.crt
@@ -18,9 +19,9 @@ log:
   log_rotate_size: 1              # rotate转存大小，配合rollingPolicy: size使用
   log_backup_count: 7             # 当日志文件达到转存标准时，log系统会将该日志文件进行压缩备份，这里指定了备份文件的最大个数。
 gorm:
-  show_log: true                   # 是否打印SQL日志
+  show_log: false                   # 是否打印SQL日志
 db:
-  name: db_apiserver
+  name: phpcasts
   addr: 127.0.0.1:3306
   username: root
   password: 123456
@@ -29,3 +30,13 @@ docker_db:
   addr: 127.0.0.1:3306
   username: root
   password: 123456
+qiniu:
+  AccessKey: qvuNOgNkZMAJXYEPSHBT-6JEigk2AechM_fm57zS
+  SecretKey: WYxjOwkXVaYJCMgeeX-h1765ArqnvcUKL-zH_9cm
+  Bucket: test
+  CDN_URL: http://statics.phpcasts.org
+  #QINIU_CDN_URL=https://oj1ylm48b.qnssl.com
+  Public_Bucket: public-phpcasts
+  CDN_PUBLIC_URL: http://s1.phpcasts.org
+upload:
+  dst: "/Users/qloog/Codes/Go/src/1024casts/backend/"  # 本地上传目录

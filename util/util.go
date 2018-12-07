@@ -112,6 +112,7 @@ func GenerateOrderNo() (uint64, error) {
 		log.Warnf("[util] convert: %s err: %+v", randStr, err)
 		return 0, err
 	}
+
 	log.Infof("orderNo: %d", orderNo)
 
 	return orderNo, nil

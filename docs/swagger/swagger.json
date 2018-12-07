@@ -14,6 +14,42 @@
     "host": "localhost:8080",
     "basePath": "/v1",
     "paths": {
+        "/comments": {
+            "get": {
+                "description": "List comments",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comment"
+                ],
+                "summary": "List the comments in the database",
+                "parameters": [
+                    {
+                        "description": "List courses",
+                        "name": "comment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/comment.ListRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":0,\"message\":\"OK\",\"data\":{\"totalCount\":1,\"userList\":[{\"id\":0,\"username\":\"admin\",\"random\":\"user 'admin' get random string 'EnqntiSig'\",\"password\":\"$2a$10$veGcArz47VGj7l9xN7g2iuT9TF21jLI1YGXarGzvARNdnt4inC9PG\",\"createdAt\":\"2018-05-28 00:25:33\",\"updatedAt\":\"2018-05-28 00:25:33\"}]}}",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/comment.SwaggerListResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/courses": {
             "get": {
                 "description": "List courses",
@@ -115,6 +151,47 @@
                         }
                     }
                 }
+            },
+            "put": {
+                "description": "Update a course by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "course"
+                ],
+                "summary": "Update a course info by the course identifier",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "The course's database id index num",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "The course info",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.CourseModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":0,\"message\":\"OK\",\"data\":null}",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/handler.Response"
+                        }
+                    }
+                }
             }
         },
         "/login": {
@@ -148,6 +225,78 @@
                         "description": "{\"code\":0,\"message\":\"OK\",\"data\":{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MjgwMTY5MjIsImlkIjowLCJuYmYiOjE1MjgwMTY5MjIsInVzZXJuYW1lIjoiYWRtaW4ifQ.LjxrK9DuAwAzUD8-9v43NzWBN7HXsSLfebw92DKd1JQ\"}}",
                         "schema": {
                             "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Login generates the authentication token",
+                "parameters": [
+                    {
+                        "description": "Username",
+                        "name": "username",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    {
+                        "description": "Password",
+                        "name": "password",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":0,\"message\":\"OK\",\"data\":{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MjgwMTY5MjIsImlkIjowLCJuYmYiOjE1MjgwMTY5MjIsInVzZXJuYW1lIjoiYWRtaW4ifQ.LjxrK9DuAwAzUD8-9v43NzWBN7HXsSLfebw92DKd1JQ\"}}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/orders": {
+            "get": {
+                "description": "List orders",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "order"
+                ],
+                "summary": "获取订单列表",
+                "parameters": [
+                    {
+                        "description": "List orders",
+                        "name": "order",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/order.ListRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":0,\"message\":\"OK\",\"data\":{\"totalCount\":1,\"list\":[{\"id\":0,\"username\":\"admin\",\"random\":\"user 'admin' get random string 'EnqntiSig'\",\"password\":\"$2a$10$veGcArz47VGj7l9xN7g2iuT9TF21jLI1YGXarGzvARNdnt4inC9PG\",\"createdAt\":\"2018-05-28 00:25:33\",\"updatedAt\":\"2018-05-28 00:25:33\"}]}}",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/order.SwaggerListResponse"
                         }
                     }
                 }
@@ -424,6 +573,34 @@
         }
     },
     "definitions": {
+        "comment.ListRequest": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                }
+            }
+        },
+        "comment.SwaggerListResponse": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "type": "\u0026{model CommentModel}"
+                    }
+                },
+                "totalCount": {
+                    "type": "integer"
+                }
+            }
+        },
         "course.CreateRequest": {
             "type": "object",
             "properties": {
@@ -464,11 +641,14 @@
                 "limit": {
                     "type": "integer"
                 },
-                "offset": {
+                "name": {
+                    "type": "string"
+                },
+                "page": {
                     "type": "integer"
                 },
-                "username": {
-                    "type": "string"
+                "update_status": {
+                    "type": "integer"
                 }
             }
         },
@@ -509,8 +689,14 @@
                 "cover_image": {
                     "type": "string"
                 },
+                "created_at": {
+                    "type": "string"
+                },
                 "description": {
                     "type": "string"
+                },
+                "id": {
+                    "type": "integer"
                 },
                 "is_publish": {
                     "type": "integer"
@@ -524,6 +710,12 @@
                 "type": {
                     "type": "string"
                 },
+                "update_status": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
                 "user_id": {
                     "type": "integer"
                 }
@@ -532,8 +724,8 @@
         "model.UserModel": {
             "type": "object",
             "required": [
-                "password",
-                "username"
+                "username",
+                "password"
             ],
             "properties": {
                 "avatar": {
@@ -545,6 +737,9 @@
                 "company": {
                     "type": "string"
                 },
+                "created_at": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
@@ -553,6 +748,9 @@
                 },
                 "github_id": {
                     "type": "string"
+                },
+                "id": {
+                    "type": "integer"
                 },
                 "introduction": {
                     "type": "string"
@@ -584,11 +782,20 @@
                 "reply_count": {
                     "type": "integer"
                 },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "status": {
                     "type": "integer"
                 },
                 "topic_count": {
                     "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
                 },
                 "username": {
                     "type": "string"
@@ -598,6 +805,34 @@
                 },
                 "weibo_url": {
                     "type": "string"
+                }
+            }
+        },
+        "order.ListRequest": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "order_id": {
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                }
+            }
+        },
+        "order.SwaggerListResponse": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "type": "\u0026{model OrderModel}"
+                    }
+                },
+                "totalCount": {
+                    "type": "integer"
                 }
             }
         },
@@ -618,8 +853,8 @@
         "user.CreateResponse": {
             "type": "object",
             "properties": {
-                "username": {
-                    "type": "string"
+                "id": {
+                    "type": "integer"
                 }
             }
         },
