@@ -9,11 +9,11 @@ import (
 	"os"
 	"time"
 
-	"1024casts/backend/config"
-	"1024casts/backend/model"
-	v "1024casts/backend/pkg/version"
-	"1024casts/backend/router"
-	"1024casts/backend/router/middleware"
+	"github.com/1024casts/1024casts/config"
+	"github.com/1024casts/1024casts/model"
+	v "github.com/1024casts/1024casts/pkg/version"
+	"github.com/1024casts/1024casts/router"
+	"github.com/1024casts/1024casts/router/middleware"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"

@@ -1,9 +1,10 @@
 package user
 
 import (
-	. "1024casts/backend/handler"
-	"1024casts/backend/pkg/errno"
-	"1024casts/backend/service"
+	. "github.com/1024casts/1024casts/handler"
+	"github.com/1024casts/1024casts/pkg/errno"
+	"github.com/1024casts/1024casts/service"
+
 	"strconv"
 	"strings"
 

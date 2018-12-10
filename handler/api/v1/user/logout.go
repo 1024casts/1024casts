@@ -1,8 +1,8 @@
 package user
 
 import (
-	. "1024casts/backend/handler"
-	"1024casts/backend/model"
+	. "github.com/1024casts/1024casts/handler"
+	"github.com/1024casts/1024casts/model"
 
 	"github.com/gin-gonic/gin"
 )

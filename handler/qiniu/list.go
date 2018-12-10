@@ -1,8 +1,9 @@
 package qiniu
 
 import (
-	. "1024casts/backend/handler"
 	"fmt"
+
+	. "github.com/1024casts/1024casts/handler"
 
 	"github.com/gin-gonic/gin"
 	"github.com/qiniu/api.v7/auth/qbox"

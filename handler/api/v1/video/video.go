@@ -1,7 +1,7 @@
 package video
 
 import (
-	"1024casts/backend/model"
+	"github.com/1024casts/1024casts/model"
 )
 
 type CreateRequest struct {

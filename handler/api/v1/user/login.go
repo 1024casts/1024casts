@@ -1,12 +1,12 @@
 package user
 
 import (
-	. "1024casts/backend/handler"
-	"1024casts/backend/model"
-	"1024casts/backend/pkg/auth"
-	"1024casts/backend/pkg/errno"
-	"1024casts/backend/pkg/token"
-	"1024casts/backend/service"
+	. "github.com/1024casts/1024casts/handler"
+	"github.com/1024casts/1024casts/model"
+	"github.com/1024casts/1024casts/pkg/auth"
+	"github.com/1024casts/1024casts/pkg/errno"
+	"github.com/1024casts/1024casts/pkg/token"
+	"github.com/1024casts/1024casts/service"
 
 	"github.com/gin-gonic/gin"
 )

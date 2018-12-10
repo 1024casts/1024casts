@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"1024casts/backend/pkg/auth"
+	"github.com/1024casts/1024casts/pkg/auth"
 
 	"gopkg.in/go-playground/validator.v9"
 )

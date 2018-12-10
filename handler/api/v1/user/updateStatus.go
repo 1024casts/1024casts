@@ -3,11 +3,10 @@ package user
 import (
 	"strconv"
 
-	. "1024casts/backend/handler"
-	"1024casts/backend/pkg/errno"
-	"1024casts/backend/util"
-
-	"1024casts/backend/service"
+	. "github.com/1024casts/1024casts/handler"
+	"github.com/1024casts/1024casts/pkg/errno"
+	"github.com/1024casts/1024casts/service"
+	"github.com/1024casts/1024casts/util"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"

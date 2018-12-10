@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"1024casts/backend/pkg/errno"
+	"github.com/1024casts/1024casts/pkg/errno"
 
 	"github.com/gin-gonic/gin"
 )

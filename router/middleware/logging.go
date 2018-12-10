@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"time"
 
-	"1024casts/backend/handler"
-	"1024casts/backend/pkg/errno"
+	"github.com/1024casts/1024casts/handler"
+	"github.com/1024casts/1024casts/pkg/errno"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"

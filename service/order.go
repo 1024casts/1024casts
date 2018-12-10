@@ -3,9 +3,10 @@ package service
 import (
 	"sync"
 
-	"1024casts/backend/model"
-	"1024casts/backend/repository"
 	"strconv"
+
+	"github.com/1024casts/1024casts/model"
+	"github.com/1024casts/1024casts/repository"
 )
 
 type OrderService struct {

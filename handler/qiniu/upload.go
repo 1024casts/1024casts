@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	. "1024casts/backend/handler"
+	. "github.com/1024casts/1024casts/handler"
 
-	"1024casts/backend/util"
+	"github.com/1024casts/1024casts/util"
 
 	"os"
 

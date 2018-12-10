@@ -3,9 +3,9 @@ package service
 import (
 	"sync"
 
-	"1024casts/backend/model"
-	"1024casts/backend/repository"
-	"1024casts/backend/util"
+	"github.com/1024casts/1024casts/model"
+	"github.com/1024casts/1024casts/repository"
+	"github.com/1024casts/1024casts/util"
 
 	"github.com/lexkong/log"
 )

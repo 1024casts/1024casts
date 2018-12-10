@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"1024casts/backend/model"
-	"1024casts/backend/pkg/constvar"
+	"github.com/1024casts/1024casts/model"
+	"github.com/1024casts/1024casts/pkg/constvar"
 )
 
 type CourseRepo struct {

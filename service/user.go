@@ -4,8 +4,8 @@ import (
 	"sync"
 	"time"
 
-	"1024casts/backend/model"
-	"1024casts/backend/repository"
+	"github.com/1024casts/1024casts/model"
+	"github.com/1024casts/1024casts/repository"
 )
 
 type UserService struct {

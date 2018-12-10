@@ -1,11 +1,11 @@
 package course
 
 import (
-	. "1024casts/backend/handler"
-	"1024casts/backend/model"
-	"1024casts/backend/pkg/errno"
-	"1024casts/backend/service"
-	"1024casts/backend/util"
+	. "github.com/1024casts/1024casts/handler"
+	"github.com/1024casts/1024casts/model"
+	"github.com/1024casts/1024casts/pkg/errno"
+	"github.com/1024casts/1024casts/service"
+	"github.com/1024casts/1024casts/util"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
