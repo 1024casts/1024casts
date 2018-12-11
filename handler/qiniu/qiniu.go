@@ -2,7 +2,6 @@ package qiniu
 
 import (
 	"github.com/1024casts/1024casts/model"
-
 	"github.com/qiniu/api.v7/storage"
 )
 
