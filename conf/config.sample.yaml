@@ -43,3 +43,8 @@ qiniu:
   CDN_PUBLIC_URL:
 upload:
   dst: "/data/wwwroot/uploads"  # 本地上传目录
+redis:
+  addr: "localhost:6379"
+  password: "hLR6W2Hu4W"
+  db: 0 # no password set
+  poolsize: 60 # use default DB
