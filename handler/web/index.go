@@ -7,7 +7,7 @@ import (
 )
 
 func Index(c *gin.Context) {
-	c.HTML(http.StatusOK, "user/index", gin.H{
-		"title": "布局页面",
+	c.HTML(http.StatusOK, "index", gin.H{
+		"title": "首页",
 	})
 }
