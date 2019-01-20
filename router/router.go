@@ -149,7 +149,6 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	})
 
 	router.GET("/", web.Index)
-
 	router.Run(":8099")
 
 	return router
