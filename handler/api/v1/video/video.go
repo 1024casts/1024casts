@@ -2,7 +2,13 @@ package video
 
 import (
 	"github.com/1024casts/1024casts/model"
+	"github.com/gin-gonic/gin"
 )
+
+func Endpoint(parentRoute *gin.RouterGroup) {
+	router := parentRoute.Group("/videos")
+	router.GET("/:course_id", List)
+}
 
 type CreateRequest struct {
 	model.VideoModel

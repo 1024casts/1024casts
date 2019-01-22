@@ -2,7 +2,14 @@ package comment
 
 import (
 	"github.com/1024casts/1024casts/model"
+	"github.com/gin-gonic/gin"
 )
+
+func Endpoint(parentRoute *gin.RouterGroup) {
+	router := parentRoute.Group("/comments")
+
+	router.GET("", List)
+}
 
 type CreateRequest struct {
 	Name        string `json:"name"`

@@ -12,11 +12,11 @@ import (
 	"github.com/1024casts/1024casts/handler/api/v1/order"
 	"github.com/1024casts/1024casts/handler/api/v1/plan"
 	"github.com/1024casts/1024casts/handler/api/v1/user"
-	"github.com/1024casts/1024casts/handler/api/v1/video"
 	"github.com/1024casts/1024casts/handler/qiniu"
 	"github.com/1024casts/1024casts/handler/sd"
 	webCourse "github.com/1024casts/1024casts/handler/web/course"
 
+	"github.com/1024casts/1024casts/handler/api/v1/video"
 	"github.com/1024casts/1024casts/handler/web"
 	"github.com/foolin/gin-template"
 	"github.com/gin-gonic/gin"
@@ -52,6 +52,10 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	{
 		// 课程
 		apiCourse.Endpoint(v1Route)
+		// 评论
+		comment.Endpoint(v1Route)
+		// 视频
+		video.Endpoint(v1Route)
 	}
 
 	// The user handlers, requiring authentication
@@ -65,36 +69,6 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		u.GET("/token", user.Get)
 		//u.GET("/:id", user.Get)
 		u.PUT("/:id/status", user.UpdateStatus)
-	}
-
-	// The course handlers, requiring authentication
-	//c := g.Group("/v1/courses")
-	//c.Use(middleware.AuthMiddleware())
-	//{
-	//c.POST("", course.Create)
-	//c.DELETE("/:id", user.Delete)
-	//c.PUT("/:id", course.Update)
-	//c.GET("", course.List)
-	//c.GET("/:id", course.Get)
-	//c.GET("/:id/sections", course.Section)
-	//}
-
-	// The course handlers, requiring authentication
-	v := g.Group("/v1/videos")
-	v.Use(middleware.AuthMiddleware())
-	{
-		v.GET("/:course_id", video.List)
-		//v.DELETE("/:id", user.Delete)
-		//v.PUT("/:id", course.Update)
-		//v.GET("/:id", course.Get)
-		//v.GET("/:id/sections", course.Section)
-	}
-
-	// The comment handlers, requiring authentication
-	cmt := g.Group("/v1/comments")
-	cmt.Use(middleware.AuthMiddleware())
-	{
-		cmt.GET("", comment.List)
 	}
 
 	// The order handlers, requiring authentication
