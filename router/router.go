@@ -8,18 +8,17 @@ import (
 	"github.com/1024casts/1024casts/router/middleware"
 
 	"github.com/1024casts/1024casts/handler/api/v1/comment"
-	"github.com/1024casts/1024casts/handler/api/v1/course"
+	apiCourse "github.com/1024casts/1024casts/handler/api/v1/course"
 	"github.com/1024casts/1024casts/handler/api/v1/order"
 	"github.com/1024casts/1024casts/handler/api/v1/plan"
 	"github.com/1024casts/1024casts/handler/api/v1/user"
 	"github.com/1024casts/1024casts/handler/api/v1/video"
 	"github.com/1024casts/1024casts/handler/qiniu"
 	"github.com/1024casts/1024casts/handler/sd"
+	webCourse "github.com/1024casts/1024casts/handler/web/course"
 
 	"github.com/1024casts/1024casts/handler/web"
-
 	"github.com/foolin/gin-template"
-	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
@@ -42,11 +41,18 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// pprof router
-	pprof.Register(g)
+	//pprof.Register(g)
 
 	// api for authentication functionalities
 	g.POST("/login", user.Login)
 	g.POST("/logout", user.Logout)
+
+	v1Route := g.Group("/v1")
+	v1Route.Use(middleware.AuthMiddleware())
+	{
+		// 课程
+		apiCourse.Endpoint(v1Route)
+	}
 
 	// The user handlers, requiring authentication
 	u := g.Group("/v1/users")
@@ -62,16 +68,16 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	}
 
 	// The course handlers, requiring authentication
-	c := g.Group("/v1/courses")
-	c.Use(middleware.AuthMiddleware())
-	{
-		c.POST("", course.Create)
-		c.DELETE("/:id", user.Delete)
-		c.PUT("/:id", course.Update)
-		c.GET("", course.List)
-		c.GET("/:id", course.Get)
-		c.GET("/:id/sections", course.Section)
-	}
+	//c := g.Group("/v1/courses")
+	//c.Use(middleware.AuthMiddleware())
+	//{
+	//c.POST("", course.Create)
+	//c.DELETE("/:id", user.Delete)
+	//c.PUT("/:id", course.Update)
+	//c.GET("", course.List)
+	//c.GET("/:id", course.Get)
+	//c.GET("/:id/sections", course.Section)
+	//}
 
 	// The course handlers, requiring authentication
 	v := g.Group("/v1/videos")
@@ -149,6 +155,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	})
 
 	router.GET("/", web.Index)
+	router.GET("/courses", webCourse.Index)
 	router.Run(":8099")
 
 	return router

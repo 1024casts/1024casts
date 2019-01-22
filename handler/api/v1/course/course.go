@@ -2,7 +2,18 @@ package course
 
 import (
 	"github.com/1024casts/1024casts/model"
+	"github.com/gin-gonic/gin"
 )
+
+func Endpoint(parentRoute *gin.RouterGroup) {
+	router := parentRoute.Group("/courses")
+
+	router.POST("", Create)
+	router.PUT("/:id", Update)
+	router.GET("", List)
+	router.GET("/:id", Get)
+	router.GET("/:id/sections", Section)
+}
 
 type CreateRequest struct {
 	Name        string `json:"name"`
