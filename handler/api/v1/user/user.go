@@ -2,7 +2,19 @@ package user
 
 import (
 	"github.com/1024casts/1024casts/model"
+	"github.com/gin-gonic/gin"
 )
+
+func Endpoint(parentRoute *gin.RouterGroup) {
+	router := parentRoute.Group("/users")
+	router.POST("", Create)
+	router.DELETE("/:id", Delete)
+	router.PUT("/:id", Update)
+	router.GET("", List)
+	router.GET("/token", Get)
+	//u.GET("/:id", user.Get)
+	router.PUT("/:id/status", UpdateStatus)
+}
 
 type CreateRequest struct {
 	Username string `json:"username"`

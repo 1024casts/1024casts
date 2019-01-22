@@ -56,19 +56,8 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		comment.Endpoint(v1Route)
 		// 视频
 		video.Endpoint(v1Route)
-	}
-
-	// The user handlers, requiring authentication
-	u := g.Group("/v1/users")
-	u.Use(middleware.AuthMiddleware())
-	{
-		u.POST("", user.Create)
-		u.DELETE("/:id", user.Delete)
-		u.PUT("/:id", user.Update)
-		u.GET("", user.List)
-		u.GET("/token", user.Get)
-		//u.GET("/:id", user.Get)
-		u.PUT("/:id/status", user.UpdateStatus)
+		// 用户
+		user.Endpoint(v1Route)
 	}
 
 	// The order handlers, requiring authentication
