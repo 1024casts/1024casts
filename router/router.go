@@ -15,6 +15,8 @@ import (
 	"github.com/1024casts/1024casts/handler/qiniu"
 	"github.com/1024casts/1024casts/handler/sd"
 	webCourse "github.com/1024casts/1024casts/handler/web/course"
+	webPlan "github.com/1024casts/1024casts/handler/web/plan"
+	"github.com/1024casts/1024casts/handler/web/wiki"
 
 	"github.com/1024casts/1024casts/handler/api/v1/video"
 	"github.com/1024casts/1024casts/handler/web"
@@ -121,6 +123,8 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/", web.Index)
 	router.GET("/courses", webCourse.Index)
 	router.GET("/topics", topic.Index)
+	router.GET("/vip", webPlan.Index)
+	router.GET("/wiki", wiki.Index)
 	router.Run(":8099")
 
 	return router
