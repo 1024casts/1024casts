@@ -18,6 +18,7 @@ import (
 
 	"github.com/1024casts/1024casts/handler/api/v1/video"
 	"github.com/1024casts/1024casts/handler/web"
+	"github.com/1024casts/1024casts/handler/web/topic"
 	"github.com/foolin/gin-template"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
@@ -119,6 +120,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 
 	router.GET("/", web.Index)
 	router.GET("/courses", webCourse.Index)
+	router.GET("/topics", topic.Index)
 	router.Run(":8099")
 
 	return router
