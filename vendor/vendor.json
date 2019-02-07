@@ -63,6 +63,12 @@
 			"revisionTime": "2017-01-09T09:34:21Z"
 		},
 		{
+			"checksumSHA1": "V356b58/OYv9XQvdwthu2hfmpWs=",
+			"path": "github.com/gin-contrib/static",
+			"revision": "8cbcdde04781ade853025b0ff7001aaf0ed06150",
+			"revisionTime": "2018-08-27T02:51:13Z"
+		},
+		{
 			"checksumSHA1": "wfq0vCZuuUUjczF2EasufD8VQ8k=",
 			"path": "github.com/gin-gonic/gin",
 			"revision": "85221af84cf6ee99dc900bc41912abc09acfc1b5",
@@ -73,6 +79,12 @@
 			"path": "github.com/gin-gonic/gin/binding",
 			"revision": "85221af84cf6ee99dc900bc41912abc09acfc1b5",
 			"revisionTime": "2018-07-03T09:17:08Z"
+		},
+		{
+			"checksumSHA1": "Y8Vu2NT4c2ve963fedBxoJyiU6s=",
+			"path": "github.com/gin-gonic/gin/internal/json",
+			"revision": "b97ccf3a43d2901d295870b5876277bf478a4909",
+			"revisionTime": "2018-11-26T15:01:51Z"
 		},
 		{
 			"checksumSHA1": "woO1qIxIeQ1bcbPSiMfAKk3r4xg=",
@@ -435,6 +447,18 @@
 			"revisionTime": "2016-03-31T13:10:08Z"
 		},
 		{
+			"checksumSHA1": "FBc8PNxDwtV1tPS4LzJAX2oGNqM=",
+			"path": "golang.org/x/crypto/acme",
+			"revision": "a49355c7e3f8fe157a85be2f77e6e269a0f89602",
+			"revisionTime": "2018-06-20T09:14:27Z"
+		},
+		{
+			"checksumSHA1": "JjpnjJabumVpCg8Sths68wWNv7Q=",
+			"path": "golang.org/x/crypto/acme/autocert",
+			"revision": "a49355c7e3f8fe157a85be2f77e6e269a0f89602",
+			"revisionTime": "2018-06-20T09:14:27Z"
+		},
+		{
 			"checksumSHA1": "oCH3J96RWvO8W4xjix47PModpio=",
 			"path": "golang.org/x/crypto/bcrypt",
 			"revision": "a49355c7e3f8fe157a85be2f77e6e269a0f89602",
@@ -549,5 +573,5 @@
 			"revisionTime": "2015-07-21T03:41:13Z"
 		}
 	],
-	"rootPath": "1024casts/backend"
+	"rootPath": "github.com/1024casts/1024casts"
 }

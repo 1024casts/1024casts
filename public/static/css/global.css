@@ -1,0 +1,419 @@
+.jumbotron {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-bottom: 0;
+    background-color: #fff;
+}
+@media (min-width: 768px) {
+    .jumbotron {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+    }
+}
+
+.jumbotron p:last-child {
+    margin-bottom: 0;
+}
+
+.jumbotron-heading {
+    font-weight: 300;
+}
+
+.jumbotron .container {
+    max-width: 40rem;
+}
+footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+footer p {
+    margin-bottom: .25rem;
+}
+
+.topic {
+    min-height: 68px;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 10px 15px;
+    margin: 0 -15px;
+}
+.media {
+    display: flex;
+    align-items: flex-start;
+}
+.topic:first-child {
+    padding-top: 0;
+}
+.topic:last-child {
+    border-bottom: 0px;
+}
+.topic .avatar {
+    padding-top: 6px;
+    margin-right: 10px;
+}
+.avatar-48 {
+    height: 40px;
+    width: 40px;
+}
+.avatar .media-object {
+    border-radius: 120px;
+}
+.topic .title {
+    font-size: 15px;
+    margin-bottom: 0;
+}
+.topic .title a:link {
+    color: #222;
+    font-weight: 400;
+    line-height: 30px;
+    word-break: break-all;
+}
+.topic .title a:visited {
+    color: #222;
+    font-weight: 400;
+    line-height: 30px;
+    word-break: break-all;
+}
+.topic .title a:active {
+    color: #555;
+    text-decoration: none
+}
+.topic .title a:hover {
+    color: #555;
+    text-decoration: none
+}
+.topic .info {
+    color: #adaaa8;
+    font-size: 13px;
+    margin-top: 0;
+}
+.topic .info a {
+    color: #797776;
+    text-decoration: underline
+}
+.topic .count {
+    width: 100px;
+    text-align: right;
+    padding-top: 1.25rem;
+}
+.topic .count a:link,.topics .topic .count a:hover,.topics .topic .count a:visited {
+    line-height: 11px;
+    color: #fff;
+    font-size: 13px;
+    min-width: 32px;
+    text-align: center;
+    border-radius: 80px;
+    padding: 3px 8px 3px 8px;
+    display: inline-block;
+    text-decoration: none
+}
+
+.topic .count a:link {
+    background: rgba(79,147,248,0.24)
+}
+
+.topic .count a:hover {
+    background: #f0f0f0
+}
+
+.topic .count a.state-true,.topic .count a:visited {
+    background: #f0f0f0
+}
+.topic-detail {
+    margin-bottom: 15px;
+}
+
+.topic-detail .card-body {
+    padding-top: 20px;
+    padding-bottom: 20px
+}
+
+.topic-detail .card-header {
+    padding: 15px;
+    transition: all .3s
+}
+
+.topic-detail .card-header h1 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #333;
+    text-align: left;
+    line-height: 150%;
+    margin-bottom: 8px
+}
+
+.topic-detail .card-header h1 .node {
+    color: #777;
+    margin-right: 3px
+}
+
+.topic-detail .card-header h1 i.fa-check {
+    color: #19A302;
+    font-size: 16px
+}
+
+.topic-detail .card-header .avatar {
+    text-align: right
+}
+
+.topic-detail .label-awesome {
+    font-size: 16px;
+    background: #fef8f6;
+    border-bottom: 1px solid #fdede8;
+    padding: 10px 15px;
+    color: #EB5424
+}
+
+.topic-detail .label-awesome .fa {
+    font-size: 16px
+}
+
+.topic-detail .label-awesome a {
+    color: #aAa5a4
+}
+
+.topic-detail .info {
+    color: #adaaa8;
+    font-size: 13px
+}
+
+.topic-detail .info a {
+    color: #404040
+}
+
+.topic-detail .info .node {
+    color: #404040;
+    font-weight: bold
+}
+
+.topic-detail .info .user-name {
+    color: #404040;
+    font-size: 14px
+}
+
+.topic-detail .info .team-name {
+    font-size: 14px;
+    color: #19A302
+}
+
+.topic-detail .info em {
+    font-style: normal
+}
+
+.topic-detail .info .opts a {
+    margin-left: 5px;
+    color: #404040
+}
+.media-body {
+    flex: 1;
+}
+.sidebar.col-md-3 {
+    padding-left: 0
+}
+.clearfix::after {
+    display: block;
+    clear: both;
+    content: ""
+}
+
+.card .card-footer {
+    border-top-color: #eee;
+    background: #fafafa
+}
+.card-footer:last-child {
+    border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px)
+}
+.opts {
+    color: #666
+}
+
+.opts a {
+    display: inline-block;
+    border-radius: 3px
+}
+
+.opts a:link,.opts a:visited {
+    color: #404040;
+    line-height: 100%;
+    padding: 4px;
+    text-decoration: none
+}
+
+.opts a:hover {
+    background: #eee;
+    text-decoration: none
+}
+
+#replies {
+    margin-bottom: 15px
+}
+
+#replies .card-body {
+    padding-top: 0px;
+    padding-bottom: 0px
+}
+
+#replies .info .uname {
+    color: #404040
+}
+
+#replies .info .opts a {
+    font-size: 14px;
+    margin-left: 5px;
+    color: #404040
+}
+
+#replies .info .opts a.edit {
+    display: none
+}
+
+#replies .reply {
+    margin: 0 -15px;
+    padding: 15px;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    padding-left: 65px
+}
+
+#replies .reply.reply-system,#replies .reply.reply-deleted {
+    padding: 10px 15px;
+    font-size: 15px;
+    color: #666;
+    border-bottom: 1px solid #F0F0F0
+}
+
+#replies .reply.reply-system img.media-object,#replies .reply.reply-deleted img.media-object {
+    border-radius: 180px;
+    display: inline-block;
+    margin-right: 3px;
+    vertical-align: text-bottom
+}
+
+#replies .reply.reply-system .time,#replies .reply.reply-deleted .time {
+    margin-left: 4px;
+    color: #aaa
+}
+
+#replies .reply.reply-system .ban-reason,#replies .reply.reply-deleted .ban-reason {
+    color: #444;
+    border-bottom: 1px dashed #eee
+}
+
+#replies .reply .infos {
+    min-height: 48px
+}
+
+#replies .reply .avatar {
+    position: absolute;
+    top: 17px;
+    left: 15px
+}
+
+#replies .reply:last-child {
+    border-bottom: 0px
+}
+
+#replies .reply.none {
+    text-align: center;
+    color: #999;
+    min-height: 32px
+}
+
+#replies .reply.light {
+    background: #F7F2FC
+}
+
+#replies .reply.popular {
+    background: #fffce9
+}
+
+#replies .reply .info {
+    color: #999;
+    margin-bottom: 10px;
+    font-size: 13px
+}
+
+#replies .reply .info .name {
+    font-size: 14px
+}
+
+#replies .reply .info .name a {
+    color: #404040
+}
+
+#replies .reply .info .floor {
+    color: #7AA87A
+}
+
+#replies .reply .info a.time {
+    color: #999;
+    text-decoration: none !important;
+    cursor: pointer
+}
+
+#replies .reply .info a.time:hover {
+    border-bottom: 1px dashed #ccc
+}
+
+#replies .reply .opts a {
+    display: inline-block;
+    vertical-align: baseline;
+    line-height: 22px;
+    padding: 2px 5px;
+    height: 22px;
+    min-width: 22px;
+    text-align: center
+}
+
+#replies .reply .reply-to-block {
+    padding: 10px 1.25rem;
+    background: #f7f7f7;
+    border-radius: 3px;
+    margin-bottom: 1.25rem
+}
+
+#replies .reply .reply-to-block .info {
+    margin: 0
+}
+
+#replies .reply .reply-to-block .info a {
+    color: #404040
+}
+
+#replies .reply .reply-to-block .info .media-object {
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle
+}
+
+#replies .reply .reply-to-block .markdown {
+    margin-top: 10px;
+    font-size: 15px
+}
+
+#replies .reply .reply-to-block .markdown p {
+    font-size: 15px
+}
+
+#replies .reply .markdown pre {
+    margin-right: 0px;
+    margin-left: 0px
+}
+
+@media (min-width: 1026px) {
+    #replies .reply .hideable {
+        display:none
+    }
+}
+
+#replies .reply:hover .hideable {
+    display: inline-block
+}
+
+@media (max-width: 480px) {
+    #replies .reply {
+        padding:10px;
+        margin: 0 -10px;
+        padding-left: 65px
+    }
+}

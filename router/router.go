@@ -22,7 +22,9 @@ import (
 	"github.com/1024casts/1024casts/handler/web"
 	"github.com/1024casts/1024casts/handler/web/topic"
 	"github.com/foolin/gin-template"
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
@@ -102,9 +104,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 func InitWebRouter(g *gin.Engine) *gin.Engine {
 	router := gin.Default()
 
-	//g.Use(static.Serve("/static", static.LocalFile(viper.GetString("upload.dst"), false)))
-	// static file
-	//g.Static("/public", viper.GetString("upload.dst"))
+	router.Use(static.Serve("/static", static.LocalFile(viper.GetString("static"), false)))
 
 	//new template engine
 	router.HTMLRender = gintemplate.New(gintemplate.TemplateConfig{
@@ -123,6 +123,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/", web.Index)
 	router.GET("/courses", webCourse.Index)
 	router.GET("/topics", topic.Index)
+	router.GET("/topics/:id", topic.Detail)
 	router.GET("/vip", webPlan.Index)
 	router.GET("/wiki", wiki.Index)
 	router.Run(":8099")
