@@ -1,107 +1,137 @@
 {{define "content"}}
-<section class="jumbotron text-center">
-    <div class="container">
-        <h1 class="jumbotron-heading">Album example</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        <p>
-            <a href="#" class="btn btn-primary my-2">Main call to action</a>
-            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-        </p>
+{{/*<section class="jumbotron text-center">*/}}
+    {{/*<div class="container">*/}}
+        {{/*<h1 class="jumbotron-heading">Album example</h1>*/}}
+        {{/*<p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>*/}}
+        {{/*<p>*/}}
+            {{/*<a href="#" class="btn btn-primary my-2">Main call to action</a>*/}}
+            {{/*<a href="#" class="btn btn-secondary my-2">Secondary action</a>*/}}
+        {{/*</p>*/}}
+    {{/*</div>*/}}
+{{/*</section>*/}}
+
+<section>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://www.21rv.com/userfiles/image/20181221/211355275479489c520680.png" height="450">
+            </div>
+            <div class="carousel-item">
+                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="1140" height="450" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: First slide"><title>Placeholder</title><rect fill="#777" width="100%" height="100%"></rect><text fill="#555" dy=".3em" x="50%" y="50%">First slide</text></svg>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
 </section>
 
-<div class="row" style="padding-top: 20px;">
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <img src="http://statics.phpcasts.org/uploads/images/2018/05/17/fI7oyIQCjC.jpg?imageView2/1/w/357/h/210/ignore-error/1/&e=1546503947&token=qvuNOgNkZMAJXYEPSHBT-6JEigk2AechM_fm57zS:bOUmGPymTqke0xg2YazsduqhCkk=">
-            <div class="card-body">
-                <p class="card-text">This is a wider card111 .</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect fill="#55595c" width="100%" height="100%"/><text fill="#eceeef" dy=".3em" x="50%" y="50%">Thumbnail</text></svg>
-            <div class="card-body">
-                <p class="card-text">This is a wider .</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <img src="http://statics.phpcasts.org/uploads/images/2018/05/17/fI7oyIQCjC.jpg?imageView2/1/w/357/h/210/ignore-error/1/&e=1546503947&token=qvuNOgNkZMAJXYEPSHBT-6JEigk2AechM_fm57zS:bOUmGPymTqke0xg2YazsduqhCkk=">
-            <div class="card-body">
-                <p class="card-text">This is a wider card .</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect fill="#55595c" width="100%" height="100%"/><text fill="#eceeef" dy=".3em" x="50%" y="50%">Thumbnail</text></svg>
-            <div class="card-body">
-                <p class="card-text">This is a wider card .</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
+<div class="card text-center" style=" padding-top: 40px; padding-bottom: 20px;">
+    <div class="card-body">
+        <h5 class="card-title">持续更新</h5>
+        <p class="card-text">享受编程和技术所带来的乐趣</p>
+    </div>
+</div>
+<div class="row" style="background-color: white;">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="card-deck">
+            <div class="card">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1549758895-6eab7830c05d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1549752448-38f4d94420f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1549752448-38f4d94420f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <img src="http://statics.phpcasts.org/uploads/images/2018/05/17/fI7oyIQCjC.jpg?imageView2/1/w/357/h/210/ignore-error/1/&e=1546503947&token=qvuNOgNkZMAJXYEPSHBT-6JEigk2AechM_fm57zS:bOUmGPymTqke0xg2YazsduqhCkk=">
-            <div class="card-body">
-                <p class="card-text">This is a wider card .</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
+    <div class="col-1"></div>
+</div>
+
+<div class="card text-center" style="padding-top: 40px; padding-bottom: 20px;">
+    <div class="card-body">
+        <h5 class="card-title">构建知识框架</h5>
+        <p class="card-text">为您提供了一套不断更新的 Web 设计与开发的知识框架。使用这个知识框架，你可以实践自己的想法，做出你想要的网站或应用。</p>
+    </div>
+</div>
+<div class="row" style="background-color: white">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="card-group">
+            <div class="card">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1549758895-6eab7830c05d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <img src="http://statics.phpcasts.org/uploads/images/2018/05/17/fI7oyIQCjC.jpg?imageView2/1/w/357/h/210/ignore-error/1/&e=1546503947&token=qvuNOgNkZMAJXYEPSHBT-6JEigk2AechM_fm57zS:bOUmGPymTqke0xg2YazsduqhCkk=">
-            <div class="card-body">
-                <p class="card-text">This is a wider card .</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
+            <div class="card">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1549752448-38f4d94420f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1549752448-38f4d94420f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1549752448-38f4d94420f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="card text-center" style="padding-top: 80px; padding-bottom: 80px;">
+    <div class="card-body">
+        <h5 class="card-title">统计</h5>
+        <p class="card-text">为您提供了一套不断更新的 Web 设计与开发的知识框架。使用这个知识框架，你可以实践自己的想法，做出你想要的网站或应用。</p>
+    </div>
+</div>
+<div class="card text-center" style="padding-top: 80px; padding-bottom: 80px;">
+    <div class="card-body">
+        <h5 class="card-title">订阅</h5>
+        <p class="card-text">可以在线学习这里所有的课程</p>
+        <a href="/vip" class="btn btn-primary">马上订阅</a>
 
+    </div>
+</div>
 {{end}}
