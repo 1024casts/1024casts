@@ -1,3 +1,6 @@
+{{ define "css"}}
+{{ end }}
+
 {{define "content"}}
 {{/*<section class="jumbotron text-center">*/}}
     {{/*<div class="container">*/}}
@@ -18,10 +21,10 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="https://www.21rv.com/userfiles/image/20181221/211355275479489c520680.png" height="450">
+                <img src="https://www.21rv.com/userfiles/image/20181221/211355275479489c520680.png" height="600">
             </div>
             <div class="carousel-item">
-                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="1140" height="450" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: First slide"><title>Placeholder</title><rect fill="#777" width="100%" height="100%"></rect><text fill="#555" dy=".3em" x="50%" y="50%">First slide</text></svg>
+                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="1140" height="600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: First slide"><title>Placeholder</title><rect fill="#777" width="100%" height="100%"></rect><text fill="#555" dy=".3em" x="50%" y="50%">First slide</text></svg>
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -90,7 +93,6 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
             <div class="card">
@@ -98,7 +100,6 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
             <div class="card">
@@ -106,7 +107,6 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
             <div class="card">
@@ -114,24 +114,67 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="card text-center" style="padding-top: 80px; padding-bottom: 80px;">
-    <div class="card-body">
-        <h5 class="card-title">统计</h5>
-        <p class="card-text">为您提供了一套不断更新的 Web 设计与开发的知识框架。使用这个知识框架，你可以实践自己的想法，做出你想要的网站或应用。</p>
-    </div>
-</div>
-<div class="card text-center" style="padding-top: 80px; padding-bottom: 80px;">
-    <div class="card-body">
-        <h5 class="card-title">订阅</h5>
-        <p class="card-text">可以在线学习这里所有的课程</p>
-        <a href="/vip" class="btn btn-primary">马上订阅</a>
 
+<section class="facts background-bg" style="background-image: url('/static/images/bg2.jpg')">
+    <div class="overlay">
+        <div class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="item media">
+                            <div class="item-icon mr-3"><i class="icons icon-book-open"></i></div>
+                            <!-- /.item-icon -->
+                            <div class="item-details"><span class="count">765</span>
+                                <!-- /.count -->
+                                <h3 class="item-title">
+                                Courses Published</h3>
+                                <!-- /.item-title --></div>
+                            <!-- /.item-details -->
+                        </div>
+                        <!-- /.item -->
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="item media">
+                            <div class="item-icon mr-3"><i class="icons icon-eyeglass"></i></div><!-- /.item-icon -->
+                            <div class="item-details"><span class="count">249</span><!-- /.count --><h3 class="item-title">
+                                Expert Instructors</h3><!-- /.item-title --></div><!-- /.item-details --></div><!-- /.item -->
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="item media">
+                            <div class="item-icon mr-3"><i class="icons icon-people"></i></div><!-- /.item-icon -->
+                            <div class="item-details"><span class="count">8348</span><!-- /.count --><h3 class="item-title">
+                                Happy Learners</h3><!-- /.item-title --></div><!-- /.item-details --></div><!-- /.item --></div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="item media">
+                            <div class="item-icon mr-3"><i class="icons icon-trophy"></i></div><!-- /.item-icon -->
+                            <div class="item-details"><span class="count">99</span><!-- /.count --><h3 class="item-title">Awards
+                                Achieved</h3><!-- /.item-title --></div><!-- /.item-details --></div><!-- /.item --></div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+<section class="subscribe text-center gray-bg">
+    <div class="section-padding">
+        <div class="container">
+            <h4 class="title">Subscribe Weekly Newsletter</h4>
+            <form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-1971 bm8 " method="post" data-id="1971"
+                  data-name="Mail Form">
+                <input class="subscribe-email" type="email" id="subscribe-email" name="EMAIL"
+                                               placeholder="Enter Email Address Here" required="">
+                <input class="subscribe-submit" type="submit" id="subscribe-submit" name="submit" value="Subscribe now">
+            </form>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.section-padding -->
+</section>
 {{end}}
+
+{{ define "js"}}
+{{ end }}

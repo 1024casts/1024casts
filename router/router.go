@@ -16,6 +16,7 @@ import (
 	"github.com/1024casts/1024casts/handler/sd"
 	webCourse "github.com/1024casts/1024casts/handler/web/course"
 	webPlan "github.com/1024casts/1024casts/handler/web/plan"
+	webUser "github.com/1024casts/1024casts/handler/web/user"
 	"github.com/1024casts/1024casts/handler/web/wiki"
 
 	"github.com/1024casts/1024casts/handler/api/v1/video"
@@ -25,8 +26,6 @@ import (
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
-	"github.com/swaggo/gin-swagger"
-	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 // Load loads the middlewares, routes, handlers.
@@ -43,7 +42,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	})
 
 	// swagger api docs
-	g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	//g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// pprof router
 	//pprof.Register(g)
@@ -104,6 +103,13 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 func InitWebRouter(g *gin.Engine) *gin.Engine {
 	router := gin.Default()
 
+	// Middlewares.
+	router.Use(gin.Recovery())
+	// 404 Handler.
+	//g.NoRoute(func(c *gin.Context) {
+	//	c.String(http.StatusNotFound, "The incorrect API route.")
+	//})
+
 	router.Use(static.Serve("/static", static.LocalFile(viper.GetString("static"), false)))
 
 	//new template engine
@@ -120,13 +126,28 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 		DisableCache: true,
 	})
 
-	router.GET("/", web.Index)
+	router.GET("/auth/login", webUser.GetLogin)
+	router.POST("/auth/login", webUser.Login)
+	router.GET("/auth/register", webUser.GetRegister)
+	router.POST("/auth/register", webUser.Register)
+	router.GET("/auth/logout", webUser.Logout)
+
 	router.GET("/courses", webCourse.Index)
+	router.GET("/courses/:slug", webCourse.Index)
+
 	router.GET("/topics", topic.Index)
 	router.GET("/topics/:id", topic.Detail)
+	t := router.Group("/topic")
+	t.Use(middleware.CookieMiddleware())
+	{
+		t.GET("/new", topic.Create)
+		t.POST("/new", topic.Create)
+	}
+
+	router.GET("/", web.Index)
 	router.GET("/vip", webPlan.Index)
 	router.GET("/wiki", wiki.Index)
-	router.Run(":8099")
+	router.Run(":8888")
 
 	return router
 }

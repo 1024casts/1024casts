@@ -3,6 +3,56 @@ body {
     font-size: 14px;
     letter-spacing: .03em;
 }
+section {
+    display: block;
+}
+.section-padding {
+    padding: 7.125em 0;
+}
+.background-bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.light-black {
+    background: #303036;
+}
+.black-bg {
+    background: #2d2d2e;
+}
+.facts .overlay {
+    background-color: rgba(13, 71, 161, 0.9);
+}
+.facts .section-padding {
+    padding: 8.65em 0;
+}
+.facts .item .item-icon {
+    color: #fff;
+    font-size: 3.43em;
+    margin-top: 7px;
+}
+
+.facts .item .item-details .count {
+    color: #fff;
+    font-size: 3.125em;
+    font-weight: 300;
+}
+
+.facts .item .item-details .item-title {
+    color: #fff;
+    font-size: 1em;
+    margin-top: 13px;
+    text-transform: uppercase;
+}
+
+.subscribe .title {
+    font-size: 1.375em;
+}
+
+.gray-bg {
+    background: #eceff1;
+}
+
 .jumbotron {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -26,14 +76,6 @@ body {
 
 .jumbotron .container {
     max-width: 40rem;
-}
-footer {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
-
-footer p {
-    margin-bottom: .25rem;
 }
 
 .topic {
@@ -598,4 +640,194 @@ footer p {
         float:none !important;
         margin-top: 1.25rem
     }
+}
+
+h4 {
+    font-size: 18px;
+}
+
+
+img {
+    border-style: none;
+    max-width: 100%;
+    height: auto;
+}
+
+.footer-top .menu {
+    margin-top: -7px;
+}
+
+.footer-top .menu li {
+    color: #85858c;
+    font-size: 16px;
+    line-height: 26px;
+    padding-bottom: 13px;
+    -webkit-transition: all .25s ease;
+    transition: all .25s ease;
+}
+
+.footer-top .menu li a {
+    color: #85858c;
+}
+
+.footer-top .menu li i {
+    margin-right: 5px;
+    font-size: 0.875em;
+}
+
+.footer-top article.media {
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+.footer-top article.media .entry-thumbnail {
+    margin-right: 15px;
+    max-width: 75px;
+    padding: 0;
+}
+
+.footer-top article.media .entry-title {
+    color: #85858c;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 22px;
+    margin: -5px 0 12px;
+    padding: 0;
+    text-transform: initial;
+}
+
+.footer-top article.media .entry-title a {
+    color: #85858c;
+}
+
+.footer-top article.media .entry-meta {
+    color: #606069;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.entry-meta, .post-meta {
+    color: #90a4ae;
+    font-size: .875em;
+    font-weight: 600;
+    margin-top: 1em;
+}
+.entry-meta span:last-child, .post-meta span:last-child {
+    margin-right: 0;
+}
+.footer-top article.media .entry-meta i {
+    color: #606069;
+    font-size: 13px;
+    float: left;
+    margin: 1px 9px 0 0;
+}
+.entry-meta i, .post-meta i {
+    font-size: .8125em;
+    margin-right: 5px;
+}
+.entry-thumbnail, .video {
+    position: relative;
+}
+
+.widget-details .entry-thumbnail img {
+    border-radius: 0;
+}
+
+.footer-top article.media:last-child {
+    margin-bottom: 0;
+}
+
+img {
+    border-style: none;
+    max-width: 100%;
+    height: auto;
+}
+
+img {
+    border-radius: 5px;
+}
+
+.footer-top .section-padding {
+    padding-bottom: 3em;
+}
+
+.footer-top .widget {
+    display: inline-block;
+    margin-bottom: 30px;
+    padding-top: 32px;
+    width: 100%;
+}
+
+.footer-top .widget h1, .footer-top .widget h2, .footer-top .widget h3, .footer-top .widget h4, .footer-top .widget h5, .footer-top .widget h6 {
+    color: #fff;
+    font-weight: 700;
+    margin: 0 0 41px;
+    text-transform: uppercase;
+}
+
+footer .footer-logo {
+    max-width: 180px;
+    margin-bottom: 45px;
+}
+
+footer ul {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+footer ul li {
+    display: inline-block;
+    width: 100%;
+}
+
+.footer-top .widget_about_us ul li {
+    color: #85858c;
+    font-size: 16px;
+    padding: 5px 0;
+}
+
+.footer-top .widget_about_us ul li .fa-phone-square {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+footer p {
+    color: #85858c;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-top: -7px;
+}
+
+.footer-bottom {
+    color: #85858c;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.footer-bottom a {
+    color: #85858c;
+}
+
+.footer-bottom ul {
+    margin: 0;
+    padding: 0;
+}
+
+.footer-bottom .menu li:first-child {
+    margin-left: 0;
+}
+
+.footer-bottom .menu li {
+    margin-left: 22px;
+}
+
+.footer-bottom li {
+    font-size: 15px;
+    font-weight: 400;
+    width: inherit;
+}
+
+.footer-bottom .section-padding {
+    padding: 2.8% 0;
 }

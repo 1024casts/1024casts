@@ -1,0 +1,30 @@
+{{ define "css"}}
+{{ end }}
+
+{{ define "content"}}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form class="form-signin" action="/auth/login" method="post">
+                <img class="mb-4" src="/docs/4.2/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+                <h1 class="h3 mb-3 font-weight-normal">注册</h1>
+                <label for="inputEmail" class="sr-only">Email</label>
+                <input type="email" name="username" id="inputEmail" class="form-control" placeholder="邮箱地址" required autofocus>
+                <label for="inputPassword" class="sr-only">密码</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="密码" required>
+                <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="确认密码" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+                <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+</div>
+
+{{ end }}
+
+{{ define "js"}}
+{{ end }}
