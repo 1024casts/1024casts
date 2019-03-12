@@ -13,6 +13,24 @@ func TestGenShortId(t *testing.T) {
 	t.Log("GenShortId test pass")
 }
 
+func TestEncodeUid(t *testing.T) {
+	strUid := EncodeUid(123456)
+	if strUid == "" {
+		t.Error("EncodeUid failed")
+	}
+
+	t.Logf("EncodeUid test pass, strUid: %s", strUid)
+}
+
+func TestDecodeUid(t *testing.T) {
+	intUid := DecodeUid("Q14WkgdBlyovD73WabD3Z72nRxbwzP")
+	if intUid == 0 {
+		t.Error("EncodeUid failed")
+	}
+
+	t.Logf("DecodeUid test pass, intUid: %d", intUid)
+}
+
 func BenchmarkGenShortId(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		GenShortId()
