@@ -10,7 +10,7 @@ func TestGenShortId(t *testing.T) {
 		t.Error("GenShortId failed!")
 	}
 
-	t.Log("GenShortId test pass")
+	t.Logf("GenShortId test pass, shortId: %s", shortId)
 }
 
 func TestEncodeUid(t *testing.T) {
