@@ -47,4 +47,4 @@ redis:
   addr: "localhost:6379"
   password: "hLR6W2Hu4W"
   db: 0 # use default DB
-  pool_size: 60 #
+  pool_size: 60
