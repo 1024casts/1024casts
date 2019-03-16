@@ -5,6 +5,9 @@ url: http://127.0.0.1:8080      # pingServer函数请求的API服务器的ip:por
 max_ping_count: 10              # pingServer函数try的次数
 jwt_secret: Rtg9BPKNE62mB4mgvK9NGPZvQSaJWNxijxR42qRgq0iBv5
 jwt_duration: 2                 # token 有效时长，单位小时
+cookie:
+  name: casts1024_session # cookie 名称
+  max_age: 86400           # 86400:一天 604800:一周
 tls:
   addr: :8081
   cert: conf/server.crt
