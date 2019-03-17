@@ -69,7 +69,7 @@ func DecodeUid(encodedUid string) (uid int64) {
 }
 
 func GetUserId(ctx *gin.Context) uint64 {
-	cookie, err := ctx.Cookie(viper.GetString("cookie_name"))
+	cookie, err := ctx.Cookie(viper.GetString("cookie.name"))
 	if err != nil {
 		log.Warnf("[util] get cookie err: %+v", err)
 		return 0
