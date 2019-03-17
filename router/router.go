@@ -48,8 +48,8 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	//pprof.Register(g)
 
 	// api for authentication functionalities
-	g.POST("/login", user.Login)
-	g.POST("/logout", user.Logout)
+	g.POST("/v1/login", user.Login)
+	g.POST("/v1/logout", user.Logout)
 
 	v1Route := g.Group("/v1")
 	v1Route.Use(middleware.AuthMiddleware())
@@ -126,14 +126,22 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 		DisableCache: true,
 	})
 
-	router.GET("/auth/login", webUser.GetLogin)
-	router.POST("/auth/login", webUser.Login)
-	router.GET("/auth/register", webUser.GetRegister)
-	router.POST("/auth/register", webUser.Register)
-	router.GET("/auth/logout", webUser.Logout)
+	router.GET("/login", webUser.GetLogin)
+	router.POST("/login", webUser.Login)
+	router.GET("/register", webUser.GetRegister)
+	router.POST("/register", webUser.Register)
+	router.GET("/logout", webUser.Logout)
+	router.GET("/users/:username", webUser.Profile) // 个人资料
+	//router.Use(middleware.CookieMiddleware()).GET("/:username/topics", webUser.Logout) // 发表过的主题
+	//router.Use(middleware.CookieMiddleware()).GET("/:username/replies", webUser.Logout)   // 回复过的
+	//router.Use(middleware.CookieMiddleware()).GET("/:username/favorites", webUser.Logout) // 收藏过的
+	//router.Use(middleware.CookieMiddleware()).GET("/:username/following", webUser.Logout) // 正在关注的人
+	//router.Use(middleware.CookieMiddleware()).GET("/:username/followers", webUser.Logout) // 关注者(粉丝)
+	router.Use(middleware.CookieMiddleware()).GET("/setting", webUser.Logout)
+	router.Use(middleware.CookieMiddleware()).GET("/notifications", webUser.Notification)
 
 	router.GET("/courses", webCourse.Index)
-	router.GET("/courses/:slug", webCourse.Index)
+	router.GET("/courses/:slug", webCourse.Detail)
 
 	router.GET("/topics", topic.Index)
 	router.GET("/topics/:id", topic.Detail)
