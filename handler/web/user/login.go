@@ -10,6 +10,8 @@ import (
 
 	"github.com/1024casts/1024casts/util"
 	"github.com/gin-gonic/gin"
+	"github.com/lexkong/log"
+	"github.com/spf13/viper"
 )
 
 func GetLogin(c *gin.Context) {
@@ -34,12 +36,16 @@ func Login(c *gin.Context) {
 	}
 
 	srv := service.NewUserService()
+	log.Infof("login data: %+v", u)
 	// Get the user information by the login username.
-	d, err := srv.GetUserByUsername(u.Username)
+	d, err := srv.GetUserByEmail(u.Email)
 	if err != nil {
 		SendResponse(c, errno.ErrUserNotFound, nil)
 		return
 	}
+
+	hashed, err := auth.Encrypt(u.Password)
+	log.Infof("password hashed: %s", hashed)
 
 	// Compare the login password with the user password.
 	if err := auth.Compare(d.Password, u.Password); err != nil {
@@ -47,8 +53,8 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	// set cookie
-	c.SetCookie("Cookie", util.EncodeUid(int64(d.Id)), 3600, "/", "localhost:8888", false, true)
+	// set cookie 24 hour
+	c.SetCookie(viper.GetString("cookie.name"), util.EncodeUid(int64(d.Id)), viper.GetInt("cookie.max_age"), "/", "http://localhost:8888", false, true)
 
-	SendResponse(c, nil, http.StatusOK)
+	SendResponse(c, nil, nil)
 }
