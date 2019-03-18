@@ -9,6 +9,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/1024casts/1024casts/cmd"
 	"github.com/1024casts/1024casts/config"
 	"github.com/1024casts/1024casts/model"
 	v "github.com/1024casts/1024casts/pkg/version"
@@ -23,7 +24,7 @@ import (
 )
 
 var (
-	cfg     = pflag.StringP("config", "c", "", "backend config file path.")
+	cfg     = pflag.StringP("config", "c", "", "1024casts config file path.")
 	version = pflag.BoolP("version", "v", false, "show version info.")
 )
 
@@ -104,6 +105,9 @@ func main() {
 
 	// 调度任务初始化
 	schedule.Setup()
+
+	// initializing Cobra
+	cmd.Execute()
 }
 
 // pingServer pings the http server to make sure the router is working.
