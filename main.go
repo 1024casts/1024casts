@@ -9,7 +9,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/1024casts/1024casts/cmd"
 	"github.com/1024casts/1024casts/config"
 	"github.com/1024casts/1024casts/model"
 	v "github.com/1024casts/1024casts/pkg/version"
@@ -105,9 +104,6 @@ func main() {
 
 	// 调度任务初始化
 	schedule.Setup()
-
-	// initializing Cobra
-	cmd.Execute()
 }
 
 // pingServer pings the http server to make sure the router is working.
