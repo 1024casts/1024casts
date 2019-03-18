@@ -15,6 +15,7 @@ import (
 	"github.com/1024casts/1024casts/router"
 	"github.com/1024casts/1024casts/router/middleware"
 
+	"github.com/1024casts/1024casts/schedule"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/spf13/pflag"
@@ -100,6 +101,9 @@ func main() {
 
 	log.Infof("Start to listening the incoming requests on http address: %s", viper.GetString("addr"))
 	log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error())
+
+	// 调度任务初始化
+	schedule.Setup()
 }
 
 // pingServer pings the http server to make sure the router is working.
