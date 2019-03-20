@@ -10,9 +10,6 @@ import (
 
 func CookieMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-
-		log.Infof("test cookie: %+v", viper.GetString("cookie.name"))
-
 		cookie, err := c.Request.Cookie(viper.GetString("cookie.name"))
 		if err != nil {
 			log.Warnf("[middleware] get cookie err: %+v", err)
@@ -24,7 +21,7 @@ func CookieMiddleware() gin.HandlerFunc {
 
 		if len(value) == 0 {
 			cookie.Value = ""
-			log.Infof("cookie...... %+v", cookie)
+			log.Infof("current cookie %+v", cookie)
 			c.Redirect(http.StatusMovedPermanently, "/login")
 		} else {
 			c.SetCookie(viper.GetString("cookie.name"), cookie.Value, viper.GetInt("cookie.max_age"), "/", "localhost:8888", false, true)
