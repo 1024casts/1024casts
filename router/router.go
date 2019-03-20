@@ -126,6 +126,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 		DisableCache: true,
 	})
 
+	router.GET("/", web.Index)
 	router.GET("/login", webUser.GetLogin)
 	router.POST("/login", webUser.Login)
 	router.GET("/register", webUser.GetRegister)
@@ -151,8 +152,6 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 		t.GET("/new", topic.Create)
 		t.POST("/new", topic.Create)
 	}
-
-	router.GET("/", web.Index)
 	router.GET("/vip", webPlan.Index)
 	router.GET("/wiki", wiki.Index)
 	router.Run(":8888")
