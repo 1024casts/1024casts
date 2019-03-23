@@ -8,6 +8,7 @@ import (
 
 	"net/http"
 
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/1024casts/1024casts/util"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
@@ -31,7 +32,7 @@ func Login(c *gin.Context) {
 	// Binding the data with the user struct.
 	var u LoginCredentials
 	if err := c.Bind(&u); err != nil {
-		SendResponse(c, errno.ErrBind, nil)
+		app.Response(c, errno.ErrBind, nil)
 		return
 	}
 
@@ -40,7 +41,7 @@ func Login(c *gin.Context) {
 	// Get the user information by the login username.
 	d, err := srv.GetUserByEmail(u.Email)
 	if err != nil {
-		SendResponse(c, errno.ErrUserNotFound, nil)
+		app.Response(c, errno.ErrUserNotFound, nil)
 		return
 	}
 
@@ -49,12 +50,12 @@ func Login(c *gin.Context) {
 
 	// Compare the login password with the user password.
 	if err := auth.Compare(d.Password, u.Password); err != nil {
-		SendResponse(c, errno.ErrPasswordIncorrect, nil)
+		app.Response(c, errno.ErrPasswordIncorrect, nil)
 		return
 	}
 
 	// set cookie 24 hour
 	c.SetCookie(viper.GetString("cookie.name"), util.EncodeUid(int64(d.Id)), viper.GetInt("cookie.max_age"), "/", "http://localhost:8888", false, true)
 
-	SendResponse(c, nil, nil)
+	app.Response(c, nil, nil)
 }
