@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+// 参考： https://github.com/CodisLabs/codis/blob/b60693a686bcfd0d7a3c3f18a2a6680da50dd1e9/pkg/utils/redis/client.go
 func NewRedisClient() (*redis.Client, error) {
 	client := redis.NewClient(&redis.Options{
 		Addr:     viper.GetString("redis.addr"),
