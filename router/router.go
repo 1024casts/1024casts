@@ -132,13 +132,14 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/register", webUser.GetRegister)
 	router.POST("/register", webUser.Register)
 	router.GET("/logout", webUser.Logout)
-	router.GET("/users/:username", webUser.Profile) // 个人资料
-	//router.Use(middleware.CookieMiddleware()).GET("/:username/topics", webUser.Logout) // 发表过的主题
-	//router.Use(middleware.CookieMiddleware()).GET("/:username/replies", webUser.Logout)   // 回复过的
-	//router.Use(middleware.CookieMiddleware()).GET("/:username/favorites", webUser.Logout) // 收藏过的
-	//router.Use(middleware.CookieMiddleware()).GET("/:username/following", webUser.Logout) // 正在关注的人
-	//router.Use(middleware.CookieMiddleware()).GET("/:username/followers", webUser.Logout) // 关注者(粉丝)
-	router.Use(middleware.CookieMiddleware()).GET("/setting", webUser.Logout)
+	router.GET("/users/:username", webUser.Profile)             // 个人资料
+	router.GET("/users/:username/topics", webUser.Logout)       // 发表过的主题
+	router.GET("/users/:username/replies", webUser.Logout)      // 回复过的
+	router.GET("/users/:username/favorites", webUser.Logout)    // 收藏过的
+	router.GET("/users/:username/following", webUser.Following) // 正在关注的人
+	router.GET("/users/:username/followers", webUser.Follower)  // 关注者(粉丝)
+
+	router.Use(middleware.CookieMiddleware()).GET("/settings", webUser.Setting)
 	router.Use(middleware.CookieMiddleware()).GET("/notifications", webUser.Notification)
 
 	router.GET("/courses", webCourse.Index)
@@ -152,6 +153,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 		t.GET("/new", topic.Create)
 		t.POST("/new", topic.Create)
 	}
+
 	router.GET("/vip", webPlan.Index)
 	router.GET("/wiki", wiki.Index)
 	router.Run(":8888")
