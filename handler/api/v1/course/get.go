@@ -3,7 +3,7 @@ package course
 import (
 	"strconv"
 
-	. "github.com/1024casts/1024casts/handler"
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/1024casts/1024casts/pkg/errno"
 	"github.com/1024casts/1024casts/service"
 
@@ -35,10 +35,10 @@ func Get(c *gin.Context) {
 	//user, err := model.GetUserById(userId)
 	course, err := srv.GetCourseById(courseId)
 	if err != nil {
-		SendResponse(c, errno.ErrCourseNotFound, nil)
+		app.Response(c, errno.ErrCourseNotFound, nil)
 		log.Warn("course info", lager.Data{"id": courseId})
 		return
 	}
 
-	SendResponse(c, nil, course)
+	app.Response(c, nil, course)
 }

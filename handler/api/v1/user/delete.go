@@ -3,7 +3,6 @@ package user
 import (
 	"strconv"
 
-	. "github.com/1024casts/1024casts/handler"
 	"github.com/1024casts/1024casts/pkg/errno"
 	"github.com/1024casts/1024casts/service"
 

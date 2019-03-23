@@ -1,7 +1,7 @@
 package plan
 
 import (
-	. "github.com/1024casts/1024casts/handler"
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/1024casts/1024casts/pkg/errno"
 	"github.com/1024casts/1024casts/service"
 
@@ -23,7 +23,7 @@ func List(c *gin.Context) {
 	log.Info("List function called.")
 	var r ListRequest
 	if err := c.Bind(&r); err != nil {
-		SendResponse(c, errno.ErrBind, nil)
+		app.Response(c, errno.ErrBind, nil)
 		return
 	}
 
@@ -42,11 +42,11 @@ func List(c *gin.Context) {
 	orderMap := make(map[string]interface{})
 	infos, count, err := srv.GetPlanList(orderMap, offset, limit)
 	if err != nil {
-		SendResponse(c, err, nil)
+		app.Response(c, err, nil)
 		return
 	}
 
-	SendResponse(c, nil, ListResponse{
+	app.Response(c, nil, ListResponse{
 		TotalCount: count,
 		List:       infos,
 	})

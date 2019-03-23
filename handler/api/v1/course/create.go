@@ -1,8 +1,8 @@
 package course
 
 import (
-	. "github.com/1024casts/1024casts/handler"
 	"github.com/1024casts/1024casts/model"
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/1024casts/1024casts/pkg/errno"
 	"github.com/1024casts/1024casts/service"
 	"github.com/1024casts/1024casts/util"
@@ -24,7 +24,7 @@ func Create(c *gin.Context) {
 	log.Info("Course Create function called.", lager.Data{"X-Request-Id": util.GetReqID(c)})
 	var r CreateRequest
 	if err := c.Bind(&r); err != nil {
-		SendResponse(c, errno.ErrBind, nil)
+		app.Response(c, errno.ErrBind, nil)
 		return
 	}
 
@@ -42,7 +42,7 @@ func Create(c *gin.Context) {
 	//user, err := model.GetUserById(userId)
 	id, err := srv.CreateCourse(course)
 	if err != nil {
-		SendResponse(c, errno.ErrCourseCreateFail, nil)
+		app.Response(c, errno.ErrCourseCreateFail, nil)
 		log.Warn("course info", lager.Data{"id": id})
 		return
 	}
@@ -52,5 +52,5 @@ func Create(c *gin.Context) {
 	}
 
 	// Show the user information.
-	SendResponse(c, nil, resp)
+	app.Response(c, nil, resp)
 }

@@ -3,7 +3,7 @@ package plan
 import (
 	"strconv"
 
-	. "github.com/1024casts/1024casts/handler"
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/1024casts/1024casts/pkg/errno"
 	"github.com/1024casts/1024casts/service"
 
@@ -29,7 +29,7 @@ func Get(c *gin.Context) {
 
 	plan, err := srv.GetPlanById(planId)
 	if err != nil {
-		SendResponse(c, errno.ErrUserNotFound, nil)
+		app.Response(c, errno.ErrUserNotFound, nil)
 		return
 	}
 
@@ -37,10 +37,10 @@ func Get(c *gin.Context) {
 		alias := c.Param("alias")
 		plan, err = srv.GetPlanByAlias(alias)
 		if err != nil {
-			SendResponse(c, errno.ErrUserNotFound, nil)
+			app.Response(c, errno.ErrUserNotFound, nil)
 			return
 		}
 	}
 
-	SendResponse(c, nil, plan)
+	app.Response(c, nil, plan)
 }

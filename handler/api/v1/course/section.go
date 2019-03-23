@@ -1,7 +1,7 @@
 package course
 
 import (
-	. "github.com/1024casts/1024casts/handler"
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/1024casts/1024casts/service"
 
 	"strconv"
@@ -26,11 +26,11 @@ func Section(c *gin.Context) {
 	srv := service.NewCourseService()
 	infos, count, err := srv.GetCourseSectionList(uint64(courseId), 0, 100)
 	if err != nil {
-		SendResponse(c, err, nil)
+		app.Response(c, err, nil)
 		return
 	}
 
-	SendResponse(c, nil, SectionListResponse{
+	app.Response(c, nil, SectionListResponse{
 		TotalCount: count,
 		List:       infos,
 	})

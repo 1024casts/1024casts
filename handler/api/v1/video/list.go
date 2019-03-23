@@ -1,13 +1,13 @@
 package video
 
 import (
-	. "github.com/1024casts/1024casts/handler"
 	"github.com/1024casts/1024casts/pkg/errno"
 	"github.com/1024casts/1024casts/service"
 
 	"strconv"
 	"strings"
 
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 )
@@ -24,7 +24,7 @@ func List(c *gin.Context) {
 	log.Info("List function called.")
 	var r ListRequest
 	if err := c.Bind(&r); err != nil {
-		SendResponse(c, errno.ErrBind, nil)
+		app.Response(c, errno.ErrBind, nil)
 		return
 	}
 
@@ -38,11 +38,11 @@ func List(c *gin.Context) {
 	srv := service.NewVideoService()
 	infos, count, err := srv.GetVideoListPagination(uint64(courseId), name, 0, 100)
 	if err != nil {
-		SendResponse(c, err, nil)
+		app.Response(c, err, nil)
 		return
 	}
 
-	SendResponse(c, nil, ListResponse{
+	app.Response(c, nil, ListResponse{
 		TotalCount: count,
 		List:       infos,
 	})

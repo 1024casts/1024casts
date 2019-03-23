@@ -3,8 +3,8 @@ package course
 import (
 	"strconv"
 
-	. "github.com/1024casts/1024casts/handler"
 	"github.com/1024casts/1024casts/model"
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/1024casts/1024casts/pkg/errno"
 	"github.com/1024casts/1024casts/util"
 
@@ -32,7 +32,7 @@ func Update(c *gin.Context) {
 	// Binding the course data.
 	var course model.CourseModel
 	if err := c.Bind(&course); err != nil {
-		SendResponse(c, errno.ErrBind, nil)
+		app.Response(c, errno.ErrBind, nil)
 		return
 	}
 
@@ -43,14 +43,14 @@ func Update(c *gin.Context) {
 	//user, err := model.GetUserById(userId)
 	_, err := srv.GetCourseById(courseId)
 	if err != nil {
-		SendResponse(c, errno.ErrCourseNotFound, nil)
+		app.Response(c, errno.ErrCourseNotFound, nil)
 		log.Warn("course info", lager.Data{"id": courseId})
 		return
 	}
 
 	// Validate the data.
 	//if err := u.Validate(); err != nil {
-	//	SendResponse(c, errno.ErrValidation, nil)
+	//	app.Response(c, errno.ErrValidation, nil)
 	//	return
 	//}
 
@@ -65,9 +65,9 @@ func Update(c *gin.Context) {
 	courseMap["update_status"] = course.UpdateStatus
 
 	if err := srv.UpdateCourse(courseMap, courseId); err != nil {
-		SendResponse(c, errno.ErrDatabase, nil)
+		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
 
-	SendResponse(c, nil, nil)
+	app.Response(c, nil, nil)
 }
