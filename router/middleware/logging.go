@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 	"time"
 
-	"github.com/1024casts/1024casts/handler"
 	"github.com/1024casts/1024casts/pkg/errno"
 
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/willf/pad"
@@ -70,7 +70,7 @@ func Logging() gin.HandlerFunc {
 		code, message := -1, ""
 
 		// get code and message
-		var response handler.Response
+		var response app.Resp
 		if err := json.Unmarshal(blw.body.Bytes(), &response); err != nil {
 			log.Errorf(err, "response body can not unmarshal to model.Response struct, body: `%s`", blw.body.Bytes())
 			code = errno.InternalServerError.Code

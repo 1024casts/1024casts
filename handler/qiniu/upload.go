@@ -3,13 +3,10 @@ package qiniu
 import (
 	"context"
 	"fmt"
-
-	. "github.com/1024casts/1024casts/handler"
-
-	"github.com/1024casts/1024casts/util"
-
 	"os"
 
+	"github.com/1024casts/1024casts/pkg/app"
+	"github.com/1024casts/1024casts/util"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/lexkong/log/lager"
@@ -79,7 +76,7 @@ func Upload(c *gin.Context) {
 	}
 	fmt.Println(ret.Key, ret.Hash)
 
-	SendResponse(c, nil, UploadResponse{
+	app.Response(c, nil, UploadResponse{
 		Key:  ret.Key,
 		Hash: ret.Hash,
 	})

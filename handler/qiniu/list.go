@@ -3,8 +3,7 @@ package qiniu
 import (
 	"fmt"
 
-	. "github.com/1024casts/1024casts/handler"
-
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/gin-gonic/gin"
 	"github.com/qiniu/api.v7/auth/qbox"
 	"github.com/qiniu/api.v7/storage"
@@ -51,7 +50,7 @@ func List(c *gin.Context) {
 		marker = nextMarker
 	}
 
-	SendResponse(c, nil, ListResponse{
+	app.Response(c, nil, ListResponse{
 		TotalCount: uint64(len(infos)),
 		List:       infos,
 		NextMaker:  marker,
