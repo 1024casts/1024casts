@@ -1,0 +1,539 @@
+{{ define "css"}}
+<style type="text/css">
+    body {background: #e5e5e5;}
+</style>
+{{ end }}
+
+{{ define "content"}}
+
+<div class="row">
+    <div class="sidebar col-md-4" id="sidebar">
+        <div class="card profile">
+            <div class="card-body">
+                <div class="media">
+                    <div class="avatar media-left mr-3">
+                        <div class="image"><img class="media-object avatar-96" src="https://l.ruby-china.com/user/avatar/68.jpg!lg"></div>
+                        <div class="level"><span class="badge badge-success role">高级会员</span></div>
+                    </div>
+                    <div class="media-body">
+                        <div class="item">
+                            gazeldx (张健){{call $.add 1 2}}
+                            <span class="opts pull-right">
+            </span>
+                        </div>
+                        <div class="item number">
+                            第 68 位会员 / <span title="注册日期">2011-11-14</span>
+                        </div>
+                        <div class="item company">
+                            苏州某通讯公司
+                            @ <span title="所在地"><a href="/users/city/%E8%8B%8F%E5%B7%9E">苏州</a></span>
+                        </div>
+                        <div class="item counts">
+                            <span>76</span> 篇帖子 • <span>533</span> 条回帖
+                        </div>
+                        <div class="item social">
+                            <a class="twitter" rel="nofollow" href="https://twitter.com/zhangjian7"><i class="fa fa-twitter"></i></a>
+
+                            <a target="_blank" rel="nofollow" href="http://gazeldx.github.io"><i class="fa fa-globe"></i></a>
+
+                            <a target="_blank" rel="nofollow" href="https://github.com/gazeldx"><i class="fa fa-github"></i></a>
+
+                            <a href="mailto: zjloveztt@gmail.com"><i class="fa fa-envelope-o"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="follow-info row hide-ios">
+                    <div class="col-sm-4 followers" data-login="gazeldx">
+                        <a class="counter" href="/users/{{.user_name}}/followers">21</a>
+                        <a class="text" href="/users/{{.user_name}}/followers">关注者</a>
+                    </div>
+                    <div class="col-sm-4 following">
+                        <a class="counter" href="/users/{{.user_name}}/following">4</a>
+                        <a class="text" href="/users/{{.user_name}}/following">正在关注</a>
+                    </div>
+                    <div class="col-sm-4 stars">
+                        <a class="counter" href="/users/{{.user_name}}/favorites">108</a>
+                        <a class="text" href="/users/{{.user_name}}/favorites">收藏</a>
+                    </div>
+                </div>
+                <div class="buttons row">
+                    <div class="col-sm-6">
+
+                    </div>
+
+                    <div class="col-sm-6">
+
+                    </div>
+                </div>
+
+                <div class="tagline row">
+                    Ruby Sinatra Rails JavaScript nodeJS
+                </div>
+
+                <div class="buttons">
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card hidden-mobile" id="user_github_repos">
+            <div class="card-header">GitHub Public Repos</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="title">
+                        <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/db_admin">db_admin</a>
+                        <span class="watchers" title="43 Watchers">43</span>
+                    </div>
+                    <p class="desc">
+                        A Ruby Web UI to manage databases. Support PostgreSQL, MySQL, SQLite, Oracle, MS-SQL, etc.
+                    </p></li>
+                <li class="list-group-item">
+                    <div class="title">
+                        <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/Learn-Rails-by-Reading-Source-Code">Learn-Rails-by-Reading...</a>
+                        <span class="watchers" title="19 Watchers">19</span>
+                    </div>
+                    <p class="desc">
+                        You will learn how Rack, Puma, Rails 5 works together.
+                    </p></li>
+                <li class="list-group-item">
+                    <div class="title">
+                        <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/meidebook">meidebook</a>
+                        <span class="watchers" title="14 Watchers">14</span>
+                    </div>
+                    <p class="desc">
+                        把好书送人，请他读完后传给下个人。
+                    </p></li>
+                <li class="list-group-item">
+                    <div class="title">
+                        <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/free-erp">free-erp</a>
+                        <span class="watchers" title="1 Watchers">1</span>
+                    </div>
+                    <p class="desc">
+                        Open-sourced Free ERP and CRM SaaS for company or individuals.
+                    </p></li>
+                <li class="list-group-item">
+                    <div class="title">
+                        <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/ruby-resources">ruby-resources</a>
+                        <span class="watchers" title="1 Watchers">1</span>
+                    </div>
+                    <p class="desc">
+                        Resources for Ruby Web or mobile App developer.
+                    </p></li>
+                <li class="list-group-item">
+                    <div class="title">
+                        <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/thinkingCMS">thinkingCMS</a>
+                        <span class="watchers" title="1 Watchers">1</span>
+                    </div>
+                    <p class="desc">
+                        A Rails5 and bootstrap CMS. Demo at
+                    </p></li>
+                <li class="list-group-item">
+                    <div class="title">
+                        <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/gazeldx.github.io">gazeldx.github.io</a>
+                        <span class="watchers" title="1 Watchers">1</span>
+                    </div>
+                    <p class="desc">
+                        ZhangJian(Lane)'s http://gazeldx.github.io/ 's repo
+                    </p></li>
+                <li class="list-group-item">
+                    <div class="title">
+                        <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/dapan">dapan</a>
+                        <span class="watchers" title="1 Watchers">1</span>
+                    </div>
+                    <p class="desc">
+
+                    </p></li>
+                <li class="list-group-item">
+                    <div class="title">
+                        <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/meteorhk">meteorhk</a>
+                        <span class="watchers" title="1 Watchers">1</span>
+                    </div>
+                    <p class="desc">
+                        http://meteor.hk 基于Meteor架构的中文论坛
+                    </p></li>
+                <li class="list-group-item">
+                    <div class="title">
+                        <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/haoshu">haoshu</a>
+                        <span class="watchers" title="1 Watchers">1</span>
+                    </div>
+                    <p class="desc">
+                        分享你认为最好的书！
+                    </p></li>
+            </ul>
+            <div class="card-footer more">
+                <a target="_blank" rel="nofollow" href="https://github.com/gazeldx">More on GitHub</a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-8">
+        <ul class="users-menu nav nav-tabs"><li class="nav-item"><a class="nav-link active" href="/users/{{.user_name}}">个人信息</a></li>
+            <li class="nav-item"><a class="nav-link" href="/users/{{.user_name}}/topics">话题</a></li>
+            <li class="nav-item"><a class="nav-link" href="/users/{{.user_name}}/replies">回帖</a></li>
+            <li class="nav-item"><a class="nav-link hide-ios hidden-mobile" href="/users/{{.user_name}}/favorites">收藏</a></li>
+            <li class="nav-item"><a class="nav-link hidden-mobile" href="/users/{{.user_name}}/following">正在关注</a></li>
+            <li class="nav-item"><a class="nav-link hidden-mobile" href="/users/{{.user_name}}/followers">关注者</a></li>
+        </ul>
+
+
+        <div class="card userinfo">
+            <div class="card-body">
+                <div id="cal-heatmap" class="user-activity-graph" style="position:relative;"><svg class="cal-heatmap-container" x="0" y="0" height="127" width="706"><svg class="graph" x="0" y="0"><svg width="60" height="109" x="0" y="0" class="graph-domain m_4 y_2018"><rect width="58" height="107" class="domain-background"></rect><svg x="0" y="25" class="graph-subdomain-group"><g><rect class=" graph-rect" width="10" height="10" x="0" y="0"></rect><title>Sunday April 1, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="12"></rect><title>Monday April 2, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="24"></rect><title>Tuesday April 3, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="36"></rect><title>Wednesday April 4, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="48"></rect><title>Thursday April 5, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="60"></rect><title>Friday April 6, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="72"></rect><title>Saturday April 7, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="0"></rect><title>Sunday April 8, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="12"></rect><title>Monday April 9, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="24"></rect><title>Tuesday April 10, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="36"></rect><title>Wednesday April 11, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="48"></rect><title>Thursday April 12, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="60"></rect><title>Friday April 13, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="72"></rect><title>Saturday April 14, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="0"></rect><title>Sunday April 15, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="12"></rect><title>Monday April 16, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="24"></rect><title>Tuesday April 17, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="36"></rect><title>Wednesday April 18, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="48"></rect><title>Thursday April 19, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="60"></rect><title>Friday April 20, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="72"></rect><title>Saturday April 21, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="0"></rect><title>Sunday April 22, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="12"></rect><title>Monday April 23, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="24"></rect><title>Tuesday April 24, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="36"></rect><title>Wednesday April 25, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="48"></rect><title>Thursday April 26, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="60"></rect><title>Friday April 27, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="72"></rect><title>Saturday April 28, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="0"></rect><title>Sunday April 29, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="12"></rect><title>Monday April 30, 2018</title></g></svg><text class="graph-label" y="12.5" x="30" text-anchor="middle" dominant-baseline="middle">Apr</text></svg><svg width="60" height="109" x="60" y="0" class="graph-domain m_5 y_2018"><rect width="58" height="107" class="domain-background"></rect><svg x="0" y="25" class="graph-subdomain-group"><g><rect class=" graph-rect" width="10" height="10" x="0" y="0"></rect><title>Tuesday May 1, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="12"></rect><title>Wednesday May 2, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="24"></rect><title>Thursday May 3, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="36"></rect><title>Friday May 4, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="48"></rect><title>Saturday May 5, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="60"></rect><title>Sunday May 6, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="72"></rect><title>Monday May 7, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="0"></rect><title>Tuesday May 8, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="12"></rect><title>Wednesday May 9, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="24"></rect><title>Thursday May 10, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="36"></rect><title>Friday May 11, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="48"></rect><title>Saturday May 12, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="60"></rect><title>Sunday May 13, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="72"></rect><title>Monday May 14, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="0"></rect><title>Tuesday May 15, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="12"></rect><title>Wednesday May 16, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="24"></rect><title>Thursday May 17, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="36"></rect><title>Friday May 18, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="48"></rect><title>Saturday May 19, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="60"></rect><title>Sunday May 20, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="72"></rect><title>Monday May 21, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="0"></rect><title>Tuesday May 22, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="12"></rect><title>Wednesday May 23, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="24"></rect><title>Thursday May 24, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="36"></rect><title>Friday May 25, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="48"></rect><title>Saturday May 26, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="60"></rect><title>Sunday May 27, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="72"></rect><title>Monday May 28, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="0"></rect><title>Tuesday May 29, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="12"></rect><title>Wednesday May 30, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="24"></rect><title>Thursday May 31, 2018</title></g></svg><text class="graph-label" y="12.5" x="30" text-anchor="middle" dominant-baseline="middle">May</text></svg><svg width="60" height="109" x="120" y="0" class="graph-domain m_6 y_2018"><rect width="58" height="107" class="domain-background"></rect><svg x="0" y="25" class="graph-subdomain-group"><g><rect class=" graph-rect" width="10" height="10" x="0" y="0"></rect><title>Friday June 1, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="12"></rect><title>Saturday June 2, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="24"></rect><title>Sunday June 3, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="36"></rect><title>Monday June 4, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="48"></rect><title>Tuesday June 5, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="60"></rect><title>Wednesday June 6, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="72"></rect><title>Thursday June 7, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="0"></rect><title>Friday June 8, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="12"></rect><title>Saturday June 9, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="24"></rect><title>Sunday June 10, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="36"></rect><title>Monday June 11, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="48"></rect><title>Tuesday June 12, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="60"></rect><title>Wednesday June 13, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="72"></rect><title>Thursday June 14, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="0"></rect><title>Friday June 15, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="12"></rect><title>Saturday June 16, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="24"></rect><title>Sunday June 17, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="36"></rect><title>Monday June 18, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="48"></rect><title>Tuesday June 19, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="60"></rect><title>Wednesday June 20, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="72"></rect><title>Thursday June 21, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="0"></rect><title>Friday June 22, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="12"></rect><title>Saturday June 23, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="24"></rect><title>Sunday June 24, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="36"></rect><title>Monday June 25, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="48"></rect><title>Tuesday June 26, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="60"></rect><title>Wednesday June 27, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="72"></rect><title>Thursday June 28, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="0"></rect><title>Friday June 29, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="12"></rect><title>Saturday June 30, 2018</title></g></svg><text class="graph-label" y="12.5" x="30" text-anchor="middle" dominant-baseline="middle">Jun</text></svg><svg width="60" height="109" x="180" y="0" class="graph-domain m_7 y_2018"><rect width="58" height="107" class="domain-background"></rect><svg x="0" y="25" class="graph-subdomain-group"><g><rect class=" graph-rect" width="10" height="10" x="0" y="0"></rect><title>Sunday July 1, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="12"></rect><title>Monday July 2, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="24"></rect><title>Tuesday July 3, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="36"></rect><title>Wednesday July 4, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="48"></rect><title>Thursday July 5, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="60"></rect><title>Friday July 6, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="72"></rect><title>Saturday July 7, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="0"></rect><title>Sunday July 8, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="12"></rect><title>Monday July 9, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="24"></rect><title>Tuesday July 10, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="36"></rect><title>Wednesday July 11, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="48"></rect><title>Thursday July 12, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="60"></rect><title>Friday July 13, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="72"></rect><title>Saturday July 14, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="0"></rect><title>Sunday July 15, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="12"></rect><title>Monday July 16, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="24"></rect><title>Tuesday July 17, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="36"></rect><title>Wednesday July 18, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="48"></rect><title>Thursday July 19, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="60"></rect><title>Friday July 20, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="72"></rect><title>Saturday July 21, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="0"></rect><title>Sunday July 22, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="12"></rect><title>Monday July 23, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="24"></rect><title>Tuesday July 24, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="36"></rect><title>Wednesday July 25, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="48"></rect><title>Thursday July 26, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="60"></rect><title>Friday July 27, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="72"></rect><title>Saturday July 28, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="0"></rect><title>Sunday July 29, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="12"></rect><title>Monday July 30, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="24"></rect><title>Tuesday July 31, 2018</title></g></svg><text class="graph-label" y="12.5" x="30" text-anchor="middle" dominant-baseline="middle">Jul</text></svg><svg width="60" height="109" x="240" y="0" class="graph-domain m_8 y_2018"><rect width="58" height="107" class="domain-background"></rect><svg x="0" y="25" class="graph-subdomain-group"><g><rect class=" graph-rect" width="10" height="10" x="0" y="0"></rect><title>Wednesday August 1, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="12"></rect><title>Thursday August 2, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="24"></rect><title>Friday August 3, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="36"></rect><title>Saturday August 4, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="48"></rect><title>Sunday August 5, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="60"></rect><title>Monday August 6, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="72"></rect><title>Tuesday August 7, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="0"></rect><title>Wednesday August 8, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="12"></rect><title>Thursday August 9, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="24"></rect><title>Friday August 10, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="36"></rect><title>Saturday August 11, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="48"></rect><title>Sunday August 12, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="60"></rect><title>Monday August 13, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="72"></rect><title>Tuesday August 14, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="0"></rect><title>Wednesday August 15, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="12"></rect><title>Thursday August 16, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="24"></rect><title>Friday August 17, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="36"></rect><title>Saturday August 18, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="48"></rect><title>Sunday August 19, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="60"></rect><title>Monday August 20, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="72"></rect><title>Tuesday August 21, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="0"></rect><title>Wednesday August 22, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="12"></rect><title>Thursday August 23, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="24"></rect><title>Friday August 24, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="36"></rect><title>Saturday August 25, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="48"></rect><title>Sunday August 26, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="60"></rect><title>Monday August 27, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="72"></rect><title>Tuesday August 28, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="0"></rect><title>Wednesday August 29, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="12"></rect><title>Thursday August 30, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="24"></rect><title>Friday August 31, 2018</title></g></svg><text class="graph-label" y="12.5" x="30" text-anchor="middle" dominant-baseline="middle">Aug</text></svg><svg width="60" height="109" x="300" y="0" class="graph-domain m_9 y_2018"><rect width="58" height="107" class="domain-background"></rect><svg x="0" y="25" class="graph-subdomain-group"><g><rect class=" graph-rect" width="10" height="10" x="0" y="0"></rect><title>Saturday September 1, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="12"></rect><title>Sunday September 2, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="24"></rect><title>Monday September 3, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="36"></rect><title>Tuesday September 4, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="48"></rect><title>Wednesday September 5, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="60"></rect><title>Thursday September 6, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="72"></rect><title>Friday September 7, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="0"></rect><title>Saturday September 8, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="12"></rect><title>Sunday September 9, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="24"></rect><title>Monday September 10, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="36"></rect><title>Tuesday September 11, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="48"></rect><title>Wednesday September 12, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="60"></rect><title>Thursday September 13, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="72"></rect><title>Friday September 14, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="0"></rect><title>Saturday September 15, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="12"></rect><title>Sunday September 16, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="24"></rect><title>Monday September 17, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="36"></rect><title>Tuesday September 18, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="48"></rect><title>Wednesday September 19, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="60"></rect><title>Thursday September 20, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="72"></rect><title>Friday September 21, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="0"></rect><title>Saturday September 22, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="12"></rect><title>Sunday September 23, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="24"></rect><title>Monday September 24, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="36"></rect><title>Tuesday September 25, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="48"></rect><title>Wednesday September 26, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="60"></rect><title>Thursday September 27, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="72"></rect><title>Friday September 28, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="0"></rect><title>Saturday September 29, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="12"></rect><title>Sunday September 30, 2018</title></g></svg><text class="graph-label" y="12.5" x="30" text-anchor="middle" dominant-baseline="middle">Sep</text></svg><svg width="60" height="109" x="360" y="0" class="graph-domain m_10 y_2018"><rect width="58" height="107" class="domain-background"></rect><svg x="0" y="25" class="graph-subdomain-group"><g><rect class=" graph-rect" width="10" height="10" x="0" y="0"></rect><title>Monday October 1, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="12"></rect><title>Tuesday October 2, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="24"></rect><title>Wednesday October 3, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="36"></rect><title>Thursday October 4, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="48"></rect><title>Friday October 5, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="60"></rect><title>Saturday October 6, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="72"></rect><title>Sunday October 7, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="0"></rect><title>Monday October 8, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="12"></rect><title>Tuesday October 9, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="24"></rect><title>Wednesday October 10, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="36"></rect><title>Thursday October 11, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="48"></rect><title>Friday October 12, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="60"></rect><title>Saturday October 13, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="72"></rect><title>Sunday October 14, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="0"></rect><title>Monday October 15, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="12"></rect><title>Tuesday October 16, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="24"></rect><title>Wednesday October 17, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="36"></rect><title>Thursday October 18, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="48"></rect><title>Friday October 19, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="60"></rect><title>Saturday October 20, 2018</title></g><g><rect class=" graph-rect r2 q2" width="10" height="10" x="24" y="72"></rect><title>2 events on Sunday October 21, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="0"></rect><title>Monday October 22, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="12"></rect><title>Tuesday October 23, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="24"></rect><title>Wednesday October 24, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="36"></rect><title>Thursday October 25, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="48"></rect><title>Friday October 26, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="60"></rect><title>Saturday October 27, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="72"></rect><title>Sunday October 28, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="0"></rect><title>Monday October 29, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="12"></rect><title>Tuesday October 30, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="24"></rect><title>Wednesday October 31, 2018</title></g></svg><text class="graph-label" y="12.5" x="30" text-anchor="middle" dominant-baseline="middle">Oct</text></svg><svg width="60" height="109" x="420" y="0" class="graph-domain m_11 y_2018"><rect width="58" height="107" class="domain-background"></rect><svg x="0" y="25" class="graph-subdomain-group"><g><rect class=" graph-rect" width="10" height="10" x="0" y="0"></rect><title>Thursday November 1, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="12"></rect><title>Friday November 2, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="24"></rect><title>Saturday November 3, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="36"></rect><title>Sunday November 4, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="48"></rect><title>Monday November 5, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="60"></rect><title>Tuesday November 6, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="72"></rect><title>Wednesday November 7, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="0"></rect><title>Thursday November 8, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="12"></rect><title>Friday November 9, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="24"></rect><title>Saturday November 10, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="36"></rect><title>Sunday November 11, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="48"></rect><title>Monday November 12, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="60"></rect><title>Tuesday November 13, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="72"></rect><title>Wednesday November 14, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="0"></rect><title>Thursday November 15, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="12"></rect><title>Friday November 16, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="24"></rect><title>Saturday November 17, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="36"></rect><title>Sunday November 18, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="48"></rect><title>Monday November 19, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="60"></rect><title>Tuesday November 20, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="72"></rect><title>Wednesday November 21, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="0"></rect><title>Thursday November 22, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="12"></rect><title>Friday November 23, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="24"></rect><title>Saturday November 24, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="36"></rect><title>Sunday November 25, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="48"></rect><title>Monday November 26, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="60"></rect><title>Tuesday November 27, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="72"></rect><title>Wednesday November 28, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="0"></rect><title>Thursday November 29, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="12"></rect><title>Friday November 30, 2018</title></g></svg><text class="graph-label" y="12.5" x="30" text-anchor="middle" dominant-baseline="middle">Nov</text></svg><svg width="60" height="109" x="480" y="0" class="graph-domain m_12 y_2018"><rect width="58" height="107" class="domain-background"></rect><svg x="0" y="25" class="graph-subdomain-group"><g><rect class=" graph-rect" width="10" height="10" x="0" y="0"></rect><title>Saturday December 1, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="12"></rect><title>Sunday December 2, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="24"></rect><title>Monday December 3, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="36"></rect><title>Tuesday December 4, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="48"></rect><title>Wednesday December 5, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="60"></rect><title>Thursday December 6, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="72"></rect><title>Friday December 7, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="0"></rect><title>Saturday December 8, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="12"></rect><title>Sunday December 9, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="24"></rect><title>Monday December 10, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="36"></rect><title>Tuesday December 11, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="48"></rect><title>Wednesday December 12, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="60"></rect><title>Thursday December 13, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="72"></rect><title>Friday December 14, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="0"></rect><title>Saturday December 15, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="12"></rect><title>Sunday December 16, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="24"></rect><title>Monday December 17, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="36"></rect><title>Tuesday December 18, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="48"></rect><title>Wednesday December 19, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="60"></rect><title>Thursday December 20, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="72"></rect><title>Friday December 21, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="0"></rect><title>Saturday December 22, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="12"></rect><title>Sunday December 23, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="24"></rect><title>Monday December 24, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="36"></rect><title>Tuesday December 25, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="48"></rect><title>Wednesday December 26, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="60"></rect><title>Thursday December 27, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="72"></rect><title>Friday December 28, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="0"></rect><title>Saturday December 29, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="12"></rect><title>Sunday December 30, 2018</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="24"></rect><title>Monday December 31, 2018</title></g></svg><text class="graph-label" y="12.5" x="30" text-anchor="middle" dominant-baseline="middle">Dec</text></svg><svg width="60" height="109" x="540" y="0" class="graph-domain m_1 y_2019"><rect width="58" height="107" class="domain-background"></rect><svg x="0" y="25" class="graph-subdomain-group"><g><rect class=" graph-rect" width="10" height="10" x="0" y="0"></rect><title>Tuesday January 1, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="12"></rect><title>Wednesday January 2, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="24"></rect><title>Thursday January 3, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="36"></rect><title>Friday January 4, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="48"></rect><title>Saturday January 5, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="60"></rect><title>Sunday January 6, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="72"></rect><title>Monday January 7, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="0"></rect><title>Tuesday January 8, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="12"></rect><title>Wednesday January 9, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="24"></rect><title>Thursday January 10, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="36"></rect><title>Friday January 11, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="48"></rect><title>Saturday January 12, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="60"></rect><title>Sunday January 13, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="72"></rect><title>Monday January 14, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="0"></rect><title>Tuesday January 15, 2019</title></g><g><rect class=" graph-rect r1 q1" width="10" height="10" x="24" y="12"></rect><title>1 event on Wednesday January 16, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="24"></rect><title>Thursday January 17, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="36"></rect><title>Friday January 18, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="48"></rect><title>Saturday January 19, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="60"></rect><title>Sunday January 20, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="72"></rect><title>Monday January 21, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="0"></rect><title>Tuesday January 22, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="12"></rect><title>Wednesday January 23, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="24"></rect><title>Thursday January 24, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="36"></rect><title>Friday January 25, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="48"></rect><title>Saturday January 26, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="60"></rect><title>Sunday January 27, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="72"></rect><title>Monday January 28, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="0"></rect><title>Tuesday January 29, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="12"></rect><title>Wednesday January 30, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="48" y="24"></rect><title>Thursday January 31, 2019</title></g></svg><text class="graph-label" y="12.5" x="30" text-anchor="middle" dominant-baseline="middle">Jan</text></svg><svg width="48" height="109" x="600" y="0" class="graph-domain m_2 y_2019"><rect width="46" height="107" class="domain-background"></rect><svg x="0" y="25" class="graph-subdomain-group"><g><rect class=" graph-rect" width="10" height="10" x="0" y="0"></rect><title>Friday February 1, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="12"></rect><title>Saturday February 2, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="24"></rect><title>Sunday February 3, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="36"></rect><title>Monday February 4, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="48"></rect><title>Tuesday February 5, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="60"></rect><title>Wednesday February 6, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="72"></rect><title>Thursday February 7, 2019</title></g><g><rect class=" graph-rect r1 q1" width="10" height="10" x="12" y="0"></rect><title>1 event on Friday February 8, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="12"></rect><title>Saturday February 9, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="24"></rect><title>Sunday February 10, 2019</title></g><g><rect class=" graph-rect r1 q1" width="10" height="10" x="12" y="36"></rect><title>1 event on Monday February 11, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="48"></rect><title>Tuesday February 12, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="60"></rect><title>Wednesday February 13, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="72"></rect><title>Thursday February 14, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="0"></rect><title>Friday February 15, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="12"></rect><title>Saturday February 16, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="24"></rect><title>Sunday February 17, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="36"></rect><title>Monday February 18, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="48"></rect><title>Tuesday February 19, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="60"></rect><title>Wednesday February 20, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="72"></rect><title>Thursday February 21, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="0"></rect><title>Friday February 22, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="12"></rect><title>Saturday February 23, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="24"></rect><title>Sunday February 24, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="36"></rect><title>Monday February 25, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="48"></rect><title>Tuesday February 26, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="60"></rect><title>Wednesday February 27, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="36" y="72"></rect><title>Thursday February 28, 2019</title></g></svg><text class="graph-label" y="12.5" x="24" text-anchor="middle" dominant-baseline="middle">Feb</text></svg><svg width="60" height="109" x="648" y="0" class="graph-domain m_3 y_2019"><rect width="58" height="107" class="domain-background"></rect><svg x="0" y="25" class="graph-subdomain-group"><g><rect class=" graph-rect" width="10" height="10" x="0" y="0"></rect><title>Friday March 1, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="12"></rect><title>Saturday March 2, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="24"></rect><title>Sunday March 3, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="36"></rect><title>Monday March 4, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="48"></rect><title>Tuesday March 5, 2019</title></g><g><rect class=" graph-rect r1 q1" width="10" height="10" x="0" y="60"></rect><title>1 event on Wednesday March 6, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="0" y="72"></rect><title>Thursday March 7, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="0"></rect><title>Friday March 8, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="12"></rect><title>Saturday March 9, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="24"></rect><title>Sunday March 10, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="36"></rect><title>Monday March 11, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="48"></rect><title>Tuesday March 12, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="60"></rect><title>Wednesday March 13, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="12" y="72"></rect><title>Thursday March 14, 2019</title></g><g><rect class=" graph-rect r1 q1" width="10" height="10" x="24" y="0"></rect><title>1 event on Friday March 15, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="12"></rect><title>Saturday March 16, 2019</title></g><g><rect class=" graph-rect" width="10" height="10" x="24" y="24"></rect><title>Sunday March 17, 2019</title></g><g><rect class="highlight now graph-rect" width="10" height="10" x="24" y="36"></rect><title>Monday March 18, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="24" y="48"></rect><title>Tuesday March 19, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="24" y="60"></rect><title>Wednesday March 20, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="24" y="72"></rect><title>Thursday March 21, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="36" y="0"></rect><title>Friday March 22, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="36" y="12"></rect><title>Saturday March 23, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="36" y="24"></rect><title>Sunday March 24, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="36" y="36"></rect><title>Monday March 25, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="36" y="48"></rect><title>Tuesday March 26, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="36" y="60"></rect><title>Wednesday March 27, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="36" y="72"></rect><title>Thursday March 28, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="48" y="0"></rect><title>Friday March 29, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="48" y="12"></rect><title>Saturday March 30, 2019</title></g><g><rect class=" graph-rect future" width="10" height="10" x="48" y="24"></rect><title>Sunday March 31, 2019</title></g></svg><text class="graph-label" y="12.5" x="30" text-anchor="middle" dominant-baseline="middle">Mar</text></svg></svg><svg x="648" y="117" class="graph-legend" height="10" width="58"><g transform=""><rect width="10" height="10" x="0" class="r1 q1" fill-opacity="1" fill=""><title>less than 1 events</title></rect><rect width="10" height="10" x="12" class="r2 q2" fill-opacity="1" fill=""><title>between 1 and 5 events</title></rect><rect width="10" height="10" x="24" class="r3 q3" fill-opacity="1" fill=""><title>between 5 and 10 events</title></rect><rect width="10" height="10" x="36" class="r4 q4" fill-opacity="1" fill=""><title>between 10 and 15 events</title></rect><rect width="10" height="10" x="48" class="r5 q5" fill-opacity="1" fill=""><title>more than 15 events</title></rect></g></svg></svg><div class="ch-tooltip"></div></div>
+                <script type="text/javascript">
+                    document.addEventListener("turbolinks:before-cache", function() {
+                        $('#cal-heatmap').html('');
+                    });
+
+                    var cal = new CalHeatMap();
+                    cal.init({
+                        itemSelector: "#cal-heatmap",
+                        animationDuration: 200,
+                        domain: "month",
+                        subDomain: 'day',
+                        rowLimit: 7,
+                        domainGutter: 0,
+                        data: '/gazeldx/calendar.json',
+                        start: new Date(2018, 3, 1),
+                        legendHorizontalPosition: 'right',
+                        // subDomainTextFormat: "%d",
+                        domainLabelFormat: "%b",
+                        legend: [1, 5, 10, 15],
+                        itemName: ['event', 'events'],
+                        highlight: 'now',
+                        label: {
+                            position: 'top'
+                        },
+                        displayLegend: true
+                    });
+                </script>
+
+            </div>
+        </div>
+
+
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a href="#topics" class="nav-link active" data-toggle="tab">热门话题</a></li>
+                <li class="nav-item"><a href="#replies" class="nav-link" data-toggle="tab">最近回帖</a></li>
+                <li class="nav-item"><a href="#description" class="nav-link" data-toggle="tab">个人介绍</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active recent-topics" id="topics">
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node2">Rails</a>
+                                    <a title="Learn Rails 5 by Reading Source Code" href="/topics/38195">Learn Rails 5 by Reading Source Code</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">29 个赞 • 10 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node1">Ruby</a>
+                                    <a title="一个 String 类型处理不当导致的性能问题，在导出 CSV 文件等场景不注意就会中招" href="/topics/28402">一个 String 类型处理不当导致的性能问题，在导出 CSV 文件等场景不注意就会中招</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">13 个赞 • 12 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node27">瞎扯淡</a>
+                                    <a title="我兑现了一个月前的承诺" href="/topics/23439">我兑现了一个月前的承诺</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">13 个赞 • 37 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node27">瞎扯淡</a>
+                                    <a title="我现在要转行了" href="/topics/11844">我现在要转行了</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">12 个赞 • 148 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node47">开源项目</a>
+                                    <a title="中国 Ruby 社区有哪些开源名人？" href="/topics/10460">中国 Ruby 社区有哪些开源名人？</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">6 个赞 • 23 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node24">开发工具</a>
+                                    <a title="用 haml 呼唤 huacnlee (我已决定使用 SLIM 替代 HAML 和 ERB)" href="/topics/634">用 haml 呼唤 huacnlee (我已决定使用 SLIM 替代 HAML 和 ERB)</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">6 个赞 • 38 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node29">重构</a>
+                                    <a title="Ruby 代码格式标准讨论" href="/topics/10586">Ruby 代码格式标准讨论</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">3 个赞 • 8 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node17">Linux</a>
+                                    <a title="今天部署到 VPS 上，系统是 CentOS 好还是 Ubuntu Server 好呢？" href="/topics/1021">今天部署到 VPS 上，系统是 CentOS 好还是 Ubuntu Server 好呢？</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">3 个赞 • 30 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node38">书籍</a>
+                                    <a title="只收邮费转 4 本 Ruby 经典书 (己结帖)" href="/topics/37657">只收邮费转 4 本 Ruby 经典书 (己结帖)</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">2 个赞 • 1 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node27">瞎扯淡</a>
+                                    <a title="我承诺，2014年 结束前开发出。。" href="/topics/22901">我承诺，2014年 结束前开发出。。</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">2 个赞 • 22 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node47">开源项目</a>
+                                    <a title="我的故事现在支持 Markdown 了" href="/topics/9279">我的故事现在支持 Markdown 了</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">2 个赞 • 4 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node2">Rails</a>
+                                    <a title="抛出一个 Rails 插件化开发的重要且有趣的问题" href="/topics/8207">抛出一个 Rails 插件化开发的重要且有趣的问题</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">2 个赞 • 14 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node38">书籍</a>
+                                    <a title="《Ruby Metaprogramming》Ruby 元编程" href="/topics/7635">《Ruby Metaprogramming》Ruby 元编程</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">2 个赞 • 13 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node52">新手问题</a>
+                                    <a title="公司让我实现一个功能，该功能主要是针对图片的处理，大家来研究一下" href="/topics/6298">公司让我实现一个功能，该功能主要是针对图片的处理，大家来研究一下</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">2 个赞 • 6 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node20">云服务</a>
+                                    <a title="说一个问题：carrierwave-upyun 图片会慢吧？" href="/topics/5777">说一个问题：carrierwave-upyun 图片会慢吧？</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">2 个赞 • 8 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node2">Rails</a>
+                                    <a title="rails 如何能够识别当前是 development 还是 production 的？" href="/topics/1050">rails 如何能够识别当前是 development 还是 production 的？</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">2 个赞 • 17 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node2">Rails</a>
+                                    <a title="请问 self-join 的问题。实现 twitter 的 follower 和关注" href="/topics/525">请问 self-join 的问题。实现 twitter 的 follower 和关注</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">2 个赞 • 3 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node72">ReactJS</a>
+                                    <a title="是时候搞点新玩意了——用 react-native 开发跨平台 APP" href="/topics/29759">是时候搞点新玩意了——用 react-native 开发跨平台 APP</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">1 个赞 • 9 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node47">开源项目</a>
+                                    <a title="好书推荐的网站是否有人感兴趣" href="/topics/25578">好书推荐的网站是否有人感兴趣</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">1 个赞 • 16 条回复</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a class="node" href="/topics/node47">开源项目</a>
+                                    <a title="ruby db admin 数据库管理系统更新通知" href="/topics/24843">ruby db admin 数据库管理系统更新通知</a>
+                                </div>
+                                <div class="info">
+                                    <span class="counter">1 个赞 • 2 条回复</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-pane" id="replies">
+                    <div class="card">
+                        <ul class="list-group list-group-flush recent-replies">
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a href="/topics/38195">Learn Rails 5 by Reading Source Code</a>
+                                    <span class="info">at <abbr class="timeago" title="2019年03月15日">4 天前</abbr></span>
+                                </div>
+                                <div class="body markdown">
+                                    <p>主要问题是没玩好。打算把编程玩好了，再玩别的。</p>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a href="/topics/38196">个推微服务网关架构实践</a>
+                                    <span class="info">at <abbr class="timeago" title="2019年03月06日">13 天前</abbr></span>
+                                </div>
+                                <div class="body markdown">
+                                    <p>自研网关有深度，这种文章很难得。
+                                        楼主是否能回答我一个问题：中小公司的微服务架构是否也需要上APIGate？</p>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a href="/topics/38097"> [苏州] 苏州汇通软件科技有限公司招聘 / 软件开发工程师</a>
+                                    <span class="info">at <abbr class="timeago" title="2019年02月11日">1 月前</abbr></span>
+                                </div>
+                                <div class="body markdown">
+                                    <p>没有写接收简历的邮箱呢。请问Ruby工程师招吗？这儿是Ruby社区哦。谢谢。</p>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a href="/topics/28575">编译的 Ruby 2.3.0 缺少 openssl 支持的解决方法 (已解决)</a>
+                                    <span class="info">at <abbr class="timeago" title="2019年01月16日">2 月前</abbr></span>
+                                </div>
+                                <div class="body markdown">
+                                    <p>谢谢各位。
+                                        本人rvm + homebrew + 新安装的MacOS。出现这个问题后，用
+                                        <code>rvm reinstall 2.3.8 --with-openssl-dir=/usr/local/Cellar/openssl/1.0.2q</code>
+                                        顺利解决。</p>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a href="/topics/37657">只收邮费转 4 本 Ruby 经典书 (己结帖)</a>
+                                    <span class="info">at <abbr class="timeago" title="2018年10月21日">2018年10月21日</abbr></span>
+                                </div>
+                                <div class="body markdown">
+                                    <p>已经有个武汉的朋友转我了。大家不用加</p>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a href="/topics/33211">用 Docker 启动 sandbox</a>
+                                    <span class="info">at <abbr class="timeago" title="2017年06月23日">2017年06月23日</abbr></span>
+                                </div>
+                                <div class="body markdown">
+                                    <p>Thanks. This article is important for me. Although I have been heard docker for a long time, it's the first time I use it.
+                                        I suggest other developers try docker. It will only take you 5 minutes to have a new world.
+                                        You can get a virtual machine totally no sweat. </p>
+
+                                    <p>Just follow <a href="https://store.docker.com/editions/community/docker-ce-desktop-mac" rel="nofollow" target="_blank">https://store.docker.com/editions/community/docker-ce-desktop-mac</a> and run </p>
+
+                                    <p><code>$ docker run -it -v $(pwd):/app -w /app ruby:2.3 bash</code> , you will have a ruby2.3 container(like a debian virtual machine, but  it will cost you only 19.27 MB's disk space). </p>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a href="/topics/25706">基础 Ruby 中 Include, Extend, Load, Require 的使用区别</a>
+                                    <span class="info">at <abbr class="timeago" title="2017年03月29日">2017年03月29日</abbr></span>
+                                </div>
+                                <div class="body markdown">
+                                    <p>不错的分享。简单几句，就把事情说得比较清楚了。</p>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a href="/topics/32433">Rails 并发处理</a>
+                                    <span class="info">at <abbr class="timeago" title="2017年03月09日">2017年03月09日</abbr></span>
+                                </div>
+                                <div class="body markdown">
+                                    <ul>
+                                        <li>办法一：可以考虑从业务上调整。整点同时6000并发，这不是人为操作，而是有程序在向你们服务器发请求。你们作为上游可以尝试让下游调整。</li>
+                                        <li>办法二、如果下游不要求rails同步立即给出最终结果的话，可以把业务处理交给后台程序（via sidekiq, resque or RabbitMQ），然后快速响应下请求。</li>
+                                        <li>办法三、用Node.js试试看，启用Cluster模式。</li>
+                                        <li>办法四、找出瓶颈，就用原来的Java跑。</li>
+                                        <li>办法五、8核16g内存这种服务器已经比较老了，建议更新下硬件（包括硬盘）。</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a href="/topics/11844">我现在要转行了</a>
+                                    <span class="info">at <abbr class="timeago" title="2017年03月09日">2017年03月09日</abbr></span>
+                                </div>
+                                <div class="body markdown">
+                                    <p>No. I am still a programmer. I haven't succeeded in stock market yet. But I didn't give up.</p>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="title">
+                                    <a href="/topics/32444">这个广告做得好</a>
+                                    <span class="info">at <abbr class="timeago" title="2017年03月07日">2017年03月07日</abbr></span>
+                                </div>
+                                <div class="body markdown">
+                                    <p>Yes. You are sensitive. <img title=":smile:" alt="😄" src="https://twemoji.b0.upaiyun.com/2/svg/1f604.svg" class="twemoji"> </p>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="description">
+                    <div class="card bio">
+                        <div class="card-body markdown">
+                            <p>好好爱每个人！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{{ end }}
+
+{{ define "js"}}
+{{ end }}
