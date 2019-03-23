@@ -1,13 +1,13 @@
 package user
 
 import (
-	. "github.com/1024casts/1024casts/handler"
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/pkg/auth"
 	"github.com/1024casts/1024casts/pkg/errno"
 	"github.com/1024casts/1024casts/pkg/token"
 	"github.com/1024casts/1024casts/service"
 
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,7 +21,7 @@ func Login(c *gin.Context) {
 	// Binding the data with the user struct.
 	var u LoginCredentials
 	if err := c.Bind(&u); err != nil {
-		SendResponse(c, errno.ErrBind, nil)
+		app.Response(c, errno.ErrBind, nil)
 		return
 	}
 
@@ -29,22 +29,22 @@ func Login(c *gin.Context) {
 	// Get the user information by the login username.
 	d, err := srv.GetUserByUsername(u.Username)
 	if err != nil {
-		SendResponse(c, errno.ErrUserNotFound, nil)
+		app.Response(c, errno.ErrUserNotFound, nil)
 		return
 	}
 
 	// Compare the login password with the user password.
 	if err := auth.Compare(d.Password, u.Password); err != nil {
-		SendResponse(c, errno.ErrPasswordIncorrect, nil)
+		app.Response(c, errno.ErrPasswordIncorrect, nil)
 		return
 	}
 
 	// Sign the json web token.
 	t, err := token.Sign(c, token.Context{ID: d.Id, Username: d.Username}, "")
 	if err != nil {
-		SendResponse(c, errno.ErrToken, nil)
+		app.Response(c, errno.ErrToken, nil)
 		return
 	}
 
-	SendResponse(c, nil, model.Token{Token: t})
+	app.Response(c, nil, model.Token{Token: t})
 }

@@ -9,6 +9,7 @@ import (
 	"github.com/1024casts/1024casts/service"
 	"github.com/1024casts/1024casts/util"
 
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/lexkong/log/lager"
@@ -31,7 +32,7 @@ func Update(c *gin.Context) {
 	// Binding the user data.
 	var u model.UserModel
 	if err := c.Bind(&u); err != nil {
-		SendResponse(c, errno.ErrBind, nil)
+		app.Response(c, errno.ErrBind, nil)
 		return
 	}
 
@@ -42,20 +43,20 @@ func Update(c *gin.Context) {
 	//user, err := model.GetUserById(userId)
 	_, err := srv.GetUserById(uint64(userId))
 	if err != nil {
-		SendResponse(c, errno.ErrUserNotFound, nil)
+		app.Response(c, errno.ErrUserNotFound, nil)
 		log.Warn("user info", lager.Data{"id": userId})
 		return
 	}
 
 	// Validate the data.
 	if err := u.Validate(); err != nil {
-		SendResponse(c, errno.ErrValidation, nil)
+		app.Response(c, errno.ErrValidation, nil)
 		return
 	}
 
 	// Encrypt the user password.
 	if err := u.Encrypt(); err != nil {
-		SendResponse(c, errno.ErrEncrypt, nil)
+		app.Response(c, errno.ErrEncrypt, nil)
 		return
 	}
 
@@ -66,9 +67,9 @@ func Update(c *gin.Context) {
 	userMap["real_name"] = u.RealName
 
 	if err := srv.UpdateUser(userMap, u.Id); err != nil {
-		SendResponse(c, errno.ErrDatabase, nil)
+		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
 
-	SendResponse(c, nil, nil)
+	app.Response(c, nil, nil)
 }

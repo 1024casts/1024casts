@@ -8,6 +8,7 @@ import (
 	"github.com/1024casts/1024casts/service"
 	"github.com/1024casts/1024casts/util"
 
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/lexkong/log/lager"
@@ -30,14 +31,14 @@ func UpdateStatus(c *gin.Context) {
 	// Binding the user data.
 	var req UpdateReq
 	if err := c.Bind(&req); err != nil {
-		SendResponse(c, errno.ErrBind, nil)
+		app.Response(c, errno.ErrBind, nil)
 		return
 	}
 
 	srv := service.NewUserService()
 	_, err := srv.GetUserById(uint64(userId))
 	if err != nil {
-		SendResponse(c, errno.ErrUserNotFound, nil)
+		app.Response(c, errno.ErrUserNotFound, nil)
 		log.Warn("user info", lager.Data{"id": userId})
 		return
 	}
@@ -47,9 +48,9 @@ func UpdateStatus(c *gin.Context) {
 	userMap["status"] = req.Status
 
 	if err := srv.UpdateUser(userMap, uint64(userId)); err != nil {
-		SendResponse(c, errno.ErrDatabase, nil)
+		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
 
-	SendResponse(c, nil, nil)
+	app.Response(c, nil, nil)
 }

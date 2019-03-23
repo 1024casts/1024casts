@@ -7,6 +7,7 @@ import (
 	"github.com/1024casts/1024casts/pkg/errno"
 	"github.com/1024casts/1024casts/service"
 
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,9 +26,9 @@ func Delete(c *gin.Context) {
 	err := srv.DeleteUser(uint64(userId))
 
 	if err != nil {
-		SendResponse(c, errno.ErrDatabase, nil)
+		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
 
-	SendResponse(c, nil, nil)
+	app.Response(c, nil, nil)
 }

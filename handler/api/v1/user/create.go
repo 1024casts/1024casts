@@ -1,12 +1,12 @@
 package user
 
 import (
-	. "github.com/1024casts/1024casts/handler"
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/pkg/errno"
 	"github.com/1024casts/1024casts/service"
 	"github.com/1024casts/1024casts/util"
 
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/lexkong/log/lager"
@@ -24,7 +24,7 @@ func Create(c *gin.Context) {
 	log.Info("User Create function called.", lager.Data{"X-Request-Id": util.GetReqID(c)})
 	var r CreateRequest
 	if err := c.Bind(&r); err != nil {
-		SendResponse(c, errno.ErrBind, nil)
+		app.Response(c, errno.ErrBind, nil)
 		return
 	}
 
@@ -36,20 +36,20 @@ func Create(c *gin.Context) {
 
 	// Validate the data.
 	if err := u.Validate(); err != nil {
-		SendResponse(c, errno.ErrValidation, nil)
+		app.Response(c, errno.ErrValidation, nil)
 		return
 	}
 
 	// Encrypt the user password.
 	if err := u.Encrypt(); err != nil {
-		SendResponse(c, errno.ErrEncrypt, nil)
+		app.Response(c, errno.ErrEncrypt, nil)
 		return
 	}
 	// Insert the user to the database.
 	srv := service.NewUserService()
 	userId, err := srv.CreateUser(u)
 	if err != nil {
-		SendResponse(c, errno.ErrDatabase, nil)
+		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
 
@@ -58,5 +58,5 @@ func Create(c *gin.Context) {
 	}
 
 	// Show the user information.
-	SendResponse(c, nil, resp)
+	app.Response(c, nil, resp)
 }

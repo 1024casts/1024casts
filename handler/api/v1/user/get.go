@@ -8,6 +8,7 @@ import (
 	"github.com/1024casts/1024casts/pkg/token"
 	"github.com/1024casts/1024casts/service"
 
+	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/lexkong/log/lager"
@@ -42,12 +43,12 @@ func Get(c *gin.Context) {
 
 	user, err := srv.GetUserById(userId)
 	if err != nil {
-		SendResponse(c, errno.ErrUserNotFound, nil)
+		app.Response(c, errno.ErrUserNotFound, nil)
 		return
 	}
 
 	roles := []string{"admin"}
 	user.Roles = roles
 
-	SendResponse(c, nil, user)
+	app.Response(c, nil, user)
 }

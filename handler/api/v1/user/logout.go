@@ -3,6 +3,7 @@ package user
 import (
 	. "github.com/1024casts/1024casts/handler"
 	"github.com/1024casts/1024casts/model"
+	"github.com/1024casts/1024casts/pkg/app"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,5 +16,5 @@ import (
 // @Router /logout [post]
 func Logout(c *gin.Context) {
 
-	SendResponse(c, nil, model.Token{Token: ""})
+	app.Response(c, nil, model.Token{Token: ""})
 }
