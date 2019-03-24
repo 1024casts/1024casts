@@ -16,12 +16,13 @@ import (
 	"github.com/1024casts/1024casts/handler/sd"
 	webCourse "github.com/1024casts/1024casts/handler/web/course"
 	webPlan "github.com/1024casts/1024casts/handler/web/plan"
+	webTopic "github.com/1024casts/1024casts/handler/web/topic"
 	webUser "github.com/1024casts/1024casts/handler/web/user"
 	"github.com/1024casts/1024casts/handler/web/wiki"
 
 	"github.com/1024casts/1024casts/handler/api/v1/video"
 	"github.com/1024casts/1024casts/handler/web"
-	"github.com/1024casts/1024casts/handler/web/topic"
+
 	"github.com/foolin/gin-template"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
@@ -106,9 +107,9 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	// Middlewares.
 	router.Use(gin.Recovery())
 	// 404 Handler.
-	//g.NoRoute(func(c *gin.Context) {
-	//	c.String(http.StatusNotFound, "The incorrect API route.")
-	//})
+	g.NoRoute(func(c *gin.Context) {
+		web.Error404(c)
+	})
 
 	router.Use(static.Serve("/static", static.LocalFile(viper.GetString("static"), false)))
 
@@ -128,9 +129,9 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 
 	router.GET("/", web.Index)
 	router.GET("/login", webUser.GetLogin)
-	router.POST("/login", webUser.Login)
+	router.POST("/login", webUser.DoLogin)
 	router.GET("/register", webUser.GetRegister)
-	router.POST("/register", webUser.Register)
+	router.POST("/register", webUser.DoRegister)
 	router.GET("/logout", webUser.Logout)
 	router.GET("/users/:username", webUser.Profile)             // 个人资料
 	router.GET("/users/:username/topics", webUser.Logout)       // 发表过的主题
@@ -139,19 +140,19 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/users/:username/following", webUser.Following) // 正在关注的人
 	router.GET("/users/:username/followers", webUser.Follower)  // 关注者(粉丝)
 
-	router.Use(middleware.CookieMiddleware()).GET("/settings", webUser.Setting)
+	router.Use(middleware.CookieMiddleware()).GET("/settings/profile", webUser.Setting)
 	router.Use(middleware.CookieMiddleware()).GET("/notifications", webUser.Notification)
 
 	router.GET("/courses", webCourse.Index)
 	router.GET("/courses/:slug", webCourse.Detail)
 
-	router.GET("/topics", topic.Index)
-	router.GET("/topics/:id", topic.Detail)
+	router.GET("/topics", webTopic.Index)
+	router.GET("/topics/:id", webTopic.Detail)
 	t := router.Group("/topic")
 	t.Use(middleware.CookieMiddleware())
 	{
-		t.GET("/new", topic.Create)
-		t.POST("/new", topic.Create)
+		t.GET("/new", webTopic.Create)
+		t.POST("/new", webTopic.Create)
 	}
 
 	router.GET("/vip", webPlan.Index)
