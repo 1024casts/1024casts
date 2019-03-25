@@ -140,8 +140,17 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/users/:username/following", webUser.Following) // 正在关注的人
 	router.GET("/users/:username/followers", webUser.Follower)  // 关注者(粉丝)
 
-	router.Use(middleware.CookieMiddleware()).GET("/settings/profile", webUser.Setting)
-	router.Use(middleware.CookieMiddleware()).GET("/notifications", webUser.Notification)
+	settingRoutes := router.Group("/settings")
+	settingRoutes.Use(middleware.CookieMiddleware())
+	{
+		settingRoutes.GET("/profile", webUser.Setting)
+	}
+
+	notificationRoute := router.Group("/notifications")
+	notificationRoute.Use(middleware.CookieMiddleware())
+	{
+		notificationRoute.GET("", webUser.Notification)
+	}
 
 	router.GET("/courses", webCourse.Index)
 	router.GET("/courses/:slug", webCourse.Detail)
