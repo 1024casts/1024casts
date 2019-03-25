@@ -21,7 +21,7 @@ func GetRegister(c *gin.Context) {
 	})
 }
 
-func Register(c *gin.Context) {
+func DoRegister(c *gin.Context) {
 	log.Info("User Create function called.", lager.Data{"X-Request-Id": util.GetReqID(c)})
 	var r CreateRequest
 	if err := c.Bind(&r); err != nil {
