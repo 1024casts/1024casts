@@ -23,6 +23,7 @@ import (
 	"github.com/1024casts/1024casts/handler/api/v1/video"
 	"github.com/1024casts/1024casts/handler/web"
 
+	"github.com/1024casts/1024casts/handler/web/notification"
 	"github.com/foolin/gin-template"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
@@ -149,7 +150,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	notificationRoute := router.Group("/notifications")
 	notificationRoute.Use(middleware.CookieMiddleware())
 	{
-		notificationRoute.GET("", webUser.Notification)
+		notificationRoute.GET("", notification.List)
 	}
 
 	router.GET("/courses", webCourse.Index)
