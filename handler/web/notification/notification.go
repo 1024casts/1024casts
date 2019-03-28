@@ -1,4 +1,4 @@
-package user
+package notification
 
 import (
 	"net/http"
@@ -7,8 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Notification(c *gin.Context) {
-	c.HTML(http.StatusOK, "user/notification", gin.H{
+func List(c *gin.Context) {
+	c.HTML(http.StatusOK, "notification/list", gin.H{
 		"title":   "通知",
 		"user_id": util.GetUserId(c),
 	})
