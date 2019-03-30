@@ -6,6 +6,7 @@ import (
 
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/repository"
+	"github.com/lexkong/log"
 )
 
 type UserService struct {
@@ -36,6 +37,17 @@ func (srv *UserService) GetUserById(id uint64) (*model.UserModel, error) {
 	}
 
 	return user, nil
+}
+
+func (srv *UserService) GetUserNameById(id uint64) string {
+	user, err := srv.userRepo.GetUserById(id)
+
+	if err != nil {
+		log.Warnf("[service] get user info err: %v", err)
+		return ""
+	}
+
+	return user.Username
 }
 
 func (srv *UserService) GetUserByUsername(username string) (*model.UserModel, error) {
