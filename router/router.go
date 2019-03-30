@@ -23,6 +23,8 @@ import (
 	"github.com/1024casts/1024casts/handler/api/v1/video"
 	"github.com/1024casts/1024casts/handler/web"
 
+	"time"
+
 	"github.com/1024casts/1024casts/handler/web/notification"
 	"github.com/foolin/gin-template"
 	"github.com/gin-contrib/static"
@@ -124,6 +126,9 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 			"sub": func(a, b int) int {
 				return a - b
 			},
+			"copy": func() string {
+				return time.Now().Format("2006")
+			},
 		},
 		DisableCache: true,
 	})
@@ -134,7 +139,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/register", webUser.GetRegister)
 	router.POST("/register", webUser.DoRegister)
 	router.GET("/logout", webUser.Logout)
-	router.GET("/users/:username", webUser.Profile)             // 个人资料
+	router.GET("/users/:username", webUser.Index)               // 个人首页
 	router.GET("/users/:username/topics", webUser.Logout)       // 发表过的主题
 	router.GET("/users/:username/replies", webUser.Logout)      // 回复过的
 	router.GET("/users/:username/favorites", webUser.Logout)    // 收藏过的
@@ -144,7 +149,9 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	settingRoutes := router.Group("/settings")
 	settingRoutes.Use(middleware.CookieMiddleware())
 	{
-		settingRoutes.GET("/profile", webUser.Setting)
+		settingRoutes.GET("/basic", webUser.Basic)
+		settingRoutes.GET("/profile", webUser.Profile)
+		settingRoutes.GET("/password", webUser.Password)
 	}
 
 	notificationRoute := router.Group("/notifications")
