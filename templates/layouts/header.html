@@ -25,6 +25,7 @@
                 <i class="fa btn-search fa-search"></i>
                 <input class="form-control" name="q" type="text" value="" placeholder="搜索本站内容">
             </form>
+            {{if .user_id}}
             <ul class="nav navbar-nav user-bar align-items-center justify-content-end">
                 <li class="nav-item notification-count">
                     <a href="/notifications" class="nav-link " title="通知"><i class="fa fa-bell"></i><span class="count">0</span></a>
@@ -45,16 +46,21 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-user-menu">
                         <a class="dropdown-item" href="/users/{{.user_id}}">qloog</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/settings/profile">个人资料设置</a>
+                        <a class="dropdown-item" href="/settings/basic">设置</a>
 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" rel="nofollow" data-method="delete" href="/logout">退出</a>
                     </div>
                 </li>
             </ul>
+            {{else}}
+            <ul class="nav navbar-nav user-bar align-items-center justify-content-end">
 
+                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
 
-
+                <li class="nav-item"><a class="nav-link" href="/login">登录</a></li>
+            </ul>
+            {{end}}
         </div>
     </div>
 </div>
