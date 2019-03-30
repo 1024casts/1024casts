@@ -74,10 +74,10 @@
                 this.$http.post("/login", bodyFormData, config).then((response) => {
                     console.log(response);
                     if (response.data.code === 0) {
-                        alert("login ok");
                         $("#inputEmail").removeClass("is-invalid");
                         $("#inputPassword").removeClass("is-invalid");
                         $(".loginBtn").button("reset");
+                        window.location.href = "/";
                         return true;
                     } else {
                         alert("login error");
