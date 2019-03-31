@@ -123,8 +123,12 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 		Master:    "layouts/master",
 		Partials:  []string{},
 		Funcs: template.FuncMap{
-			"sub": func(a, b int) int {
-				return a - b
+			"isActive": func(ctx *gin.Context, currentUri string) string {
+				if ctx.Request.RequestURI == currentUri {
+					return "active"
+				} else {
+					return ""
+				}
 			},
 			"copy": func() string {
 				return time.Now().Format("2006")
