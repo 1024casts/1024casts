@@ -8,18 +8,14 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-2 col-md-offset-1 setting-menu">
+        <div class="col-sm-3 col-md-offset-1 setting-menu">
             <div class="card">
-                <ul class="nav nav-pills flex-column nav-stacked">
-                    <li class="nav-item"><a class="nav-link active" href="/settings/basic"><i class="fa fa-user-circle"></i> <span>基本信息</span></a></li>
-                    <li class="nav-item"><a class="nav-link hide-ios" href="/settings/profile"><i class="fa fa-address-card"></i> <span>个人资料</span></a></li>
-                    <li class="nav-item"><a class="nav-link hide-ios" href="/settings/password"><i class="fa fa-keyboard-o"></i> <span>修改密码</span></a></li>
-                </ul>
+                {{include "user/sidebar"}}
             </div>
         </div>
 
 
-        <div class="col-md-10">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-body">
                     <form class="edit_user" id="edit_user_10523" enctype="multipart/form-data" action="/setting" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="put"><input type="hidden" name="authenticity_token" value="IAmeDPdvSwq3fvl4AWlTxr7PhZOv/hqAL/MpezgwSwxE+Ubv7o52Jqn1hvYUDiYWKa5BFXCVn0zdg2AmC7cQ1A==">
@@ -27,19 +23,19 @@
                         <input type="hidden" name="by" value="profile">
                         <div class="form-group">
                             <label for="user_location">城市</label>
-                            <input class="form-control" style="width: 200px" type="text" name="user[location]" id="user_location">
+                            <input class="form-control" style="width: 200px" type="text" name="city" value="{{.user.City}}" id="city">
                         </div>
 
                         <div class="form-group">
                             <label for="user_company">公司</label>
-                            <input class="form-control" style="width: 400px" type="text" name="user[company]" id="user_company">
+                            <input class="form-control" style="width: 400px" type="text" name="company" value="{{.user.Company}}" id="company">
                         </div>
 
                         <div class="form-group">
                             <label for="user_github">GitHub</label>
                             <div class="input-group">
                                 <span class="input-group-prepend"><span class="input-group-text">https://github.com/</span></span>
-                                <input class="form-control" type="text" name="user[github]" id="user_github">
+                                <input class="form-control" type="text" name="github_id" value="{{.user.GithubId}}" id="github_id">
                             </div>
                         </div>
 
@@ -47,24 +43,13 @@
                             <label for="user_twitter">Twitter</label>
                             <div class="input-group">
                                 <span class="input-group-prepend"><span class="input-group-text">https://twitter.com/</span></span>
-                                <input class="form-control" type="text" name="user[twitter]" id="user_twitter">
+                                <input class="form-control" type="text" name="user[twitter]" value="" id="user_twitter">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="user_website">个人主页</label>
-                            <input type="url" class="form-control" placeholder="http://" name="user[website]" id="user_website">
-                        </div>
-
-                        <div class="form-group form-group-profile-field-alipay">
-                            <label for="user_profile_alipay">支付宝</label>
-                            <input class="form-control" type="text" value="" name="user[profiles][alipay]" id="user_profile_alipay">
-
-                        </div>
-                        <div class="form-group form-group-profile-field-wechat">
-                            <label for="user_profile_wechat">微信</label>
-                            <input class="form-control" type="text" value="" name="user[profiles][wechat]" id="user_profile_wechat">
-
+                            <input type="url" class="form-control" placeholder="http://" name="person_website" value="{{.user.PersonalWebsite}}" id="person_website">
                         </div>
 
                         <div class="form-group">

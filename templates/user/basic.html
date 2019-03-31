@@ -1,21 +1,20 @@
 {{ define "css"}}
+<style type="text/css">
+    body {background: #e5e5e5;}
+</style>
 {{ end }}
 
 {{define "content"}}
 <div class="container">
     <div class="row">
-        <div class="col-sm-2 col-md-offset-1 setting-menu">
+        <div class="col-sm-3 col-md-offset-1 setting-menu">
             <div class="card">
-                <ul class="nav nav-pills flex-column nav-stacked">
-                    <li class="nav-item"><a class="nav-link active" href="/settings/basic"><i class="fa fa-user-circle"></i> <span>基本信息</span></a></li>
-                    <li class="nav-item"><a class="nav-link hide-ios" href="/settings/profile"><i class="fa fa-address-card"></i> <span>个人资料</span></a></li>
-                    <li class="nav-item"><a class="nav-link hide-ios" href="/settings/password"><i class="fa fa-keyboard-o"></i> <span>修改密码</span></a></li>
-                </ul>
+            {{include "user/sidebar"}}
             </div>
         </div>
 
 
-        <div class="col-md-10">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-body">
                     <form class="edit_user" id="edit_user_10523" enctype="multipart/form-data" action="/setting" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="put"><input type="hidden" name="authenticity_token" value="yGCNXwtvX9oHnb6TJ/tg0Sp1N20sFJuQ0M/80N2pb7Gb+gGhSvbuSIkZ9TUWJ+n9t4QX8PupJBxaoeN48qbasA==">
@@ -25,12 +24,12 @@
 
                                 <div class="form-group">
                                     <label class="control-label">姓名</label>
-                                    <input style="width: 200px" class="form-control" placeholder="姓名" type="text" value="qloog" name="user[name]" id="user_name">
+                                    <input style="width: 200px" class="form-control" placeholder="姓名" type="text" value="{{.user.Username}}" name="user[name]" id="user_name">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="control-label">Email</label>
-                                    <input disabled="disabled" class="form-control" placeholder="Email" type="text" value="wql2008@vip.qq.com" name="user[email]" id="user_email">
+                                    <input disabled="disabled" class="form-control" placeholder="Email" type="text" value="{{.user.Email}}" name="user[email]" id="user_email">
                                 </div>
 
                                 <div class="form-group form-check">
