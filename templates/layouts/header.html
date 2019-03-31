@@ -12,11 +12,11 @@
             </div>
 
             <ul id="main-nav-menu" class="navbar-nav d-flex">
-                <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
-                <li class="nav-item"><a class="nav-link" href="/courses">课程</a></li>
-                <li class="nav-item"><a class="nav-link active" href="/topics">社区</a></li>
-                <li class="nav-item"><a class="nav-link" href="/vip">订阅</a></li>
-                <li class="nav-item"><a class="nav-link" href="/wiki">Wiki</a></li>
+                <li class="nav-item"><a class="nav-link {{isActive .ctx "/"}}" href="/">首页</a></li>
+                <li class="nav-item"><a class="nav-link {{isActive .ctx "/courses"}}" href="/courses">课程</a></li>
+                <li class="nav-item"><a class="nav-link {{isActive .ctx "/topics"}}" href="/topics">社区</a></li>
+                <li class="nav-item"><a class="nav-link {{isActive .ctx "/vip"}}" href="/vip">订阅</a></li>
+                <li class="nav-item"><a class="nav-link {{isActive .ctx "/wiki"}}" href="/wiki">Wiki</a></li>
             </ul>
 
         </div>
@@ -44,7 +44,7 @@
                         <img class="media-object avatar-32" src="https://ruby-china.org/system/letter_avatars/2/Q/194_194_194/64.png">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-user-menu">
-                        <a class="dropdown-item" href="/users/{{.user_id}}">qloog</a>
+                        <a class="dropdown-item" href="/users/{{.user.Username}}">{{.user.Username}}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/settings/basic">设置</a>
 
