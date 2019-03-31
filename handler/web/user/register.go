@@ -16,8 +16,8 @@ import (
 
 func GetRegister(c *gin.Context) {
 	c.HTML(http.StatusOK, "user/register", gin.H{
-		"title":   "VIP订阅",
-		"user_id": 1,
+		"title": "VIP订阅",
+		"ctx":   c,
 	})
 }
 

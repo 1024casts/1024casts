@@ -16,8 +16,8 @@ import (
 
 func GetLogin(c *gin.Context) {
 	c.HTML(http.StatusOK, "user/login", gin.H{
-		"title":   "VIP订阅",
-		"user_id": 1,
+		"title": "登录",
+		"ctx":   c,
 	})
 }
 
