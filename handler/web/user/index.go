@@ -11,11 +11,17 @@ import (
 func Index(c *gin.Context) {
 	userId := util.GetUserId(c)
 	srv := service.NewUserService()
+	user, err := srv.GetUserById(userId)
+	if err != nil {
+		c.HTML(http.StatusNotFound, "error/404", gin.H{})
+		return
+	}
 
 	c.HTML(http.StatusOK, "user/index", gin.H{
-		"title":     "个人资料",
-		"user_id":   userId,
-		"user_name": srv.GetUserNameById(userId),
+		"title":   "个人中心",
+		"user_id": userId,
+		"user":    user,
+		"ctx":     c,
 		"add": func(a int, b int) int {
 			return a + b
 		},
