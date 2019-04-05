@@ -7,15 +7,29 @@
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <form class="form-signin" action="/auth/login" method="post">
+            <form id="app" class="form-signin" action="/auth/login" method="post">
                 <img class="mb-4" src="/docs/4.2/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
                 <h1 class="h3 mb-3 font-weight-normal">注册</h1>
+                <label for="inputEmail" class="sr-only">用户名</label>
+                <input type="text" name="username" id="inputUsername" class="form-control" v-model="username" placeholder="用户名" required autofocus>
+                <div class="invalid-feedback">
+                    用户名填写错误哦
+                </div>
                 <label for="inputEmail" class="sr-only">Email</label>
-                <input type="email" name="username" id="inputEmail" class="form-control" placeholder="邮箱地址" required autofocus>
+                <input type="email" name="email" id="inputEmail" class="form-control" v-model="email" placeholder="邮箱地址" required autofocus>
+                <div class="invalid-feedback">
+                    邮箱填写错误哦
+                </div>
                 <label for="inputPassword" class="sr-only">密码</label>
-                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="密码" required>
-                <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="确认密码" required>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+                <input type="password" name="password" id="inputPassword" class="form-control" v-model="password" placeholder="密码" required>
+                <div class="invalid-feedback">
+                    密码填写错误哦
+                </div>
+                <input type="password" name="confirm_password" id="confirm_password" class="form-control" v-model="confirm_password" placeholder="确认密码" required>
+                <div class="invalid-feedback">
+                    确认密码与密码不一致
+                </div>
+                <button class="btn btn-lg btn-primary btn-block registerBtn" data-loading-text="Loading..." @click="doRegister">注册</button>
             </form>
         </div>
         <div class="col-md-4"></div>
@@ -26,4 +40,80 @@
 {{ end }}
 
 {{ define "js"}}
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            username: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+        },
+        delimiters:['${', '}'],
+        methods: {
+            doRegister: function (e) {
+                e.preventDefault();
+                if (this.username == '') {
+                    $("#inputUsername").addClass("is-invalid");
+                    return false;
+                } else {
+                    $("#inputUsername").removeClass("is-invalid").addClass("is-valid");
+                }
+                if (this.email == '') {
+                    $("#inputEmail").addClass("is-invalid");
+                    return false;
+                } else {
+                    $("#inputEmail").removeClass("is-invalid").addClass("is-valid");
+                }
+                if (this.password == '') {
+                    $("#inputPassword").addClass("is-invalid");
+                    return false;
+                } else {
+                    $("#inputPassword").removeClass("is-invalid").addClass("is-valid");
+                }
+                if (this.confirmPassword == '') {
+                    $("#confirm_password").addClass("is-invalid");
+                    return false;
+                } else {
+                    $("#confirm_password").removeClass("is-invalid").addClass("is-valid");
+                }
+                if (this.password != this.confirmPassword) {
+                    $("#confirm_password").addClass("is-invalid");
+                } else {
+                    $("#confirm_password").removeClass("is-invalid").addClass("is-valid");
+                }
+                $(".registerBtn").button("loading");
+
+                var bodyFormData = new FormData();
+                bodyFormData.set('username', this.username);
+                bodyFormData.set('email', this.email);
+                bodyFormData.set('password', this.password);
+                bodyFormData.set('confirm_password', this.confirmPassword);
+                let config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                };
+                this.$http.post("/register", bodyFormData, config).then((response) => {
+                    console.log(response);
+                    if (response.data.code === 0) {
+                        $("#inputUsername").removeClass("is-invalid");
+                        $("#inputEmail").removeClass("is-invalid");
+                        $("#inputPassword").removeClass("is-invalid");
+                        $(".loginBtn").button("reset");
+                        window.location.href = "/login";
+                        return true;
+                    } else {
+                        alert("register error");
+                        $(".registerBtn").button("reset");
+                        return false;
+                    }
+                }).catch( error => {
+                    console.log(error);
+                });
+            }
+        }
+    })
+</script>
 {{ end }}

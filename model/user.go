@@ -33,7 +33,7 @@ type UserModel struct {
 	GithubId          string    `json:"github_id" gorm:"column:github_id" binding:"omitempty"`
 	RememberToken     string    `json:"remember_token" gorm:"column:remember_token" binding:"omitempty"`
 	IsActivated       int       `json:"is_activated" gorm:"column:is_activated" binding:"omitempty"`
-	Roles             []string  `json:"roles"`
+	Roles             []string  `json:"roles" gorm:"-"`
 }
 
 type UserList struct {

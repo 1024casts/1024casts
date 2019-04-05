@@ -15,6 +15,13 @@ type LoginCredentials struct {
 	Password string `json:"password" form:"password"`
 }
 
+type RegisterRequest struct {
+	Username        string `json:"username" form:"username"`
+	Email           string `json:"email" form:"email"`
+	Password        string `json:"password" form:"password"`
+	ConfirmPassword string `json:"confirm_password" form:"confirm_password"`
+}
+
 type CreateResponse struct {
 	Id uint64 `json:"id"`
 }

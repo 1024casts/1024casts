@@ -22,8 +22,8 @@ func GetRegister(c *gin.Context) {
 }
 
 func DoRegister(c *gin.Context) {
-	log.Info("User Create function called.", lager.Data{"X-Request-Id": util.GetReqID(c)})
-	var r CreateRequest
+	log.Info("User Register function called.", lager.Data{"X-Request-Id": util.GetReqID(c)})
+	var r RegisterRequest
 	if err := c.Bind(&r); err != nil {
 		app.Response(c, errno.ErrBind, nil)
 		return
@@ -31,8 +31,8 @@ func DoRegister(c *gin.Context) {
 
 	u := model.UserModel{
 		Username: r.Username,
-		Password: r.Password,
 		Email:    r.Email,
+		Password: r.Password,
 	}
 
 	// Validate the data.
@@ -53,6 +53,10 @@ func DoRegister(c *gin.Context) {
 		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
+
+	// todo:
+	// 1、写入到激活码到
+	// 2、发送激活邮件
 
 	resp := CreateResponse{
 		Id: userId,
