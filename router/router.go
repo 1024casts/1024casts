@@ -142,6 +142,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	router.POST("/login", webUser.DoLogin)
 	router.GET("/register", webUser.GetRegister)
 	router.POST("/register", webUser.DoRegister)
+	router.GET("/users/activation/:code", webUser.ActiveUser)
 	router.GET("/logout", webUser.Logout)
 	router.GET("/users/:username", webUser.Index)               // 个人首页
 	router.GET("/users/:username/topics", webUser.Logout)       // 发表过的主题
