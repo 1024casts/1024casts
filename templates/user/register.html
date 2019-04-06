@@ -1,4 +1,7 @@
 {{ define "css"}}
+<style type="text/css">
+    body {background: #e5e5e5;}
+</style>
 {{ end }}
 
 {{ define "content"}}
@@ -7,27 +10,34 @@
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <form id="app" class="form-signin" action="/auth/login" method="post">
-                <img class="mb-4" src="/docs/4.2/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <form id="app" class="form-signin">
                 <h1 class="h3 mb-3 font-weight-normal">注册</h1>
-                <label for="inputEmail" class="sr-only">用户名</label>
-                <input type="text" name="username" id="inputUsername" class="form-control" v-model="username" placeholder="用户名" required autofocus>
-                <div class="invalid-feedback">
-                    用户名填写错误哦
+                <div class="form-group">
+                    <label for="inputEmail" class="sr-only">用户名</label>
+                    <input type="text" name="username" id="inputUsername" class="form-control" v-model="username" placeholder="用户名" required autofocus>
+                    <div class="invalid-feedback">
+                        用户名填写错误哦
+                    </div>
                 </div>
-                <label for="inputEmail" class="sr-only">Email</label>
-                <input type="email" name="email" id="inputEmail" class="form-control" v-model="email" placeholder="邮箱地址" required autofocus>
-                <div class="invalid-feedback">
-                    邮箱填写错误哦
+                <div class="form-group">
+                    <label for="inputEmail" class="sr-only">Email</label>
+                    <input type="email" name="email" id="inputEmail" class="form-control" v-model="email" placeholder="邮箱地址" required autofocus>
+                    <div class="invalid-feedback">
+                        邮箱填写错误哦
+                    </div>
                 </div>
-                <label for="inputPassword" class="sr-only">密码</label>
-                <input type="password" name="password" id="inputPassword" class="form-control" v-model="password" placeholder="密码" required>
-                <div class="invalid-feedback">
-                    密码填写错误哦
+                <div class="form-group">
+                    <label for="inputPassword" class="sr-only">密码</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" v-model="password" placeholder="密码" required>
+                    <div class="invalid-feedback">
+                        密码填写错误哦
+                    </div>
                 </div>
-                <input type="password" name="confirm_password" id="confirm_password" class="form-control" v-model="confirm_password" placeholder="确认密码" required>
-                <div class="invalid-feedback">
-                    确认密码与密码不一致
+                <div class="form-group">
+                    <input type="password" name="confirm_password" id="confirm_password" class="form-control" v-model="confirm_password" placeholder="确认密码" required>
+                    <div class="invalid-feedback">
+                        确认密码与密码不一致
+                    </div>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block registerBtn" data-loading-text="Loading..." @click="doRegister">注册</button>
             </form>
@@ -48,7 +58,7 @@
             username: '',
             email: '',
             password: '',
-            confirmPassword: ''
+            confirm_password: ''
         },
         delimiters:['${', '}'],
         methods: {
@@ -78,7 +88,7 @@
                 } else {
                     $("#confirm_password").removeClass("is-invalid").addClass("is-valid");
                 }
-                if (this.password != this.confirmPassword) {
+                if (this.password != this.confirm_password) {
                     $("#confirm_password").addClass("is-invalid");
                 } else {
                     $("#confirm_password").removeClass("is-invalid").addClass("is-valid");
