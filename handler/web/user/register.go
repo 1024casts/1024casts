@@ -48,15 +48,11 @@ func DoRegister(c *gin.Context) {
 	}
 	// Insert the user to the database.
 	srv := service.NewUserService()
-	userId, err := srv.CreateUser(u)
+	userId, err := srv.RegisterUser(u)
 	if err != nil {
 		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
-
-	// todo:
-	// 1、写入到激活码到
-	// 2、发送激活邮件
 
 	resp := CreateResponse{
 		Id: userId,
@@ -64,4 +60,8 @@ func DoRegister(c *gin.Context) {
 
 	// Show the user information.
 	app.Response(c, nil, resp)
+}
+
+func ActiveUser(c *gin.Context) {
+
 }
