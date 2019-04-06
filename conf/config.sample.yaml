@@ -51,3 +51,8 @@ redis:
   password: "hLR6W2Hu4W"
   db: 0 # use default DB
   pool_size: 60
+mail:
+  host: smtp.163.com  # SMTP host
+  port: 25            # SMTP 端口号
+  username:           # 发件人的邮箱地址
+  password:           # 发件人密码
