@@ -35,25 +35,50 @@ func (srv *UserService) CreateUser(user model.UserModel) (id uint64, err error) 
 }
 
 func (srv *UserService) RegisterUser(user model.UserModel) (id uint64, err error) {
-
-	code, err := util.GenShortId()
+	token, err := util.GenShortId()
 	if err != nil {
-		log.Warnf("[user] gen code err: %v", err)
+		log.Warnf("[user] gen user activation token err: %v", err)
 		return 0, err
 	}
 
-	id, err = srv.userRepo.CreateUser(user)
+	db := model.DB.Self
+	tx := db.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
 
-	if err != nil {
-		return id, err
+	if tx.Error != nil {
+		return 0, err
 	}
 
-	// todo:
-	// 1、写入到激活码到
-	// 2、发送激活邮件
-	go sendActiveMail(user.Username, user.Email, code)
+	if err := tx.Create(&user).Error; err != nil {
+		tx.Rollback()
+		log.Warnf("[user] create user err: %v", err)
+		return 0, err
+	}
 
-	return id, nil
+	// 注册时候的一些处理
+	// 1、写入到激活码到表里
+	userActivationModel := model.UserActivationModel{}
+	userActivationModel.UserID = user.Id
+	userActivationModel.Token = token
+	if err := tx.Create(&userActivationModel).Error; err != nil {
+		tx.Rollback()
+		log.Warnf("[user] add user activation err: %v", err)
+	}
+
+	if err := tx.Commit().Error; err != nil {
+		tx.Rollback()
+		log.Warnf("[order] commit order fail, err: %+v", err)
+		return 0, err
+	}
+
+	// 2、发送激活邮件
+	go sendActiveMail(user.Username, user.Email, token)
+
+	return user.Id, nil
 }
 
 // 发送激活邮件
@@ -68,7 +93,7 @@ func sendActiveMail(username, toMail, activeCode string) {
 	// 主题
 	m.SetHeader("Subject", "1024课堂 - 帐号激活链接")
 	// 正文
-	activeUrl := fmt.Sprintf("https://1024casts.com/users/activation/%s", activeCode)
+	activeUrl := fmt.Sprintf("https://1024casts.com/users/%s/activation/%s", username, activeCode)
 	m.SetBody("text/html", "Hi, "+username+"<br>请激活您的帐号： <a href = '"+activeUrl+"'>"+activeUrl+"</a>")
 
 	// 发送邮件服务器、端口、发件人账号、发件人密码
