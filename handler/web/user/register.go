@@ -62,6 +62,46 @@ func DoRegister(c *gin.Context) {
 	app.Response(c, nil, resp)
 }
 
+// 通过链接激活用户
+// 格式为：https://1024casts.com/users/test105/activation/rRDHuqemg
 func ActiveUser(c *gin.Context) {
+	token := c.Param("token")
+	userActivation := model.UserActivationModel{}
+	model.DB.Self.Table(userActivation.TableName()).Where("token = ?", token).First(&userActivation)
 
+	if userActivation.UserID > 0 {
+		srv := service.NewUserService()
+		userInfo, err := srv.GetUserById(userActivation.UserID)
+		if err != nil {
+			log.Warnf("[register] active user err: %v", err)
+		}
+
+		if userInfo.IsActivated == 1 {
+			// 提示： 您的帐号已经激活
+			c.Redirect(http.StatusMovedPermanently, "/login")
+			c.Abort()
+			return
+		}
+
+		// 1. 更新用户is_activation == 1
+		userMap := map[string]interface{}{
+			"is_activated": 1,
+		}
+		err = srv.UpdateUser(userMap, userActivation.UserID)
+		if err != nil {
+			log.Warnf("[register] update user is_activation err: %v", err)
+		}
+		// 2. 删除 user_activation 表的记录
+		model.DB.Self.Table(userActivation.TableName()).Where("token = ?", token).Delete(&userActivation)
+
+		// 3. 提示：帐号已经激活成功，可以登录啦
+		c.Redirect(http.StatusMovedPermanently, "/login")
+		c.Abort()
+		return
+	}
+
+	// 提示：无效的激活链接
+	c.Redirect(http.StatusMovedPermanently, "/login")
+	c.Abort()
+	return
 }
