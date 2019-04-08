@@ -69,6 +69,7 @@ func ActiveUser(c *gin.Context) {
 	userActivation := model.UserActivationModel{}
 	model.DB.Self.Table(userActivation.TableName()).Where("token = ?", token).First(&userActivation)
 
+	// 存在说明需要激活
 	if userActivation.UserID > 0 {
 		srv := service.NewUserService()
 		userInfo, err := srv.GetUserById(userActivation.UserID)
