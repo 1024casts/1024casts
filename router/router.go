@@ -130,6 +130,9 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 					return ""
 				}
 			},
+			"frm": func(ctx *gin.Context) string {
+				return ctx.Query("frm")
+			},
 			"copy": func() string {
 				return time.Now().Format("2006")
 			},
