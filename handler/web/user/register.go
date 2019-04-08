@@ -79,7 +79,7 @@ func ActiveUser(c *gin.Context) {
 
 		if userInfo.IsActivated == 1 {
 			// 提示： 您的帐号已经激活
-			c.Redirect(http.StatusMovedPermanently, "/login")
+			c.Redirect(http.StatusMovedPermanently, "/login?frm=have-activated")
 			c.Abort()
 			return
 		}
@@ -96,13 +96,13 @@ func ActiveUser(c *gin.Context) {
 		model.DB.Self.Table(userActivation.TableName()).Where("token = ?", token).Delete(&userActivation)
 
 		// 3. 提示：帐号已经激活成功，可以登录啦
-		c.Redirect(http.StatusMovedPermanently, "/login")
+		c.Redirect(http.StatusMovedPermanently, "/login?frm=active_success")
 		c.Abort()
 		return
 	}
 
 	// 提示：无效的激活链接
-	c.Redirect(http.StatusMovedPermanently, "/login")
+	c.Redirect(http.StatusMovedPermanently, "/login?frm=invalid-link")
 	c.Abort()
 	return
 }
