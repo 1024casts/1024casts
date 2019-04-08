@@ -15,9 +15,11 @@ import (
 )
 
 func GetLogin(c *gin.Context) {
+	frm := c.Query("frm")
 	c.HTML(http.StatusOK, "user/login", gin.H{
 		"title": "登录",
 		"ctx":   c,
+		"frm":   frm,
 	})
 }
 
