@@ -20,17 +20,17 @@
         {{include "layouts/header"}}
     </header>
 
-    {{if ne .frm ""}}
+    {{if ne (frm .ctx) ""}}
     <div class="container" style="margin-top: 20px;">
-        {{if eq .frm "have-activated"}}
+        {{if eq (frm .ctx) "have-activated"}}
         <div class="alert alert-info" role="alert">
             您的帐号已经激活
         </div>
-        {{else if eq .frm "active_success"}}
+        {{else if eq (frm .ctx) "active_success"}}
         <div class="alert alert-success" role="alert">
             帐号已经激活成功，可以登录啦
         </div>
-        {{else if eq .frm "invalid-link"}}
+        {{else if eq (frm .ctx) "invalid-link"}}
         <div class="alert alert-danger" role="alert">
             无效的激活链接
         </div>
