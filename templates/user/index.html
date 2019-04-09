@@ -1,4 +1,7 @@
 {{ define "css"}}
+<style type="text/css">
+    body {background: #e5e5e5;}
+</style>
 {{ end }}
 
 {{define "content"}}
@@ -14,34 +17,36 @@
                         </div>
                         <div class="media-body">
                             <div class="item">
-                                gazeldx (张健){{call $.add 1 2}}
+                                {{.user.Username}} ({{if ne .user.RealName ""}}{{.user.RealName}}{{else}}{{.user.Username}}{{end}})
                                 <span class="opts pull-right">
-            </span>
+                                </span>
                             </div>
                             <div class="item number">
-                                第 68 位会员 / <span title="注册日期">2011-11-14</span>
+                                第 {{.user.Id}} 位会员 / <span title="注册日期">{{.user.CreatedAt}}</span>
                             </div>
                             <div class="item company">
-                                苏州某通讯公司
-                                @ <span title="所在地"><a href="/users/city/%E8%8B%8F%E5%B7%9E">苏州</a></span>
+                                {{.user.Company}}
+                                @ <span title="所在地"><a href="javascript:;">{{.user.City}}</a></span>
                             </div>
                             <div class="item counts">
-                                <span>76</span> 篇帖子 • <span>533</span> 条回帖
+
                             </div>
                             <div class="item social">
-                                <a class="twitter" rel="nofollow" href="https://twitter.com/zhangjian7"><i class="fa fa-twitter"></i></a>
-
-                                <a target="_blank" rel="nofollow" href="http://gazeldx.github.io"><i class="fa fa-globe"></i></a>
-
-                                <a target="_blank" rel="nofollow" href="https://github.com/gazeldx"><i class="fa fa-github"></i></a>
-
-                                <a href="mailto: zjloveztt@gmail.com"><i class="fa fa-envelope-o"></i></a>
+                                {{if .user.GithubId}}
+                                    <a target="_blank" rel="nofollow" href="https://github.com/{{.user.GithubId}}"><i class="fa fa-github"></i></a>
+                                {{end}}
+                                {{if .user.PersonalWebsite}}
+                                <a target="_blank" rel="nofollow" href="{{.user.PersonalWebsite}}"><i class="fa fa-globe"></i></a>
+                                {{end}}
+                                {{if .user.Email}}
+                                <a href="mailto: {{.user.Email}}"><i class="fa fa-envelope-o"></i></a>
+                                {{end}}
                             </div>
                         </div>
                     </div>
                     <div class="follow-info row hide-ios">
                         <div class="col-sm-4 followers" data-login="gazeldx">
-                            <a class="counter" href="/users/{{.user_name}}/followers">21</a>
+                            <a class="counter" href="/users/{{.user_name}}/followers">{{.user.FollowerCount}}</a>
                             <a class="text" href="/users/{{.user_name}}/followers">关注者</a>
                         </div>
                         <div class="col-sm-4 following">
@@ -95,62 +100,6 @@
                         </p></li>
                     <li class="list-group-item">
                         <div class="title">
-                            <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/meidebook">meidebook</a>
-                            <span class="watchers" title="14 Watchers">14</span>
-                        </div>
-                        <p class="desc">
-                            把好书送人，请他读完后传给下个人。
-                        </p></li>
-                    <li class="list-group-item">
-                        <div class="title">
-                            <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/free-erp">free-erp</a>
-                            <span class="watchers" title="1 Watchers">1</span>
-                        </div>
-                        <p class="desc">
-                            Open-sourced Free ERP and CRM SaaS for company or individuals.
-                        </p></li>
-                    <li class="list-group-item">
-                        <div class="title">
-                            <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/ruby-resources">ruby-resources</a>
-                            <span class="watchers" title="1 Watchers">1</span>
-                        </div>
-                        <p class="desc">
-                            Resources for Ruby Web or mobile App developer.
-                        </p></li>
-                    <li class="list-group-item">
-                        <div class="title">
-                            <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/thinkingCMS">thinkingCMS</a>
-                            <span class="watchers" title="1 Watchers">1</span>
-                        </div>
-                        <p class="desc">
-                            A Rails5 and bootstrap CMS. Demo at
-                        </p></li>
-                    <li class="list-group-item">
-                        <div class="title">
-                            <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/gazeldx.github.io">gazeldx.github.io</a>
-                            <span class="watchers" title="1 Watchers">1</span>
-                        </div>
-                        <p class="desc">
-                            ZhangJian(Lane)'s http://gazeldx.github.io/ 's repo
-                        </p></li>
-                    <li class="list-group-item">
-                        <div class="title">
-                            <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/dapan">dapan</a>
-                            <span class="watchers" title="1 Watchers">1</span>
-                        </div>
-                        <p class="desc">
-
-                        </p></li>
-                    <li class="list-group-item">
-                        <div class="title">
-                            <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/meteorhk">meteorhk</a>
-                            <span class="watchers" title="1 Watchers">1</span>
-                        </div>
-                        <p class="desc">
-                            http://meteor.hk 基于Meteor架构的中文论坛
-                        </p></li>
-                    <li class="list-group-item">
-                        <div class="title">
                             <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/haoshu">haoshu</a>
                             <span class="watchers" title="1 Watchers">1</span>
                         </div>
@@ -167,13 +116,53 @@
 
 
         <div class="col-md-8">
-            <ul class="users-menu nav nav-tabs"><li class="nav-item"><a class="nav-link active" href="/users/{{.user_name}}">个人信息</a></li>
-                <li class="nav-item"><a class="nav-link" href="/users/{{.user_name}}/topics">话题</a></li>
+            <ul class="users-menu nav nav-tabs">
+                <li class="nav-item"><a class="nav-link active" href="/users/{{.user_name}}/topics">话题</a></li>
                 <li class="nav-item"><a class="nav-link" href="/users/{{.user_name}}/replies">回帖</a></li>
                 <li class="nav-item"><a class="nav-link hide-ios hidden-mobile" href="/users/{{.user_name}}/favorites">收藏</a></li>
                 <li class="nav-item"><a class="nav-link hidden-mobile" href="/users/{{.user_name}}/following">正在关注</a></li>
                 <li class="nav-item"><a class="nav-link hidden-mobile" href="/users/{{.user_name}}/followers">关注者</a></li>
             </ul>
+            <div class="card">
+                <div class="card-body">
+                    <table class="node-topics table">
+                        <tbody><tr class="head">
+                            <td class="node hide-ios">节点</td>
+                            <td class="title">标题</td>
+                            <td class="replies">回复/赞</td>
+                        </tr>
+                        <tr class="topic odd ">
+                            <td class="node hide-ios"><a class="node" href="/topics/node68">翻译</a></td>
+                            <td class="title"><a href="/topics/38174">[译] 减慢 Rails 应用的 3 个 ActiveRecord 错用</a> <i title="" class="fa fa-diamond" data-toggle="tooltip" data-original-title="精华帖"></i> <em><abbr class="timeago" title="2019年03月01日">1 月前</abbr></em></td>
+                            <td class="replies">11/63 </td>
+                        </tr>
+                        <tr class="topic  ">
+                            <td class="node hide-ios"><a class="node" href="/topics/node22">反馈</a></td>
+                            <td class="title"><a href="/topics/36726">两个页面显示问题反馈</a>  <em><abbr class="timeago" title="2018年05月09日">2018年05月09日</abbr></em></td>
+                            <td class="replies">1/0 </td>
+                        </tr>
+                        <tr class="topic odd ">
+                            <td class="node hide-ios"><a class="node" href="/topics/node2">Rails</a></td>
+                            <td class="title"><a href="/topics/34599">怎么在删除话题的时候关联删除话题里的资源文件？</a>  <em><abbr class="timeago" title="2017年11月20日">2017年11月20日</abbr></em></td>
+                            <td class="replies">8/0 </td>
+                        </tr>
+                        <tr class="topic odd ">
+                            <td class="node hide-ios"><a class="node" href="/topics/node26">分享</a></td>
+                            <td class="title"><a href="/topics/32073">[译] 简单三步使用计数器缓存</a>  <em><abbr class="timeago" title="2017年01月08日">2017年01月08日</abbr></em></td>
+                            <td class="replies">0/0 </td>
+                        </tr>
+                        <tr class="topic  ">
+                            <td class="node hide-ios"><a class="node" href="/topics/node26">分享</a></td>
+                            <td class="title"><a href="/topics/31767">[译] Terminal 功夫——方便开发者的实用技巧</a> <i title="" class="fa fa-diamond" data-toggle="tooltip" data-original-title="精华帖"></i> <em><abbr class="timeago" title="2016年12月02日">2016年12月02日</abbr></em></td>
+                            <td class="replies">17/63 </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer clearfix">
+
+                </div>
+            </div>
 
             <div class="tabbable">
                 <ul class="nav nav-tabs">
@@ -192,150 +181,6 @@
                                     </div>
                                     <div class="info">
                                         <span class="counter">29 个赞 • 10 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node1">Ruby</a>
-                                        <a title="一个 String 类型处理不当导致的性能问题，在导出 CSV 文件等场景不注意就会中招" href="/topics/28402">一个 String 类型处理不当导致的性能问题，在导出 CSV 文件等场景不注意就会中招</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">13 个赞 • 12 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node27">瞎扯淡</a>
-                                        <a title="我兑现了一个月前的承诺" href="/topics/23439">我兑现了一个月前的承诺</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">13 个赞 • 37 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node27">瞎扯淡</a>
-                                        <a title="我现在要转行了" href="/topics/11844">我现在要转行了</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">12 个赞 • 148 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node47">开源项目</a>
-                                        <a title="中国 Ruby 社区有哪些开源名人？" href="/topics/10460">中国 Ruby 社区有哪些开源名人？</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">6 个赞 • 23 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node24">开发工具</a>
-                                        <a title="用 haml 呼唤 huacnlee (我已决定使用 SLIM 替代 HAML 和 ERB)" href="/topics/634">用 haml 呼唤 huacnlee (我已决定使用 SLIM 替代 HAML 和 ERB)</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">6 个赞 • 38 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node29">重构</a>
-                                        <a title="Ruby 代码格式标准讨论" href="/topics/10586">Ruby 代码格式标准讨论</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">3 个赞 • 8 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node17">Linux</a>
-                                        <a title="今天部署到 VPS 上，系统是 CentOS 好还是 Ubuntu Server 好呢？" href="/topics/1021">今天部署到 VPS 上，系统是 CentOS 好还是 Ubuntu Server 好呢？</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">3 个赞 • 30 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node38">书籍</a>
-                                        <a title="只收邮费转 4 本 Ruby 经典书 (己结帖)" href="/topics/37657">只收邮费转 4 本 Ruby 经典书 (己结帖)</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">2 个赞 • 1 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node27">瞎扯淡</a>
-                                        <a title="我承诺，2014年 结束前开发出。。" href="/topics/22901">我承诺，2014年 结束前开发出。。</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">2 个赞 • 22 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node47">开源项目</a>
-                                        <a title="我的故事现在支持 Markdown 了" href="/topics/9279">我的故事现在支持 Markdown 了</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">2 个赞 • 4 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node2">Rails</a>
-                                        <a title="抛出一个 Rails 插件化开发的重要且有趣的问题" href="/topics/8207">抛出一个 Rails 插件化开发的重要且有趣的问题</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">2 个赞 • 14 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node38">书籍</a>
-                                        <a title="《Ruby Metaprogramming》Ruby 元编程" href="/topics/7635">《Ruby Metaprogramming》Ruby 元编程</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">2 个赞 • 13 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node52">新手问题</a>
-                                        <a title="公司让我实现一个功能，该功能主要是针对图片的处理，大家来研究一下" href="/topics/6298">公司让我实现一个功能，该功能主要是针对图片的处理，大家来研究一下</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">2 个赞 • 6 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node20">云服务</a>
-                                        <a title="说一个问题：carrierwave-upyun 图片会慢吧？" href="/topics/5777">说一个问题：carrierwave-upyun 图片会慢吧？</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">2 个赞 • 8 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node2">Rails</a>
-                                        <a title="rails 如何能够识别当前是 development 还是 production 的？" href="/topics/1050">rails 如何能够识别当前是 development 还是 production 的？</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">2 个赞 • 17 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node2">Rails</a>
-                                        <a title="请问 self-join 的问题。实现 twitter 的 follower 和关注" href="/topics/525">请问 self-join 的问题。实现 twitter 的 follower 和关注</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">2 个赞 • 3 条回复</span>
                                     </div>
                                 </li>
                                 <li class="list-group-item">
@@ -382,70 +227,6 @@
                                 </li>
                                 <li class="list-group-item">
                                     <div class="title">
-                                        <a href="/topics/38196">个推微服务网关架构实践</a>
-                                        <span class="info">at <abbr class="timeago" title="2019年03月06日">13 天前</abbr></span>
-                                    </div>
-                                    <div class="body markdown">
-                                        <p>自研网关有深度，这种文章很难得。
-                                            楼主是否能回答我一个问题：中小公司的微服务架构是否也需要上APIGate？</p>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a href="/topics/38097"> [苏州] 苏州汇通软件科技有限公司招聘 / 软件开发工程师</a>
-                                        <span class="info">at <abbr class="timeago" title="2019年02月11日">1 月前</abbr></span>
-                                    </div>
-                                    <div class="body markdown">
-                                        <p>没有写接收简历的邮箱呢。请问Ruby工程师招吗？这儿是Ruby社区哦。谢谢。</p>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a href="/topics/28575">编译的 Ruby 2.3.0 缺少 openssl 支持的解决方法 (已解决)</a>
-                                        <span class="info">at <abbr class="timeago" title="2019年01月16日">2 月前</abbr></span>
-                                    </div>
-                                    <div class="body markdown">
-                                        <p>谢谢各位。
-                                            本人rvm + homebrew + 新安装的MacOS。出现这个问题后，用
-                                            <code>rvm reinstall 2.3.8 --with-openssl-dir=/usr/local/Cellar/openssl/1.0.2q</code>
-                                            顺利解决。</p>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a href="/topics/37657">只收邮费转 4 本 Ruby 经典书 (己结帖)</a>
-                                        <span class="info">at <abbr class="timeago" title="2018年10月21日">2018年10月21日</abbr></span>
-                                    </div>
-                                    <div class="body markdown">
-                                        <p>已经有个武汉的朋友转我了。大家不用加</p>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a href="/topics/33211">用 Docker 启动 sandbox</a>
-                                        <span class="info">at <abbr class="timeago" title="2017年06月23日">2017年06月23日</abbr></span>
-                                    </div>
-                                    <div class="body markdown">
-                                        <p>Thanks. This article is important for me. Although I have been heard docker for a long time, it's the first time I use it.
-                                            I suggest other developers try docker. It will only take you 5 minutes to have a new world.
-                                            You can get a virtual machine totally no sweat. </p>
-
-                                        <p>Just follow <a href="https://store.docker.com/editions/community/docker-ce-desktop-mac" rel="nofollow" target="_blank">https://store.docker.com/editions/community/docker-ce-desktop-mac</a> and run </p>
-
-                                        <p><code>$ docker run -it -v $(pwd):/app -w /app ruby:2.3 bash</code> , you will have a ruby2.3 container(like a debian virtual machine, but  it will cost you only 19.27 MB's disk space). </p>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a href="/topics/25706">基础 Ruby 中 Include, Extend, Load, Require 的使用区别</a>
-                                        <span class="info">at <abbr class="timeago" title="2017年03月29日">2017年03月29日</abbr></span>
-                                    </div>
-                                    <div class="body markdown">
-                                        <p>不错的分享。简单几句，就把事情说得比较清楚了。</p>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
                                         <a href="/topics/32433">Rails 并发处理</a>
                                         <span class="info">at <abbr class="timeago" title="2017年03月09日">2017年03月09日</abbr></span>
                                     </div>
@@ -466,15 +247,6 @@
                                     </div>
                                     <div class="body markdown">
                                         <p>No. I am still a programmer. I haven't succeeded in stock market yet. But I didn't give up.</p>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a href="/topics/32444">这个广告做得好</a>
-                                        <span class="info">at <abbr class="timeago" title="2017年03月07日">2017年03月07日</abbr></span>
-                                    </div>
-                                    <div class="body markdown">
-                                        <p>Yes. You are sensitive. <img title=":smile:" alt="😄" src="https://twemoji.b0.upaiyun.com/2/svg/1f604.svg" class="twemoji"> </p>
                                     </div>
                                 </li>
                             </ul>
