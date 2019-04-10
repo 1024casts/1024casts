@@ -3,6 +3,8 @@ package user
 import (
 	"net/http"
 
+	"github.com/1024casts/1024casts/pkg/app"
+	"github.com/1024casts/1024casts/pkg/errno"
 	"github.com/1024casts/1024casts/service"
 	"github.com/1024casts/1024casts/util"
 	"github.com/gin-gonic/gin"
@@ -30,4 +32,44 @@ func Basic(c *gin.Context) {
 			return a + b
 		},
 	})
+}
+
+type BasicRequest struct {
+	RealName     string `json:"real_name" form:"real_name"`
+	Introduction string `json:"introduction" form:"introduction"`
+}
+
+// 更新基本资料
+func DoBasic(c *gin.Context) {
+	// Binding the course data.
+	var req BasicRequest
+	if err := c.Bind(&req); err != nil {
+		app.Response(c, errno.ErrBind, nil)
+		return
+	}
+
+	userId := util.GetUserId(c)
+	srv := service.NewUserService()
+
+	log.Warnf("basic, info: %v", c.Request.RequestURI)
+
+	_, err := srv.GetUserById(userId)
+	if err != nil {
+		app.Response(c, errno.ErrUserNotFound, nil)
+		return
+	}
+
+	userMap := map[string]interface{}{
+		"real_name":    req.RealName,
+		"introduction": req.Introduction,
+	}
+	err = srv.UpdateUser(userMap, userId)
+	if err != nil {
+		log.Warnf("[register] update user is_activation err: %v", err)
+		app.Response(c, errno.ErrDatabase, nil)
+		return
+	}
+
+	app.Response(c, errno.OK, nil)
+	return
 }
