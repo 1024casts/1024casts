@@ -158,6 +158,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	settingRoutes.Use(middleware.CookieMiddleware())
 	{
 		settingRoutes.GET("/basic", webUser.Basic)
+		settingRoutes.POST("/basic", webUser.DoBasic)
 		settingRoutes.GET("/profile", webUser.Profile)
 		settingRoutes.GET("/password", webUser.Password)
 	}
