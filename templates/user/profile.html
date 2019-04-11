@@ -1,4 +1,5 @@
 {{ define "css"}}
+<link href="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.min.css" rel="stylesheet">
 <style type="text/css">
     body {background: #e5e5e5;}
 </style>
@@ -18,48 +19,35 @@
         <div class="col-md-9">
             <div class="card">
                 <div class="card-body">
-                    <form class="edit_user" id="edit_user_10523" enctype="multipart/form-data" action="/setting" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="put"><input type="hidden" name="authenticity_token" value="IAmeDPdvSwq3fvl4AWlTxr7PhZOv/hqAL/MpezgwSwxE+Ubv7o52Jqn1hvYUDiYWKa5BFXCVn0zdg2AmC7cQ1A==">
-
+                    <form id="app" class="edit_user" >
                         <input type="hidden" name="by" value="profile">
                         <div class="form-group">
                             <label for="user_location">城市</label>
-                            <input class="form-control" style="width: 200px" type="text" name="city" value="{{.user.City}}" id="city">
+                            <input class="form-control" style="width: 200px" type="text" name="city" v-model="city" value="{{.user.City}}" id="city">
                         </div>
 
                         <div class="form-group">
                             <label for="user_company">公司</label>
-                            <input class="form-control" style="width: 400px" type="text" name="company" value="{{.user.Company}}" id="company">
+                            <input class="form-control" style="width: 400px" type="text" name="company" v-model="company" value="{{.user.Company}}" id="company">
                         </div>
 
                         <div class="form-group">
                             <label for="user_github">GitHub</label>
                             <div class="input-group">
                                 <span class="input-group-prepend"><span class="input-group-text">https://github.com/</span></span>
-                                <input class="form-control" type="text" name="github_id" value="{{.user.GithubId}}" id="github_id">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="user_twitter">Twitter</label>
-                            <div class="input-group">
-                                <span class="input-group-prepend"><span class="input-group-text">https://twitter.com/</span></span>
-                                <input class="form-control" type="text" name="user[twitter]" value="" id="user_twitter">
+                                <input class="form-control" type="text" name="github_id" v-model="github_id" value="{{.user.GithubId}}" id="github_id">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="user_website">个人主页</label>
-                            <input type="url" class="form-control" placeholder="http://" name="person_website" value="{{.user.PersonalWebsite}}" id="person_website">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="user_tagline">签名</label>
-                            <input class="form-control" type="text" name="user[tagline]" id="user_tagline">
+                            <input type="url" class="form-control" placeholder="http://" name="personal_website" v-model="personal_website" value="{{.user.PersonalWebsite}}" id="person_website">
                         </div>
                         <div class="form-actions hide-ios">
-                            <button type="submit" class="btn btn-primary" data-disable-with="正在保存">更新资料</button>
+                            <button type="submit" class="btn btn-primary" data-disable-with="正在保存" @click="doUpdate">更新资料</button>
                         </div>
-                    </form>      </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -68,4 +56,46 @@
 {{ end }}
 
 {{ define "js"}}
+<script src="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            city: {{.user.City}},
+            company: {{.user.Company}},
+            github_id: {{.user.GithubId}},
+            personal_website: {{.user.PersonalWebsite}},
+        },
+        delimiters:['${', '}'],
+        methods: {
+            doUpdate: function (e) {
+                e.preventDefault();
+                var bodyFormData = new FormData();
+                bodyFormData.set('city', this.city);
+                bodyFormData.set('company', this.company);
+                bodyFormData.set('github_id', this.github_id);
+                bodyFormData.set('personal_website', this.personal_website);
+                let config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                };
+                this.$http.post("/settings/profile", bodyFormData, config).then((response) => {
+                    console.log(response);
+                    if (response.data.code === 0) {
+                        // http://mishengqiang.com/sweetalert/
+                        swal("更新成功！", "","success");
+                        return true;
+                    } else {
+                        swal("修改失败！", "","error");
+                        return false;
+                    }
+                }).catch( error => {
+                    console.log(error);
+                });
+            }
+        }
+    })
+</script>
 {{ end }}

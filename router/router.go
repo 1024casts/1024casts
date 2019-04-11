@@ -160,7 +160,9 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 		settingRoutes.GET("/basic", webUser.Basic)
 		settingRoutes.POST("/basic", webUser.DoBasic)
 		settingRoutes.GET("/profile", webUser.Profile)
+		settingRoutes.POST("/profile", webUser.DoProfile)
 		settingRoutes.GET("/password", webUser.Password)
+		settingRoutes.POST("/password", webUser.DoPassword)
 	}
 
 	notificationRoute := router.Group("/notifications")

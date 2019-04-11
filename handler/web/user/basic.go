@@ -37,6 +37,7 @@ func Basic(c *gin.Context) {
 type BasicRequest struct {
 	RealName     string `json:"real_name" form:"real_name"`
 	Introduction string `json:"introduction" form:"introduction"`
+	Avatar       string `json:"avatar" form:"avatar"`
 }
 
 // 更新基本资料
@@ -62,6 +63,7 @@ func DoBasic(c *gin.Context) {
 	userMap := map[string]interface{}{
 		"real_name":    req.RealName,
 		"introduction": req.Introduction,
+		"avatar":       req.Avatar,
 	}
 	err = srv.UpdateUser(userMap, userId)
 	if err != nil {
