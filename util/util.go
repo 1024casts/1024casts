@@ -11,11 +11,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
+	"github.com/microcosm-cc/bluemonday"
 	"github.com/qiniu/api.v7/auth/qbox"
 	"github.com/qiniu/api.v7/storage"
-	hashids "github.com/speps/go-hashids"
+	"github.com/speps/go-hashids"
 	"github.com/spf13/viper"
 	"github.com/teris-io/shortid"
+	"gopkg.in/russross/blackfriday.v2"
 )
 
 func GenShortId() (string, error) {
@@ -126,4 +128,12 @@ func GenerateOrderNo() (uint64, error) {
 	log.Infof("orderNo: %d", orderNo)
 
 	return orderNo, nil
+}
+
+func MarkdownToHtml(con string) string {
+	mdByte := []byte(con)
+	unsafe := blackfriday.Run(mdByte)
+	html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
+
+	return string(html)
 }
