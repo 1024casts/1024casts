@@ -14,6 +14,11 @@
 - 校验器 [validator](https://gopkg.in/go-playground/validator.v9)  也是 gin 框架默认的校验器，当前最新是v9版本
 - 第三方包管理工具 [govendor](https://github.com/kardianos/govendor)
 
+#### 路由中间件
+
+- [限速](https://github.com/didip/tollbooth)
+    - [如何限制HTTP请求的速率](https://www.alexedwards.net/blog/how-to-rate-limit-http-requests)
+
 ## API风格和媒体类型
 
 Go 语言中常用的 API 风格是 RPC 和 REST，常用的媒体类型是 JSON、XML 和 Protobuf。  
@@ -112,3 +117,10 @@ REST 风格虽然适用于很多传输协议，但在实际开发中，REST 由�
     - 删除
 - 订单模块
     - 订单列表
+
+## markdown 编辑器
+
+[Editor.md](https://pandao.github.io/editor.md/) 基于[marked](https://github.com/markedjs/marked)转换
+Go Markdown 转html 
+    https://github.com/russross/blackfriday
+    https://github.com/gomarkdown/markdown 
