@@ -29,7 +29,7 @@ func Upload(c *gin.Context) {
 	}
 
 	saveRootPath := viper.GetString("upload.dst")
-	imagePrefix := "uploads/images/" + util.GetDate() + "/"
+	imagePrefix := "uploads/avatar/" + util.GetDate() + "/"
 	imagePath := saveRootPath + imagePrefix
 	if err := os.MkdirAll(imagePath, 0777); err != nil {
 		log.Fatal("[qiniu] create dir err", err)
