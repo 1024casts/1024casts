@@ -25,11 +25,6 @@ type ListRequest struct {
 	Limit int    `json:"limit"`
 }
 
-type UploadResponse struct {
-	Key  string `json:"key"`
-	Hash string `json:"hash"`
-}
-
 type ListResponse struct {
 	TotalCount uint64             `json:"totalCount"`
 	List       []storage.ListItem `json:"list"`
