@@ -13,6 +13,7 @@
 - 使用 [JWT](https://jwt.io/) 进行身份鉴权认证
 - 校验器 [validator](https://gopkg.in/go-playground/validator.v9)  也是 gin 框架默认的校验器，当前最新是v9版本
 - 第三方包管理工具 [govendor](https://github.com/kardianos/govendor)
+- 测试框架 [goConvey](http://goconvey.co/)
 
 #### 路由中间件
 
