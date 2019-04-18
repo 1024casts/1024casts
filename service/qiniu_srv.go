@@ -28,11 +28,14 @@ type UploadResponse struct {
 	Url  string `json:"url"`
 }
 
-func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader) (resp UploadResponse, err error) {
+func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader, isPublicBucket bool) (resp UploadResponse, err error) {
 
-	accessKey := viper.GetString("qiniu.AccessKey")
-	secretKey := viper.GetString("qiniu.SecretKey")
-	bucket := viper.GetString("qiniu.Bucket")
+	accessKey := viper.GetString("qiniu.access_key")
+	secretKey := viper.GetString("qiniu.secret_key")
+	bucket := viper.GetString("qiniu.bucket")
+	if isPublicBucket {
+		bucket = viper.GetString("qiniu.public_bucket")
+	}
 
 	saveRootPath := viper.GetString("upload.dst")
 	imagePrefix := "uploads/avatar/" + util.GetDate() + "/"
