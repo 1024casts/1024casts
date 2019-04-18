@@ -31,7 +31,8 @@
                                     <input disabled="disabled" class="form-control" placeholder="Email" type="text" value="{{.user.Email}}" name="email" id="email">
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label">上传头像</label>
+                                    <input type="file" name="avatar" id="avatar">
+                                    <div class="form-text">选择上传头像</div>
                                 </div>
                                 <div class="form-group">
                                     <textarea class="form-control" name="introduction" id="introduction" v-model="introduction"></textarea>
@@ -39,7 +40,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group avatar-preview" style="text-align: center;">
-                                    <img class="media-object avatar-96" src="https://l.ruby-china.com/user/avatar/10523/aaaa6a.jpg!lg">
+                                    <img class="media-object avatar-96" id="imgAvatar" src="{{.user.Avatar}}">
                                 </div>
                             </div>
                         </div>
@@ -72,6 +73,8 @@
                 var bodyFormData = new FormData();
                 bodyFormData.set('introduction', this.introduction);
                 bodyFormData.set('real_name', this.real_name);
+                bodyFormData.set('avatar', $('#avatar')[0].files[0]);
+
                 let config = {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -82,6 +85,7 @@
                     if (response.data.code === 0) {
                         // http://mishengqiang.com/sweetalert/
                         swal("更新成功！", "","success");
+                        $('#imgAvatar').value(response.data.data.url);
                         return true;
                     } else {
                         swal("修改失败！", "","error");
