@@ -98,6 +98,16 @@ func GetQiniuPrivateAccessUrl(path string) string {
 	return privateAccessURL
 }
 
+// 获取七牛资源的公共链接
+func GetQiNiuPublicAccessUrl(path string) string {
+	domain := viper.GetString("qiniu.CDN_URL")
+	key := strings.TrimPrefix(path, "/")
+
+	publicAccessURL := storage.MakePublicURL(domain, key)
+
+	return publicAccessURL
+}
+
 func TimestampToString(ts time.Time) string {
 	return time.Unix(ts.Unix(), 00).Format("2006-01-02 15:04:05")
 }
