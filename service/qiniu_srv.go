@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"log"
 	"mime/multipart"
 
 	"fmt"
@@ -10,6 +9,7 @@ import (
 
 	"github.com/1024casts/1024casts/util"
 	"github.com/gin-gonic/gin"
+	"github.com/lexkong/log"
 	"github.com/qiniu/api.v7/auth/qbox"
 	"github.com/qiniu/api.v7/storage"
 	"github.com/spf13/viper"
@@ -79,6 +79,8 @@ func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader)
 		fmt.Println(err)
 		return
 	}
+
+	log.Infof("uploaded file ret: %v", ret)
 
 	resp.Key = ret.Key
 	resp.Hash = ret.Hash
