@@ -82,11 +82,11 @@ func GetUserId(ctx *gin.Context) uint64 {
 
 // 获取七牛资源的私有链接
 func GetQiniuPrivateAccessUrl(path string) string {
-	accessKey := viper.GetString("qiniu.AccessKey")
-	secretKey := viper.GetString("qiniu.SecretKey")
+	accessKey := viper.GetString("qiniu.access_key")
+	secretKey := viper.GetString("qiniu.secret_key")
 	mac := qbox.NewMac(accessKey, secretKey)
 
-	domain := viper.GetString("qiniu.CDN_URL")
+	domain := viper.GetString("qiniu.cdn_url")
 	key := strings.TrimPrefix(path, "/")
 
 	imageStyle := "imageView2/2/w/200/h/200/q/75|imageslim"
@@ -98,9 +98,10 @@ func GetQiniuPrivateAccessUrl(path string) string {
 	return privateAccessURL
 }
 
-// 获取七牛资源的公共链接
+// 获取七牛资源的公有链接
+// 无需配置bucket, 域名会自动到域名所绑定的bucket去查找
 func GetQiNiuPublicAccessUrl(path string) string {
-	domain := viper.GetString("qiniu.CDN_URL")
+	domain := viper.GetString("qiniu.public_cdn_url")
 	key := strings.TrimPrefix(path, "/")
 
 	publicAccessURL := storage.MakePublicURL(domain, key)
