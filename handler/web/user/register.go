@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/1024casts/1024casts/pkg/app"
+	"github.com/1024casts/1024casts/pkg/flash"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/lexkong/log/lager"
@@ -79,7 +80,8 @@ func ActiveUser(c *gin.Context) {
 
 		if userInfo.IsActivated == 1 {
 			// 提示： 您的帐号已经激活
-			c.Redirect(http.StatusMovedPermanently, "/login?frm=have-activated")
+			flash.SetFlash(c.Writer, "error", []byte("您的帐号已经激活"))
+			c.Redirect(http.StatusMovedPermanently, "/login")
 			c.Abort()
 			return
 		}
@@ -96,13 +98,15 @@ func ActiveUser(c *gin.Context) {
 		model.DB.Self.Table(userActivation.TableName()).Where("token = ?", token).Delete(&userActivation)
 
 		// 3. 提示：帐号已经激活成功，可以登录啦
-		c.Redirect(http.StatusMovedPermanently, "/login?frm=active_success")
+		flash.SetFlash(c.Writer, "error", []byte("帐号已经激活成功，可以登录啦"))
+		c.Redirect(http.StatusMovedPermanently, "/login")
 		c.Abort()
 		return
 	}
 
 	// 提示：无效的激活链接
-	c.Redirect(http.StatusMovedPermanently, "/login?frm=invalid-link")
+	flash.SetFlash(c.Writer, "error", []byte("无效的激活链接"))
+	c.Redirect(http.StatusMovedPermanently, "/login")
 	c.Abort()
 	return
 }
