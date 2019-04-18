@@ -13,8 +13,13 @@ import (
 func HasFlash(r *http.Request, name string) bool {
 	c, err := r.Cookie(name)
 	if err != nil {
+		switch err {
+		case http.ErrNoCookie:
+			return false
+		default:
+			return false
+		}
 		log.Warnf("[flash] read cookie err: %v", err)
-		return false
 	}
 	if c.Value != "" {
 		return true
