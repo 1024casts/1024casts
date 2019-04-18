@@ -37,13 +37,12 @@ docker_db:
   username: root
   password: 123456
 qiniu:
-  AccessKey:
-  SecretKey:
-  Bucket:
-  CDN_URL:
-  #QINIU_CDN_URL=https://oj1ylm48b.qnssl.com
-  Public_Bucket:
-  CDN_PUBLIC_URL:
+  access_key:
+  secret_key:
+  bucket:
+  cdn_url:
+  public_bucket:
+  public_cdn_url:
 upload:
   dst: "/data/wwwroot/uploads"  # 本地上传目录
 redis:
