@@ -25,6 +25,7 @@ func NewQiNiuService() *QiNiuService {
 type UploadResponse struct {
 	Key  string `json:"key"`
 	Hash string `json:"hash"`
+	Url  string `json:"url"`
 }
 
 func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader) (resp UploadResponse, err error) {
