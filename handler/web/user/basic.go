@@ -88,6 +88,6 @@ func DoBasic(c *gin.Context) {
 		return
 	}
 
-	app.Response(c, errno.OK, nil)
+	app.Response(c, errno.OK, service.UploadResponse{Key: uploadRet.Key, Url: uploadRet.Url})
 	return
 }
