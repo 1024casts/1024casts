@@ -23,6 +23,8 @@ func Basic(c *gin.Context) {
 		return
 	}
 
+	user.Avatar = util.GetQiNiuPublicAccessUrl(user.Avatar)
+
 	c.HTML(http.StatusOK, "user/basic", gin.H{
 		"title":   "个人资料",
 		"user_id": userId,
@@ -69,7 +71,7 @@ func DoBasic(c *gin.Context) {
 	}
 
 	qiNiuSrv := service.NewQiNiuService()
-	uploadRet, err := qiNiuSrv.UploadImage(c, avatar)
+	uploadRet, err := qiNiuSrv.UploadImage(c, avatar, true)
 	if err != nil {
 		log.Warnf("[basic] upload avatar err: %v", err)
 		app.Response(c, errno.ErrUploadingFile, nil)
