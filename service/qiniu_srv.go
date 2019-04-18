@@ -85,6 +85,7 @@ func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader)
 
 	resp.Key = ret.Key
 	resp.Hash = ret.Hash
+	resp.Url = util.GetQiNiuPublicAccessUrl(ret.Key)
 
 	return resp, nil
 
