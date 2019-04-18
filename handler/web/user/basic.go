@@ -60,10 +60,26 @@ func DoBasic(c *gin.Context) {
 		return
 	}
 
+	// single file
+	avatar, err := c.FormFile("avatar")
+	if err != nil {
+		log.Warnf("[basic] get avatar err: %v", err)
+		app.Response(c, errno.ErrGetUploadFile, nil)
+		return
+	}
+
+	qiNiuSrv := service.NewQiNiuService()
+	uploadRet, err := qiNiuSrv.UploadImage(c, avatar)
+	if err != nil {
+		log.Warnf("[basic] upload avatar err: %v", err)
+		app.Response(c, errno.ErrUploadingFile, nil)
+		return
+	}
+
 	userMap := map[string]interface{}{
 		"real_name":    req.RealName,
 		"introduction": req.Introduction,
-		"avatar":       req.Avatar,
+		"avatar":       "/" + uploadRet.Key,
 	}
 	err = srv.UpdateUser(userMap, userId)
 	if err != nil {
