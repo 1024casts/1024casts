@@ -26,9 +26,11 @@ import (
 	"time"
 
 	"github.com/1024casts/1024casts/handler/web/notification"
+	"github.com/1024casts/1024casts/pkg/flash"
 	"github.com/foolin/gin-template"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
+	"github.com/lexkong/log"
 	"github.com/spf13/viper"
 )
 
@@ -123,6 +125,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 		Master:    "layouts/master",
 		Partials:  []string{},
 		Funcs: template.FuncMap{
+			// 判断是否是当前链接
 			"isActive": func(ctx *gin.Context, currentUri string) string {
 				if ctx.Request.RequestURI == currentUri {
 					return "active"
@@ -130,8 +133,17 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 					return ""
 				}
 			},
-			"frm": func(ctx *gin.Context) string {
-				return ctx.Query("frm")
+			// 全局消息
+			"flashMessage": func(ctx *gin.Context) string {
+				errorMessage, err := flash.GetFlash(ctx.Writer, ctx.Request, "error")
+				if err != nil {
+					log.Warnf("[router] get flash message err: %v", err)
+					return ""
+				}
+				return string(errorMessage)
+			},
+			"hasFlash": func(ctx *gin.Context) bool {
+				return flash.HasFlash(ctx.Request, "error")
 			},
 			"copy": func() string {
 				return time.Now().Format("2006")
@@ -146,13 +158,13 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/register", webUser.GetRegister)
 	router.POST("/register", webUser.DoRegister)
 	router.GET("/logout", webUser.Logout)
-	router.GET("/users/:username", webUser.Index) // 个人首页
-	router.GET("/users/:username/activation/:token", webUser.ActiveUser)
-	router.GET("/users/:username/topics", webUser.Logout)       // 发表过的主题
-	router.GET("/users/:username/replies", webUser.Logout)      // 回复过的
-	router.GET("/users/:username/favorites", webUser.Logout)    // 收藏过的
-	router.GET("/users/:username/following", webUser.Following) // 正在关注的人
-	router.GET("/users/:username/followers", webUser.Follower)  // 关注者(粉丝)
+	router.GET("/users/:username", webUser.Index)                        // 个人首页
+	router.GET("/users/:username/activation/:token", webUser.ActiveUser) // 通过发送到邮箱中的链接激活
+	router.GET("/users/:username/topics", webUser.Logout)                // 发表过的主题
+	router.GET("/users/:username/replies", webUser.Logout)               // 回复过的
+	router.GET("/users/:username/favorites", webUser.Logout)             // 收藏过的
+	router.GET("/users/:username/following", webUser.Following)          // 正在关注的人
+	router.GET("/users/:username/followers", webUser.Follower)           // 关注者(粉丝)
 
 	settingRoutes := router.Group("/settings")
 	settingRoutes.Use(middleware.CookieMiddleware())
