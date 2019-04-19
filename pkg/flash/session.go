@@ -5,36 +5,44 @@ import (
 	"net/http"
 
 	"github.com/gorilla/sessions"
+	"github.com/lexkong/log"
 )
 
-var store *sessions.CookieStore
+var Store = sessions.NewCookieStore([]byte("secret-password"))
 var flashName = "flash-session"
 
-func init() {
-	store = sessions.NewCookieStore([]byte("flash-secret"))
+//GetCurrentUserName returns the username of the logged in user
+func GetCurrentUserName(r *http.Request) string {
+	session, err := Store.Get(r, "session")
+	if err == nil {
+		return session.Values["username"].(string)
+	}
+	return ""
 }
 
 func SetFlashMessage(w http.ResponseWriter, r *http.Request, name string, value string) {
-	session, err := store.Get(r, flashName)
+	session, err := Store.Get(r, flashName)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Warnf("[session] set flash message err: %v", err)
 	}
 	session.AddFlash(value, name)
 	session.Save(r, w)
 }
 
-func GetFlashMessage(w http.ResponseWriter, r *http.Request, name string) []interface{} {
-	session, err := store.Get(r, flashName)
+func GetFlashMessage(w http.ResponseWriter, r *http.Request, name string) string {
+	session, err := Store.Get(r, flashName)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Warnf("[session] get flash message err: %v", err)
+		return ""
 	}
+
 	fm := session.Flashes(name)
 	if fm == nil {
 		fmt.Fprint(w, "No flash messages")
-		return []interface{}{}
+		return ""
 	}
 	session.Save(r, w)
 	fmt.Fprintf(w, "%v", fm[0])
 
-	return fm
+	return fm[0].(string)
 }
