@@ -50,6 +50,7 @@ func GetFlash(w http.ResponseWriter, r *http.Request, name string) ([]byte, erro
 	if err != nil {
 		return nil, err
 	}
+	// delete cookie
 	// todo: 删除cookie有问题，暂时通过控制有效期来处理
 	dc := &http.Cookie{Name: name, Path: "/", MaxAge: -1, Expires: time.Unix(1, 0)}
 	http.SetCookie(w, dc)
