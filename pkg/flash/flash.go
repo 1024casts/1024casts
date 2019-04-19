@@ -29,11 +29,14 @@ func HasFlash(r *http.Request, name string) bool {
 }
 
 func SetFlash(w http.ResponseWriter, name string, value []byte) {
-	c := &http.Cookie{Name: name, Value: encode(value)}
+	log.Info("begin set flash...")
+	expire := time.Now().Add(3 * time.Second)
+	c := &http.Cookie{Name: name, Value: encode(value), Path: "/", Expires: expire, MaxAge: 3}
 	http.SetCookie(w, c)
 }
 
 func GetFlash(w http.ResponseWriter, r *http.Request, name string) ([]byte, error) {
+	log.Info("begin get flash...")
 	c, err := r.Cookie(name)
 	if err != nil {
 		switch err {
@@ -47,7 +50,8 @@ func GetFlash(w http.ResponseWriter, r *http.Request, name string) ([]byte, erro
 	if err != nil {
 		return nil, err
 	}
-	dc := &http.Cookie{Name: name, Value: "", MaxAge: -1, Expires: time.Unix(1, 0)}
+	// todo: 删除cookie有问题，暂时通过控制有效期来处理
+	dc := &http.Cookie{Name: name, Path: "/", MaxAge: -1, Expires: time.Unix(1, 0)}
 	http.SetCookie(w, dc)
 	return value, nil
 }
