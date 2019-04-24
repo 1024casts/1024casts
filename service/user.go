@@ -91,7 +91,7 @@ func sendActiveMail(username, toMail, activeCode string) {
 		m.FormatAddress(toMail, ""),
 	)
 	// 主题
-	m.SetHeader("Subject", "1024课堂 - 帐号激活链接")
+	m.SetHeader("Subject", "帐号激活链接")
 	// 正文
 	activeUrl := fmt.Sprintf("https://1024casts.com/users/%s/activation/%s", username, activeCode)
 	m.SetBody("text/html", "Hi, "+username+"<br>请激活您的帐号： <a href = '"+activeUrl+"'>"+activeUrl+"</a>")
