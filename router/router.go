@@ -153,11 +153,20 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	})
 
 	router.GET("/", web.Index)
+
+	// auth route
 	router.GET("/login", webUser.GetLogin)
 	router.POST("/login", webUser.DoLogin)
+	router.GET("/logout", webUser.Logout)
+	// register route
 	router.GET("/register", webUser.GetRegister)
 	router.POST("/register", webUser.DoRegister)
-	router.GET("/logout", webUser.Logout)
+	// reset route
+	router.GET("/password/reset", webUser.ShowLinkRequestForm)  // 忘记密码	输入要重置密码的form
+	router.POST("/password/email", webUser.SendResetLinkEmail)  // 发送重置密码邮件
+	router.GET("/password/reset/:token", webUser.ShowResetForm) // 重置密码form
+	router.POST("/password/reset", webUser.Reset)               // 重置密码
+	// user profile route
 	router.GET("/users/:username", webUser.Index)                        // 个人首页
 	router.GET("/users/:username/activation/:token", webUser.ActiveUser) // 通过发送到邮箱中的链接激活
 	router.GET("/users/:username/topics", webUser.Logout)                // 发表过的主题
