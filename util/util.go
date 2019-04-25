@@ -1,13 +1,14 @@
 package util
 
 import (
-	"time"
-
-	"strings"
-
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"math/rand"
 	"strconv"
+	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
@@ -147,4 +148,31 @@ func MarkdownToHtml(con string) string {
 	html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
 
 	return string(html)
+}
+
+// 随机生成字符串
+// more: https://colobu.com/2018/09/02/generate-random-string-in-Go/
+func RandStr(strLen int) string {
+	var (
+		codes   = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/~!@#$%^&*()_="
+		codeLen = len(codes)
+	)
+	data := make([]byte, strLen)
+	rand.Seed(time.Now().UnixNano())
+
+	for i := 0; i < strLen; i++ {
+		idx := rand.Intn(codeLen)
+		data[i] = byte(codes[idx])
+	}
+	return string(data)
+}
+
+func GenPasswordToken() string {
+	hashKey := []byte("aHG^OKHJ^)R$sp1q_key")
+	h := hmac.New(sha256.New, hashKey)
+	randStr := RandStr(40)
+	log.Infof("rand str:%s", randStr)
+	h.Write([]byte(randStr))
+
+	return hex.EncodeToString(h.Sum(nil))
 }
