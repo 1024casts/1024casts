@@ -238,10 +238,17 @@ func (srv *UserService) DeleteUser(id uint64) error {
 
 func (srv *UserService) GetResetPasswordTokenByEmail(email string) (string, error) {
 	pwdResetInfo, err := srv.userRepo.GetResetPasswordInfoByEmail(email)
-
 	if err != nil {
-		return pwdResetInfo.Token, err
+		return "", err
 	}
 
-	return "", nil
+	return pwdResetInfo.Token, nil
+}
+
+func (srv *UserService) DeleteResetPasswordByEmail(email string) error {
+	err := srv.userRepo.DeleteResetPasswordByEmail(email)
+	if err != nil {
+		return err
+	}
+	return nil
 }
