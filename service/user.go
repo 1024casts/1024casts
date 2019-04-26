@@ -235,3 +235,13 @@ func (srv *UserService) DeleteUser(id uint64) error {
 
 	return nil
 }
+
+func (srv *UserService) GetResetPasswordTokenByEmail(email string) (string, error) {
+	pwdResetInfo, err := srv.userRepo.GetResetPasswordInfoByEmail(email)
+
+	if err != nil {
+		return pwdResetInfo.Token, err
+	}
+
+	return "", nil
+}
