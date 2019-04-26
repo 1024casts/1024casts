@@ -98,3 +98,8 @@ func (repo *UserRepo) GetResetPasswordInfoByEmail(email string) (*model.Password
 
 	return &user, result.Error
 }
+
+func (repo *UserRepo) DeleteResetPasswordByEmail(email string) error {
+	user := model.PasswordResetModel{}
+	return repo.db.Self.Where("email = ?", email).Delete(&user).Error
+}
