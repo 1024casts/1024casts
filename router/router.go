@@ -165,7 +165,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/password/reset", webUser.ShowLinkRequestForm)  // 忘记密码	输入要重置密码的form
 	router.POST("/password/email", webUser.SendResetLinkEmail)  // 发送重置密码邮件
 	router.GET("/password/reset/:token", webUser.ShowResetForm) // 重置密码form
-	router.POST("/password/reset", webUser.Reset)               // 重置密码
+	router.POST("/password/reset", webUser.ResetPassword)       // 重置密码
 	// user profile route
 	router.GET("/users/:username", webUser.Index)                        // 个人首页
 	router.GET("/users/:username/activation/:token", webUser.ActiveUser) // 通过发送到邮箱中的链接激活
