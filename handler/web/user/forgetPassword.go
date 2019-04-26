@@ -5,6 +5,7 @@ import (
 
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/pkg/app"
+	"github.com/1024casts/1024casts/pkg/auth"
 	"github.com/1024casts/1024casts/pkg/mail"
 	"github.com/1024casts/1024casts/service"
 	"github.com/1024casts/1024casts/util"
@@ -51,17 +52,16 @@ func SendResetLinkEmail(c *gin.Context) {
 	}
 
 	// ste3: 生成激活token to db
-	//token, err := util.GenShortId()
-	//if err != nil {
-	//	log.Warnf("[user] gen user reset token err: %v", err)
-	//	app.Redirect(c, redirectPath, "内部错误")
-	//	return
-	//}
 	token := util.GenPasswordToken()
-	// write email and token do db
+	hashedToken, err := auth.Encrypt(token)
+	if err != nil {
+		log.Warnf("[user] encrypt token err:%v", err)
+		app.Redirect(c, redirectPath, "重置发生错误")
+		return
+	}
 	pwdReset := model.PasswordResetModel{
 		Email: user.Email,
-		Token: token,
+		Token: hashedToken,
 	}
 	model.DB.Self.Create(&pwdReset)
 
