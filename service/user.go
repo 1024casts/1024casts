@@ -7,6 +7,7 @@ import (
 	"fmt"
 
 	"github.com/1024casts/1024casts/model"
+	"github.com/1024casts/1024casts/pkg/auth"
 	"github.com/1024casts/1024casts/repository"
 	"github.com/1024casts/1024casts/util"
 	"github.com/lexkong/log"
@@ -200,6 +201,24 @@ func (srv *UserService) GetUserList(username string, offset, limit int) ([]*mode
 func (srv *UserService) UpdateUser(userMap map[string]interface{}, id uint64) error {
 	err := srv.userRepo.Update(userMap, id)
 
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (srv *UserService) UpdateUserPassword(id uint64, password string) error {
+	hashedPassword, err := auth.Encrypt(password)
+	if err != nil {
+		log.Warnf("[user] Encrypt user password err: %v", err)
+		return err
+	}
+
+	userMap := map[string]interface{}{
+		"password": hashedPassword,
+	}
+	err = srv.userRepo.Update(userMap, id)
 	if err != nil {
 		return err
 	}
