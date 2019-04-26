@@ -92,7 +92,9 @@ func (repo *UserRepo) DeleteUser(id uint64) error {
 	return repo.db.Self.Delete(&user).Error
 }
 
-//func (repo *UserRepo) Store(user *model.UserModel) (entity.ID, error) {
-//	users := model.UserModel{}
-//	return &users, nil
-//}
+func (repo *UserRepo) GetResetPasswordInfoByEmail(email string) (*model.PasswordResetModel, error) {
+	user := model.PasswordResetModel{}
+	result := repo.db.Self.Where("email = ?", email).First(&user)
+
+	return &user, result.Error
+}
