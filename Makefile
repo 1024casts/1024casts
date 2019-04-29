@@ -41,4 +41,6 @@ help:
 
 .PHONY: clean gotool ca help
 
+# more: https://github.com/xiaomeng79/istio-micro/blob/master/Makefile
+
 
