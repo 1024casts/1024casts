@@ -1,7 +1,10 @@
 package service
 
 import (
+	"html/template"
 	"sync"
+
+	"github.com/1024casts/1024casts/util"
 
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/repository"
@@ -10,12 +13,14 @@ import (
 type TopicService struct {
 	repo     *repository.TopicRepo
 	videoSrv *VideoService
+	userSrv  *UserService
 }
 
 func NewTopicService() *TopicService {
 	return &TopicService{
 		repo:     repository.NewTopicRepo(),
 		videoSrv: NewVideoService(),
+		userSrv:  NewUserService(),
 	}
 }
 
@@ -29,18 +34,19 @@ func (srv *TopicService) CreateTopic(user model.TopicModel) (id uint64, err erro
 	return id, nil
 }
 
-func (srv *TopicService) GetTopicById(id int) (*model.TopicModel, error) {
-	Topic, err := srv.repo.GetTopicById(id)
+func (srv *TopicService) GetTopicById(id int) (*model.TopicInfo, error) {
+	topicModel, err := srv.repo.GetTopicById(id)
+	topic := srv.trans(topicModel)
 
 	if err != nil {
-		return Topic, err
+		return topic, err
 	}
 
-	return Topic, nil
+	return topic, nil
 }
 
-func (srv *TopicService) GetTopicList(TopicMap map[string]interface{}, offset, limit int) ([]*model.TopicModel, uint64, error) {
-	infos := make([]*model.TopicModel, 0)
+func (srv *TopicService) GetTopicList(TopicMap map[string]interface{}, offset, limit int) ([]*model.TopicInfo, int, error) {
+	infos := make([]*model.TopicInfo, 0)
 
 	Topics, count, err := srv.repo.GetTopicList(TopicMap, offset, limit)
 	if err != nil {
@@ -55,29 +61,23 @@ func (srv *TopicService) GetTopicList(TopicMap map[string]interface{}, offset, l
 	wg := sync.WaitGroup{}
 	TopicList := model.TopicList{
 		Lock:  new(sync.Mutex),
-		IdMap: make(map[uint64]*model.TopicModel, len(Topics)),
+		IdMap: make(map[uint64]*model.TopicInfo, len(Topics)),
 	}
 
 	errChan := make(chan error, 1)
 	finished := make(chan bool, 1)
 
 	// Improve query efficiency in parallel
-	for _, c := range Topics {
+	for _, t := range Topics {
 		wg.Add(1)
 		go func(Topic *model.TopicModel) {
 			defer wg.Done()
 
-			//shortId, err := util.GenShortId()
-			//if err != nil {
-			//	errChan <- err
-			//	return
-			//}
-
 			TopicList.Lock.Lock()
 			defer TopicList.Lock.Unlock()
 
-			TopicList.IdMap[Topic.Id] = Topic
-		}(c)
+			TopicList.IdMap[Topic.Id] = srv.trans(Topic)
+		}(t)
 	}
 
 	go func() {
@@ -96,6 +96,30 @@ func (srv *TopicService) GetTopicList(TopicMap map[string]interface{}, offset, l
 	}
 
 	return infos, count, nil
+}
+
+func (srv *TopicService) trans(topic *model.TopicModel) *model.TopicInfo {
+	lastReplyUser, _ := srv.userSrv.GetUserById(topic.LastReplyUserID)
+	creator, _ := srv.userSrv.GetUserById(topic.UserID)
+	return &model.TopicInfo{
+		Id:                topic.Id,
+		CategoryID:        topic.CategoryID,
+		Title:             topic.Title,
+		Body:              template.HTML(topic.Body),
+		OriginBody:        topic.OriginBody,
+		Source:            topic.Source,
+		IsBlocked:         topic.IsBlocked,
+		IsExcellent:       topic.IsExcellent,
+		LastReplyTimeAt:   util.FormatTime(topic.LastReplyTimeAt),
+		LastReplyUserId:   topic.LastReplyUserID,
+		LastReplyUserInfo: lastReplyUser,
+		UserInfo:          creator,
+		ViewCount:         topic.ViewCount,
+		VoteCount:         topic.VoteCount,
+		ReplyCount:        topic.ReplyCount,
+		CreatedAt:         util.TimeToString(topic.CreatedAt),
+		UpdatedAt:         util.TimeToString(topic.UpdatedAt),
+	}
 }
 
 func (srv *TopicService) UpdateTopic(TopicMap map[string]interface{}, id int) error {
