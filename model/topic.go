@@ -1,6 +1,7 @@
 package model
 
 import (
+	"html/template"
 	"sync"
 	"time"
 )
@@ -14,13 +15,13 @@ type TopicModel struct {
 	IsBlocked       string    `gorm:"column:is_blocked" json:"is_blocked"`
 	IsExcellent     string    `gorm:"column:is_excellent" json:"is_excellent"`
 	LastReplyTimeAt time.Time `gorm:"column:last_reply_time_at" json:"last_reply_time_at"`
-	LastReplyUserID int       `gorm:"column:last_reply_user_id" json:"last_reply_user_id"`
+	LastReplyUserID uint64    `gorm:"column:last_reply_user_id" json:"last_reply_user_id"`
 	OriginBody      string    `gorm:"column:origin_body" json:"origin_body"`
 	ReplyCount      int       `gorm:"column:reply_count" json:"reply_count"`
 	Source          string    `gorm:"column:source" json:"source"`
 	Title           string    `gorm:"column:title" json:"title"`
 	UpdatedAt       time.Time `gorm:"column:updated_at" json:"updated_at"`
-	UserID          int       `gorm:"column:user_id" json:"user_id"`
+	UserID          uint64    `gorm:"column:user_id" json:"user_id"`
 	ViewCount       int       `gorm:"column:view_count" json:"view_count"`
 	VoteCount       int       `gorm:"column:vote_count" json:"vote_count"`
 }
@@ -32,5 +33,25 @@ func (t *TopicModel) TableName() string {
 
 type TopicList struct {
 	Lock  *sync.Mutex
-	IdMap map[uint64]*TopicModel
+	IdMap map[uint64]*TopicInfo
+}
+
+type TopicInfo struct {
+	Id                uint64        `json:"id"`
+	CategoryID        int           `json:"category_id"`
+	Title             string        `json:"title"`
+	Body              template.HTML `json:"body"`
+	OriginBody        string        `json:"origin_body"`
+	Source            string        `json:"source"`
+	IsBlocked         string        `json:"is_blocked"`
+	IsExcellent       string        `json:"is_excellent"`
+	LastReplyTimeAt   string        `json:"last_reply_time_at"`
+	LastReplyUserId   uint64        `json:"last_reply_user_id"`
+	LastReplyUserInfo *UserModel    `json:"last_reply_user_info"`
+	UserInfo          *UserModel    `json:"user_info"`
+	ViewCount         int           `json:"view_count"`
+	VoteCount         int           `json:"vote_count"`
+	ReplyCount        int           `json:"reply_count"`
+	CreatedAt         string        `json:"created_at"`
+	UpdatedAt         string        `json:"updated_at"`
 }
