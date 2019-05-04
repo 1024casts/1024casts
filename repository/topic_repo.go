@@ -31,13 +31,13 @@ func (repo *TopicRepo) GetTopicById(id int) (*model.TopicModel, error) {
 	return &Topic, result.Error
 }
 
-func (repo *TopicRepo) GetTopicList(TopicMap map[string]interface{}, offset, limit int) ([]*model.TopicModel, uint64, error) {
+func (repo *TopicRepo) GetTopicList(TopicMap map[string]interface{}, offset, limit int) ([]*model.TopicModel, int, error) {
 	if limit == 0 {
 		limit = constvar.DefaultLimit
 	}
 
 	Topics := make([]*model.TopicModel, 0)
-	var count uint64
+	var count int
 
 	if err := repo.db.Self.Model(&model.TopicModel{}).Where(TopicMap).Count(&count).Error; err != nil {
 		return Topics, count, err
@@ -48,6 +48,37 @@ func (repo *TopicRepo) GetTopicList(TopicMap map[string]interface{}, offset, lim
 	}
 
 	return Topics, count, nil
+}
+
+func (repo *TopicRepo) GetReplyList(replyMap map[string]interface{}, offset, limit int) ([]*model.ReplyModel, int, error) {
+	if limit == 0 {
+		limit = constvar.DefaultLimit
+	}
+
+	replies := make([]*model.ReplyModel, 0)
+	var count int
+
+	if err := repo.db.Self.Model(&model.ReplyModel{}).Where(replyMap).Count(&count).Error; err != nil {
+		return replies, count, err
+	}
+
+	if err := repo.db.Self.Where(replyMap).Offset(offset).Limit(limit).Order("id desc").Find(&replies).Error; err != nil {
+		return replies, count, err
+	}
+
+	return replies, count, nil
+}
+
+func (repo *TopicRepo) IncrTopicViewCount(id int) error {
+	topic, err := repo.GetTopicById(id)
+	if err != nil {
+		return err
+	}
+
+	topicMap := make(map[string]interface{})
+	topicMap["view_count"] = topic.ViewCount + 1
+
+	return repo.db.Self.Model(topic).Updates(topicMap).Error
 }
 
 func (repo *TopicRepo) UpdateTopic(userMap map[string]interface{}, id int) error {
