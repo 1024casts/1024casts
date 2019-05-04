@@ -122,6 +122,24 @@ func (srv *TopicService) trans(topic *model.TopicModel) *model.TopicInfo {
 	}
 }
 
+func (srv *TopicService) transReply(reply *model.ReplyModel) *model.ReplyInfo {
+	replyUser, _ := srv.userSrv.GetUserById(reply.UserID)
+	return &model.ReplyInfo{
+		ID:            reply.ID,
+		TopicID:       reply.TopicID,
+		Body:          template.HTML(reply.Body),
+		IsBlocked:     reply.IsBlocked,
+		OriginBody:    reply.OriginBody,
+		UserID:        reply.UserID,
+		ReplyUserInfo: replyUser,
+		VoteCount:     reply.VoteCount,
+		Source:        reply.Source,
+		CreatedAt:     util.FormatTime(reply.CreatedAt),
+		DeletedAt:     "",
+		UpdatedAt:     util.TimeToString(reply.UpdatedAt),
+	}
+}
+
 func (srv *TopicService) UpdateTopic(TopicMap map[string]interface{}, id int) error {
 	err := srv.repo.UpdateTopic(TopicMap, id)
 
@@ -130,4 +148,67 @@ func (srv *TopicService) UpdateTopic(TopicMap map[string]interface{}, id int) er
 	}
 
 	return nil
+}
+
+func (srv *TopicService) IncrTopicViewCount(id int) error {
+	err := srv.repo.IncrTopicViewCount(id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (srv *TopicService) GetReplyList(replyMap map[string]interface{}, offset, limit int) ([]*model.ReplyInfo, int, error) {
+	infos := make([]*model.ReplyInfo, 0)
+
+	replies, count, err := srv.repo.GetReplyList(replyMap, offset, limit)
+	if err != nil {
+		return nil, count, err
+	}
+
+	ids := []uint64{}
+	for _, reply := range replies {
+		ids = append(ids, reply.ID)
+	}
+
+	wg := sync.WaitGroup{}
+	replyList := model.ReplyList{
+		Lock:  new(sync.Mutex),
+		IdMap: make(map[uint64]*model.ReplyInfo, len(replies)),
+	}
+
+	errChan := make(chan error, 1)
+	finished := make(chan bool, 1)
+
+	// Improve query efficiency in parallel
+	for _, r := range replies {
+		wg.Add(1)
+		go func(reply *model.ReplyModel) {
+			defer wg.Done()
+
+			replyList.Lock.Lock()
+			defer replyList.Lock.Unlock()
+
+			replyList.IdMap[reply.ID] = srv.transReply(reply)
+		}(r)
+	}
+
+	go func() {
+		wg.Wait()
+		close(finished)
+	}()
+
+	select {
+	case <-finished:
+	case err := <-errChan:
+		return nil, count, err
+	}
+
+	for _, id := range ids {
+		infos = append(infos, replyList.IdMap[id])
+	}
+
+	return infos, count, nil
 }
