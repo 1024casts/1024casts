@@ -55,20 +55,20 @@ func (p *Pagination) Pages() string {
 
 	//首页和上一页链接
 	if pageSize > 1 {
-		firstLink = fmt.Sprintf(`<li><a href="%s">首页</a></li>`, p.pageURL("1"))
-		prevLink = fmt.Sprintf(`<li><a href="%s">上一页</a></li>`, p.pageURL(strconv.Itoa(pageSize-1)))
+		firstLink = fmt.Sprintf(`<li class="page-item"><a class="page-link" href="%s">首页</a></li>`, p.pageURL("1"))
+		prevLink = fmt.Sprintf(`<li class="page-item"><a class="page-link" href="%s">上一页</a></li>`, p.pageURL(strconv.Itoa(pageSize-1)))
 	} else {
-		firstLink = `<li class="disabled"><a href="#">首页</a></li>`
-		prevLink = `<li class="disabled"><a href="#">上一页</a></li>`
+		firstLink = `<li class="page-item disabled"><a class="page-link" href="#">首页</a></li>`
+		prevLink = `<li class="page-item disabled"><a class="page-link" href="#">上一页</a></li>`
 	}
 
 	//末页和下一页
 	if pageSize < totalPageNum {
-		lastLink = fmt.Sprintf(`<li><a href="%s">末页</a></li>`, p.pageURL(strconv.Itoa(totalPageNum)))
-		nextLink = fmt.Sprintf(`<li><a href="%s">下一页</a></li>`, p.pageURL(strconv.Itoa(pageSize+1)))
+		lastLink = fmt.Sprintf(`<li class="page-item"><a class="page-link" href="%s">末页</a></li>`, p.pageURL(strconv.Itoa(totalPageNum)))
+		nextLink = fmt.Sprintf(`<li class="page-item"><a class="page-link" href="%s">下一页</a></li>`, p.pageURL(strconv.Itoa(pageSize+1)))
 	} else {
-		lastLink = `<li class="disabled"><a href="#">末页</a></li>`
-		nextLink = `<li class="disabled"><a href="#">下一页</a></li>`
+		lastLink = `<li class="page-item disabled"><a class="page-link" href="#">末页</a></li>`
+		nextLink = `<li class="page-item disabled"><a class="page-link" href="#">下一页</a></li>`
 	}
 
 	//生成中间页码链接
@@ -85,9 +85,9 @@ func (p *Pagination) Pages() string {
 	for i := startPos; i <= endPos; i++ {
 		var s string
 		if i == pageSize {
-			s = fmt.Sprintf(`<li class="active"><a href="%s">%d</a></li>`, p.pageURL(strconv.Itoa(i)), i)
+			s = fmt.Sprintf(`<li class="page-item active"><a class="page-link" href="%s">%d</a></li>`, p.pageURL(strconv.Itoa(i)), i)
 		} else {
-			s = fmt.Sprintf(`<li><a href="%s">%d</a></li>`, p.pageURL(strconv.Itoa(i)), i)
+			s = fmt.Sprintf(`<li class="page-item"><a class="page-link" href="%s">%d</a></li>`, p.pageURL(strconv.Itoa(i)), i)
 		}
 		pageLinks = append(pageLinks, s)
 	}
