@@ -1,10 +1,12 @@
 package util
 
 import (
+	"bytes"
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"math"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -110,8 +112,20 @@ func GetQiNiuPublicAccessUrl(path string) string {
 	return publicAccessURL
 }
 
-func TimestampToString(ts time.Time) string {
-	return time.Unix(ts.Unix(), 00).Format("2006-01-02 15:04:05")
+func TimeLayout() string {
+	return "2006-01-02 15:04:05"
+}
+
+func TimeToString(ts time.Time) string {
+	return time.Unix(ts.Unix(), 00).Format(TimeLayout())
+}
+
+func TimeToDateString(ts time.Time) string {
+	return time.Unix(ts.Unix(), 00).Format("2006年01月02日")
+}
+
+func TimeToInt64(ts time.Time) int64 {
+	return ts.Unix()
 }
 
 func GetDate() string {
@@ -175,4 +189,108 @@ func GenPasswordToken() string {
 	h.Write([]byte(randStr))
 
 	return hex.EncodeToString(h.Sum(nil))
+}
+
+// see: https://blog.csdn.net/haibo0668/article/details/77648875
+func FormatTime(needTime time.Time) string {
+	var timeText string
+	var curTime = time.Now().Unix()
+	var needTimeTs = needTime.Unix()
+	if needTimeTs < 0 {
+		return timeText
+	}
+
+	// 是否跨年
+	year := time.Now().Year() - needTime.Year()
+	isCrossYear := false
+	if year > 0 {
+		isCrossYear = true
+	}
+
+	var tempStr string
+
+	log.Infof("test: %+v", needTime.Unix())
+
+	// 时间差，单位：秒
+	switch t := curTime - needTimeTs; {
+	case t == 0:
+		timeText = "刚刚"
+	case t < 60:
+		timeText = fmt.Sprintf("%d秒前", t) // 一分钟内
+	case t < 60*60:
+		var temp = math.Floor(float64(t / 60))
+		tempStr = strconv.FormatFloat(temp, 'f', -1, 64)
+		timeText = fmt.Sprintf("%s分钟前", tempStr) // 一小时内
+	case t < 60*60*24:
+		var temp = math.Floor(float64(t / (60 * 60)))
+		tempStr = strconv.FormatFloat(temp, 'f', -1, 64)
+		timeText = fmt.Sprintf("%s小时前", tempStr) // 一天内
+	case t < 60*60*24*2:
+		timeText = fmt.Sprintf("昨天%s", needTime.Format("15:04")) // 昨天
+	case t < 60*60*24*30:
+		var temp = math.Floor(float64(t / (60 * 60 * 24)))
+		tempStr = strconv.FormatFloat(temp, 'f', -1, 64)
+		// timeText = needTime.Format("01月02日 15:04") // 一个月内
+		timeText = fmt.Sprintf("%s天前", tempStr)
+	case t < 60*60*24*365 && isCrossYear == false:
+		var temp = math.Floor(float64(t / (60 * 60 * 24 * 30)))
+		tempStr = strconv.FormatFloat(temp, 'f', -1, 64)
+		//timeText = needTime.Format("01月02日") // 一年内
+		timeText = fmt.Sprintf("%s个月前", tempStr)
+	default:
+		timeText = needTime.Format("2006年01月02日") // 一年以前
+	}
+
+	return timeText
+}
+
+/**
+* @des 时间转换函数
+* @param atime string 要转换的时间戳（秒）
+* @return string
+ */
+func StrTime(atime time.Time) string {
+	var byTime = []int64{
+		365 * 24 * 60 * 60,
+		24 * 60 * 60 * 30,
+		24 * 60 * 60 * 2,
+		24 * 60 * 60,
+		60 * 60,
+		60,
+		1,
+	}
+	var unit = []string{"年前", "个月前", "天前", "昨天", "小时前", "分钟前", "秒钟前"}
+	now := time.Now().Unix()
+	ct := now - atime.Unix()
+	if ct < 0 {
+		return "刚刚"
+	}
+	var res string
+	for i := 0; i < len(byTime); i++ {
+		if ct < byTime[i] {
+			continue
+		}
+		var temp = math.Floor(float64(ct / byTime[i]))
+		ct = ct % byTime[i]
+		if temp > 0 {
+			var tempStr string
+			tempStr = strconv.FormatFloat(temp, 'f', -1, 64)
+			res = MergeString(tempStr, unit[i])
+		}
+		break
+	}
+	return res
+}
+
+/**
+* @desc 拼接字符串
+* @param args ...string 要被拼接的字符串序列
+* @return string
+ */
+func MergeString(args ...string) string {
+	buffer := bytes.Buffer{}
+	for i := 0; i < len(args); i++ {
+		buffer.WriteString(args[i])
+	}
+	return buffer.String()
 }
