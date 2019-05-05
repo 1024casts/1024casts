@@ -136,6 +136,13 @@ func GetImageFullUrl(uri string) string {
 	return viper.GetString("image_domain") + uri
 }
 
+func GetAvatarUrl(uri string) string {
+	if strings.HasPrefix(uri, "https://") {
+		return uri
+	}
+	return viper.GetString("image_domain") + uri
+}
+
 func GenerateOrderNo() (uint64, error) {
 	dateStr := time.Now().Format("20060102150405")
 	log.Infof("data str: %s", dateStr)
