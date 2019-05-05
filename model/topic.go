@@ -47,8 +47,8 @@ type TopicInfo struct {
 	IsExcellent       string        `json:"is_excellent"`
 	LastReplyTimeAt   string        `json:"last_reply_time_at"`
 	LastReplyUserId   uint64        `json:"last_reply_user_id"`
-	LastReplyUserInfo *UserModel    `json:"last_reply_user_info"`
-	UserInfo          *UserModel    `json:"user_info"`
+	LastReplyUserInfo *UserInfo     `json:"last_reply_user_info"`
+	UserInfo          *UserInfo     `json:"user_info"`
 	ViewCount         int           `json:"view_count"`
 	VoteCount         int           `json:"vote_count"`
 	ReplyCount        int           `json:"reply_count"`
