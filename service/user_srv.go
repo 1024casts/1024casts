@@ -104,14 +104,44 @@ func sendActiveMail(username, toMail, activeCode string) {
 	}
 }
 
-func (srv *UserService) GetUserById(id uint64) (*model.UserModel, error) {
-	user, err := srv.userRepo.GetUserById(id)
+func (srv *UserService) GetUserById(id uint64) (*model.UserInfo, error) {
+	userModel, err := srv.userRepo.GetUserById(id)
+	user := srv.trans(userModel)
 
 	if err != nil {
 		return user, err
 	}
 
 	return user, nil
+}
+
+func (srv *UserService) trans(user *model.UserModel) *model.UserInfo {
+	return &model.UserInfo{
+		Id:                user.Id,
+		Username:          user.Username,
+		Password:          user.Password,
+		Email:             user.Email,
+		Avatar:            util.GetAvatarUrl(user.Avatar),
+		RealName:          user.RealName,
+		City:              user.City,
+		Company:           user.Company,
+		WeiboUrl:          user.WeiboUrl,
+		WechatId:          user.WechatId,
+		PersonalWebsite:   user.PersonalWebsite,
+		Introduction:      user.Introduction,
+		TopicCount:        user.TopicCount,
+		ReplyCount:        user.ReplyCount,
+		FollowerCount:     user.FollowerCount,
+		NotificationCount: user.NotificationCount,
+		Status:            user.Status,
+		LastLoginTime:     util.TimeToString(user.LastLoginTime),
+		LastLoginIp:       user.LastLoginIp,
+		GithubId:          user.GithubId,
+		RememberToken:     user.RememberToken,
+		IsActivated:       user.IsActivated,
+		CreatedAt:         util.TimeToString(user.CreatedAt),
+		UpdatedAt:         util.TimeToString(user.UpdatedAt),
+	}
 }
 
 func (srv *UserService) GetUserNameById(id uint64) string {
