@@ -43,7 +43,7 @@ func Detail(c *gin.Context) {
 	}
 
 	c.HTML(http.StatusOK, "topic/detail", gin.H{
-		"title":   "话题详情",
+		"title":   topic.Title,
 		"user_id": userId,
 		"user":    user,
 		"topic":   topic,
