@@ -117,20 +117,20 @@ func (srv *TopicService) trans(topic *model.TopicModel) *model.TopicInfo {
 		ViewCount:         topic.ViewCount,
 		VoteCount:         topic.VoteCount,
 		ReplyCount:        topic.ReplyCount,
-		CreatedAt:         util.TimeToString(topic.CreatedAt),
+		CreatedAt:         util.TimeToDateString(topic.CreatedAt),
 		UpdatedAt:         util.TimeToString(topic.UpdatedAt),
 	}
 }
 
 func (srv *TopicService) transReply(reply *model.ReplyModel) *model.ReplyInfo {
-	replyUser, _ := srv.userSrv.GetUserById(reply.UserID)
+	replyUser, _ := srv.userSrv.GetUserById(reply.UserId)
 	return &model.ReplyInfo{
-		ID:            reply.ID,
-		TopicID:       reply.TopicID,
+		Id:            reply.Id,
+		TopicId:       reply.TopicID,
 		Body:          template.HTML(reply.Body),
 		IsBlocked:     reply.IsBlocked,
 		OriginBody:    reply.OriginBody,
-		UserID:        reply.UserID,
+		UserID:        reply.UserId,
 		ReplyUserInfo: replyUser,
 		VoteCount:     reply.VoteCount,
 		Source:        reply.Source,
@@ -170,7 +170,7 @@ func (srv *TopicService) GetReplyList(replyMap map[string]interface{}, offset, l
 
 	ids := []uint64{}
 	for _, reply := range replies {
-		ids = append(ids, reply.ID)
+		ids = append(ids, reply.Id)
 	}
 
 	wg := sync.WaitGroup{}
@@ -191,7 +191,7 @@ func (srv *TopicService) GetReplyList(replyMap map[string]interface{}, offset, l
 			replyList.Lock.Lock()
 			defer replyList.Lock.Unlock()
 
-			replyList.IdMap[reply.ID] = srv.transReply(reply)
+			replyList.IdMap[reply.Id] = srv.transReply(reply)
 		}(r)
 	}
 
