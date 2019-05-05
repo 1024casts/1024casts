@@ -24,8 +24,8 @@ func NewTopicService() *TopicService {
 	}
 }
 
-func (srv *TopicService) CreateTopic(user model.TopicModel) (id uint64, err error) {
-	id, err = srv.repo.CreateTopic(user)
+func (srv *TopicService) CreateTopic(topic model.TopicModel) (id uint64, err error) {
+	id, err = srv.repo.CreateTopic(topic)
 
 	if err != nil {
 		return id, err
@@ -211,4 +211,13 @@ func (srv *TopicService) GetReplyList(replyMap map[string]interface{}, offset, l
 	}
 
 	return infos, count, nil
+}
+
+func (srv *TopicService) GetCategoryList() ([]*model.CategoryModel, error) {
+	categories, err := srv.repo.GetCategoryList()
+	if err != nil {
+		return nil, err
+	}
+
+	return categories, nil
 }

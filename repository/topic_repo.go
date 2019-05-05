@@ -69,6 +69,16 @@ func (repo *TopicRepo) GetReplyList(replyMap map[string]interface{}, offset, lim
 	return replies, count, nil
 }
 
+func (repo *TopicRepo) GetCategoryList() ([]*model.CategoryModel, error) {
+	categories := make([]*model.CategoryModel, 0)
+
+	if err := repo.db.Self.Order("weight desc").Find(&categories).Error; err != nil {
+		return categories, err
+	}
+
+	return categories, nil
+}
+
 func (repo *TopicRepo) IncrTopicViewCount(id int) error {
 	topic, err := repo.GetTopicById(id)
 	if err != nil {
