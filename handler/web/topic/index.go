@@ -32,10 +32,14 @@ func Index(c *gin.Context) {
 		log.Warnf("[topic] get topic list err: %v", err)
 	}
 
+	userSrv := service.NewUserService()
+	user, _ := userSrv.GetUserById(userId)
+
 	pagination := pagination.NewPagination(c.Request, count, limit)
 	c.HTML(http.StatusOK, "topic/index", gin.H{
 		"title":   "社区首页",
 		"user_id": userId,
+		"user":    user,
 		"ctx":     c,
 		"topics":  topics,
 		"pages":   template.HTML(pagination.Pages()),
