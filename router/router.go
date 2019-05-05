@@ -117,6 +117,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	})
 
 	router.Use(static.Serve("/static", static.LocalFile(viper.GetString("static"), false)))
+	router.Use(static.Serve("/uploads/avatar", static.LocalFile(viper.GetString("avatar"), false)))
 
 	//new template engine
 	router.HTMLRender = gintemplate.New(gintemplate.TemplateConfig{
@@ -201,7 +202,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	t.Use(middleware.CookieMiddleware())
 	{
 		t.GET("/new", webTopic.Create)
-		t.POST("/new", webTopic.Create)
+		t.POST("/new", webTopic.DoCreate)
 	}
 
 	router.GET("/vip", webPlan.Index)
