@@ -50,6 +50,34 @@ func (c *UserModel) TableName() string {
 	return "users"
 }
 
+type UserInfo struct {
+	Id                uint64   `json:"id"`
+	Username          string   `json:"username"`
+	Password          string   `json:"password"`
+	Email             string   `json:"email"`
+	Avatar            string   `json:"avatar"`
+	RealName          string   `json:"real_name"`
+	City              string   `json:"city"`
+	Company           string   `json:"company"`
+	WeiboUrl          string   `json:"weibo_url"`
+	WechatId          string   `json:"wechat_id"`
+	PersonalWebsite   string   `json:"personal_website"`
+	Introduction      string   `json:"introduction"`
+	TopicCount        int      `json:"topic_count"`
+	ReplyCount        int      `json:"reply_count"`
+	FollowerCount     int      `json:"follower_count"`
+	NotificationCount int      `json:"notification_count"`
+	Status            int      `json:"status"`
+	LastLoginTime     string   `json:"last_login_time"`
+	LastLoginIp       string   `json:"last_login_ip"`
+	GithubId          string   `json:"github_id"`
+	RememberToken     string   `json:"remember_token"`
+	IsActivated       int      `json:"is_activated"`
+	CreatedAt         string   `json:"created_at"`
+	UpdatedAt         string   `json:"updated_at"`
+	Roles             []string `json:"roles"`
+}
+
 // Compare with the plain text password. Returns true if it's the same as the encrypted one (in the `User` struct).
 func (u *UserModel) Compare(pwd string) (err error) {
 	err = auth.Compare(u.Password, pwd)
