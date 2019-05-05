@@ -29,11 +29,25 @@ func Detail(c *gin.Context) {
 		log.Warnf("[topic] get topic detail err: %+v", err)
 	}
 
+	replyMap := make(map[string]interface{})
+	replyMap["topic_id"] = topicId
+	replies, _, err := srv.GetReplyList(replyMap, 0, 10)
+	if err != nil {
+		log.Warnf("[topic] get topic detail err: %+v", err)
+	}
+
+	// 增加view_count
+	err = srv.IncrTopicViewCount(topicId)
+	if err != nil {
+		log.Warnf("[topic] incr topic view count err: %+v", err)
+	}
+
 	c.HTML(http.StatusOK, "topic/detail", gin.H{
 		"title":   "话题详情",
 		"user_id": userId,
 		"user":    user,
 		"topic":   topic,
+		"replies": replies,
 		"ctx":     c,
 	})
 }
