@@ -15,8 +15,9 @@
                         {{ range $index, $value := .topics}}
                             <div class="topic media">
                                 <div class="avatar">
-                                    <a title="{{.UserInfo.Username}}" href="/users/{{.UserInfo.Username}}"><img class="media-object avatar-48"
-                                                                                        src="https://l.ruby-china.com/user/avatar/25043/744a59.png!md"></a>
+                                    <a title="{{.UserInfo.Username}}" href="/users/{{.UserInfo.Username}}">
+                                        <img class="media-object avatar-48" src="{{.UserInfo.Avatar}}">
+                                    </a>
                                 </div>
                                 <div class="infos media-body">
                                     <div class="title media-heading">
@@ -31,7 +32,7 @@
                                         <a class="user-name" data-name="{{.UserInfo.Username}}" href="/lanzhiheng">{{.UserInfo.Username}}</a>
                                         <span class="hidden-mobile"> •
                                             {{if gt .LastReplyUserId 0}} 最后由
-                                                <a class="user-name" data-name="{{.LastReplyUserInfo.Username}}" href="/lanzhiheng">{{.LastReplyUserInfo.Username}}</a>
+                                                <a class="user-name" data-name="{{.LastReplyUserInfo.Username}}" href="/users/{{.LastReplyUserInfo.Username}}">{{.LastReplyUserInfo.Username}}</a>
                                                 回复于 <abbr class="timeago" title="{{.LastReplyTimeAt}}">{{.LastReplyTimeAt}}</abbr>
                                             {{else}}
                                                 发布于 <abbr class="timeago" title="{{.CreatedAt}}">{{.CreatedAt}}</abbr>
@@ -57,7 +58,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <a class="btn btn-primary btn-block" href="/topics/new">发布新话题</a>
+                        <a class="btn btn-primary btn-block" href="/topic/new">发布新话题</a>
                     </div>
                 </div>
 
