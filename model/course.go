@@ -23,5 +23,20 @@ func (c *CourseModel) TableName() string {
 
 type CourseList struct {
 	Lock  *sync.Mutex
-	IdMap map[uint64]*CourseModel
+	IdMap map[uint64]*CourseInfo
+}
+
+type CourseInfo struct {
+	Id           uint64 `json:"id"`
+	Name         string `json:"name"`
+	Type         string `json:"type"`
+	Description  string `json:"description"`
+	Slug         string `json:"slug"`
+	CoverImage   string `json:"cover_image"`
+	UserId       int    `json:"user_id"`
+	IsPublish    int    `json:"is_publish"`
+	UpdateStatus int    `json:"update_status"`
+	CreatedAt    string `json:"created_at"`
+	UpdatedAt    string `json:"updated_at"`
+	DeletedAt    string `json:"deleted_at"`
 }
