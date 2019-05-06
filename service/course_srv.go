@@ -42,8 +42,24 @@ func (srv *CourseService) GetCourseById(id int) (*model.CourseModel, error) {
 	return course, nil
 }
 
-func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset, limit int) ([]*model.CourseModel, uint64, error) {
-	infos := make([]*model.CourseModel, 0)
+func (srv *CourseService) trans(course *model.CourseModel) *model.CourseInfo {
+	return &model.CourseInfo{
+		Id:           course.Id,
+		Name:         course.Name,
+		Type:         course.Type,
+		Description:  course.Description,
+		Slug:         course.Slug,
+		CoverImage:   util.GetQiniuPrivateAccessUrl(course.CoverImage),
+		UserId:       course.UserId,
+		IsPublish:    course.IsPublish,
+		UpdateStatus: course.UpdateStatus,
+		CreatedAt:    util.TimeToDateString(course.CreatedAt),
+		UpdatedAt:    util.TimeToString(course.UpdatedAt),
+	}
+}
+
+func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset, limit int) ([]*model.CourseInfo, uint64, error) {
+	infos := make([]*model.CourseInfo, 0)
 
 	courses, count, err := srv.repo.GetCourseList(courseMap, offset, limit)
 	if err != nil {
@@ -58,7 +74,7 @@ func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset
 	wg := sync.WaitGroup{}
 	courseList := model.CourseList{
 		Lock:  new(sync.Mutex),
-		IdMap: make(map[uint64]*model.CourseModel, len(courses)),
+		IdMap: make(map[uint64]*model.CourseInfo, len(courses)),
 	}
 
 	errChan := make(chan error, 1)
@@ -79,8 +95,7 @@ func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset
 			courseList.Lock.Lock()
 			defer courseList.Lock.Unlock()
 
-			course.CoverImage = util.GetQiniuPrivateAccessUrl(course.CoverImage)
-			courseList.IdMap[course.Id] = course
+			courseList.IdMap[course.Id] = srv.trans(course)
 		}(c)
 	}
 
