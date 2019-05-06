@@ -129,7 +129,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 			// 判断是否是当前链接
 			"isActive": func(ctx *gin.Context, currentUri string) string {
 				if ctx.Request.RequestURI == currentUri {
-					return "active"
+					return "is-active"
 				} else {
 					return ""
 				}
