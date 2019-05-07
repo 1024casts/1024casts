@@ -58,7 +58,7 @@ func (srv *CourseService) trans(course *model.CourseModel) *model.CourseInfo {
 	}
 }
 
-func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset, limit int) ([]*model.CourseInfo, uint64, error) {
+func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset, limit int) ([]*model.CourseInfo, int, error) {
 	infos := make([]*model.CourseInfo, 0)
 
 	courses, count, err := srv.repo.GetCourseList(courseMap, offset, limit)
