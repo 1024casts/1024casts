@@ -45,7 +45,7 @@ type SectionListRequest struct {
 }
 
 type ListResponse struct {
-	TotalCount uint64              `json:"totalCount"`
+	TotalCount int                 `json:"totalCount"`
 	List       []*model.CourseInfo `json:"list"`
 }
 
