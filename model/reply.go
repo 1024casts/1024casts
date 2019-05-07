@@ -37,7 +37,7 @@ type ReplyInfo struct {
 	IsBlocked     string        `json:"is_blocked"`
 	OriginBody    string        `json:"origin_body"`
 	UserID        uint64        `json:"user_id"`
-	ReplyUserInfo *UserModel    `json:"reply_user_info"`
+	ReplyUserInfo *UserInfo     `json:"reply_user_info"`
 	VoteCount     int           `json:"vote_count"`
 	Source        string        `json:"source"`
 	CreatedAt     string        `json:"created_at"`
