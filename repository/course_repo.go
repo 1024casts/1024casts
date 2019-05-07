@@ -31,13 +31,13 @@ func (repo *CourseRepo) GetCourseById(id int) (*model.CourseModel, error) {
 	return &course, result.Error
 }
 
-func (repo *CourseRepo) GetCourseList(courseMap map[string]interface{}, offset, limit int) ([]*model.CourseModel, uint64, error) {
+func (repo *CourseRepo) GetCourseList(courseMap map[string]interface{}, offset, limit int) ([]*model.CourseModel, int, error) {
 	if limit == 0 {
 		limit = constvar.DefaultLimit
 	}
 
 	courses := make([]*model.CourseModel, 0)
-	var count uint64
+	var count int
 
 	if err := repo.db.Self.Model(&model.CourseModel{}).Where(courseMap).Count(&count).Error; err != nil {
 		return courses, count, err
