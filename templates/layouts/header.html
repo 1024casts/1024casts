@@ -1,66 +1,73 @@
-<div class="header navbar navbar-expand flex-md-row bd-navbar">
-    <div class="container d-sm-flex">
-        <div class="navbar-header d-none d-md-flex" id="navbar-header" data-turbolinks-permanent="">
-            <a href="/" class="navbar-brand"><b>1024</b> 课堂</a>
 
-        </div>
-        <div class="navbar-nav-scroll">
-            <div class="navbar-topic-title">
-                <a href="#" class="topic-title pull-left" title="有用 VS Code 调试 Rails 的大神么？？" data-type="top">
-                    <h1><span class="node">Rails</span> <span class="title"><i title="" class="fa fa-check" data-toggle="tooltip" data-original-title="问题已解决／话题已结束讨论"></i></span></h1>
+<nav class="navbar topNav" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+        <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+</div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+        <a class="navbar-item {{isActive .ctx "/"}}" href="/">
+            首页
+        </a>
+        <a class="navbar-item {{isActive .ctx "/courses"}}" href="/courses">
+            课程
+        </a>
+        <a class="navbar-item {{isActive .ctx "/topics"}}" href="/topics">
+            社区
+        </a>
+        <a class="navbar-item {{isActive .ctx "/vip"}}" href="/vip">
+            订阅
+        </a>
+        <a class="navbar-item {{isActive .ctx "/wiki"}}" href="/wiki">
+            Wiki
+        </a>
+    </div>
+
+    <div class="navbar-end">
+        {{if .user_id}}
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    {{.user.Username}}
                 </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item"href="/users/{{.user.Username}}">
+                        {{.user.Username}}
+                    </a>
+                    <a class="navbar-item" href="/settings/basic">
+                        设置
+                    </a>
+                    <a class="navbar-item" href="/logout">
+                        退出
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="/logout">
+                        退出
+                    </a>
+                </div>
             </div>
-
-            <ul id="main-nav-menu" class="navbar-nav d-flex">
-                <li class="nav-item"><a class="nav-link {{isActive .ctx "/"}}" href="/">首页</a></li>
-                <li class="nav-item"><a class="nav-link {{isActive .ctx "/courses"}}" href="/courses">课程</a></li>
-                <li class="nav-item"><a class="nav-link {{isActive .ctx "/topics"}}" href="/topics">社区</a></li>
-                <li class="nav-item"><a class="nav-link {{isActive .ctx "/vip"}}" href="/vip">订阅</a></li>
-                <li class="nav-item"><a class="nav-link {{isActive .ctx "/wiki"}}" href="/wiki">Wiki</a></li>
-            </ul>
-
-        </div>
-        <div class="ml-auto d-md-flex">
-            <form class="navbar-form d-none d-lg-flex mr-2 form-search active" action="/search" method="GET">
-                <i class="fa btn-search fa-search"></i>
-                <input class="form-control" name="q" type="text" value="" placeholder="搜索本站内容">
-            </form>
-            {{if .user_id}}
-            <ul class="nav navbar-nav user-bar align-items-center justify-content-end">
-                <li class="nav-item notification-count">
-                    <a href="/notifications" class="nav-link " title="通知"><i class="fa fa-bell"></i><span class="count">0</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="#" id="navbar-new-menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-plus"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-new-menu">
-                        <a class="dropdown-item" href="/topic/new">发布新话题</a>
+        {{else}}
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="/register">
+                            <strong>注册</strong>
+                        </a>
+                        <a class="button is-light" href="/login">
+                            登录
+                        </a>
                     </div>
-                </li>
-
-                <li class="nav-item dropdown dropdown-avatar">
-                    <a href="#" class="dropdown-toggle nav-link" id="navbar-user-menu" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <img class="media-object avatar-32" src="https://ruby-china.org/system/letter_avatars/2/Q/194_194_194/64.png">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-user-menu">
-                        <a class="dropdown-item" href="/users/{{.user.Username}}">{{.user.Username}}</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/settings/basic">设置</a>
-
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" rel="nofollow" data-method="delete" href="/logout">退出</a>
-                    </div>
-                </li>
-            </ul>
-            {{else}}
-            <ul class="nav navbar-nav user-bar align-items-center justify-content-end">
-
-                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
-
-                <li class="nav-item"><a class="nav-link" href="/login">登录</a></li>
-            </ul>
-            {{end}}
-        </div>
+                </div>
+            </div>
+        {{end}}
     </div>
 </div>
+</nav>
