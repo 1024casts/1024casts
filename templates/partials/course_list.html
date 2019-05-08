@@ -1,0 +1,33 @@
+<div class="columns is-multiline is-mobile has-text-left">
+    {{range .courses}}
+        <div class="column is-one-third">
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image is-4by3">
+                        <a href="/courses/{{.Slug}}">
+                            <img src="{{.CoverImage}}" alt="{{.Name}}">
+                        </a>
+                    </figure>
+                </div>
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="is-6">
+                                <a href="/courses/{{.Slug}}">{{.Name}}</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="content">
+                        {{if eq .UpdateStatus 1}}
+                            <span class="tag is-info">预告</span>
+                        {{else if eq .UpdateStatus 2}}
+                            <span class="tag is-warning">更新中</span>
+                        {{else if eq .UpdateStatus 3}}
+                            <span class="tag is-success">已完结</span>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{end}}
+</div>
