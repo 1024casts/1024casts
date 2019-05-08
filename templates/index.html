@@ -1,182 +1,73 @@
 {{ define "css"}}
 <style type="text/css">
-    body {background: #e5e5e5;}
+    /*body {background: #e5e5e5;}*/
 </style>
 {{ end }}
 
 {{define "content"}}
-{{/*<section class="jumbotron text-center">*/}}
-    {{/*<div class="container">*/}}
-        {{/*<h1 class="jumbotron-heading">Album example</h1>*/}}
-        {{/*<p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>*/}}
-        {{/*<p>*/}}
-            {{/*<a href="#" class="btn btn-primary my-2">Main call to action</a>*/}}
-            {{/*<a href="#" class="btn btn-secondary my-2">Secondary action</a>*/}}
-        {{/*</p>*/}}
-    {{/*</div>*/}}
-{{/*</section>*/}}
 
-{{/*<section>*/}}
-{{/*<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">*/}}
-    {{/*<ol class="carousel-indicators">*/}}
-            {{/*<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>*/}}
-            {{/*<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>*/}}
-        {{/*</ol>*/}}
-        {{/*<div class="carousel-inner">*/}}
-            {{/*<div class="carousel-item active">*/}}
-                {{/*<img src="https://www.21rv.com/userfiles/image/20181221/211355275479489c520680.png" height="600">*/}}
-            {{/*</div>*/}}
-            {{/*<div class="carousel-item">*/}}
-                {{/*<svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="1140" height="600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: First slide"><title>Placeholder</title><rect fill="#777" width="100%" height="100%"></rect><text fill="#555" dy=".3em" x="50%" y="50%">First slide</text></svg>*/}}
-            {{/*</div>*/}}
-        {{/*</div>*/}}
-        {{/*<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">*/}}
-            {{/*<span class="carousel-control-prev-icon" aria-hidden="true"></span>*/}}
-            {{/*<span class="sr-only">Previous</span>*/}}
-        {{/*</a>*/}}
-        {{/*<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">*/}}
-            {{/*<span class="carousel-control-next-icon" aria-hidden="true"></span>*/}}
-            {{/*<span class="sr-only">Next</span>*/}}
-        {{/*</a>*/}}
-    {{/*</div>*/}}
-{{/*</section>*/}}
-
-
-<div class="card text-center">
-    <div class="card-body">
-        <h5 class="card-title">持续更新</h5>
-        <p class="card-text">享受编程和技术所带来的乐趣</p>
-    </div>
-</div>
-<div class="row" style="background-color: white;">
-    <div class="col-1"></div>
-    <div class="col-10">
-        <div class="card-deck">
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1549758895-6eab7830c05d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1549752448-38f4d94420f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1549752448-38f4d94420f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
+    <section class="hero is-primary is-bold">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <p class="title">
+                    持续更新
+                </p>
+                <p class="subtitle">
+                    享受编程和技术所带来的乐趣
+                </p>
+                {{include "partials/course_list"}}
             </div>
         </div>
-    </div>
-    <div class="col-1"></div>
-</div>
+    </section>
 
-<div class="card text-center" style="padding-top: 40px; padding-bottom: 20px;">
-    <div class="card-body">
-        <h5 class="card-title">构建知识框架</h5>
-        <p class="card-text">为您提供了一套不断更新的 Web 设计与开发的知识框架。使用这个知识框架，你可以实践自己的想法，做出你想要的网站或应用。</p>
-    </div>
-</div>
-<div class="row" style="background-color: white">
-    <div class="col-1"></div>
-    <div class="col-10">
-        <div class="card-group">
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1549758895-6eab7830c05d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    <section class="hero is-light is-large">
+        <div class="hero-body">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">课程</p>
+                    <p class="title">3,456</p>
                 </div>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1549752448-38f4d94420f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">视频</p>
+                    <p class="title">123</p>
                 </div>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1549752448-38f4d94420f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">分钟</p>
+                    <p class="title">456K</p>
                 </div>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1549752448-38f4d94420f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">会员</p>
+                    <p class="title">789</p>
                 </div>
             </div>
+        </nav>
         </div>
-    </div>
-</div>
+    </section>
 
-<section class="facts background-bg" style="background-image: url('/static/images/bg2.jpg')">
-    <div class="overlay">
-        <div class="section-padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="item media">
-                            <div class="item-icon mr-3"><i class="icons icon-book-open"></i></div>
-                            <!-- /.item-icon -->
-                            <div class="item-details"><span class="count">765</span>
-                                <!-- /.count -->
-                                <h3 class="item-title">
-                                Courses Published</h3>
-                                <!-- /.item-title --></div>
-                            <!-- /.item-details -->
-                        </div>
-                        <!-- /.item -->
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="item media">
-                            <div class="item-icon mr-3"><i class="icons icon-eyeglass"></i></div><!-- /.item-icon -->
-                            <div class="item-details"><span class="count">249</span><!-- /.count --><h3 class="item-title">
-                                Expert Instructors</h3><!-- /.item-title --></div><!-- /.item-details --></div><!-- /.item -->
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="item media">
-                            <div class="item-icon mr-3"><i class="icons icon-people"></i></div><!-- /.item-icon -->
-                            <div class="item-details"><span class="count">8348</span><!-- /.count --><h3 class="item-title">
-                                Happy Learners</h3><!-- /.item-title --></div><!-- /.item-details --></div><!-- /.item --></div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="item media">
-                            <div class="item-icon mr-3"><i class="icons icon-trophy"></i></div><!-- /.item-icon -->
-                            <div class="item-details"><span class="count">99</span><!-- /.count --><h3 class="item-title">Awards
-                                Achieved</h3><!-- /.item-title --></div><!-- /.item-details --></div><!-- /.item --></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="subscribe text-center gray-bg">
-    <div class="section-padding">
+    <section id="newsletter" class="section is-medium">
         <div class="container">
-            <h4 class="title">Subscribe Weekly Newsletter</h4>
-            <form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-1971 bm8 " method="post" data-id="1971"
-                  data-name="Mail Form">
-                <input class="subscribe-email" type="email" id="subscribe-email" name="EMAIL"
-                                               placeholder="Enter Email Address Here" required="">
-                <input class="subscribe-submit" type="submit" id="subscribe-submit" name="submit" value="Subscribe now">
-            </form>
+            <div class="columns is-vcentered">
+                <div class="column">
+                    <p class="title">订阅</p>
+                    <p class="subtitle is-6 has-text-grey-light">可以在线学习这里所有的课程</p>
+                </div>
+
+                <div class="column">
+                    <a class="button is-medium is-link" href="/vip">
+                        <strong>马上订阅</strong>
+                    </a>
+                </div>
+            </div>
         </div>
-        <!-- /.container -->
-    </div>
-    <!-- /.section-padding -->
-</section>
+    </section>
+
 {{end}}
 
 {{ define "js"}}
