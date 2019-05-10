@@ -6,53 +6,56 @@
 {{ end }}
 
 {{define "content"}}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-3 col-md-offset-1 setting-menu">
-            <div class="card">
-            {{include "user/sidebar"}}
+
+    <div class="container" style="padding: 2rem 0rem;">
+        <div class="columns body-columns">
+            <div class="column is-one-quarter">
+                <div class="box">
+                    {{include "user/sidebar"}}
+                </div>
             </div>
-        </div>
-
-
-        <div class="col-md-9">
-            <div class="card">
-                <div class="card-body">
-                    <form id="app" class="edit_user">
-                        <div class="row">
-                            <div class="col-sm-9">
-                                <div class="form-group">
-                                    <label class="control-label">姓名</label>
-                                    <input style="width: 200px" class="form-control" placeholder="姓名" v-model="real_name" type="text" name="real_name" id="real_name">
+            <div class="column">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            基本信息
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <form id="app" class="form-signin">
+                                <div class="field">
+                                    <div class="control">
+                                        <label class="label">姓名</label>
+                                        <input type="text" name="real_name" class="input" id="real_name" placeholder="姓名" v-model="real_name">
+                                    </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="control-label">Email</label>
-                                    <input disabled="disabled" class="form-control" placeholder="Email" type="text" value="{{.user.Email}}" name="email" id="email">
+                                <div class="field">
+                                    <div class="control">
+                                        <label class="label">Email</label>
+                                        <input type="text" name="real_name" class="input" id="real_name" value="{{.user.Email}}" disabled="disabled">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <input type="file" name="avatar" id="avatar">
-                                    <div class="form-text">选择上传头像</div>
+                                <div class="field">
+                                    <div class="control">
+                                        <label class="label">选择上传头像</label>
+                                        <input type="file" name="avatar" class="input" id="avatar">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" name="introduction" id="introduction" v-model="introduction"></textarea>
+                                <div class="field">
+                                    <div class="control">
+                                        <label class="label">简介</label>
+                                        <textarea class="textarea" name="introduction" id="introduction" v-model="introduction"></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group avatar-preview" style="text-align: center;">
-                                    <img class="media-object avatar-96" id="imgAvatar" src="{{.user.Avatar}}">
-                                </div>
-                            </div>
+                                <button class="button is-block is-info is-large is-fullwidth" @click="doUpdate">更新资料</button>
+                            </form>
                         </div>
-                        <div class="form-actions hide-ios">
-                            <button class="btn btn-primary" data-disable-with="正在保存" @click="doUpdate">更新资料</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {{end}}
 
 {{ define "js"}}
