@@ -26,25 +26,26 @@
         <div class="hero-body">
             <div class="container">
                 <div class="column is-4 is-offset-4">
-                    <h3 class="title has-text-grey">登录</h3>
-                    <p class="subtitle has-text-grey">.</p>
+                    <h3 class="title has-text-grey has-text-centered">登录</h3>
+                    <p class="subtitle has-text-grey has-text-centered">.</p>
                     <div class="box">
+                        {{include "partials/error"}}
                         <figure class="avatar has-text-centered">
                             <img src="/uploads/avatar/avataaars.png" width="128" height="128">
                         </figure>
                         <form id="app" class="form-signin">
                             <div class="field">
-                                <div class="control">
+                                <div class="control has-icons-left has-icons-right">
                                     <input name="email" class="input is-medium" id="inputEmail" type="email" placeholder="邮箱地址" v-model="email" autofocus="">
+                                    <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
                                 </div>
                                 <p class="help is-danger" id="email-tip" style="display: none"></p>
                             </div>
 
                             <div class="field">
-                                <div class="control">
+                                <div class="control has-icons-left has-icons-right">
                                     <input name="password" class="input is-medium" id="inputPassword" type="password" placeholder="密码" v-model="password">
-                                    <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
-                                    <span class="icon is-small is-right"><i class="fas fa-exclamation-triangle"></i></span>
+                                    <span class="icon is-small is-left"><i class="fas fa-lock"></i></span>
                                 </div>
                                 <p class="help is-danger" id="password-tip" style="display: none"></p>
                             </div>

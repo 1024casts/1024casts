@@ -26,39 +26,40 @@
         <div class="hero-body">
             <div class="container">
                 <div class="column is-4 is-offset-4">
-                    <h3 class="title has-text-grey">注册</h3>
+                    <h3 class="title has-text-grey has-text-centered">注册</h3>
                     <p class="subtitle has-text-grey">.</p>
                     <div class="box">
+                        {{include "partials/error"}}
                         <figure class="avatar has-text-centered">
                             <img src="/uploads/avatar/avataaars.png" width="128" height="128">
                         </figure>
                         <form id="app" class="form-signin">
                             <div class="field">
-                                <div class="control">
+                                <div class="control has-icons-left has-icons-right">
                                     <input name="username" class="input is-medium" id="username" type="text" placeholder="用户名" v-model="username" autofocus="">
+                                    <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
                                 </div>
                                 <p class="help is-danger" id="username-tip" style="display: none"></p>
                             </div>
                             <div class="field">
-                                <div class="control">
+                                <div class="control has-icons-left has-icons-right">
                                     <input name="email" class="input is-medium" id="email" type="email" placeholder="邮箱地址" v-model="email">
+                                    <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
                                 </div>
                                 <p class="help is-danger" id="email-tip" style="display: none"></p>
                             </div>
 
                             <div class="field">
-                                <div class="control">
+                                <div class="control has-icons-left has-icons-right">
                                     <input name="password" class="input is-medium" id="password" type="password" placeholder="密码" v-model="password">
-                                    <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
-                                    <span class="icon is-small is-right"><i class="fas fa-exclamation-triangle"></i></span>
+                                    <span class="icon is-small is-left"><i class="fas fa-lock"></i></span>
                                 </div>
                                 <p class="help is-danger" id="password-tip" style="display: none"></p>
                             </div>
                             <div class="field">
-                                <div class="control">
+                                <div class="control has-icons-left has-icons-right">
                                     <input name="confirm_password" class="input is-medium" id="confirm_password" type="password" placeholder="确认密码" v-model="confirm_password">
-                                    <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
-                                    <span class="icon is-small is-right"><i class="fas fa-exclamation-triangle"></i></span>
+                                    <span class="icon is-small is-left"><i class="fas fa-lock"></i></span>
                                 </div>
                                 <p class="help is-danger" id="confirm_password-tip" style="display: none"></p>
                             </div>
