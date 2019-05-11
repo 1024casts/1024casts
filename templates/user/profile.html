@@ -7,51 +7,64 @@
 
 {{ define "content"}}
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-3 col-md-offset-1 setting-menu">
-            <div class="card">
-                {{include "user/sidebar"}}
+    <div class="container" style="padding: 2rem 0rem;">
+        <div class="columns body-columns">
+            <div class="column is-one-quarter">
+                <div class="box">
+                    {{include "user/sidebar"}}
+                </div>
             </div>
-        </div>
+            <div class="column">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            个人资料
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <form id="app" class="form-signin">
+                                <input type="hidden" name="by" value="profile">
+                                <div class="field">
+                                    <div class="control">
+                                        <label class="label">城市</label>
+                                        <input class="input" style="width: 400px" type="text" name="city" v-model="city" value="{{.user.City}}" id="city">
+                                    </div>
+                                </div>
 
-
-        <div class="col-md-9">
-            <div class="card">
-                <div class="card-body">
-                    <form id="app" class="edit_user" >
-                        <input type="hidden" name="by" value="profile">
-                        <div class="form-group">
-                            <label for="user_location">城市</label>
-                            <input class="form-control" style="width: 200px" type="text" name="city" v-model="city" value="{{.user.City}}" id="city">
+                                <div class="field">
+                                    <div class="control">
+                                        <label class="label">公司</label>
+                                        <input class="input" style="width: 400px" type="text" name="company" v-model="company" value="{{.user.Company}}" id="company">
+                                    </div>
+                                </div>
+                                <div class="field has-addons">
+                                    <div class="control">
+                                        <label class="label">GitHub</label>
+                                        <p class="control">
+                                            <a class="button is-static">
+                                                https://github.com/
+                                            </a>
+                                        </p>
+                                        <p class="control">
+                                            <input class="input" type="text" name="github_id" v-model="github_id" value="{{.user.GithubId}}" id="github_id">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control">
+                                        <label class="label">个人主页</label>
+                                        <input type="url" class="input" style="width: 400px;" placeholder="http://" name="personal_website" v-model="personal_website" value="{{.user.PersonalWebsite}}" id="person_website">
+                                    </div>
+                                </div>
+                                <button class="button is-block is-info is-medium is-fullwidth" @click="doUpdate">更新资料</button>
+                            </form>
                         </div>
-
-                        <div class="form-group">
-                            <label for="user_company">公司</label>
-                            <input class="form-control" style="width: 400px" type="text" name="company" v-model="company" value="{{.user.Company}}" id="company">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="user_github">GitHub</label>
-                            <div class="input-group">
-                                <span class="input-group-prepend"><span class="input-group-text">https://github.com/</span></span>
-                                <input class="form-control" type="text" name="github_id" v-model="github_id" value="{{.user.GithubId}}" id="github_id">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="user_website">个人主页</label>
-                            <input type="url" class="form-control" placeholder="http://" name="personal_website" v-model="personal_website" value="{{.user.PersonalWebsite}}" id="person_website">
-                        </div>
-                        <div class="form-actions hide-ios">
-                            <button type="submit" class="btn btn-primary" data-disable-with="正在保存" @click="doUpdate">更新资料</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 {{ end }}
 
