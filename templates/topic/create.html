@@ -1,0 +1,99 @@
+{{ define "css"}}
+    <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {background: #e5e5e5;}
+    </style>
+{{ end }}
+
+{{define "content"}}
+    <div class="container" style="padding: 2rem 0rem;">
+        <div class="columns body-columns">
+            <div class="column is-three-quarters">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <form id="app" method="post" action="/topic/new">
+                                <div class="field">
+                                    <label class="label">标题</label>
+                                    <div class="control">
+                                        <input type="text" class="input" name="title" id="title" placeholder="请填写标题">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">分类</label>
+                                    <div class="control">
+                                        <div class="select">
+                                            <select name="category_id" id="category_id">
+                                                <option>请选择</option>
+                                                {{range .categories}}
+                                                    <option value="{{.Id}}">{{.Name}}</option>
+                                                {{end}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control">
+                                        <textarea name="body" id="body" class="textarea" rows="10" placeholder="请使用Markdown格式书写:), 代码片段黏贴时请注意使用高亮语法。"></textarea>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control">
+                                        <button class="button is-link" type="submit" id="topic-submit">发布帖子</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Component
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Component
+                        </p>
+                    </header>
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">
+                            Lorem ipsum dolor.
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <a href="#" class="card-footer-item">Save</a>
+                        <a href="#" class="card-footer-item">Edit</a>
+                    </footer>
+                </div>
+                <div class="card">
+
+                </div>
+                <div class="card">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{{end}}}
+
+{{define "js"}}
+    <script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
+    {{include "topic/editor"}}
+{{end}}}
