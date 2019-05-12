@@ -3,147 +3,103 @@
         body {
             background: #e5e5e5;
         }
+        .topNav {
+            border-top: 3px solid #3498DB;
+        }
+        .topNav .container {
+            border-bottom: 1px solid #E6EAEE;
+        }
+        .container .columns {
+            margin: 1rem 0;
+        }
+        article.post {
+            margin: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E6EAEE;
+        }
+        .media-content strong a {
+            color: currentColor;
+        }
+        .media-content p {
+            font-size: 14px;
+            line-height: 2.3;
+            font-weight: 700;
+            color: #8F99A3;
+        }
+        .media + .media {
+            margin-top: 0.3rem;
+            padding-top: 0.3rem;
+        }
     </style>
 {{ end }}
 
 {{define "content"}}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-body item-list">
-                        {{ range $index, $value := .topics}}
-                            <div class="topic media">
-                                <div class="avatar">
-                                    <a title="{{.UserInfo.Username}}" href="/users/{{.UserInfo.Username}}">
-                                        <img class="media-object avatar-48" src="{{.UserInfo.Avatar}}">
-                                    </a>
-                                </div>
-                                <div class="infos media-body">
-                                    <div class="title media-heading">
-                                        <a title="{{.Title}}" href="/topics/{{.Id}}">
-                                            <span class="node">分享</span>
-                                            {{.Title}}
-                                        </a>
-{{/*                                        <i title="" class="fa fa-diamond" data-toggle="tooltip" data-original-title="精华帖"></i>*/}}
-
-                                    </div>
-                                    <div class="info">
-                                        <a class="user-name" data-name="{{.UserInfo.Username}}" href="/lanzhiheng">{{.UserInfo.Username}}</a>
-                                        <span class="hidden-mobile"> •
-                                            {{if gt .LastReplyUserId 0}} 最后由
-                                                <a class="user-name" data-name="{{.LastReplyUserInfo.Username}}" href="/users/{{.LastReplyUserInfo.Username}}">{{.LastReplyUserInfo.Username}}</a>
-                                                回复于 <abbr class="timeago" title="{{.LastReplyTimeAt}}">{{.LastReplyTimeAt}}</abbr>
-                                            {{else}}
-                                                发布于 <abbr class="timeago" title="{{.CreatedAt}}">{{.CreatedAt}}</abbr>
-                                            {{end}}
-      </span>
-                                    </div>
-                                </div>
-                                <div class="count media-right">
-                                    <a class="state-false" href="/topics/{{.Id}}#reply-350595">{{.ReplyCount}}</a>
+    <section class="container">
+        <div class="columns">
+            <div class="column is-9">
+                <div class="box content">
+                    {{ range $index, $value := .topics}}
+                    <article class="media">
+                            <div class="media-left">
+                                <p class="image is-48x48">
+                                    <img class="is-rounded" src="{{.UserInfo.Avatar}}">
+                                </p>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong><a href="/topics/{{.Id}}">{{.Title}}</a></strong>
+                                        <br>
+                                        <span class="tag">Question</span>
+                                        <a href="/users/{{.UserInfo.Username}}">@{{.UserInfo.Username}}</a> •
+                                        {{if gt .LastReplyUserId 0}} 最后由
+                                            <a class="user-name" data-name="{{.LastReplyUserInfo.Username}}" href="/users/{{.LastReplyUserInfo.Username}}">
+                                                {{.LastReplyUserInfo.Username}}
+                                            </a> •
+                                            回复于 <abbr class="timeago" title="{{.LastReplyTimeAt}}">{{.LastReplyTimeAt}}</abbr>
+                                        {{else}}
+                                            发布于 <abbr class="timeago" title="{{.CreatedAt}}">{{.CreatedAt}}</abbr>
+                                        {{end}}
+                                    </p>
                                 </div>
                             </div>
-                        {{end}}
-                    </div>
-                    <div class="card-footer hide-ios">
-                        <nav aria-label="Page navigation example">
-                            {{.pages}}
-                        </nav>
-                    </div>
+                            <div class="media-right">
+                                <span class="has-text-grey-light"><i class="fa fa-comments"></i> {{.ReplyCount}}</span>
+                            </div>
+                    </article>
+                    {{end}}
                 </div>
+                <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+                    {{.pages}}
+                </nav>
             </div>
-
-            <div class="sidebar col-md-3">
+            <div class="column is-3">
+                {{if gt .user_id 0}}
+                    <div class="box">
+                        <a class="button is-primary is-block is-alt is-medium" href="/topic/new">新建话题</a>
+                    </div>
+                {{end}}
 
                 <div class="card">
-                    <div class="card-body">
-                        <a class="btn btn-primary btn-block" href="/topic/new">发布新话题</a>
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            最新课程
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <dl class="is-lower-roman">
+                                <li><a href="#">Coffee</a></li>
+                                <li><a href="#">Coffee</a></li>
+                                <li><a href="#">Coffee</a></li>
+                            </dl>
+                        </div>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-header">小帖士</div>
-                    <div class="card-body">
-                        railscasts.com 上面有很不错的 Rails 开发技巧的视频，通通看完你可以学到很多东西
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">社区规则</div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><i class="fa fa-archive"></i> <a
-                                    href="https://ruby-china.org/topics/24325">提问的智慧</a></li>
-                        <li class="list-group-item"><i class="fa fa-heart"></i> <a
-                                    href="http://blog.steveklabnik.com/posts/2011-08-19-matz-is-nice-so-we-are-nice"
-                                    target="_blank">Matz is Nice So We Are Nice</a></li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">推荐 Ruby 资源</div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><i class="fa fa-cloud"></i> <a href="/wiki/ruby-mirror">Ruby 镜像</a>
-                        </li>
-                        <li class="list-group-item"><i class="fa fa-diamond"></i> <a href="https://gems.ruby-china.com"
-                                                                                     target="_blank">RubyGems 镜像</a>
-                        </li>
-                        <li class="list-group-item"><i class="fa fa-youtube-play"></i> <a href="http://railscasts.com"
-                                                                                          target="_blank"
-                                                                                          rel="nofollow">Rails 视频教程</a>
-                        </li>
-                        <li class="list-group-item"><i class="fa fa-archive"></i> <a href="https://rails.guide/book/">Rails
-                                Guides 中文版</a></li>
-                        <li class="list-group-item"><i class="fa fa-archive"></i> <a
-                                    href="https://railstutorial-china.org">Ruby on Rails 教程</a></li>
-                    </ul>
-                </div>
-
-                <!--div class="card">
-                  <div class="card-header"> UCloud 云服务器低至2折</div>
-                  <div class="card-body" style="padding:0;">
-                    <a href="//www.ucloud.cn/site/active/gift.html?utm_source=ruby_china&utm_medium=content_pic_pc&utm_campaign=20181218&utm_content=gift&ytag=ruby_china" title="UCloud 云服务器低至2折"><img src="//l.ruby-china.com/photo/2018/fa9cda7f-9d86-49b7-aeaf-7263d40f1368.jpg!large" style="width: 100%;" /></a>
-                  </div>
-                </div-->
-
-                <div class="card">
-                    <div class="card-header">友情社区</div>
-                    <ul class="list-group list-group-flush" style="text-align: center;">
-                        <li class="list-group-item"><a href="http://cnodejs.org" rel="nofollow" title="CNode 社区"
-                                                       target="_blank"><img
-                                        src="//l.ruby-china.com/photo/2016/d427ef3efd33b57721df152c2aa1735e.png"
-                                        style="width:130px; "></a></li>
-                        <li class="list-group-item"><a href="https://gocn.io" rel="nofollow" title="GoCN 社区"
-                                                       target="_blank"><img
-                                        src="//l.ruby-china.com/photo/2017/97b87be9-1375-40cb-8d56-29e203a31689.png"
-                                        style="width:130px; "></a></li>
-                        <li class="list-group-item"><a href="https://laravel-china.org" target="_blank"
-                                                       rel="nofollow"><img
-                                        src="//l.ruby-china.com/photo/2016/d7782871f3fac7e85a95d20c74046909.png"
-                                        style="width:130px; "></a></li>
-                        <!--li class="list-group-item"><a href="http://segmentfault.com" target="_blank" rel="nofollow"><img src="//l.ruby-china.com/photo/2016/e91d14ee109ed066e215057ab40257b7.png" style="width:150px; " /></a></li-->
-                        <li class="list-group-item"><a href="https://testerhome.com/" target="_blank"
-                                                       rel="nofollow"><img
-                                        src="//l.ruby-china.com/photo/2016/5cd78b730062ab3c768bcc2592c5c7fa.png"
-                                        style="width: 150px;"></a></li>
-                        <li class="list-group-item"><a href="https://pythoncaff.com" target="_blank" rel="nofollow"><img
-                                        src="//l.ruby-china.com/photo/2018/00d4dd0a-188b-4c58-a524-46c99244659b.png"
-                                        style="width: 150px;"></a></li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">统计信息</div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">社区会员: 36921 人</li>
-                        <li class="list-group-item">帖子数: 36687 个</li>
-                        <li class="list-group-item">回帖数: 348852 条</li>
-                    </ul>
-                </div>
-
             </div>
         </div>
-    </div>
+
+    </section>
 {{end}}
 
 {{ define "js"}}
