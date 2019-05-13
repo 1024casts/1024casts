@@ -42,6 +42,17 @@ func (srv *CourseService) GetCourseById(id int) (*model.CourseModel, error) {
 	return course, nil
 }
 
+func (srv *CourseService) GetCourseBySlug(slug string) (*model.CourseInfo, error) {
+	courseModel, err := srv.repo.GetCourseBySlug(slug)
+	if err != nil {
+		return &model.CourseInfo{}, err
+	}
+
+	course := srv.trans(courseModel)
+
+	return course, nil
+}
+
 func (srv *CourseService) trans(course *model.CourseModel) *model.CourseInfo {
 	return &model.CourseInfo{
 		Id:           course.Id,
