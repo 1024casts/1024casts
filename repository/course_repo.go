@@ -31,6 +31,13 @@ func (repo *CourseRepo) GetCourseById(id int) (*model.CourseModel, error) {
 	return &course, result.Error
 }
 
+func (repo *CourseRepo) GetCourseBySlug(slug string) (*model.CourseModel, error) {
+	course := model.CourseModel{}
+	result := repo.db.Self.Where("slug = ?", slug).First(&course)
+
+	return &course, result.Error
+}
+
 func (repo *CourseRepo) GetCourseList(courseMap map[string]interface{}, offset, limit int) ([]*model.CourseModel, int, error) {
 	if limit == 0 {
 		limit = constvar.DefaultLimit
