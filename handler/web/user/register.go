@@ -80,7 +80,7 @@ func ActiveUser(c *gin.Context) {
 
 		if userInfo.IsActivated == 1 {
 			// 提示： 您的帐号已经激活
-			flash.SetFlash(c.Writer, "error", []byte("您的帐号已经激活"))
+			flash.SetMessage(c.Writer, "您的帐号已经激活")
 			c.Redirect(http.StatusMovedPermanently, "/login")
 			c.Abort()
 			return
@@ -98,14 +98,14 @@ func ActiveUser(c *gin.Context) {
 		model.DB.Self.Table(userActivation.TableName()).Where("token = ?", token).Delete(&userActivation)
 
 		// 3. 提示：帐号已经激活成功，可以登录啦
-		flash.SetFlash(c.Writer, "error", []byte("帐号已经激活成功，可以登录啦"))
+		flash.SetMessage(c.Writer, "帐号已经激活成功，可以登录啦")
 		c.Redirect(http.StatusMovedPermanently, "/login")
 		c.Abort()
 		return
 	}
 
 	// 提示：无效的激活链接
-	flash.SetFlash(c.Writer, "error", []byte("无效的激活链接"))
+	flash.SetMessage(c.Writer, "无效的激活链接")
 	c.Redirect(http.StatusMovedPermanently, "/login")
 	c.Abort()
 	return
