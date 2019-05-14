@@ -1,15 +1,62 @@
 {{ define "css"}}
 <style type="text/css">
-    body {background: #e5e5e5;}
+    /*body {background: #e5e5e5;}*/
 </style>
 {{ end }}
 
 {{ define "content"}}
 
-当前用户id: {{ .user_id }}
-<br>
-slug: {{ .slug }}
+    <section class="hero is-info is-medium">
+        <!-- Hero head: will stick at the top -->
+        <!-- Hero content: will be in the middle -->
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title">
+                    {{.course.Name}}
+                </h1>
+            </div>
+        </div>
 
+    </section>
+
+    <section class="container" style="margin-top: 2rem">
+        <div class="columns">
+            <div class="column is-two-thirds">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <table class="table is-striped is-hoverable">
+                                <thead>
+                                <tr>
+                                    <th colspan="5" class="has-text-centered">课程大纲</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{$slug := .course.Slug}}
+                                {{range .sections}}
+                                    <tr class="is-info">
+                                        <th colspan="4">{{.Name}}</th>
+                                    </tr>
+                                    {{range .VideoItems}}
+                                    <tr>
+                                        <td>--<a href="/courses/{{$slug}}/episodes/{{.EpisodeID}}">{{.Name}}</a></td>
+                                        <td></td>
+                                        <td>{{if eq .IsFree 1}}<span class="tag is-success">免费</span>{{else}}<span class="tag is-info">VIP专享</span>{{end}}</td>
+                                        <td>{{.Duration}}</td>
+                                    </tr>
+                                    {{end}}
+                                {{end}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+
+            </div>
+        </div>
+    </section>
 {{ end }}
 
 {{ define "js"}}
