@@ -24,14 +24,14 @@ func Section(c *gin.Context) {
 	courseId, _ := strconv.Atoi(c.Param("id"))
 
 	srv := service.NewCourseService()
-	infos, count, err := srv.GetCourseSectionList(uint64(courseId), 0, 100)
+	infos, err := srv.GetCourseSectionList(uint64(courseId))
 	if err != nil {
 		app.Response(c, err, nil)
 		return
 	}
 
 	app.Response(c, nil, SectionListResponse{
-		TotalCount: count,
+		TotalCount: 100,
 		List:       infos,
 	})
 }
