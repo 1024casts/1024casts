@@ -57,23 +57,14 @@ func (repo *CourseRepo) GetCourseList(courseMap map[string]interface{}, offset, 
 	return courses, count, nil
 }
 
-func (repo *CourseRepo) GetSectionList(courseId uint64, offset, limit int) ([]*model.SectionModel, uint64, error) {
-	if limit == 0 {
-		limit = constvar.DefaultLimit
-	}
-
+func (repo *CourseRepo) GetSectionList(courseId uint64) ([]*model.SectionModel, error) {
 	sections := make([]*model.SectionModel, 0)
-	var count uint64
 
-	if err := repo.db.Self.Model(&model.SectionModel{}).Where("course_id = ?", courseId).Count(&count).Error; err != nil {
-		return sections, count, err
+	if err := repo.db.Self.Where("course_id = ?", courseId).Order("weight asc").Find(&sections).Error; err != nil {
+		return sections, err
 	}
 
-	if err := repo.db.Self.Where("course_id = ?", courseId).Offset(offset).Limit(limit).Order("id asc").Find(&sections).Error; err != nil {
-		return sections, count, err
-	}
-
-	return sections, count, nil
+	return sections, nil
 }
 
 func (repo *CourseRepo) UpdateCourse(userMap map[string]interface{}, id int) error {
