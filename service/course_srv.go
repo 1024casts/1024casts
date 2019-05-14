@@ -128,12 +128,12 @@ func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset
 	return infos, count, nil
 }
 
-func (srv *CourseService) GetCourseSectionList(courseId uint64, offset, limit int) ([]*model.SectionModel, uint64, error) {
+func (srv *CourseService) GetCourseSectionList(courseId uint64) ([]*model.SectionModel, error) {
 	infos := make([]*model.SectionModel, 0)
 
-	sections, count, err := srv.repo.GetSectionList(courseId, offset, limit)
+	sections, err := srv.repo.GetSectionList(courseId)
 	if err != nil {
-		return nil, count, err
+		return nil, err
 	}
 
 	ids := []uint64{}
@@ -182,14 +182,14 @@ func (srv *CourseService) GetCourseSectionList(courseId uint64, offset, limit in
 	select {
 	case <-finished:
 	case err := <-errChan:
-		return nil, count, err
+		return nil, err
 	}
 
 	for _, id := range ids {
 		infos = append(infos, sectionList.IdMap[id])
 	}
 
-	return infos, count, nil
+	return infos, nil
 }
 
 func (srv *CourseService) UpdateCourse(courseMap map[string]interface{}, id int) error {
