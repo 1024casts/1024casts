@@ -28,7 +28,7 @@ func Response(c *gin.Context, err error, data interface{}) {
 }
 
 func Redirect(c *gin.Context, redirectPath, errMsg string) {
-	flash.SetFlash(c.Writer, "error", []byte(errMsg))
+	flash.SetMessage(c.Writer, errMsg)
 	c.Redirect(http.StatusMovedPermanently, redirectPath)
 	c.Abort()
 }
