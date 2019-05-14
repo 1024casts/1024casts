@@ -28,7 +28,7 @@ func (repo *VideoRepo) GetVideoList(courseId uint64) ([]*model.VideoModel, error
 
 	videos := make([]*model.VideoModel, 0)
 
-	if err := repo.db.Self.Where("course_id=?", courseId).Where("course_id=?", courseId).Order("id asc").Find(&videos).Error; err != nil {
+	if err := repo.db.Self.Where("course_id=?", courseId).Order("id asc").Find(&videos).Error; err != nil {
 		return videos, err
 	}
 
