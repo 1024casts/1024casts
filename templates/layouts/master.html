@@ -11,7 +11,8 @@
     <link href="https://cdn.bootcss.com/font-awesome/5.8.1/css/fontawesome.min.css" rel="stylesheet">
     <link href="/static/css/app.css" rel="stylesheet">
     <link rel="shortcut icon" href="/static/images/favicon.ico" />
-    {{template "css" .}}
+    {{block "css" .}}
+    {{end}}
 </head>
 <body>
     {{if eq (isActive .ctx "/") "is-active"}}
@@ -47,7 +48,6 @@
     {{include "layouts/footer"}}
 
     {{block "js" .}}
-
     {{end}}
 </body>
 </html>
