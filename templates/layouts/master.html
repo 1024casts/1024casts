@@ -45,6 +45,9 @@
     {{template "content" .}}
 
     {{include "layouts/footer"}}
-    {{template "js" .}}
+
+    {{block "js" .}}
+
+    {{end}}
 </body>
 </html>
