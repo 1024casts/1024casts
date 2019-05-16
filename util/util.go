@@ -12,6 +12,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/1024casts/1024casts/pkg/constvar"
+
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/microcosm-cc/bluemonday"
@@ -84,7 +86,7 @@ func GetUserId(ctx *gin.Context) uint64 {
 }
 
 // 获取七牛资源的私有链接
-func GetQiniuPrivateAccessUrl(path string) string {
+func GetQiNiuPrivateAccessUrl(path string, mediaType string) string {
 	accessKey := viper.GetString("qiniu.access_key")
 	secretKey := viper.GetString("qiniu.secret_key")
 	mac := qbox.NewMac(accessKey, secretKey)
@@ -92,8 +94,12 @@ func GetQiniuPrivateAccessUrl(path string) string {
 	domain := viper.GetString("qiniu.cdn_url")
 	key := strings.TrimPrefix(path, "/")
 
-	imageStyle := "imageView2/2/w/200/h/200/q/75|imageslim"
-	key = key + "?" + imageStyle
+	if mediaType == constvar.MediaTypeImage {
+		//imageStyle := "imageView2/2/w/200/h/200/q/75|imageslim"
+		imageStyle := "imageView2/2/w/200/h/200/q/75"
+		key = key + "?" + imageStyle
+	}
+
 	deadline := time.Now().Add(time.Second * 3600).Unix() //1小时有效期
 
 	privateAccessURL := storage.MakePrivateURL(mac, domain, key, deadline)
@@ -137,6 +143,9 @@ func GetImageFullUrl(uri string) string {
 }
 
 func GetAvatarUrl(uri string) string {
+	if uri == "" {
+		uri = constvar.DefaultAvatar
+	}
 	if strings.HasPrefix(uri, "https://") {
 		return uri
 	}
