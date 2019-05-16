@@ -3,6 +3,9 @@ package service
 import (
 	"sync"
 
+	"github.com/1024casts/1024casts/pkg/constvar"
+	"github.com/1024casts/1024casts/util"
+
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/repository"
 
@@ -39,6 +42,20 @@ func (srv *VideoService) GetVideoList(courseId uint64) ([]*model.VideoModel, err
 	}
 
 	return videos, nil
+}
+
+func (srv *VideoService) GetVideoByCourseIdAndEpisodeId(courseId uint64, episodeId int) (*model.VideoModel, error) {
+	video := new(model.VideoModel)
+
+	video, err := srv.repo.GetVideoByCourseIdAndEpisodeId(courseId, episodeId)
+	if err != nil {
+		log.Warnf("[video] get video list err, course_id: %d", courseId)
+		return nil, err
+	}
+
+	video.Mp4URL = util.GetQiNiuPrivateAccessUrl(video.Mp4URL, constvar.MediaTypeVideo)
+
+	return video, nil
 }
 
 func (srv *VideoService) GetVideoListPagination(courseId uint64, name string, offset, limit int) ([]*model.VideoModel, uint64, error) {
