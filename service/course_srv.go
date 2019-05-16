@@ -3,6 +3,8 @@ package service
 import (
 	"sync"
 
+	"github.com/1024casts/1024casts/pkg/constvar"
+
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/repository"
 	"github.com/1024casts/1024casts/util"
@@ -60,7 +62,7 @@ func (srv *CourseService) trans(course *model.CourseModel) *model.CourseInfo {
 		Type:         course.Type,
 		Description:  course.Description,
 		Slug:         course.Slug,
-		CoverImage:   util.GetQiniuPrivateAccessUrl(course.CoverImage),
+		CoverImage:   util.GetQiNiuPrivateAccessUrl(course.CoverImage, constvar.MediaTypeImage),
 		UserId:       course.UserId,
 		IsPublish:    course.IsPublish,
 		UpdateStatus: course.UpdateStatus,
