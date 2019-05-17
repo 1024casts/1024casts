@@ -18,10 +18,21 @@ func NewVideoRepo() *VideoRepo {
 }
 
 func (repo *VideoRepo) GetVideoById(id int) (*model.VideoModel, error) {
-	Video := model.VideoModel{}
-	result := repo.db.Self.Where("id = ?", id).First(&Video)
+	video := model.VideoModel{}
+	result := repo.db.Self.Where("id = ?", id).First(&video)
 
-	return &Video, result.Error
+	return &video, result.Error
+}
+
+func (repo *VideoRepo) GetVideoByCourseIdAndEpisodeId(courseId uint64, episodeId int) (*model.VideoModel, error) {
+
+	video := new(model.VideoModel)
+
+	if err := repo.db.Self.Where("course_id=?", courseId).Where("episode_id=?", episodeId).Order("id asc").First(&video).Error; err != nil {
+		return video, err
+	}
+
+	return video, nil
 }
 
 func (repo *VideoRepo) GetVideoList(courseId uint64) ([]*model.VideoModel, error) {
