@@ -18,6 +18,7 @@ import (
 	webPlan "github.com/1024casts/1024casts/handler/web/plan"
 	webTopic "github.com/1024casts/1024casts/handler/web/topic"
 	webUser "github.com/1024casts/1024casts/handler/web/user"
+	webVideo "github.com/1024casts/1024casts/handler/web/video"
 	"github.com/1024casts/1024casts/handler/web/wiki"
 
 	"github.com/1024casts/1024casts/handler/api/v1/video"
@@ -136,7 +137,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 			},
 			// 全局消息
 			"flashMessage": func(ctx *gin.Context) string {
-				errorMessage, err := flash.GetFlash(ctx.Writer, ctx.Request, "error")
+				errorMessage, err := flash.GetMessage(ctx.Writer, ctx.Request)
 				if err != nil {
 					log.Warnf("[router] get flash message err: %v", err)
 					return ""
@@ -144,7 +145,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 				return string(errorMessage)
 			},
 			"hasFlash": func(ctx *gin.Context) bool {
-				return flash.HasFlash(ctx.Request, "error")
+				return flash.HasFlash(ctx.Request)
 			},
 			"copy": func() string {
 				return time.Now().Format("2006")
@@ -195,6 +196,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 
 	router.GET("/courses", webCourse.Index)
 	router.GET("/courses/:slug", webCourse.Detail)
+	router.GET("/courses/:slug/episodes/:episode_id", webVideo.Detail)
 
 	router.GET("/topics", webTopic.Index)
 	router.GET("/topics/:id", webTopic.Detail)
