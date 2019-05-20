@@ -37,13 +37,19 @@ func Detail(c *gin.Context) {
 		log.Warnf("[video] get video info err: %+v", err)
 	}
 
+	recentCourses, err := courseSrv.GetRecentCourses(15)
+	if err != nil {
+		log.Warnf("[video] get recent course err: %+v", err)
+	}
+
 	c.HTML(http.StatusOK, "video/detail", gin.H{
-		"title":   "视频详情",
-		"user_id": util.GetUserId(c),
-		"user":    user,
-		"slug":    slug,
-		"ctx":     c,
-		"course":  course,
-		"video":   video,
+		"title":         "视频详情",
+		"user_id":       util.GetUserId(c),
+		"user":          user,
+		"slug":          slug,
+		"ctx":           c,
+		"course":        course,
+		"video":         video,
+		"recentCourses": recentCourses,
 	})
 }
