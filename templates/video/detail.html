@@ -1,0 +1,157 @@
+{{ define "css"}}
+    <link href="https://cdn.bootcss.com/video.js/7.5.4/video-js.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {background: #e5e5e5;}
+    </style>
+{{ end }}
+
+{{define "content"}}
+    <div class="container" style="padding: 1.5rem 0rem;">
+        <div class="columns">
+            <div class="column is-three-quarters is-info">
+                <div class="card">
+                    {{if eq .user_id 0}}
+                        <div class="has-text-centered">
+                            <div style="text-align: center; background: url({{.video.CoverImage}}) 50% 70% no-repeat #080808;padding: 22% 0;">
+                                <h3 style="color: #fff;">&nbsp;&nbsp;&nbsp;&nbsp;观看视频需要登录</h3>
+                                <ul class="">
+                                    <li><a href="/register" class="button is-link">马上加入 1024课堂</a></li>
+                                    <li><a href="/login">有账号?马上登录</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    {{else}}
+                        {{if eq .video.IsFree 1}}
+                            <video id="video-player" class="video-js vjs-fluid vjs-big-play-centered placeholder"
+                                   poster="{{ .video.CoverImage }}" data-setup='{}'>
+                                <source src="{{ .video.Mp4URL }}" type='video/mp4'>
+                                <source src="" type="video/flv" data-quality="HD" label="HD" data-default="true">
+                                <p class="vjs-no-js">
+                                    To view this video please enable JavaScript, and consider upgrading to a web browser that
+                                    <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                                </p>
+                            </video>
+                        {{else}}
+                            {{if .user.IsVip}}
+                                <video id="video-player" class="video-js vjs-fluid vjs-big-play-centered placeholder"
+                                       poster="{{ .video.CoverImage }}" data-setup='{}'>
+                                    <source src="{{ .video.Mp4URL }}" type='video/mp4'>
+                                    <source src="" type="video/flv" data-quality="HD" label="HD" data-default="true">
+                                    <p class="vjs-no-js">
+                                        To view this video please enable JavaScript, and consider upgrading to a web browser that
+                                        <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                                    </p>
+                                </video>
+                            {{else}}
+                                <div class="ui centered text">
+                                    <div style="text-align: center; background: url({{.video.CoverImage}}) 50% 70% no-repeat #080808;padding: 22% 0;">
+                                        <h3 style="color: #fff;">&nbsp;&nbsp;&nbsp;&nbsp;订阅后可以观看全部视频</h3>
+                                        <ul class="">
+                                            <li><a href="/vip" class="button is-link">马上加入 订阅</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {{end}}
+                        {{end}}
+                    {{end}}
+
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
+                                    <ul>
+                                        <li><a href="#">{{.course.Name}}</a></li>
+                                        <li class="is-active"><a href="#">{{.video.Name}}</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="content">
+                            {{.video.Description}}
+                            <br>
+                            <time datetime="2016-1-1">{{.video.PublishedAt}}</time>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Component
+                        </p>
+                        <a href="#" class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+                        </a>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                            <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                            <br>
+                            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <a href="#" class="card-footer-item">Save</a>
+                        <a href="#" class="card-footer-item">Edit</a>
+                        <a href="#" class="card-footer-item">Delete</a>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{{end}}
+{{ define "js" }}
+    <script src="https://cdn.bootcss.com/video.js/7.5.4/video.min.js"></script>
+    <script src="https://cdn.bootcss.com/video.js/7.5.4/lang/zh-CN.js"></script>
+    <script type="text/javascript">
+        var video = videojs("video-player", {
+            "fluid":!0,
+            "playbackRates":[0.5,.75,1,1.25,1.5,1.75,2],
+            "controls": true,
+            "autoplay": false,
+            "preload": "auto"
+        }).ready(function () {
+
+        });
+
+        function reply_vote(comment_id) {
+            console.log(comment_id);
+            $.ajax({
+                type: 'POST',
+                url: '/comment/' + comment_id + '/vote',
+                data: {'_token': '','_method':'post'},
+                dataType:'json',
+                success: function (ret) {
+                    console.log(ret);
+                    if (ret.code == 200 ) {
+                        $('#vote_count_' + comment_id).text(ret.count);
+                    }
+                }
+            });
+        }
+
+        function reply(username) {
+            var replyContent = $('#reply_content');
+            var oldContent = replyContent.val();
+            var lastAtUser = "@" + username + " ";
+            var newContent = '';
+            if (oldContent.length > 0) {
+                if (oldContent != lastAtUser) {
+                    newContent = oldContent + "\n" + lastAtUser;
+                }
+            } else {
+                newContent = lastAtUser;
+            }
+
+            replyContent.focus();
+            replyContent.val(newContent);
+        }
+    </script>
+{{end}}
+
