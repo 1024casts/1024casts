@@ -139,6 +139,7 @@ func (srv *UserService) trans(user *model.UserModel) *model.UserInfo {
 		GithubId:          user.GithubId,
 		RememberToken:     user.RememberToken,
 		IsActivated:       user.IsActivated,
+		IsVip:             0,
 		CreatedAt:         util.TimeToString(user.CreatedAt),
 		UpdatedAt:         util.TimeToString(user.UpdatedAt),
 	}

@@ -75,6 +75,7 @@ type UserInfo struct {
 	IsActivated       int      `json:"is_activated"`
 	CreatedAt         string   `json:"created_at"`
 	UpdatedAt         string   `json:"updated_at"`
+	IsVip             int      `json:"is_vip"`
 	Roles             []string `json:"roles"`
 }
 
