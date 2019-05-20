@@ -71,6 +71,18 @@ func (srv *CourseService) trans(course *model.CourseModel) *model.CourseInfo {
 	}
 }
 
+func (srv *CourseService) GetRecentCourses(limit int) ([]*model.CourseInfo, error) {
+	courseMap := make(map[string]interface{})
+	courseMap["is_publish"] = 1
+	infos, _, err := srv.GetCourseList(courseMap, 0, limit)
+
+	if err != nil {
+		log.Warnf("[course] get recent courses err: %v", err)
+	}
+
+	return infos, nil
+}
+
 func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset, limit int) ([]*model.CourseInfo, int, error) {
 	infos := make([]*model.CourseInfo, 0)
 
