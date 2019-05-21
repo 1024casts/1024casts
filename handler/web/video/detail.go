@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/1024casts/1024casts/pkg/constvar"
+
 	"github.com/1024casts/1024casts/service"
 	"github.com/lexkong/log"
 
@@ -42,6 +44,16 @@ func Detail(c *gin.Context) {
 		log.Warnf("[video] get recent course err: %+v", err)
 	}
 
+	commentSrv := service.NewCommentService()
+	commentMap := make(map[string]interface{})
+	commentMap["type"] = constvar.CommentTypeVideo
+	commentMap["related_id"] = video.Id
+	comments, cmtCount, err := commentSrv.GetCommentList(commentMap, 0, 1000)
+	if err != nil {
+		log.Warnf("[video] get comments err: %+v", err)
+		return
+	}
+
 	c.HTML(http.StatusOK, "video/detail", gin.H{
 		"title":         "视频详情",
 		"user_id":       util.GetUserId(c),
@@ -51,5 +63,7 @@ func Detail(c *gin.Context) {
 		"course":        course,
 		"video":         video,
 		"recentCourses": recentCourses,
+		"cmtCount":      cmtCount,
+		"comments":      comments,
 	})
 }

@@ -6,4 +6,7 @@ const (
 
 	MediaTypeImage = "image"
 	MediaTypeVideo = "video"
+
+	CommentTypeVideo = 1
+	CommentTypeWiki  = 2
 )
