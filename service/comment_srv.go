@@ -1,6 +1,7 @@
 package service
 
 import (
+	"html/template"
 	"sync"
 
 	"github.com/1024casts/1024casts/model"
@@ -8,12 +9,14 @@ import (
 )
 
 type CommentService struct {
-	repo *repository.CommentRepo
+	repo    *repository.CommentRepo
+	userSrv *UserService
 }
 
 func NewCommentService() *CommentService {
 	return &CommentService{
 		repository.NewCommentRepo(),
+		NewUserService(),
 	}
 }
 
@@ -64,6 +67,10 @@ func (srv *CommentService) GetCommentList(commentMap map[string]interface{}, off
 			commentList.Lock.Lock()
 			defer commentList.Lock.Unlock()
 
+			userInfo, _ := srv.userSrv.GetUserById(comment.UserId)
+
+			comment.UserInfo = userInfo
+			comment.ContentHtml = template.HTML(comment.Content)
 			commentList.IdMap[comment.Id] = comment
 		}(c)
 	}
