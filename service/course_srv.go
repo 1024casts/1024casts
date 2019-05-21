@@ -180,6 +180,7 @@ func (srv *CourseService) GetCourseSectionList(courseId uint64) ([]*model.Sectio
 
 			for _, video := range videos {
 				if section.Id == video.SectionID {
+					video.DurationStr = util.ResolveVideoDuration(video.Duration)
 					section.VideoItems = append(section.VideoItems, video)
 				}
 			}

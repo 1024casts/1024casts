@@ -54,6 +54,7 @@ func (srv *VideoService) GetVideoByCourseIdAndEpisodeId(courseId uint64, episode
 	}
 
 	video.Mp4URL = util.GetQiNiuPrivateAccessUrl(video.Mp4URL, constvar.MediaTypeVideo)
+	video.DurationStr = util.ResolveVideoDuration(video.Duration)
 
 	return video, nil
 }

@@ -14,6 +14,7 @@ type VideoModel struct {
 	Description string    `form:"description" gorm:"column:description" json:"description"`
 	CoverImage  string    `form:"cover_image" gorm:"column:cover_image" json:"cover_image"`
 	Duration    int       `form:"duration" gorm:"column:duration" json:"duration"`
+	DurationStr string    `form:"duration" gorm:"column:duration" json:"duration"`
 	IsFree      int       `form:"is_free" gorm:"column:is_free" json:"is_free"`
 	IsPublish   int       `form:"is_publish" gorm:"column:is_publish" json:"is_publish"`
 	Mp4URL      string    `form:"mp4_url" gorm:"column:mp4_url" json:"mp4_url"`
