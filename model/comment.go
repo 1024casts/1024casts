@@ -18,6 +18,7 @@ type CommentModel struct {
 	DeviceType    string        `json:"device_type" gorm:"column:device_type" binding:"omitempty"`
 	UserInfo      *UserInfo     `json:"user_info" gorm:"-"`
 	ContentHtml   template.HTML `json:"content_html" gorm:"-"`
+	CreatedAtStr  string        `json:"created_at_str" gorm:"-"`
 }
 
 func (c *CommentModel) TableName() string {
