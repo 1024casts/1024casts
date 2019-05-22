@@ -34,7 +34,7 @@ func (repo *CommentRepo) GetCommentList(courseMap map[string]interface{}, offset
 		return comments, count, err
 	}
 
-	if err := repo.db.Self.Where(courseMap).Offset(offset).Limit(limit).Order("id desc").Find(&comments).Error; err != nil {
+	if err := repo.db.Self.Where(courseMap).Offset(offset).Limit(limit).Order("id asc").Find(&comments).Error; err != nil {
 		return comments, count, err
 	}
 
