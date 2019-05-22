@@ -4,6 +4,8 @@ import (
 	"html/template"
 	"sync"
 
+	"github.com/1024casts/1024casts/util"
+
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/repository"
 )
@@ -71,6 +73,7 @@ func (srv *CommentService) GetCommentList(commentMap map[string]interface{}, off
 
 			comment.UserInfo = userInfo
 			comment.ContentHtml = template.HTML(comment.Content)
+			comment.CreatedAtStr = util.FormatTime(comment.CreatedAt)
 			commentList.IdMap[comment.Id] = comment
 		}(c)
 	}
