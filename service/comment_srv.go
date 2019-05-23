@@ -32,6 +32,12 @@ func (srv *CommentService) GetCommentById(id int) (*model.CommentModel, error) {
 	return comment, nil
 }
 
+func (srv *CommentService) IncrLikeCount(id int) int64 {
+	count := srv.repo.IncrLikeCount(id)
+
+	return count
+}
+
 func (srv *CommentService) GetCommentList(commentMap map[string]interface{}, offset, limit int) ([]*model.CommentModel, uint64, error) {
 	infos := make([]*model.CommentModel, 0)
 

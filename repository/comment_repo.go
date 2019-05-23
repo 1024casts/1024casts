@@ -3,6 +3,7 @@ package repository
 import (
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/pkg/constvar"
+	"github.com/jinzhu/gorm"
 )
 
 type CommentRepo struct {
@@ -20,6 +21,13 @@ func (repo *CommentRepo) GetCommentById(id int) (*model.CommentModel, error) {
 	result := repo.db.Self.Where("id = ?", id).First(&comment)
 
 	return &comment, result.Error
+}
+
+func (repo *CommentRepo) IncrLikeCount(id int) int64 {
+	result := repo.db.Self.Model(&model.CommentModel{}).Where("id = ?", id).
+		UpdateColumn("like_count", gorm.Expr("like_count + ?", 1))
+
+	return result.RowsAffected
 }
 
 func (repo *CommentRepo) GetCommentList(courseMap map[string]interface{}, offset, limit int) ([]*model.CommentModel, uint64, error) {
