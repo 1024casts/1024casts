@@ -14,6 +14,7 @@ import (
 	"github.com/1024casts/1024casts/handler/api/v1/user"
 	"github.com/1024casts/1024casts/handler/qiniu"
 	"github.com/1024casts/1024casts/handler/sd"
+	webComment "github.com/1024casts/1024casts/handler/web/comment"
 	webCourse "github.com/1024casts/1024casts/handler/web/course"
 	webPlan "github.com/1024casts/1024casts/handler/web/plan"
 	webTopic "github.com/1024casts/1024casts/handler/web/topic"
@@ -205,6 +206,13 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	{
 		t.GET("/new", webTopic.Create)
 		t.POST("/new", webTopic.DoCreate)
+	}
+
+	cmt := router.Group("/comments")
+	cmt.Use(middleware.CookieMiddleware())
+	{
+		cmt.POST("", webComment.Create)
+		cmt.POST("/:comment_id/like", webComment.Like)
 	}
 
 	router.GET("/vip", webPlan.Index)
