@@ -6,23 +6,77 @@
                     <p class="bd-footer-link-title">
                         <a href="/">1024课堂</a>
                     </p>
-                    <p class="bd-footer-link-title">
-                        <a href="https://bulma.io/blog">Blog</a>
+{{/*                    <p class="bd-footer-link-title">*/}}
+{{/*                        <a href="https://bulma.io/blog">Blog</a>*/}}
+{{/*                    </p>*/}}
+                    <p class="bd-footer-link">
+                            <a href=""><i class="fab fa-github"></i></a>
                     </p>
                     <p class="bd-footer-link">
-                        <a href="/2018/06/20/automatic-variables-documentation/">
-                            Automatic variables docs
+                        本站使用 Go 进行构建
+                    </p>
+{{/*                    <p class="bd-footer-link bd-is-more">*/}}
+{{/*                        <a href="https://bulma.io/blog">*/}}
+{{/*                            View all posts*/}}
+{{/*                        </a>*/}}
+{{/*                    </p>*/}}
+                </div>
+                <div class="column is-3">
+                    <p class="bd-footer-link-title">
+                        <a href="https://bulma.io/more">产品与服务</a>
+                    </p>
+                    <p class="bd-footer-link bd-has-subtitle">
+                        <a href="/courses">
+                            <span class="bd-footer-link-icon has-text-star">
+                              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="video" class="svg-inline--fa fa-video fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M336.2 64H47.8C21.4 64 0 85.4 0 111.8v288.4C0 426.6 21.4 448 47.8 448h288.4c26.4 0 47.8-21.4 47.8-47.8V111.8c0-26.4-21.4-47.8-47.8-47.8zm189.4 37.7L416 177.3v157.4l109.6 75.5c21.2 14.6 50.4-.3 50.4-25.8V127.5c0-25.4-29.1-40.4-50.4-25.8z"></path></svg>
+                            </span>
+                            <strong>
+                                视频
+                            </strong>
+{{/*                            <em>*/}}
+{{/*                                在线学习所有课程*/}}
+{{/*                            </em>*/}}
                         </a>
                     </p>
-                    <p class="bd-footer-link bd-is-more">
-                        <a href="https://bulma.io/blog">
-                            View all posts
+                    <p class="bd-footer-link bd-has-subtitle">
+                        <a href="/topics">
+                            <span class="bd-footer-link-icon has-text-danger">
+                              <svg class="svg-inline--fa fa-heart fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="heart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path></svg><!-- <i class="fas fa-heart"></i> -->
+                            </span>
+                            <strong>
+                                社区
+                            </strong>
+                        </a>
+                    </p>
+                    <p class="bd-footer-link bd-has-subtitle">
+                        <a href="/vip">
+                            <span class="bd-footer-link-icon has-text-info">
+                              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="list-ul" class="svg-inline--fa fa-list-ul fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M96 96c0 26.51-21.49 48-48 48S0 122.51 0 96s21.49-48 48-48 48 21.49 48 48zM48 208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm0 160c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm96-236h352c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H144c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h352c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H144c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h352c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H144c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+                            </span>
+                            <strong>
+                                Wiki
+                            </strong>
+                        </a>
+                    </p>
+                    <p class="bd-footer-link bd-has-subtitle">
+                        <a href="/vip">
+                            <span class="bd-footer-link-icon has-text-success">
+                              <svg class="svg-inline--fas fa-video fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="rocket" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M505.1 19.1C503.8 13 499 8.2 492.9 6.9 460.7 0 435.5 0 410.4 0 307.2 0 245.3 55.2 199.1 128H94.9c-18.2 0-34.8 10.3-42.9 26.5L2.6 253.3c-8 16 3.6 34.7 21.5 34.7h95.1c-5.9 12.8-11.9 25.5-18 37.7-3.1 6.2-1.9 13.6 3 18.5l63.6 63.6c4.9 4.9 12.3 6.1 18.5 3 12.2-6.1 24.9-12 37.7-17.9V488c0 17.8 18.8 29.4 34.7 21.5l98.7-49.4c16.3-8.1 26.5-24.8 26.5-42.9V312.8c72.6-46.3 128-108.4 128-211.1.1-25.2.1-50.4-6.8-82.6zM400 160c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"></path></svg><!-- <i class="fas fa-rocket"></i> -->
+                            </span>
+                            <strong>
+                                VIP服务
+                            </strong>
                         </a>
                     </p>
                 </div>
                 <div class="column is-3">
                     <p class="bd-footer-link-title">
                         <a href="/wiki">文档</a>
+                    </p>
+                    <p class="bd-footer-link">
+                        <a href="/wiki">
+                            开发工具
+                        </a>
                     </p>
                     <p class="bd-footer-link">
                         <a href="/wiki">
@@ -45,48 +99,33 @@
                         </a>
                     </p>
                 </div>
-
-                <div class="column is-6">
+                <div class="column is-3">
                     <p class="bd-footer-link-title">
-                        <a href="https://bulma.io/more">产品与服务</a>
+                        <a href="/wiki">支持</a>
                     </p>
-                    <p class="bd-footer-link bd-has-subtitle">
-                        <a href="/courses">
-                            <span class="bd-footer-link-icon has-text-star">
-                              <svg class="svg-inline--fa fa-star fa-w-18" aria-hidden="true" data-prefix="fas" data-icon="star" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg><!-- <i class="fas fa-star"></i> -->
-                            </span>
-                            <strong>
-                                视频
-                            </strong>
-                            <em>
-                                在线学习所有课程
-                            </em>
+                    <p class="bd-footer-link">
+                        <a href="/wiki">
+                            开发工具
                         </a>
                     </p>
-                    <p class="bd-footer-link bd-has-subtitle">
-                        <a href="/topics">
-                            <span class="bd-footer-link-icon has-text-danger">
-                              <svg class="svg-inline--fa fa-heart fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="heart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path></svg><!-- <i class="fas fa-heart"></i> -->
-                            </span>
-                            <strong>
-                                社区
-                            </strong>
-                            <em>
-                                讨论技术相关的一切
-                            </em>
+                    <p class="bd-footer-link">
+                        <a href="/wiki">
+                            Go推荐内容
                         </a>
                     </p>
-                    <p class="bd-footer-link bd-has-subtitle">
-                        <a href="/vip">
-                            <span class="bd-footer-link-icon has-text-success">
-                              <svg class="svg-inline--fa fa-rocket fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="rocket" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M505.1 19.1C503.8 13 499 8.2 492.9 6.9 460.7 0 435.5 0 410.4 0 307.2 0 245.3 55.2 199.1 128H94.9c-18.2 0-34.8 10.3-42.9 26.5L2.6 253.3c-8 16 3.6 34.7 21.5 34.7h95.1c-5.9 12.8-11.9 25.5-18 37.7-3.1 6.2-1.9 13.6 3 18.5l63.6 63.6c4.9 4.9 12.3 6.1 18.5 3 12.2-6.1 24.9-12 37.7-17.9V488c0 17.8 18.8 29.4 34.7 21.5l98.7-49.4c16.3-8.1 26.5-24.8 26.5-42.9V312.8c72.6-46.3 128-108.4 128-211.1.1-25.2.1-50.4-6.8-82.6zM400 160c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"></path></svg><!-- <i class="fas fa-rocket"></i> -->
-                            </span>
-                            <strong>
-                                VIP服务
-                            </strong>
-                            <em>
-                                加入VIP，学习所有课程
-                            </em>
+                    <p class="bd-footer-link">
+                        <a href="/wiki">
+                            PHP推荐内容
+                        </a>
+                    </p>
+                    <p class="bd-footer-link">
+                        <a href="/wiki">
+                            微服务
+                        </a>
+                    </p>
+                    <p class="bd-footer-link">
+                        <a href="/wiki">
+                            DevOps
                         </a>
                     </p>
                 </div>
@@ -95,9 +134,7 @@
 
         <div class="content has-text-centered">
             <p>
-                <strong>1024Casts</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-                is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                <strong>1024Casts</strong> by <a href="https://github.com/1024casts">1024casts</a>
             </p>
         </div>
     </div>
