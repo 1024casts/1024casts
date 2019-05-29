@@ -1,7 +1,12 @@
 {{ define "css"}}
+    <link href="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/video.js/7.5.4/video-js.min.css" rel="stylesheet">
     <style type="text/css">
         body {background: #e5e5e5;}
+        .media-content .content p {
+            font-size: 14px;
+            line-height: 0.8rem;
+        }
     </style>
 {{ end }}
 
@@ -73,6 +78,71 @@
                         </div>
                     </div>
                 </div>
+
+                {{if gt .cmtCount 0}}
+                    <div id="comments" class="box" style="margin-top: 1rem;">
+                        {{ range $index, $value := .comments}}
+                            <article class="media">
+                                <figure class="media-left">
+                                    <p class="image is-64x64">
+                                        <img class="is-rounded" src="{{.UserInfo.Avatar}}">
+                                    </p>
+                                </figure>
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>{{.UserInfo.Username}}</strong> <small>{{.CreatedAtStr}}</small>
+                                            <br>
+                                            {{.ContentHtml}}
+                                        </p>
+                                    </div>
+                                    <nav class="level is-mobile">
+                                        <div class="level-left">
+                                            <a class="level-item" href="javascript:void(0)" @click="likeComment($event, {{ .Id }})">
+                                                <span class="icon is-small">
+                                                    <i class="far fa-thumbs-up"></i>
+                                                </span>
+                                            </a>
+                                            <a class="level-item" href="javascript:void(0)" @click="replyUser($event, '{{.UserInfo.Username}}')">
+                                                <span class="icon is-small">
+                                                    <i class="fas fa-reply"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </article>
+                        {{end}}
+                    </div>
+                {{end}}
+
+                <!-- 评论框-->
+                <div id="reply_box" class="box">
+                    <article class="media">
+                        <figure class="media-left">
+                            <p class="image is-64x64">
+                                <img class="is-rounded" src="{{.user.Avatar}}">
+                            </p>
+                        </figure>
+                        <div class="media-content">
+                            <form  @submit.prevent="submit">
+                                <div class="field">
+                                    <p class="control">
+                                        <textarea class="textarea" id="reply_content" name="content" v-model="content" placeholder="支持Markdown语法"></textarea>
+                                    </p>
+                                </div>
+                                <nav class="level">
+                                    <div class="level-left">
+                                        <div class="level-item">
+                                            <button class="button is-info" @click="submitComment">提交评论</button>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </form>
+                        </div>
+                    </article>
+                </div>
+
             </div>
             <div class="column">
                 <div class="card">
@@ -98,6 +168,7 @@
 {{ define "js" }}
     <script src="https://cdn.bootcss.com/video.js/7.5.4/video.min.js"></script>
     <script src="https://cdn.bootcss.com/video.js/7.5.4/lang/zh-CN.js"></script>
+    <script src="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
         var video = videojs("video-player", {
             "fluid":!0,
@@ -109,38 +180,90 @@
 
         });
 
-        function reply_vote(comment_id) {
-            console.log(comment_id);
-            $.ajax({
-                type: 'POST',
-                url: '/comment/' + comment_id + '/vote',
-                data: {'_token': '','_method':'post'},
-                dataType:'json',
-                success: function (ret) {
-                    console.log(ret);
-                    if (ret.code == 200 ) {
-                        $('#vote_count_' + comment_id).text(ret.count);
+        var app = new Vue({
+            el: '#comments',
+            data: {
+                content: '',
+            },
+            delimiters:['${', '}'],
+            methods: {
+                likeComment: function (e, commentId) {
+                    var bodyFormData = new FormData();
+                    bodyFormData.set('comment_id', commentId);
+                    let config = {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    };
+                    this.$http.post("/comments/" + commentId + "/like", bodyFormData, config).then((response) => {
+                        if (response.data.code === 0) {
+                            // 更新数量
+                            swal("点赞成功！", "","success");
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }).catch( error => {
+                        console.log(error);
+                    });
+                },
+                replyUser: function (e, username) {
+                    var replyContent = $('#reply_content');
+                    var oldContent = replyContent.val();
+                    var lastAtUser = "@" + username + " ";
+                    var newContent = '';
+                    if (oldContent.length > 0) {
+                        if (oldContent !== lastAtUser) {
+                            newContent = oldContent + "\n" + lastAtUser;
+                        }
+                    } else {
+                        newContent = lastAtUser;
                     }
-                }
-            });
-        }
 
-        function reply(username) {
-            var replyContent = $('#reply_content');
-            var oldContent = replyContent.val();
-            var lastAtUser = "@" + username + " ";
-            var newContent = '';
-            if (oldContent.length > 0) {
-                if (oldContent != lastAtUser) {
-                    newContent = oldContent + "\n" + lastAtUser;
+                    replyContent.focus();
+                    replyContent.val(newContent);
                 }
-            } else {
-                newContent = lastAtUser;
             }
+        });
 
-            replyContent.focus();
-            replyContent.val(newContent);
-        }
+        var reply_box = new Vue({
+            el: '#reply_box',
+            data: {
+                content: '',
+            },
+            delimiters:['${', '}'],
+            methods: {
+                submitComment: function (e) {
+                    e.preventDefault();
+                    if (this.content === '') {
+                        swal("请正确填写评论！", "","warning");
+                        return false;
+                    }
+                    var bodyFormData = new FormData();
+                    bodyFormData.set("type", "video");
+                    bodyFormData.set("related_id", {{.video.Id}});
+                    bodyFormData.set("content", this.content);
+                    let config = {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    };
+                    this.$http.post("/comments", bodyFormData, config).then((response) => {
+                        console.log(response);
+                        if (response.data.code === 0) {
+                            // http://mishengqiang.com/sweetalert/
+                            swal("更新成功！", "","success");
+                            return true;
+                        } else {
+                            swal("修改失败！", "","error");
+                            return false;
+                        }
+                    }).catch( error => {
+                        console.log(error);
+                    });
+                }
+            }
+        });
     </script>
 {{end}}
 
