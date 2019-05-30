@@ -1,130 +1,105 @@
+{{ define "css"}}
+    <style type="text/css">
+        body {background: #e5e5e5;}
+    </style>
+{{ end }}
+
 {{define "content"}}
+<div class="container" style="padding: 1.5rem 0rem;">
+    <div class="box">
+    <div class="columns">
+        <div class="column is-one-fifth">
+            <aside class="menu">
+                <p class="menu-label">
+                    导航
+                </p>
+                <ul class="menu-list">
+                    <li><a>首页</a></li>
+                    <li><a>开发工具</a></li>
+                </ul>
+                <p class="menu-label">
+                    Go推荐内容
+                </p>
+                <ul class="menu-list">
+                    <li><a>环境搭建</a></li>
+                    <li><a>入门教程</a></li>
+                    <li><a>Go 并发编程</a></li>
+                    <li><a>Go Web开发</a></li>
+                    <li><a>Go 标准库</a></li>
+                    <li><a>Go 第三方库</a></li>
+                </ul>
+                <p class="menu-label">
+                    PHP推荐内容
+                </p>
+                <ul class="menu-list">
+                    <li><a>Yaf框架开发手册</a></li>
+                    <li><a>Transfers</a></li>
+                </ul>
+                <p class="menu-label">
+                    数据库/NoSQL
+                </p>
+                <ul class="menu-list">
+                    <li><a>Memcache</a></li>
+                    <li><a>Redis</a></li>
+                    <li><a>MySQL</a></li>
+                </ul>
+                <p class="menu-label">
+                    业务模型
+                </p>
+                <ul class="menu-list">
+                    <li><a>Memcache</a></li>
+                    <li><a>Redis</a></li>
+                    <li><a>MySQL</a></li>
+                </ul>
+                <p class="menu-label">
+                    微服务
+                </p>
+                <ul class="menu-list">
+                    <li><a href="https://mp.weixin.qq.com/s?__biz=MzAxODI5ODMwOA==&mid=2666544131&idx=1&sn=6f48829cef702fb2093d65b10fc73fe5&chksm=80dcf8a8b7ab71bee12835516cbd66ddc3b13ce3c62354f6edcd9b38141bfdbfb6b37f435ead&mpshare=1&scene=1&srcid=#rd" target="_blank"> 微服务入门</a></li>
+                    <li><a> 微服务框架</a></li>
+                    <li><a> 微服务实践案例</a></li>
+                </ul>
+                <p class="menu-label">
+                    DevOps
+                </p>
+                <ul class="menu-list">
+                    <li><a>Yaf框架开发手册</a></li>
+                    <li><a>Transfers</a></li>
+                    <li><a>Balance</a></li>
+                </ul>
+            </aside>
+        </div>
+        <div class="column">
+{{/*            <nav class="breadcrumb" aria-label="breadcrumbs">*/}}
+{{/*                <ul>*/}}
+{{/*                    <li><a href="#">Bulma</a></li>*/}}
+{{/*                    <li><a href="#">Documentation</a></li>*/}}
+{{/*                    <li><a href="#">Components</a></li>*/}}
+{{/*                    <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>*/}}
+{{/*                </ul>*/}}
+{{/*            </nav>*/}}
 
-<div class="container page-pages">
-    <div id="homeland-wiki">
-        <div class="row">
-            <div class="sidebar wiki-sidebar col-sm-3 hide-ios">
-                <div class="card">
-                    <div class="card-body">
-                        <strong>导航</strong>
-                        <ul>
-                            <li><a href="/wiki">首页</a></li>
-                            <li><a href="/wiki/recent">Wiki 目录索引</a></li>
-                            <li class="hide-ios"><a href="/wiki/new">创建 Wiki 页面</a></li>
-                        </ul>
+            <div class="content">
+                <h1>google大会</h1>
 
-                        <strong>Wiki 推荐内容</strong>
-                        <ul>
-                            <li><a href="/wiki/tools">Ruby 开发工具</a></li>
-                            <li><a href="/wiki/books">书籍推荐</a></li>
-                            <li><a href="/wiki/rvm-guide">RVM 实用指南</a></li>
-                            <li><a href="/wiki/rbenv-guide">rbenv 实用指南</a></li>
-                            <li><a href="/wiki/coding-style">Ruby 风格指导</a></li>
-                            <li><a href="/wiki/rails-stye-guide">Rails 风格指导</a></li>
-                            <li><a href="/wiki/gems">常用 Gem 列表</a></li>
-                            <li><a href="/wiki/rails_hosting">Rails 主机，VPS，服务器推荐</a></li>
-                            <li><a href="/wiki/mac-nginx-passenger-rails">如何在 Mac 下快速准备 Rails 环境</a></li>
-                        </ul>
+                <h2>apple大会</h2>
+                <blockquote>
+                    Hello world
+                </blockquote>
+                <h3>google大会</h3>
 
+                <h4>facebook大会</h4>
 
-                    </div>
-                </div>
-            </div>
+                <h5>sina大会</h5>
 
+                <h6>IBM大会</h6>
 
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header hide-ios">Wiki 目录索引</div>
-                    <div class="card-body">
-                        <ul>
-                            <li><a class="page" href="/wiki/advertising">赞助与广告投放</a></li>
-                            <li><a class="page" href="/wiki/the-rails-doctrine">The Rails Doctrine - Rails 信条</a></li>
-                            <li><a class="page" href="/wiki/ruby-mirror">Ruby 源代码镜像服务</a></li>
-                            <li><a class="page" href="/wiki/deploy-rails-on-ubuntu-server">如何在 Ubuntu Server 上面准备好 Rails 部署环境</a></li>
-                            <li><a class="page" href="/wiki/awesomeruby">开发资源, 学习资源一览表</a></li>
-                            <li><a class="page" href="/wiki/activerecord-topics">ActiveRecord 高级技巧</a></li>
-                            <li><a class="page" href="/wiki/grape-topics">Grape 相关文章</a></li>
-                            <li><a class="page" href="/wiki/rails-search">Rails 实现全文搜索</a></li>
-                            <li><a class="page" href="/wiki/rails-tips">Ruby、Rails 高级技巧</a></li>
-                            <li><a class="page" href="/wiki/ruby-pref">Ruby、Rails 性能分析与优化</a></li>
-                            <li><a class="page" href="/wiki/deployment-rails">深入透彻了解 Rails 应用部署</a></li>
-                            <li><a class="page" href="/wiki/rails-caching">Rails 缓存实践</a></li>
-                            <li><a class="page" href="/wiki/gorails-for-rails-beginners">GoRails上Rails初学者指南</a></li>
-                            <li><a class="page" href="/wiki/install-rails-on-ubuntu-12-04-server">在 Ubuntu 12.04 Server 上安装部署 Ruby on Rails 应用</a></li>
-                            <li><a class="page" href="/wiki/motiongem">RubyMotion 开发iOS App 常用的Gem</a></li>
-                            <li><a class="page" href="/wiki/rails_plugin_ancestry_usage">Rails 插件 ancestry 用法</a></li>
-                            <li><a class="page" href="/wiki/appfog-deploy">AppFog 部署 Rails</a></li>
-                            <li><a class="page" href="/wiki/how_to_create_a_gem">创建一个新 Gem 导读</a></li>
-                            <li><a class="page" href="/wiki/railsgems">Gems on Rails 3</a></li>
-                            <li><a class="page" href="/wiki/jslibs">推荐的常用javascript库</a></li>
-                            <li><a class="page" href="/wiki/docs">Ruby on Rails &amp; Gems 及其它难点文档速查目录</a></li>
-                            <li><a class="page" href="/wiki/setting-up-sublime-text-2-in-windows">如何在Windows 7下配置Sublime Text 2编辑器（需Git）</a></li>
-                            <li><a class="page" href="/wiki/win32-gem">Windows 下编译 Native Gem 的一些经验</a></li>
-                            <li><a class="page" href="/wiki/install-rails-on-ubuntu-14-04-server">在 Ubuntu 14.04 Server 上安装部署 Ruby on Rails 应用</a></li>
-                            <li><a class="page" href="/wiki/rbenv-guide">rbenv 使用指南</a></li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
-
+    </div>
     </div>
 </div>
-
 {{end}}
-
-{{ define "css"}}
-<style type="text/css">
-    body {background: #e5e5e5;}
-
-    .page-pages .sidebar strong {
-        color: #999
-    }
-
-    .page-pages .sidebar ul {
-        padding: 10px 10px 10px 30px
-    }
-
-    .page-pages .sidebar ul li {
-        line-height: 180%
-    }
-
-    .page-pages .page-detail .card-header {
-        padding: 15px
-    }
-
-    .page-pages .page-detail .card-header h1 {
-        font-size: 20px;
-        color: #111;
-        margin: 0;
-        margin-bottom: 6px
-    }
-
-    .page-pages .page-detail .info {
-        text-align: right;
-        padding: 10px;
-        border-bottom: 1px solid #eaeaea;
-        margin: -10px -10px 0;
-        background: #f5f5f5;
-        border-radius: 3px 3px 0 0;
-        margin-bottom: 20px
-    }
-
-    .page-pages .page-detail .editors h3 {
-        font-size: 14px;
-        color: #999
-    }
-
-    .page-pages .page-detail .editors .media-object {
-        display: inline
-    }
-
-    .page-pages .page-detail .editors .buttons {
-        margin-top: 10px
-    }
-
-</style>
-{{ end }}
 
 {{ define "js"}}
 {{ end }}
