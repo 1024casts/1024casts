@@ -117,7 +117,7 @@
                 {{end}}
 
                 <!-- 评论框-->
-                <div id="reply_box" class="box">
+                <div id="reply_box" class="box" style="margin-top: 1rem;">
                     <article class="media">
                         <figure class="media-left">
                             <p class="image is-64x64">
@@ -144,22 +144,19 @@
                 </div>
 
             </div>
-            <div class="column">
-                <div class="card">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                             最新课程
-                        </p>
-                    </header>
-                    <div class="card-content">
-                        <div class="content">
-                                {{range .recentCourses}}
-                                    <a class="list-item" href="/courses/{{.Slug}}">{{.Name}}</a>
-                                {{end}}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <aside class="column menu">
+                <p class="menu-label">
+                    最新课程
+                </p>
+                <ul class="menu-list" style="font-size: 14px;">
+                    {{range .recentCourses}}
+                        <li>
+                            <a class="list-item" href="/courses/{{.Slug}}">{{.Name}}</a>
+                        </li>
+                    {{end}}
+                </ul>
+                <br />
+            </aside>
         </div>
 
 
@@ -240,7 +237,7 @@
                         return false;
                     }
                     var bodyFormData = new FormData();
-                    bodyFormData.set("type", "video");
+                    bodyFormData.set("type", 1);
                     bodyFormData.set("related_id", {{.video.Id}});
                     bodyFormData.set("content", this.content);
                     let config = {
