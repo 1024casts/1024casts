@@ -50,7 +50,7 @@ func (repo *PlanRepo) GetPlanList(planMap map[string]interface{}, offset, limit 
 		return plans, count, err
 	}
 
-	if err := repo.db.Self.Where(planMap).Offset(offset).Limit(limit).Order("id desc").Find(&plans).Error; err != nil {
+	if err := repo.db.Self.Where(planMap).Offset(offset).Limit(limit).Order("id asc").Find(&plans).Error; err != nil {
 		return plans, count, err
 	}
 
