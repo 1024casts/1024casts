@@ -16,6 +16,15 @@ func NewCommentRepo() *CommentRepo {
 	}
 }
 
+func (repo *CommentRepo) CreateComment(comment model.CommentModel) (id uint64, err error) {
+	err = repo.db.Self.Create(&comment).Error
+	if err != nil {
+		return 0, err
+	}
+
+	return comment.Id, nil
+}
+
 func (repo *CommentRepo) GetCommentById(id int) (*model.CommentModel, error) {
 	comment := model.CommentModel{}
 	result := repo.db.Self.Where("id = ?", id).First(&comment)
