@@ -554,11 +554,11 @@
 
 {{define "content"}}
 <div class="container">
-    <section class="hero is-light" style="margin-top: 1rem;">
+    <section class="hero">
         <div class="hero-body has-text-centered">
             <div class="container">
                 <p class="title">
-                    学习课程，提升技能
+                    一次订阅即可浏览所有视频
                 </p>
 {{/*                <p class="subtitle">*/}}
 {{/*                    Light subtitle*/}}
@@ -568,51 +568,18 @@
     </section>
 
     <div class="pricing-table">
-        <div class="pricing-plan">
-            <div class="plan-header">月度会员</div>
-            <div class="plan-price"><span class="plan-price-amount"><span class="plan-price-currency">$</span>20</span>/month</div>
-            <div class="plan-items">
-                <div class="plan-item">20GB Storage</div>
-                <div class="plan-item">-</div>
-            </div>
-            <div class="plan-footer">
-                <button class="button is-fullwidth" disabled="disabled">Current plan</button>
-            </div>
-        </div>
-
-        <div class="pricing-plan is-warning">
-            <div class="plan-header">季度会员</div>
-            <div class="plan-price"><span class="plan-price-amount"><span class="plan-price-currency">$</span>40</span>/month</div>
-            <div class="plan-items">
-                <div class="plan-item">20GB Storage</div>
-                <div class="plan-item">-</div>
-            </div>
-            <div class="plan-footer">
-                <button class="button is-fullwidth">Choose</button>
-            </div>
-        </div>
-
-        <div class="pricing-plan">
-            <div class="plan-header">半年度会员</div>
-            <div class="plan-price"><span class="plan-price-amount"><span class="plan-price-currency">$</span>60</span>/month</div>
-            <div class="plan-items">
-                <div class="plan-item">200GB Storage</div>
-            </div>
-            <div class="plan-footer">
-                <button class="button is-fullwidth">Choose</button>
-            </div>
-        </div>
-
+        {{range .plans}}
         <div class="pricing-plan is-danger">
-            <div class="plan-header">年度会员</div>
-            <div class="plan-price"><span class="plan-price-amount"><span class="plan-price-currency">$</span>100</span>/month</div>
+            <div class="plan-header">{{.Name}}</div>
+            <div class="plan-price"><span class="plan-price-amount"><span class="plan-price-currency">￥</span>{{.Price}}</span></div>
             <div class="plan-items">
-                <div class="plan-item">2TB Storage</div>
+                <div class="plan-item">{{.Description}}</div>
             </div>
             <div class="plan-footer">
-                <button class="button is-fullwidth">Choose</button>
+                <button class="button is-fullwidth">购买</button>
             </div>
         </div>
+        {{end}}
     </div>
 </div>
 
