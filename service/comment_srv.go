@@ -22,6 +22,16 @@ func NewCommentService() *CommentService {
 	}
 }
 
+func (srv *CommentService) CreateComment(comment model.CommentModel) (id uint64, err error) {
+	id, err = srv.repo.CreateComment(comment)
+
+	if err != nil {
+		return id, err
+	}
+
+	return id, nil
+}
+
 func (srv *CommentService) GetCommentById(id int) (*model.CommentModel, error) {
 	comment, err := srv.repo.GetCommentById(id)
 
