@@ -1,5 +1,5 @@
 {{ define "css"}}
-    <link href="https://1024casts.com/css/github-markdown.css" rel="stylesheet">
+{{/*    <link href="https://1024casts.com/css/github-markdown.css" rel="stylesheet">*/}}
     <link href="https://cdn.bootcss.com/prism/9000.0.1/themes/prism.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/prism/9000.0.1/plugins/show-language/prism-show-language.min.css" rel="stylesheet">
 <style type="text/css">
@@ -58,7 +58,7 @@
                     {{ range $index, $value := .replies}}
                         <article class="media">
                             <figure class="media-left">
-                                <p class="image is-64x64">
+                                <p class="image is-48x48">
                                     <img class="is-rounded" src="{{.ReplyUserInfo.Avatar}}">
                                 </p>
                             </figure>
@@ -72,12 +72,12 @@
                                 </div>
                                 <nav class="level is-mobile">
                                     <div class="level-left">
-                                        <a class="level-item">
+                                        <button class="level-item">
                                             <span class="icon is-small"><i class="fas fa-reply"></i></span>
-                                        </a>
-                                        <a class="level-item">
+                                        </button>
+                                        <button class="level-item">
                                             <span class="icon is-small"><i class="fas fa-heart"></i></span>
-                                        </a>
+                                        </button>
                                     </div>
                                 </nav>
                             </div>
@@ -86,23 +86,23 @@
                 </div>
                 {{end}}
 
-                <div id="reply-box" class="box">
+                <div id="reply_box" class="box">
                     <article class="media">
                         <figure class="media-left">
-                            <p class="image is-64x64">
+                            <p class="image is-48x48">
                                 <img src="{{.user.Avatar}}">
                             </p>
                         </figure>
                         <div class="media-content">
                             <div class="field">
                                 <p class="control">
-                                    <textarea class="textarea" placeholder="Add a comment..."></textarea>
+                                    <textarea v-model="content" name="content" class="textarea" placeholder="Add a comment..."></textarea>
                                 </p>
                             </div>
                             <nav class="level">
                                 <div class="level-left">
                                     <div class="level-item">
-                                        <a class="button is-info">Submit</a>
+                                        <button class="button is-info" @click="submitComment">Submit</button>
                                     </div>
                                 </div>
                                 <div class="level-right">
@@ -165,5 +165,46 @@
     <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-markdown.min.js"></script>
     <script src="https://cdn.bootcss.com/prism/9000.0.1/plugins/show-language/prism-show-language.min.js"></script>
     <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-markup.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-bash.min.js"></script>
+    <script src="https://cdn.bootcss.com/marked/0.6.2/marked.min.js"></script>
+    <script src="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#reply_box',
+            data: {
+                content: '',
+            },
+            delimiters:['${', '}'],
+            methods: {
+                submitComment: function (e) {
+                    e.preventDefault();
+                    if (this.content === '') {
+                        swal("请正确填写评论！", "","warning");
+                        return false;
+                    }
+                    var bodyFormData = new FormData();
+                    bodyFormData.set("topic_id", {{.topic.Id}});
+                    bodyFormData.set("origin_body", this.content);
+                    bodyFormData.set("body", marked(this.content));
+                    let config = {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    };
+                    this.$http.post("/topics/reply", bodyFormData, config).then((response) => {
+                        console.log(response);
+                        if (response.data.code === 0) {
+                            // http://mishengqiang.com/sweetalert/
+                            swal("更新成功！", "","success");
+                            return true;
+                        } else {
+                            swal("修改失败！", "","error");
+                            return false;
+                        }
+                    }).catch( error => {
+                        console.log(error);
+                    });
+                }
+            }
+        });
+        </script>
 {{ end }}
