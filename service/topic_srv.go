@@ -34,6 +34,16 @@ func (srv *TopicService) CreateTopic(topic model.TopicModel) (id uint64, err err
 	return id, nil
 }
 
+func (srv *TopicService) CreateReply(reply model.ReplyModel) (id uint64, err error) {
+	id, err = srv.repo.CreateReply(reply)
+
+	if err != nil {
+		return id, err
+	}
+
+	return id, nil
+}
+
 func (srv *TopicService) GetTopicById(id int) (*model.TopicInfo, error) {
 	topicModel, err := srv.repo.GetTopicById(id)
 	topic := srv.trans(topicModel)

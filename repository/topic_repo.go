@@ -24,6 +24,15 @@ func (repo *TopicRepo) CreateTopic(Topic model.TopicModel) (id uint64, err error
 	return Topic.Id, nil
 }
 
+func (repo *TopicRepo) CreateReply(reply model.ReplyModel) (id uint64, err error) {
+	err = repo.db.Self.Create(&reply).Error
+	if err != nil {
+		return 0, err
+	}
+
+	return reply.Id, nil
+}
+
 func (repo *TopicRepo) GetTopicById(id int) (*model.TopicModel, error) {
 	Topic := model.TopicModel{}
 	result := repo.db.Self.Where("id = ?", id).First(&Topic)
