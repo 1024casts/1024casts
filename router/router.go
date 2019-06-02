@@ -201,6 +201,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 
 	router.GET("/topics", webTopic.Index)
 	router.GET("/topics/:id", webTopic.Detail)
+	router.POST("/topics/reply", webTopic.Reply)
 	t := router.Group("/topic")
 	t.Use(middleware.CookieMiddleware())
 	{
