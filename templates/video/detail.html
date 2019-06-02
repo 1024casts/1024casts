@@ -1,6 +1,8 @@
 {{ define "css"}}
     <link href="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/video.js/7.5.4/video-js.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/prism/9000.0.1/themes/prism.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/prism/9000.0.1/plugins/show-language/prism-show-language.min.css" rel="stylesheet">
     <style type="text/css">
         body {background: #e5e5e5;}
         .media-content .content p {
@@ -29,8 +31,7 @@
                         {{if eq .video.IsFree 1}}
                             <video id="video-player" class="video-js vjs-fluid vjs-big-play-centered placeholder"
                                    poster="{{ .video.CoverImage }}" data-setup='{}'>
-                                <source src="{{ .video.Mp4URL }}" type='video/mp4'>
-                                <source src="" type="video/flv" data-quality="HD" label="HD" data-default="true">
+                                <source src="{{ .video.Mp4URL }}" type='video/mp4' data-default="true">
                                 <p class="vjs-no-js">
                                     To view this video please enable JavaScript, and consider upgrading to a web browser that
                                     <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -40,8 +41,7 @@
                             {{if .user.IsVip}}
                                 <video id="video-player" class="video-js vjs-fluid vjs-big-play-centered placeholder"
                                        poster="{{ .video.CoverImage }}" data-setup='{}'>
-                                    <source src="{{ .video.Mp4URL }}" type='video/mp4'>
-                                    <source src="" type="video/flv" data-quality="HD" label="HD" data-default="true">
+                                    <source src="{{ .video.Mp4URL }}" type='video/mp4' data-default="true">
                                     <p class="vjs-no-js">
                                         To view this video please enable JavaScript, and consider upgrading to a web browser that
                                         <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -117,7 +117,7 @@
                 {{end}}
 
                 <!-- 评论框-->
-                <div id="reply_box" class="box" style="margin-top: 1rem;">
+                <div id="comment_box" class="box" style="margin-top: 1rem;">
                     <article class="media">
                         <figure class="media-left">
                             <p class="image is-64x64">
@@ -125,20 +125,18 @@
                             </p>
                         </figure>
                         <div class="media-content">
-                            <form  @submit.prevent="submit">
-                                <div class="field">
-                                    <p class="control">
-                                        <textarea class="textarea" id="reply_content" name="content" v-model="content" placeholder="支持Markdown语法"></textarea>
-                                    </p>
-                                </div>
-                                <nav class="level">
-                                    <div class="level-left">
-                                        <div class="level-item">
-                                            <button class="button is-info" @click="submitComment">提交评论</button>
-                                        </div>
+                            <div class="field">
+                                <p class="control">
+                                    <textarea class="textarea" id="reply_content" name="content" v-model="content" placeholder="支持Markdown语法"></textarea>
+                                </p>
+                            </div>
+                            <nav class="level">
+                                <div class="level-right">
+                                    <div class="level-item">
+                                        <button class="button is-info" @click="submitComment">提交评论</button>
                                     </div>
-                                </nav>
-                            </form>
+                                </div>
+                            </nav>
                         </div>
                     </article>
                 </div>
@@ -164,9 +162,20 @@
 {{end}}
 {{ define "js" }}
     <script src="https://cdn.bootcss.com/video.js/7.5.4/video.min.js"></script>
+    {{if ne .user_id 0}}
     <script src="https://cdn.bootcss.com/video.js/7.5.4/lang/zh-CN.js"></script>
+    {{end}}
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/prism.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-go.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-php.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-javascript.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-markdown.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/plugins/show-language/prism-show-language.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-markup.min.js"></script>
+    <script src="https://cdn.bootcss.com/marked/0.6.2/marked.min.js"></script>
     <script src="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
+        {{if ne .user_id 0}}
         var video = videojs("video-player", {
             "fluid":!0,
             "playbackRates":[0.5,.75,1,1.25,1.5,1.75,2],
@@ -176,6 +185,7 @@
         }).ready(function () {
 
         });
+        {{end}}
 
         var app = new Vue({
             el: '#comments',
@@ -223,8 +233,8 @@
             }
         });
 
-        var reply_box = new Vue({
-            el: '#reply_box',
+        var comment_box = new Vue({
+            el: '#comment_box',
             data: {
                 content: '',
             },
@@ -239,7 +249,8 @@
                     var bodyFormData = new FormData();
                     bodyFormData.set("type", 1);
                     bodyFormData.set("related_id", {{.video.Id}});
-                    bodyFormData.set("content", this.content);
+                    bodyFormData.set("origin_content", this.content);
+                    bodyFormData.set("content", marked(this.content));
                     let config = {
                         headers: {
                             'Content-Type': 'multipart/form-data'
