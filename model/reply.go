@@ -13,7 +13,7 @@ type ReplyModel struct {
 	OriginBody string `gorm:"column:origin_body" json:"origin_body"`
 	Source     string `gorm:"column:source" json:"source"`
 	TopicID    int    `gorm:"column:topic_id" json:"topic_id"`
-	VoteCount  int    `gorm:"column:vote_count" json:"vote_count"`
+	LikeCount  int    `gorm:"column:like_count" json:"like_count"`
 }
 
 // TableName sets the insert table name for this struct type
@@ -34,7 +34,7 @@ type ReplyInfo struct {
 	OriginBody    string        `json:"origin_body"`
 	UserID        uint64        `json:"user_id"`
 	ReplyUserInfo *UserInfo     `json:"reply_user_info"`
-	VoteCount     int           `json:"vote_count"`
+	LikeCount     int           `json:"like_count"`
 	Source        string        `json:"source"`
 	CreatedAt     string        `json:"created_at"`
 	DeletedAt     string        `json:"deleted_at"`
