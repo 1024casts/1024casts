@@ -33,6 +33,13 @@ func (repo *TopicRepo) CreateReply(reply model.ReplyModel) (id uint64, err error
 	return reply.Id, nil
 }
 
+func (repo *TopicRepo) GetReplyById(id int) (*model.ReplyModel, error) {
+	reply := model.ReplyModel{}
+	result := repo.db.Self.Where("id = ?", id).First(&reply)
+
+	return &reply, result.Error
+}
+
 func (repo *TopicRepo) GetTopicById(id int) (*model.TopicModel, error) {
 	Topic := model.TopicModel{}
 	result := repo.db.Self.Where("id = ?", id).First(&Topic)
@@ -98,6 +105,30 @@ func (repo *TopicRepo) IncrTopicViewCount(id int) error {
 	topicMap["view_count"] = topic.ViewCount + 1
 
 	return repo.db.Self.Model(topic).Updates(topicMap).Error
+}
+
+func (repo *TopicRepo) IncrTopicReplyCount(id int) error {
+	topic, err := repo.GetTopicById(id)
+	if err != nil {
+		return err
+	}
+
+	topicMap := make(map[string]interface{})
+	topicMap["reply_count"] = topic.ReplyCount + 1
+
+	return repo.db.Self.Model(topic).Updates(topicMap).Error
+}
+
+func (repo *TopicRepo) IncrReplyLikeCount(id int) error {
+	reply, err := repo.GetReplyById(id)
+	if err != nil {
+		return err
+	}
+
+	replyMap := make(map[string]interface{})
+	replyMap["like_count"] = reply.LikeCount + 1
+
+	return repo.db.Self.Model(reply).Updates(replyMap).Error
 }
 
 func (repo *TopicRepo) UpdateTopic(userMap map[string]interface{}, id int) error {

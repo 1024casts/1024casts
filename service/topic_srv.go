@@ -142,7 +142,7 @@ func (srv *TopicService) transReply(reply *model.ReplyModel) *model.ReplyInfo {
 		OriginBody:    reply.OriginBody,
 		UserID:        reply.UserId,
 		ReplyUserInfo: replyUser,
-		VoteCount:     reply.VoteCount,
+		LikeCount:     reply.LikeCount,
 		Source:        reply.Source,
 		CreatedAt:     util.FormatTime(reply.CreatedAt),
 		DeletedAt:     "",
@@ -168,6 +168,37 @@ func (srv *TopicService) IncrTopicViewCount(id int) error {
 	}
 
 	return nil
+}
+
+func (srv *TopicService) IncrTopicReplyCount(id int) error {
+	err := srv.repo.IncrTopicReplyCount(id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (srv *TopicService) IncrReplyLikeCount(id int) error {
+	err := srv.repo.IncrReplyLikeCount(id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (srv *TopicService) GetReplyById(id int) (*model.ReplyInfo, error) {
+	replyModel, err := srv.repo.GetReplyById(id)
+	reply := srv.transReply(replyModel)
+
+	if err != nil {
+		return reply, err
+	}
+
+	return reply, nil
 }
 
 func (srv *TopicService) GetReplyList(replyMap map[string]interface{}, offset, limit int) ([]*model.ReplyInfo, int, error) {
