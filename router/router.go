@@ -204,7 +204,8 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	ts := router.Group("/topics")
 	ts.Use(middleware.CookieMiddleware())
 	{
-		ts.POST("/topics/reply", webTopic.Reply)
+		ts.POST("/reply", webTopic.Reply)
+		ts.POST("/like/:reply_id", webTopic.Like)
 	}
 	t := router.Group("/topic")
 	t.Use(middleware.CookieMiddleware())
