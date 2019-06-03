@@ -2,6 +2,7 @@ package topic
 
 import (
 	"github.com/1024casts/1024casts/pkg/errno"
+	"github.com/lexkong/log"
 
 	"github.com/1024casts/1024casts/model"
 
@@ -37,6 +38,11 @@ func Reply(c *gin.Context) {
 	if err != nil {
 		app.Response(c, errno.ErrDatabase, nil)
 		return
+	}
+
+	err = topicSrv.IncrTopicReplyCount(req.TopicId)
+	if err != nil {
+		log.Warnf("[topic] incr reply count err: %+v", err)
 	}
 
 	app.Response(c, errno.OK, nil)
