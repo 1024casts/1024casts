@@ -1,266 +1,127 @@
 {{ define "css"}}
 <style type="text/css">
-    body {background: #e5e5e5;}
+    /*body {background: #e5e5e5;}*/
 </style>
 {{ end }}
 
 {{define "content"}}
 <div class="container">
-    <div class="row">
-        <div class="sidebar col-md-4" id="sidebar">
+    <div class="columns" style="margin-top: 0.5rem;">
+        <div class="column is-3" id="sidebar">
             <div class="card profile">
-                <div class="card-body">
+{{/*                <div class="card-image">*/}}
+{{/*                    <figure class="image is-128x128">*/}}
+{{/*                        <img src="{{.user.Avatar}}" alt="{{.user.Username}}">*/}}
+{{/*                    </figure>*/}}
+{{/*                </div>*/}}
+                <div class="card-content">
                     <div class="media">
-                        <div class="avatar media-left mr-3">
-                            <div class="image"><img class="media-object avatar-96" src="https://l.ruby-china.com/user/avatar/68.jpg!lg"></div>
-                            <div class="level"><span class="badge badge-success role">高级会员</span></div>
+                        <div class="media-left">
+                            <figure class="image is-128x128">
+                                <img src="{{.user.Avatar}}" alt="{{.user.Username}}">
+                            </figure>
                         </div>
-                        <div class="media-body">
-                            <div class="item">
-                                {{.user.Username}} ({{if ne .user.RealName ""}}{{.user.RealName}}{{else}}{{.user.Username}}{{end}})
-                                <span class="opts pull-right">
+                        <div class="media-content">
+                            <p class="title is-4">{{.user.Username}} ({{if ne .user.RealName ""}}{{.user.RealName}}{{else}}{{.user.Username}}{{end}})</p>
+                            <p class="subtitle is-6"></p>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        第 {{.user.Id}} 位会员
+                        <br>
+                        注册于 <span title="注册日期">{{.user.CreatedAt}}</span>
+                        <ul>
+                            <li>
+                                <span title="所在地">
+                                    <i class="fas fa-map-marker-alt"></i> {{.user.City}}
                                 </span>
-                            </div>
-                            <div class="item number">
-                                第 {{.user.Id}} 位会员 / <span title="注册日期">{{.user.CreatedAt}}</span>
-                            </div>
-                            <div class="item company">
-                                {{.user.Company}}
-                                @ <span title="所在地"><a href="javascript:;">{{.user.City}}</a></span>
-                            </div>
-                            <div class="item counts">
-
-                            </div>
-                            <div class="item social">
-                                {{if .user.GithubId}}
-                                    <a target="_blank" rel="nofollow" href="https://github.com/{{.user.GithubId}}"><i class="fa fa-github"></i></a>
-                                {{end}}
-                                {{if .user.PersonalWebsite}}
-                                <a target="_blank" rel="nofollow" href="{{.user.PersonalWebsite}}"><i class="fa fa-globe"></i></a>
-                                {{end}}
-                                {{if .user.Email}}
-                                <a href="mailto: {{.user.Email}}"><i class="fa fa-envelope-o"></i></a>
-                                {{end}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="follow-info row hide-ios">
-                        <div class="col-sm-4 followers" data-login="gazeldx">
-                            <a class="counter" href="/users/{{.user.Username}}/followers">{{.user.FollowerCount}}</a>
-                            <a class="text" href="/users/{{.user.Username}}/followers">关注者</a>
-                        </div>
-                        <div class="col-sm-4 following">
-                            <a class="counter" href="/users/{{.user.Username}}/following">4</a>
-                            <a class="text" href="/users/{{.user.Username}}/following">正在关注</a>
-                        </div>
-                        <div class="col-sm-4 stars">
-                            <a class="counter" href="/users/{{.user_name}}/favorites">108</a>
-                            <a class="text" href="/users/{{.user_name}}/favorites">收藏</a>
-                        </div>
-                    </div>
-                    <div class="buttons row">
-                        <div class="col-sm-6">
-
-                        </div>
-
-                        <div class="col-sm-6">
-
-                        </div>
-                    </div>
-
-                    <div class="tagline row">
-                        Ruby Sinatra Rails JavaScript nodeJS
-                    </div>
-
-                    <div class="buttons">
-
+                            </li>
+                            {{if .user.GithubId}}
+                                <li>
+                                    <i class="fab fa-github"></i>
+                                    <a target="_blank" rel="nofollow" href="https://github.com/{{.user.GithubId}}">
+                                        https://github.com/{{.user.GithubId}}
+                                    </a>
+                                </li>
+                            {{end}}
+                            {{if .user.PersonalWebsite}}
+                                <li>
+                                    <i class="fa fa-globe"></i>
+                                    <a target="_blank" rel="nofollow" href="{{.user.PersonalWebsite}}">
+                                        {{.user.PersonalWebsite}}
+                                    </a>
+                                </li>
+                            {{end}}
+                            {{if .user.Email}}
+                                <li>
+                                    <i class="far fa-envelope"></i>
+                                    <a href="mailto: {{.user.Email}}">
+                                        {{.user.Email}}
+                                    </a>
+                                </li>
+                            {{end}}
+                        </ul>
                     </div>
                 </div>
+
+{{/*                <div class="follow-info row hide-ios">*/}}
+{{/*                    <div class="col-sm-4 followers" data-login="gazeldx">*/}}
+{{/*                        <a class="counter" href="/users/{{.user.Username}}/followers">{{.user.FollowerCount}}</a>*/}}
+{{/*                        <a class="text" href="/users/{{.user.Username}}/followers">关注者</a>*/}}
+{{/*                    </div>*/}}
+{{/*                    <div class="col-sm-4 following">*/}}
+{{/*                        <a class="counter" href="/users/{{.user.Username}}/following">4</a>*/}}
+{{/*                        <a class="text" href="/users/{{.user.Username}}/following">正在关注</a>*/}}
+{{/*                    </div>*/}}
+{{/*                    <div class="col-sm-4 stars">*/}}
+{{/*                        <a class="counter" href="/users/{{.user_name}}/favorites">108</a>*/}}
+{{/*                        <a class="text" href="/users/{{.user_name}}/favorites">收藏</a>*/}}
+{{/*                    </div>*/}}
+{{/*                </div>*/}}
             </div>
-
-
-            <div class="card hidden-mobile" id="user_github_repos">
-                <div class="card-header">GitHub Public Repos</div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <div class="title">
-                            <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/db_admin">db_admin</a>
-                            <span class="watchers" title="43 Watchers">43</span>
-                        </div>
-                        <p class="desc">
-                            A Ruby Web UI to manage databases. Support PostgreSQL, MySQL, SQLite, Oracle, MS-SQL, etc.
-                        </p></li>
-                    <li class="list-group-item">
-                        <div class="title">
-                            <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/Learn-Rails-by-Reading-Source-Code">Learn-Rails-by-Reading...</a>
-                            <span class="watchers" title="19 Watchers">19</span>
-                        </div>
-                        <p class="desc">
-                            You will learn how Rack, Puma, Rails 5 works together.
-                        </p></li>
-                    <li class="list-group-item">
-                        <div class="title">
-                            <a target="_blank" rel="nofollow" href="https://github.com/gazeldx/haoshu">haoshu</a>
-                            <span class="watchers" title="1 Watchers">1</span>
-                        </div>
-                        <p class="desc">
-                            分享你认为最好的书！
-                        </p></li>
-                </ul>
-                <div class="card-footer more">
-                    <a target="_blank" rel="nofollow" href="https://github.com/gazeldx">More on GitHub</a>
-                </div>
-            </div>
-
         </div>
 
-
-        <div class="col-md-8">
-            <ul class="users-menu nav nav-tabs">
-                <li class="nav-item"><a class="nav-link active" href="/users/{{.user.Username}}/topics">话题</a></li>
-                <li class="nav-item"><a class="nav-link" href="/users/{{.user.Username}}/replies">回帖</a></li>
-                <li class="nav-item"><a class="nav-link hide-ios hidden-mobile" href="/users/{{.user.Username}}/favorites">收藏</a></li>
-                <li class="nav-item"><a class="nav-link hidden-mobile" href="/users/{{.user.Username}}/following">正在关注</a></li>
-                <li class="nav-item"><a class="nav-link hidden-mobile" href="/users/{{.user.Username}}/followers">关注者</a></li>
-            </ul>
-            <div class="card">
-                <div class="card-body">
-                    <table class="node-topics table">
-                        <tbody><tr class="head">
-                            <td class="node hide-ios">节点</td>
-                            <td class="title">标题</td>
-                            <td class="replies">回复/赞</td>
-                        </tr>
-                        <tr class="topic odd ">
-                            <td class="node hide-ios"><a class="node" href="/topics/node68">翻译</a></td>
-                            <td class="title"><a href="/topics/38174">[译] 减慢 Rails 应用的 3 个 ActiveRecord 错用</a> <i title="" class="fa fa-diamond" data-toggle="tooltip" data-original-title="精华帖"></i> <em><abbr class="timeago" title="2019年03月01日">1 月前</abbr></em></td>
-                            <td class="replies">11/63 </td>
-                        </tr>
-                        <tr class="topic  ">
-                            <td class="node hide-ios"><a class="node" href="/topics/node22">反馈</a></td>
-                            <td class="title"><a href="/topics/36726">两个页面显示问题反馈</a>  <em><abbr class="timeago" title="2018年05月09日">2018年05月09日</abbr></em></td>
-                            <td class="replies">1/0 </td>
-                        </tr>
-                        <tr class="topic odd ">
-                            <td class="node hide-ios"><a class="node" href="/topics/node2">Rails</a></td>
-                            <td class="title"><a href="/topics/34599">怎么在删除话题的时候关联删除话题里的资源文件？</a>  <em><abbr class="timeago" title="2017年11月20日">2017年11月20日</abbr></em></td>
-                            <td class="replies">8/0 </td>
-                        </tr>
-                        <tr class="topic odd ">
-                            <td class="node hide-ios"><a class="node" href="/topics/node26">分享</a></td>
-                            <td class="title"><a href="/topics/32073">[译] 简单三步使用计数器缓存</a>  <em><abbr class="timeago" title="2017年01月08日">2017年01月08日</abbr></em></td>
-                            <td class="replies">0/0 </td>
-                        </tr>
-                        <tr class="topic  ">
-                            <td class="node hide-ios"><a class="node" href="/topics/node26">分享</a></td>
-                            <td class="title"><a href="/topics/31767">[译] Terminal 功夫——方便开发者的实用技巧</a> <i title="" class="fa fa-diamond" data-toggle="tooltip" data-original-title="精华帖"></i> <em><abbr class="timeago" title="2016年12月02日">2016年12月02日</abbr></em></td>
-                            <td class="replies">17/63 </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer clearfix">
-
-                </div>
+        <div class="column is-9">
+            <div class="tabs">
+                <ul>
+                    <li class="is-active"><a  href="/users/{{.user.Username}}/topics">话题</a></li>
+                    <li><a href="/users/{{.user.Username}}/replies">回帖</a></li>
+                    <li><a href="/users/{{.user.Username}}/favorites">收藏</a></li>
+                    <li><a href="/users/{{.user.Username}}/following">正在关注</a></li>
+                    <li><a href="/users/{{.user.Username}}/followers">关注者</a></li>
+                </ul>
             </div>
 
-            <div class="tabbable">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item"><a href="#topics" class="nav-link active" data-toggle="tab">热门话题</a></li>
-                    <li class="nav-item"><a href="#replies" class="nav-link" data-toggle="tab">最近回帖</a></li>
-                    <li class="nav-item"><a href="#description" class="nav-link" data-toggle="tab">个人介绍</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active recent-topics" id="topics">
-                        <div class="card">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node2">Rails</a>
-                                        <a title="Learn Rails 5 by Reading Source Code" href="/topics/38195">Learn Rails 5 by Reading Source Code</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">29 个赞 • 10 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node72">ReactJS</a>
-                                        <a title="是时候搞点新玩意了——用 react-native 开发跨平台 APP" href="/topics/29759">是时候搞点新玩意了——用 react-native 开发跨平台 APP</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">1 个赞 • 9 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node47">开源项目</a>
-                                        <a title="好书推荐的网站是否有人感兴趣" href="/topics/25578">好书推荐的网站是否有人感兴趣</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">1 个赞 • 16 条回复</span>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a class="node" href="/topics/node47">开源项目</a>
-                                        <a title="ruby db admin 数据库管理系统更新通知" href="/topics/24843">ruby db admin 数据库管理系统更新通知</a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="counter">1 个赞 • 2 条回复</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="replies">
-                        <div class="card">
-                            <ul class="list-group list-group-flush recent-replies">
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a href="/topics/38195">Learn Rails 5 by Reading Source Code</a>
-                                        <span class="info">at <abbr class="timeago" title="2019年03月15日">4 天前</abbr></span>
-                                    </div>
-                                    <div class="body markdown">
-                                        <p>主要问题是没玩好。打算把编程玩好了，再玩别的。</p>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a href="/topics/32433">Rails 并发处理</a>
-                                        <span class="info">at <abbr class="timeago" title="2017年03月09日">2017年03月09日</abbr></span>
-                                    </div>
-                                    <div class="body markdown">
-                                        <ul>
-                                            <li>办法一：可以考虑从业务上调整。整点同时6000并发，这不是人为操作，而是有程序在向你们服务器发请求。你们作为上游可以尝试让下游调整。</li>
-                                            <li>办法二、如果下游不要求rails同步立即给出最终结果的话，可以把业务处理交给后台程序（via sidekiq, resque or RabbitMQ），然后快速响应下请求。</li>
-                                            <li>办法三、用Node.js试试看，启用Cluster模式。</li>
-                                            <li>办法四、找出瓶颈，就用原来的Java跑。</li>
-                                            <li>办法五、8核16g内存这种服务器已经比较老了，建议更新下硬件（包括硬盘）。</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="title">
-                                        <a href="/topics/11844">我现在要转行了</a>
-                                        <span class="info">at <abbr class="timeago" title="2017年03月09日">2017年03月09日</abbr></span>
-                                    </div>
-                                    <div class="body markdown">
-                                        <p>No. I am still a programmer. I haven't succeeded in stock market yet. But I didn't give up.</p>
-                                    </div>
-                                </li>
-                            </ul>
+            <div class="box">
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <time datetime="2019-04-30 15:37:45.86 +0800 CST">2019-04-30 15:37</time>
+                                回复了
+                                <a href="/member/tudoukp">tudoukp</a>
+                                创建的主题: <a href="/t/51a47353320b52148f00008e">html/template 怎么样才能直接输出HTML</a>
+                            </p>
+                            <p>@jimmykuu 受用了</p>
 
                         </div>
                     </div>
-                    <div class="tab-pane" id="description">
-                        <div class="card bio">
-                            <div class="card-body markdown">
-                                <p>好好爱每个人！</p>
-                            </div>
+                </article>
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <time datetime="2019-04-25 18:39:23.13 +0800 CST">2019-04-25 18:39</time>
+                                回复了
+                                <a href="/member/writethesky">writethesky</a>
+                                创建的主题: <a href="/t/542f7389421aa97f1d00003c">go语言如何实现HMAC-SHA1</a>
+                            </p>
+                            <p>最后的 <code data-backticks="1">hex.EncodeToString</code> 很关键，不然会乱码</p>
+
                         </div>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
 
