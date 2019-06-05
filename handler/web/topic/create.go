@@ -42,6 +42,7 @@ func Create(c *gin.Context) {
 type CreateTopicReq struct {
 	Title      string `json:"title" form:"title"`
 	CategoryId int    `json:"category_id" form:"category_id"`
+	OriginBody string `json:"origin_body" form:"origin_body"`
 	Body       string `json:"body" form:"body"`
 }
 
@@ -56,8 +57,8 @@ func DoCreate(c *gin.Context) {
 	topicModel := model.TopicModel{
 		CategoryID:  req.CategoryId,
 		Title:       req.Title,
-		OriginBody:  req.Body,
-		Body:        util.MarkdownToHtml(req.Body),
+		OriginBody:  req.OriginBody,
+		Body:        req.Body,
 		Source:      "PC",
 		IsBlocked:   "no",
 		IsExcellent: "no",
