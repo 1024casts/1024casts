@@ -7,23 +7,23 @@
 
 {{define "content"}}
     <div class="container" style="padding: 2rem 0rem;">
-        <div class="columns body-columns">
+        <div class="columns">
             <div class="column is-three-quarters">
                 <div class="card">
                     <div class="card-content">
                         <div class="content">
-                            <form id="app" method="post" action="/topic/new">
+                            <form id="app" @submit="saveTopic">
                                 <div class="field">
                                     <label class="label">标题</label>
                                     <div class="control">
-                                        <input type="text" class="input" name="title" id="title" placeholder="请填写标题">
+                                        <input type="text" class="input" name="title" id="title" placeholder="请填写标题" v-model="title" required>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <label class="label">分类</label>
                                     <div class="control">
                                         <div class="select">
-                                            <select name="category_id" id="category_id">
+                                            <select name="category_id" id="category_id" v-model="category_id">
                                                 <option>请选择</option>
                                                 {{range .categories}}
                                                     <option value="{{.Id}}">{{.Name}}</option>
@@ -32,9 +32,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="notification is-info">
+                                    <div class="content">
+                                        <ol>
+                                            <li>请注意单词拼写，以及中英文排版，参考此页</li>
+                                            <li>支持 Markdown 格式, **粗体**、~~删除线~~、`单行代码`, 更多语法请见这里 Markdown 语法</li>
+                                            <li>发布框支持本地存储功能，会在内容变更时保存，「提交」按钮点击时清空</li>
+                                        </ol>
+                                    </div>
+                                </div>
                                 <div class="field">
                                     <div class="control">
-                                        <textarea name="body" id="body" class="textarea" rows="10" placeholder="请使用Markdown格式书写:), 代码片段黏贴时请注意使用高亮语法。"></textarea>
+                                        <textarea name="body" id="body" v-model="body" class="textarea" rows="10" placeholder="请使用Markdown格式书写:), 代码片段黏贴时请注意使用高亮语法。"></textarea>
                                     </div>
                                 </div>
                                 <div class="field">
@@ -94,6 +103,5 @@
 {{end}}}
 
 {{define "js"}}
-    <script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
     {{include "topic/editor"}}
 {{end}}}
