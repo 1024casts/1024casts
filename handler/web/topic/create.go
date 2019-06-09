@@ -3,6 +3,8 @@ package topic
 import (
 	"net/http"
 
+	"github.com/1024casts/1024casts/pkg/errno"
+
 	"github.com/1024casts/1024casts/model"
 
 	"github.com/1024casts/1024casts/pkg/app"
@@ -49,7 +51,7 @@ type CreateTopicReq struct {
 func DoCreate(c *gin.Context) {
 	var req CreateTopicReq
 	if err := c.Bind(&req); err != nil {
-		app.Redirect(c, "/topic/new", "参数错误")
+		app.Response(c, errno.ErrParam, nil)
 		return
 	}
 
@@ -66,10 +68,10 @@ func DoCreate(c *gin.Context) {
 	}
 	_, err := topicSrv.CreateTopic(topicModel)
 	if err != nil {
-		app.Redirect(c, "/topic/new", "创建失败")
+		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
 
-	app.Redirect(c, "/topics", "")
+	app.Response(c, errno.OK, nil)
 	return
 }
