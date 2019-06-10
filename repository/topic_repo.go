@@ -131,14 +131,13 @@ func (repo *TopicRepo) IncrReplyLikeCount(id int) error {
 	return repo.db.Self.Model(reply).Updates(replyMap).Error
 }
 
-func (repo *TopicRepo) UpdateTopic(userMap map[string]interface{}, id int) error {
-
+func (repo *TopicRepo) UpdateTopic(topicModel model.TopicModel, id int) error {
 	Topic, err := repo.GetTopicById(id)
 	if err != nil {
 		return err
 	}
 
-	return repo.db.Self.Model(Topic).Updates(userMap).Error
+	return repo.db.Self.Model(Topic).Updates(topicModel).Error
 }
 
 func (repo *TopicRepo) DeleteTopic(id int) error {
