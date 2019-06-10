@@ -310,3 +310,31 @@ func MergeString(args ...string) string {
 	}
 	return buffer.String()
 }
+
+// 将秒格式化为 00:00:00 形式的时分秒
+func ResolveVideoDuration(second int) string {
+	if second == 0 {
+		return "--"
+	}
+
+	const (
+		// 定义每分钟的秒数
+		SecondsPerMinute = 60
+		// 定义每小时的秒数
+		SecondsPerHour = SecondsPerMinute * 60
+		// 定义每天的秒数
+		SecondsPerDay = SecondsPerHour * 24
+	)
+
+	if second < SecondsPerMinute {
+		return fmt.Sprintf("00:%d", second)
+	} else if second > SecondsPerMinute && second < SecondsPerHour {
+		minute := second / SecondsPerMinute
+		sec := second % SecondsPerMinute
+		return fmt.Sprintf("%d:%d", minute, sec)
+	} else if second > SecondsPerHour && second < SecondsPerDay {
+		return fmt.Sprintf("%d:00:00", second/SecondsPerHour)
+	} else {
+		return ""
+	}
+}
