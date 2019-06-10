@@ -16,7 +16,7 @@
 </head>
 <body>
     {{if eq (isActive .ctx "/") "is-active"}}
-    <section class="hero is-info is-fullheight">
+    <section class="hero is-light is-fullheight">
         <div class="hero-head">
             <div class="container">
                 {{include "layouts/header"}}
@@ -25,16 +25,16 @@
         <div class="hero-body">
             <div class="container has-text-centered">
                 <p class="title">
-                    向终生Coding者致敬
+                    终生学习
                 </p>
-                <p class="subtitle">
-                    “学习的最好方法就是做” - P.R. Halmos
-                </p>
+{{/*                <p class="subtitle">*/}}
+{{/*                    “学习的最好方法就是做” - P.R. Halmos*/}}
+{{/*                </p>*/}}
             </div>
         </div>
     </section>
     {{else}}
-    <section class="hero is-info is-large">
+    <section class="hero is-light is-large">
         <div class="hero-head">
             <div class="container">
                 {{include "layouts/header"}}
