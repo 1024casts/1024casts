@@ -5,97 +5,44 @@
 {{ end }}
 
 {{define "content"}}
-<div class="container">
-<div class="row">
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <img class="card-img-top" src="https://images.unsplash.com/photo-1549758895-6eab7830c05d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text"><a href="">Go语言基础教程</a></p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+<div class="container" style="padding: 1.5rem 0rem;">
+    <div class="box">
+        <div class="columns is-multiline is-mobile">
+        {{range .courses}}
+            <div class="column is-one-third">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <a href="/courses/{{.Slug}}">
+                            <img src="{{.CoverImage}}" alt="{{.Name}}">
+                            </a>
+                        </figure>
                     </div>
-                    <small class="text-muted">9 mins</small>
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-6">
+                                    <a href="/courses/{{.Slug}}">{{.Name}}</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="content">
+                            {{if eq .UpdateStatus 1}}
+                                <span class="tag is-info">预告</span>
+                            {{else if eq .UpdateStatus 2}}
+                                <span class="tag is-warning">更新中</span>
+                            {{else if eq .UpdateStatus 3}}
+                                <span class="tag is-success">已完结</span>
+                            {{end}}
+                        </div>
+                    </div>
                 </div>
             </div>
+        {{end}}
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <img class="card-img-top" src="https://images.unsplash.com/photo-1549752448-38f4d94420f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60">
-            <div class="card-body">
-                <p class="card-text">This is a wider .</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <img class="card-img-top" src="https://images.unsplash.com/photo-1549495558-3c2808829774?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60">
-            <div class="card-body">
-                <p class="card-text">This is a wider card .</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <img class="card-img-top" src="https://images.unsplash.com/photo-1549495558-3c2808829774?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60">
-            <div class="card-body">
-                <p class="card-text">This is a wider card .</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <img class="card-img-top" src="https://images.unsplash.com/photo-1549495558-3c2808829774?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60">
-            <div class="card-body">
-                <p class="card-text">This is a wider card .</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <img class="card-img-top" src="https://images.unsplash.com/photo-1549495558-3c2808829774?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60">
-            <div class="card-body">
-                <p class="card-text">This is a wider card .</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                </div>
-            </div>
-        </div>
+        <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+            {{.pages}}
+        </nav>
     </div>
 </div>
 {{end}}

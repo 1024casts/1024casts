@@ -1,6 +1,10 @@
 {{ define "css"}}
 <style type="text/css">
     /*body {background: #e5e5e5;}*/
+    #sidebar ul li{
+        list-style-type:none;
+        margin-left: -30px;
+    }
 </style>
 {{ end }}
 
@@ -17,12 +21,13 @@
                 <div class="card-content">
                     <div class="media">
                         <div class="media-left">
-                            <figure class="image is-128x128">
+                            <figure class="image is-64x64">
                                 <img src="{{.user.Avatar}}" alt="{{.user.Username}}">
                             </figure>
                         </div>
                         <div class="media-content">
-                            <p class="title is-4">{{.user.Username}} ({{if ne .user.RealName ""}}{{.user.RealName}}{{else}}{{.user.Username}}{{end}})</p>
+{{/*                            <p class="title is-4">{{.user.Username}} ({{if ne .user.RealName ""}}{{.user.RealName}}{{else}}{{.user.Username}}{{end}})</p>*/}}
+                            <p class="title is-4">{{.user.Username}}</p>
                             <p class="subtitle is-6"></p>
                         </div>
                     </div>

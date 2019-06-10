@@ -100,7 +100,7 @@
                                         <div class="level-left">
                                             <a class="level-item" href="javascript:void(0)" @click="likeComment($event, {{ .Id }})">
                                                 <span class="icon is-small">
-                                                    <i class="far fa-thumbs-up"></i>
+                                                    <i class="far fa-thumbs-up"></i>{{.LikeCount}}
                                                 </span>
                                             </a>
                                             <a class="level-item" href="javascript:void(0)" @click="replyUser($event, '{{.UserInfo.Username}}')">
