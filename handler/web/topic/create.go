@@ -66,12 +66,12 @@ func DoCreate(c *gin.Context) {
 		IsExcellent: "no",
 		UserID:      util.GetUserId(c),
 	}
-	_, err := topicSrv.CreateTopic(topicModel)
+	topicId, err := topicSrv.CreateTopic(topicModel)
 	if err != nil {
 		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
 
-	app.Response(c, errno.OK, nil)
+	app.Response(c, errno.OK, topicId)
 	return
 }
