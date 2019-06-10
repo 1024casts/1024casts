@@ -212,6 +212,8 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	{
 		t.GET("/new", webTopic.Create)
 		t.POST("/new", webTopic.DoCreate)
+		t.GET("/edit/:id", webTopic.Edit)
+		t.POST("/edit/:id", webTopic.DoEdit)
 	}
 
 	cmt := router.Group("/comments")
