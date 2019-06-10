@@ -42,6 +42,9 @@
                                         </span>
                                 {{end}}
                                 · {{.topic.ViewCount}} 次阅读
+                                {{if eq .user_id .topic.UserInfo.Id}}
+                                · <a href="/topic/edit/{{.topic.Id}}">编辑</a>
+                                {{end}}
                             </p>
                             <hr>
                         </div>
@@ -72,12 +75,14 @@
                                 </div>
                                 <nav class="level is-mobile">
                                     <div class="level-left">
-                                        <button class="level-item">
+                                        <a class="level-item" href="javascript:;" @click="likeComment($event, {{ .Id }})">
+                                            <span class="icon is-small">
+                                                <i class="far fa-thumbs-up"></i>{{.LikeCount}}
+                                            </span>
+                                        </a>
+                                        <a class="level-item" href="javascript:;" @click="replyUser($event, '{{.ReplyUserInfo.Username}}')">
                                             <span class="icon is-small"><i class="fas fa-reply"></i></span>
-                                        </button>
-                                        <button class="level-item">
-                                            <span class="icon is-small"><i class="fas fa-heart"></i></span>
-                                        </button>
+                                        </a>
                                     </div>
                                 </nav>
                             </div>
@@ -96,20 +101,13 @@
                         <div class="media-content">
                             <div class="field">
                                 <p class="control">
-                                    <textarea v-model="content" name="content" class="textarea" placeholder="Add a comment..."></textarea>
+                                    <textarea v-model="content" id="reply_content" name="content" class="textarea" placeholder="支持Markdown格式"></textarea>
                                 </p>
                             </div>
                             <nav class="level">
-                                <div class="level-left">
-                                    <div class="level-item">
-                                        <button class="button is-info" @click="submitComment">Submit</button>
-                                    </div>
-                                </div>
                                 <div class="level-right">
                                     <div class="level-item">
-                                        <label class="checkbox">
-                                            <input type="checkbox"> Press enter to submit
-                                        </label>
+                                        <button class="button is-info" @click="submitComment">提交评论</button>
                                     </div>
                                 </div>
                             </nav>
@@ -168,7 +166,7 @@
     <script src="https://cdn.bootcss.com/marked/0.6.2/marked.min.js"></script>
     <script src="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
-        var app = new Vue({
+        var reply_box = new Vue({
             el: '#reply_box',
             data: {
                 content: '',
@@ -203,6 +201,52 @@
                     }).catch( error => {
                         console.log(error);
                     });
+                }
+            }
+        });
+
+        var app = new Vue({
+            el: '#replies',
+            data: {
+                content: '',
+            },
+            delimiters:['${', '}'],
+            methods: {
+                likeComment: function (e, replyId) {
+                    var bodyFormData = new FormData();
+                    bodyFormData.set('reply_id', replyId);
+                    let config = {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    };
+                    this.$http.post("/topics/like/" + replyId, bodyFormData, config).then((response) => {
+                        if (response.data.code === 0) {
+                            // 更新数量
+                            swal("点赞成功！", "","success");
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }).catch( error => {
+                        console.log(error);
+                    });
+                },
+                replyUser: function (e, username) {
+                    var replyContent = $('#reply_content');
+                    var oldContent = replyContent.val();
+                    var lastAtUser = "@" + username + " ";
+                    var newContent = '';
+                    if (oldContent.length > 0) {
+                        if (oldContent !== lastAtUser) {
+                            newContent = oldContent + "\n" + lastAtUser;
+                        }
+                    } else {
+                        newContent = lastAtUser;
+                    }
+
+                    replyContent.focus();
+                    replyContent.val(newContent);
                 }
             }
         });

@@ -24,7 +24,7 @@
                                     <div class="control">
                                         <div class="select">
                                             <select name="category_id" id="category_id" v-model="category_id">
-                                                <option value="0">请选择</option>
+                                                <option>请选择</option>
                                                 {{range .categories}}
                                                     <option value="{{.Id}}">{{.Name}}</option>
                                                 {{end}}
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="field">
                                     <div class="control">
-                                        <button class="button is-link" type="submit" id="topic-submit">发布帖子</button>
+                                        <button class="button is-link" type="submit" id="topic-submit">更新帖子</button>
                                     </div>
                                 </div>
                             </form>
@@ -108,9 +108,9 @@
         var app = new Vue({
             el: '#app',
             data: {
-                title: '',
-                category_id: 0,
-                body: '',
+                title: {{.topic.Title}},
+                category_id: {{.topic.CategoryID}},
+                body: {{.topic.OriginBody}},
             },
             delimiters:['${', '}'],
             methods: {
@@ -138,11 +138,11 @@
                             'Content-Type': 'multipart/form-data'
                         }
                     };
-                    this.$http.post("/topic/new", bodyFormData, config).then((response) => {
+                    this.$http.post("/topic/edit/{{.topic.Id}}", bodyFormData, config).then((response) => {
                         console.log(response);
                         if (response.data.code === 0) {
                             // http://mishengqiang.com/sweetalert/
-                            window.location.href = "/topics/" + response.data.data;
+                            window.location.href = "/topics/{{.topic.Id}}";
                             return true;
                         } else {
                             swal("发布失败！", "","error");
