@@ -150,8 +150,8 @@ func (srv *TopicService) transReply(reply *model.ReplyModel) *model.ReplyInfo {
 	}
 }
 
-func (srv *TopicService) UpdateTopic(TopicMap map[string]interface{}, id int) error {
-	err := srv.repo.UpdateTopic(TopicMap, id)
+func (srv *TopicService) UpdateTopic(topicModel model.TopicModel, id int) error {
+	err := srv.repo.UpdateTopic(topicModel, id)
 
 	if err != nil {
 		return err
@@ -209,12 +209,12 @@ func (srv *TopicService) GetReplyList(replyMap map[string]interface{}, offset, l
 		return nil, count, err
 	}
 
-	ids := []uint64{}
+	var ids []uint64
 	for _, reply := range replies {
 		ids = append(ids, reply.Id)
 	}
 
-	wg := sync.WaitGroup{}
+	var wg sync.WaitGroup
 	replyList := model.ReplyList{
 		Lock:  new(sync.Mutex),
 		IdMap: make(map[uint64]*model.ReplyInfo, len(replies)),
