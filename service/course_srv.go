@@ -142,7 +142,7 @@ func (srv *CourseService) GetCourseList(courseMap map[string]interface{}, offset
 	return infos, count, nil
 }
 
-func (srv *CourseService) GetCourseSectionList(courseId uint64) ([]*model.SectionModel, error) {
+func (srv *CourseService) GetCourseSectionListWithVideo(courseId uint64) ([]*model.SectionModel, error) {
 	infos := make([]*model.SectionModel, 0)
 
 	sections, err := srv.repo.GetSectionList(courseId)
