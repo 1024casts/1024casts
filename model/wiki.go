@@ -1,5 +1,7 @@
 package model
 
+import "sync"
+
 type WikiModel struct {
 	BaseModel
 	CategoryId    int    `gorm:"column:category_id" json:"category_id"`
@@ -19,4 +21,9 @@ type WikiModel struct {
 // TableName sets the insert table name for this struct type
 func (w *WikiModel) TableName() string {
 	return "wiki_pages"
+}
+
+type WikiList struct {
+	Lock  *sync.Mutex
+	IdMap map[uint64]*WikiModel
 }
