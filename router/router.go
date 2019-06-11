@@ -195,10 +195,12 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 		notificationRoute.GET("", notification.List)
 	}
 
+	// courses
 	router.GET("/courses", webCourse.Index)
 	router.GET("/courses/:slug", webCourse.Detail)
 	router.GET("/courses/:slug/episodes/:episode_id", webVideo.Detail)
 
+	// topics
 	router.GET("/topics", webTopic.Index)
 	router.GET("/topics/:id", webTopic.Detail)
 	ts := router.Group("/topics")
@@ -216,6 +218,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 		t.POST("/edit/:id", webTopic.DoEdit)
 	}
 
+	// comment
 	cmt := router.Group("/comments")
 	cmt.Use(middleware.CookieMiddleware())
 	{
@@ -224,7 +227,12 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	}
 
 	router.GET("/vip", webPlan.Index)
+
+	// wiki
 	router.GET("/wiki", wiki.Index)
+	router.GET("/wiki/:slug", wiki.Index)
+	router.GET("/wiki/:slug/comments", wiki.Index)
+
 	router.Run(":8888")
 
 	return router
