@@ -2,9 +2,9 @@ package model
 
 import "sync"
 
-type WikiModel struct {
+type WikiPageModel struct {
 	BaseModel
-	CategoryId    int    `gorm:"column:category_id" json:"category_id"`
+	CategoryId    uint64 `gorm:"column:category_id" json:"category_id"`
 	Slug          string `gorm:"column:slug" json:"slug"`
 	Title         string `gorm:"column:title" json:"title"`
 	Summary       string `gorm:"column:summary" json:"summary"`
@@ -19,11 +19,11 @@ type WikiModel struct {
 }
 
 // TableName sets the insert table name for this struct type
-func (w *WikiModel) TableName() string {
+func (w *WikiPageModel) TableName() string {
 	return "wiki_pages"
 }
 
 type WikiList struct {
 	Lock  *sync.Mutex
-	IdMap map[uint64]*WikiModel
+	IdMap map[uint64]*WikiPageModel
 }
