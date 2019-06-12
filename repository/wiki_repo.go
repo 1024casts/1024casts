@@ -41,7 +41,7 @@ func (repo *WikiRepo) GetWikiBySlug(slug string) (*model.WikiPageModel, error) {
 	return &page, result.Error
 }
 
-func (repo *WikiRepo) GetWikiListByCategoryId(categoryId uint64) ([]*model.WikiPageModel, error) {
+func (repo *WikiRepo) GetWikiPageListByCategoryId(categoryId uint64) ([]*model.WikiPageModel, error) {
 	pages := make([]*model.WikiPageModel, 0)
 
 	if err := repo.db.Self.Where("category_id=? AND status=1", categoryId).Order("id asc").Find(&pages).Error; err != nil {
