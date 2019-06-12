@@ -1,7 +1,10 @@
 package service
 
 import (
+	"html/template"
 	"sync"
+
+	"github.com/1024casts/1024casts/util"
 
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/repository"
@@ -13,13 +16,29 @@ type WikiService struct {
 	repo *repository.WikiRepo
 }
 
+type CategoryInfo struct {
+	Id        int                    `json:"id"`
+	Name      string                 `json:"name"`
+	WikiPages []*model.WikiPageModel `json:"wiki_pages"`
+}
+
 func NewWikiService() *WikiService {
 	return &WikiService{
 		repository.NewWikiRepo(),
 	}
 }
 
-func (srv *WikiService) GetWikiById(id int) (*model.WikiModel, error) {
+// 所有wiki的分类
+func (srv *WikiService) GetCategoryList() ([]*model.WikiCategoryModel, error) {
+	categories, err := srv.repo.GetCategoryList()
+	if err != nil {
+		return nil, err
+	}
+
+	return categories, nil
+}
+
+func (srv *WikiService) GetWikiById(id int) (*model.WikiPageModel, error) {
 	Wiki, err := srv.repo.GetWikiById(id)
 
 	if err != nil {
@@ -29,66 +48,60 @@ func (srv *WikiService) GetWikiById(id int) (*model.WikiModel, error) {
 	return Wiki, nil
 }
 
-func (srv *WikiService) GetWikiBySlug(slug string) (*model.WikiModel, error) {
-	Wiki, err := srv.repo.GetWikiBySlug(slug)
+func (srv *WikiService) GetWikiPageBySlug(slug string) (*model.WikiPageInfo, error) {
+	wikiPageModel, err := srv.repo.GetWikiBySlug(slug)
+	page := srv.trans(wikiPageModel)
 
 	if err != nil {
-		return Wiki, err
+		return page, err
 	}
 
-	return Wiki, nil
+	return page, nil
 }
 
-func (srv *WikiService) GetWikiList(courseId uint64) ([]*model.WikiModel, error) {
-	videos := make([]*model.WikiModel, 0)
+func (srv *WikiService) GetWikiCategoryListWithPage() ([]*model.WikiCategoryModel, error) {
+	infos := make([]*model.WikiCategoryModel, 0)
 
-	videos, err := srv.repo.GetWikiList(courseId)
+	categories, err := srv.repo.GetCategoryList()
 	if err != nil {
-		log.Warnf("[video] get video list err, course_id: %d", courseId)
 		return nil, err
 	}
 
-	return videos, nil
-}
-
-func (srv *WikiService) GetWikiListPagination(courseId uint64, name string, offset, limit int) ([]*model.WikiModel, uint64, error) {
-	infos := make([]*model.WikiModel, 0)
-
-	Wikis, count, err := srv.repo.GetWikiListPagination(courseId, name, offset, limit)
-	if err != nil {
-		return nil, count, err
-	}
-
 	ids := []uint64{}
-	for _, Wiki := range Wikis {
-		ids = append(ids, Wiki.Id)
+	for _, cate := range categories {
+		ids = append(ids, cate.Id)
 	}
 
 	wg := sync.WaitGroup{}
-	WikiList := model.WikiList{
+	categoryList := model.WikiCategoryList{
 		Lock:  new(sync.Mutex),
-		IdMap: make(map[uint64]*model.WikiModel, len(Wikis)),
+		IdMap: make(map[uint64]*model.WikiCategoryModel, len(categories)),
 	}
 
 	errChan := make(chan error, 1)
 	finished := make(chan bool, 1)
 
 	// Improve query efficiency in parallel
-	for _, c := range Wikis {
+	for _, c := range categories {
 		wg.Add(1)
-		go func(Wiki *model.WikiModel) {
+		go func(category *model.WikiCategoryModel) {
 			defer wg.Done()
 
-			//shortId, err := util.GenShortId()
-			//if err != nil {
-			//	errChan <- err
-			//	return
-			//}
+			pageList, err := srv.repo.GetWikiPageListByCategoryId(category.Id)
+			if err != nil {
+				log.Warnf("[course] get wiki page list fail from wiki repo, category_id: %d", c.Id)
+				errChan <- err
+				return
+			}
 
-			WikiList.Lock.Lock()
-			defer WikiList.Lock.Unlock()
+			categoryList.Lock.Lock()
+			defer categoryList.Lock.Unlock()
 
-			WikiList.IdMap[Wiki.Id] = Wiki
+			for _, page := range pageList {
+				category.WikiPages = append(category.WikiPages, srv.trans(page))
+			}
+
+			categoryList.IdMap[category.Id] = category
 		}(c)
 	}
 
@@ -100,14 +113,28 @@ func (srv *WikiService) GetWikiListPagination(courseId uint64, name string, offs
 	select {
 	case <-finished:
 	case err := <-errChan:
-		return nil, count, err
+		return nil, err
 	}
 
 	for _, id := range ids {
-		infos = append(infos, WikiList.IdMap[id])
+		infos = append(infos, categoryList.IdMap[id])
 	}
 
-	return infos, count, nil
+	return infos, nil
+}
+
+func (srv *WikiService) trans(page *model.WikiPageModel) *model.WikiPageInfo {
+	return &model.WikiPageInfo{
+		Id:         page.Id,
+		CategoryId: page.CategoryId,
+		Slug:       page.Slug,
+		Title:      page.Title,
+		Content:    template.HTML(page.Content),
+		ViewCount:  page.ViewCount,
+		FixCount:   page.FixCount,
+		CreatedAt:  util.TimeToDateString(page.CreatedAt),
+		UpdatedAt:  util.TimeToString(page.UpdatedAt),
+	}
 }
 
 func (srv *WikiService) UpdateWiki(WikiMap map[string]interface{}, id int) error {
