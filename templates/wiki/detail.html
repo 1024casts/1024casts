@@ -1,0 +1,45 @@
+{{ define "css"}}
+    <link href="https://cdn.bootcss.com/prism/9000.0.1/themes/prism.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/prism/9000.0.1/plugins/show-language/prism-show-language.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {background: #e5e5e5;}
+    </style>
+{{ end }}
+
+{{define "content"}}
+    <div class="container" style="padding: 1.5rem 0rem;">
+        <div class="columns">
+            <div class="column box is-one-fifth">
+                {{include "wiki/sidebar"}}
+            </div>
+            <div class="column">
+                <article class="media box">
+                    <div class="media-content">
+                        <div class="content">
+                            <h1 class="title is-4">
+                                {{.wiki.Title}}
+                            </h1>
+                            <p class="subtitle is-6">
+                                {{.wiki.FixCount}} 次修正 · {{.wiki.ViewCount}} 次阅读 · 最后更新于{{.wiki.UpdatedAt}}
+                            </p>
+                            <hr>
+                        </div>
+                        <div class="content">
+                            {{.wiki.Content}}
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+{{end}}
+
+{{ define "js"}}
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/prism.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-go.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-php.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-javascript.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-markdown.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/plugins/show-language/prism-show-language.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-markup.min.js"></script>
+{{ end }}
