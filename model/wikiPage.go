@@ -1,6 +1,9 @@
 package model
 
-import "sync"
+import (
+	"html/template"
+	"sync"
+)
 
 type WikiPageModel struct {
 	BaseModel
@@ -26,4 +29,22 @@ func (w *WikiPageModel) TableName() string {
 type WikiList struct {
 	Lock  *sync.Mutex
 	IdMap map[uint64]*WikiPageModel
+}
+
+type WikiPageInfo struct {
+	Id            uint64        `json:"id"`
+	CategoryId    uint64        `json:"category_id"`
+	Slug          string        `json:"slug"`
+	Title         string        `json:"title"`
+	Summary       string        `json:"summary"`
+	OriginContent string        `json:"origin_content"`
+	Content       template.HTML `json:"content"`
+	ViewCount     int           `json:"view_count"`
+	CommentCount  int           `json:"comment_count"`
+	FixCount      int           `json:"fix_count"`
+	IsShow        int           `json:"is_show"`
+	Status        int           `json:"status"`
+	UserId        int           `json:"user_id"`
+	CreatedAt     string        `json:"created_at"`
+	UpdatedAt     string        `json:"updated_at"`
 }
