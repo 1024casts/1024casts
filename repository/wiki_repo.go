@@ -17,66 +17,75 @@ func NewWikiRepo() *WikiRepo {
 	}
 }
 
-func (repo *WikiRepo) GetWikiById(id int) (*model.WikiModel, error) {
-	video := model.WikiModel{}
-	result := repo.db.Self.Where("id = ?", id).First(&video)
+func (repo *WikiRepo) GetCategoryList() ([]*model.WikiCategoryModel, error) {
+	categories := make([]*model.WikiCategoryModel, 0)
 
-	return &video, result.Error
-}
-
-func (repo *WikiRepo) GetWikiBySlug(slug string) (*model.WikiModel, error) {
-	video := model.WikiModel{}
-	result := repo.db.Self.Where("slug = ?", slug).First(&video)
-
-	return &video, result.Error
-}
-
-func (repo *WikiRepo) GetWikiList(courseId uint64) ([]*model.WikiModel, error) {
-
-	videos := make([]*model.WikiModel, 0)
-
-	if err := repo.db.Self.Where("course_id=?", courseId).Order("id asc").Find(&videos).Error; err != nil {
-		return videos, err
+	if err := repo.db.Self.Where("status=1").Order("weight desc").Find(&categories).Error; err != nil {
+		return categories, err
 	}
 
-	return videos, nil
+	return categories, nil
 }
 
-func (repo *WikiRepo) GetWikiListPagination(courseId uint64, name string, offset, limit int) ([]*model.WikiModel, uint64, error) {
+func (repo *WikiRepo) GetWikiById(id int) (*model.WikiPageModel, error) {
+	page := model.WikiPageModel{}
+	result := repo.db.Self.Where("id = ?", id).First(&page)
+
+	return &page, result.Error
+}
+
+func (repo *WikiRepo) GetWikiBySlug(slug string) (*model.WikiPageModel, error) {
+	page := model.WikiPageModel{}
+	result := repo.db.Self.Where("slug = ?", slug).First(&page)
+
+	return &page, result.Error
+}
+
+func (repo *WikiRepo) GetWikiListByCategoryId(categoryId uint64) ([]*model.WikiPageModel, error) {
+	pages := make([]*model.WikiPageModel, 0)
+
+	if err := repo.db.Self.Where("category_id=? AND status=1", categoryId).Order("id asc").Find(&pages).Error; err != nil {
+		return pages, err
+	}
+
+	return pages, nil
+}
+
+func (repo *WikiRepo) GetWikiListPagination(courseId uint64, name string, offset, limit int) ([]*model.WikiPageModel, uint64, error) {
 	if limit == 0 {
 		limit = constvar.DefaultLimit
 	}
 
-	Wikis := make([]*model.WikiModel, 0)
+	pages := make([]*model.WikiPageModel, 0)
 	var count uint64
 
 	where := fmt.Sprintf("name like '%%%s%%'", name)
-	if err := repo.db.Self.Model(&model.WikiModel{}).Where("course_id=?", courseId).Where(where).Count(&count).Error; err != nil {
-		return Wikis, count, err
+	if err := repo.db.Self.Model(&model.WikiPageModel{}).Where("course_id=?", courseId).Where(where).Count(&count).Error; err != nil {
+		return pages, count, err
 	}
 
-	if err := repo.db.Self.Where("course_id=?", courseId).Where(where).Offset(offset).Limit(limit).Order("id desc").Find(&Wikis).Error; err != nil {
-		return Wikis, count, err
+	if err := repo.db.Self.Where("course_id=?", courseId).Where(where).Offset(offset).Limit(limit).Order("id desc").Find(&pages).Error; err != nil {
+		return pages, count, err
 	}
 
-	return Wikis, count, nil
+	return pages, count, nil
 }
 
 func (repo *WikiRepo) UpdateWiki(WikiMap map[string]interface{}, id int) error {
 
-	Wiki, err := repo.GetWikiById(id)
+	page, err := repo.GetWikiById(id)
 	if err != nil {
 		return err
 	}
 
-	return repo.db.Self.Model(Wiki).Updates(WikiMap).Error
+	return repo.db.Self.Model(page).Updates(WikiMap).Error
 }
 
 func (repo *WikiRepo) DeleteWiki(id int) error {
-	Wiki, err := repo.GetWikiById(id)
+	page, err := repo.GetWikiById(id)
 	if err != nil {
 		return err
 	}
 
-	return repo.db.Self.Delete(&Wiki).Error
+	return repo.db.Self.Delete(&page).Error
 }
