@@ -1,0 +1,12 @@
+<aside class="menu">
+    {{range .categories}}
+        <p class="menu-label">
+            {{.Name}}
+        </p>
+        <ul class="menu-list">
+            {{range .WikiPages}}
+                <li><a href="/wiki/{{.Slug}}">{{.Title}}</a></li>
+            {{end}}
+        </ul>
+    {{end}}
+</aside>
