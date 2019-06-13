@@ -1,6 +1,5 @@
 {{ define "css"}}
-    <link href="https://cdn.bootcss.com/prism/9000.0.1/themes/prism.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/prism/9000.0.1/plugins/show-language/prism-show-language.min.css" rel="stylesheet">
+    {{include "common/prism-css-all"}}
     <style type="text/css">
         body {background: #e5e5e5;}
     </style>
@@ -12,8 +11,8 @@
             <div class="column box is-one-fifth">
                 {{include "wiki/sidebar"}}
             </div>
-            <div class="column">
-                <article class="media box">
+            <div class="column box" style="margin-left: 0.5rem;">
+                <article class="media">
                     <div class="media-content">
                         <div class="content">
                             <h1 class="title is-4">
@@ -35,11 +34,5 @@
 {{end}}
 
 {{ define "js"}}
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/prism.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-go.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-php.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-javascript.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-markdown.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/plugins/show-language/prism-show-language.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-markup.min.js"></script>
+    {{include "common/prism-js-all"}}
 {{ end }}

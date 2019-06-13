@@ -1,22 +1,21 @@
 {{ define "css"}}
 {{/*    <link href="https://1024casts.com/css/github-markdown.css" rel="stylesheet">*/}}
-    <link href="https://cdn.bootcss.com/prism/9000.0.1/themes/prism.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/prism/9000.0.1/plugins/show-language/prism-show-language.min.css" rel="stylesheet">
-<style type="text/css">
-    /*body {*/
-    /*    background: #e5e5e5;*/
-    /*}*/
-    .subtitle {
-        padding-top: 0.5rem;
-        color: #969696;
-    }
-    .subtitle{
-        font-size: 14px;
-    }
-    .media-content {
-        font-size: 14px;
-    }
-</style>
+    {{include "common/prism-css-all"}}
+    <style type="text/css">
+        /*body {*/
+        /*    background: #e5e5e5;*/
+        /*}*/
+        .subtitle {
+            padding-top: 0.5rem;
+            color: #969696;
+        }
+        .subtitle{
+            font-size: 14px;
+        }
+        .media-content {
+            font-size: 14px;
+        }
+    </style>
 {{ end }}
 
 {{define "content"}}
@@ -156,13 +155,7 @@
 {{end}}
 
 {{ define "js"}}
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/prism.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-go.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-php.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-javascript.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-markdown.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/plugins/show-language/prism-show-language.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/9000.0.1/components/prism-markup.min.js"></script>
+    {{include "common/prism-js-all"}}
     <script src="https://cdn.bootcss.com/marked/0.6.2/marked.min.js"></script>
     <script src="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
