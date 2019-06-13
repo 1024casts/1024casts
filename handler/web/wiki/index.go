@@ -16,6 +16,12 @@ func Index(c *gin.Context) {
 	user, _ := srv.GetUserById(userId)
 
 	wikiSrv := service.NewWikiService()
+	homeSlug := "index"
+	wiki, err := wikiSrv.GetWikiPageBySlug(homeSlug)
+	if err != nil {
+		log.Warnf("[wiki] get wiki page info err: %v", err)
+	}
+
 	categories, err := wikiSrv.GetWikiCategoryListWithPage()
 	if err != nil {
 		log.Warnf("[wiki] get category with pages err: %v", err)
@@ -27,5 +33,6 @@ func Index(c *gin.Context) {
 		"user":       user,
 		"ctx":        c,
 		"categories": categories,
+		"wiki":       wiki,
 	})
 }
