@@ -2,7 +2,6 @@ package topic
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/1024casts/1024casts/pkg/errno"
 
@@ -31,13 +30,8 @@ func Edit(c *gin.Context) {
 	}
 
 	topicIdStr := c.Param("id")
-	topicId, err := strconv.Atoi(topicIdStr)
-	if err != nil {
-		log.Warnf("[topic] get topic id err: %v", err)
-		app.Redirect(c, "/topics/"+topicIdStr, "参数错误")
-		return
-	}
-	topic, err := topicSrv.GetTopicById(topicId)
+	topicId := util.DecodeTopicId(topicIdStr)
+	topic, err := topicSrv.GetTopicById(uint64(topicId))
 	if err != nil {
 		log.Warnf("[topic] get topic info err: %v", err)
 		app.Redirect(c, "/topics/"+topicIdStr, "参数错误")
@@ -69,6 +63,13 @@ func DoEdit(c *gin.Context) {
 	}
 
 	topicSrv := service.NewTopicService()
+	topicId := util.DecodeTopicId(c.Param("id"))
+	_, err := topicSrv.GetTopicById(uint64(topicId))
+	if err != nil {
+		app.Response(c, errno.ErrDataIsNotExist, nil)
+		return
+	}
+
 	topicModel := model.TopicModel{
 		CategoryID: req.CategoryId,
 		Title:      req.Title,
@@ -76,15 +77,7 @@ func DoEdit(c *gin.Context) {
 		Body:       req.Body,
 	}
 
-	topicIdStr := c.Param("id")
-	topicId, err := strconv.Atoi(topicIdStr)
-	if err != nil {
-		log.Warnf("[topic] get topic id err: %v", err)
-		app.Response(c, errno.ErrParam, nil)
-		return
-	}
-
-	err = topicSrv.UpdateTopic(topicModel, topicId)
+	err = topicSrv.UpdateTopic(topicModel, uint64(topicId))
 	if err != nil {
 		app.Response(c, errno.ErrDatabase, nil)
 		return
