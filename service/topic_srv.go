@@ -4,6 +4,8 @@ import (
 	"html/template"
 	"sync"
 
+	"github.com/lexkong/log"
+
 	"github.com/1024casts/1024casts/util"
 
 	"github.com/1024casts/1024casts/model"
@@ -34,17 +36,31 @@ func (srv *TopicService) CreateTopic(topic model.TopicModel) (id uint64, err err
 	return id, nil
 }
 
-func (srv *TopicService) CreateReply(reply model.ReplyModel) (id uint64, err error) {
+func (srv *TopicService) CreateReply(userId, topicId uint64, reply model.ReplyModel) (id uint64, err error) {
+	// create reply
 	id, err = srv.repo.CreateReply(reply)
-
 	if err != nil {
+		return id, err
+	}
+
+	// update reply count
+	err = srv.IncrTopicReplyCount(topicId)
+	if err != nil {
+		log.Warnf("[topic] incr reply count err: %+v", err)
+		return id, err
+	}
+
+	// update last_reply_uid
+	err = srv.UpdateTopicLastReplyUserId(topicId, userId)
+	if err != nil {
+		log.Warnf("[topic] incr last reply user id err: %+v", err)
 		return id, err
 	}
 
 	return id, nil
 }
 
-func (srv *TopicService) GetTopicById(id int) (*model.TopicInfo, error) {
+func (srv *TopicService) GetTopicById(id uint64) (*model.TopicInfo, error) {
 	topicModel, err := srv.repo.GetTopicById(id)
 	topic := srv.trans(topicModel)
 
@@ -112,7 +128,7 @@ func (srv *TopicService) trans(topic *model.TopicModel) *model.TopicInfo {
 	lastReplyUser, _ := srv.userSrv.GetUserById(topic.LastReplyUserID)
 	creator, _ := srv.userSrv.GetUserById(topic.UserID)
 	return &model.TopicInfo{
-		Id:                topic.Id,
+		Id:                util.EncodeTopicId(int64(topic.Id)),
 		CategoryID:        topic.CategoryID,
 		Title:             topic.Title,
 		Body:              template.HTML(topic.Body),
@@ -136,7 +152,7 @@ func (srv *TopicService) transReply(reply *model.ReplyModel) *model.ReplyInfo {
 	replyUser, _ := srv.userSrv.GetUserById(reply.UserId)
 	return &model.ReplyInfo{
 		Id:            reply.Id,
-		TopicId:       reply.TopicID,
+		TopicId:       reply.TopicId,
 		Body:          template.HTML(reply.Body),
 		IsBlocked:     reply.IsBlocked,
 		OriginBody:    reply.OriginBody,
@@ -150,7 +166,7 @@ func (srv *TopicService) transReply(reply *model.ReplyModel) *model.ReplyInfo {
 	}
 }
 
-func (srv *TopicService) UpdateTopic(topicModel model.TopicModel, id int) error {
+func (srv *TopicService) UpdateTopic(topicModel model.TopicModel, id uint64) error {
 	err := srv.repo.UpdateTopic(topicModel, id)
 
 	if err != nil {
@@ -160,33 +176,35 @@ func (srv *TopicService) UpdateTopic(topicModel model.TopicModel, id int) error 
 	return nil
 }
 
-func (srv *TopicService) IncrTopicViewCount(id int) error {
+func (srv *TopicService) IncrTopicViewCount(id uint64) error {
 	err := srv.repo.IncrTopicViewCount(id)
-
 	if err != nil {
 		return err
 	}
-
 	return nil
 }
 
-func (srv *TopicService) IncrTopicReplyCount(id int) error {
+func (srv *TopicService) IncrTopicReplyCount(id uint64) error {
 	err := srv.repo.IncrTopicReplyCount(id)
-
 	if err != nil {
 		return err
 	}
+	return nil
+}
 
+func (srv *TopicService) UpdateTopicLastReplyUserId(id uint64, userId uint64) error {
+	err := srv.repo.UpdateTopicLastReplyUserId(id, userId)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
 func (srv *TopicService) IncrReplyLikeCount(id int) error {
 	err := srv.repo.IncrReplyLikeCount(id)
-
 	if err != nil {
 		return err
 	}
-
 	return nil
 }
 
@@ -197,7 +215,6 @@ func (srv *TopicService) GetReplyById(id int) (*model.ReplyInfo, error) {
 	if err != nil {
 		return reply, err
 	}
-
 	return reply, nil
 }
 
