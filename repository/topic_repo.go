@@ -106,7 +106,7 @@ func (repo *TopicRepo) IncrTopicViewCount(topicId uint64) error {
 	topicMap := make(map[string]interface{})
 	topicMap["view_count"] = topic.ViewCount + 1
 
-	return repo.db.Self.Model(&topic).Where("topic_id=?", topicId).Updates(topicMap).Error
+	return repo.db.Self.Model(&topic).Where("id=?", topicId).Updates(topicMap).Error
 }
 
 func (repo *TopicRepo) IncrTopicReplyCount(topicId uint64) error {
@@ -114,7 +114,7 @@ func (repo *TopicRepo) IncrTopicReplyCount(topicId uint64) error {
 	topicMap := make(map[string]interface{})
 	topicMap["reply_count"] = topic.ReplyCount + 1
 
-	return repo.db.Self.Model(&topic).Where("topic_id=?", topicId).Updates(topicMap).Error
+	return repo.db.Self.Model(&topic).Where("id=?", topicId).Updates(topicMap).Error
 }
 
 func (repo *TopicRepo) UpdateTopicLastReplyUserId(topicId uint64, userId uint64) error {
@@ -123,7 +123,7 @@ func (repo *TopicRepo) UpdateTopicLastReplyUserId(topicId uint64, userId uint64)
 	topicMap["last_reply_user_id"] = userId
 	topicMap["last_reply_time_at"] = time.Now()
 
-	return repo.db.Self.Model(&topic).Where("topic_id=?", topicId).Updates(topicMap).Error
+	return repo.db.Self.Model(&topic).Where("id=?", topicId).Updates(topicMap).Error
 }
 
 func (repo *TopicRepo) IncrReplyLikeCount(id int) error {
@@ -131,7 +131,7 @@ func (repo *TopicRepo) IncrReplyLikeCount(id int) error {
 	replyMap := make(map[string]interface{})
 	replyMap["like_count"] = reply.LikeCount + 1
 
-	return repo.db.Self.Model(&reply).Updates(replyMap).Error
+	return repo.db.Self.Model(&reply).Where("id=?", id).Updates(replyMap).Error
 }
 
 func (repo *TopicRepo) UpdateTopic(topicModel model.TopicModel, id uint64) error {
