@@ -25,6 +25,8 @@ import (
 	"gopkg.in/russross/blackfriday.v2"
 )
 
+const HashIds_Alphabet = "abcdefghijklmnopqrstuvwxyz1234567890"
+
 func GenShortId() (string, error) {
 	return shortid.Generate()
 }
@@ -43,7 +45,7 @@ func GetReqID(c *gin.Context) string {
 // encode uid 为字符串
 func EncodeUid(uid int64) string {
 	hd := hashids.NewData()
-	hd.Salt = "1024casts_uid"
+	hd.Salt = viper.GetString("encode.uid_halt")
 	hd.MinLength = 30
 	h, _ := hashids.NewWithData(hd)
 	e, err := h.EncodeInt64([]int64{uid})
@@ -52,13 +54,12 @@ func EncodeUid(uid int64) string {
 	}
 
 	return e
-
 }
 
 // decode uid 为int64
 func DecodeUid(encodedUid string) (uid int64) {
 	hd := hashids.NewData()
-	hd.Salt = "1024casts_uid"
+	hd.Salt = viper.GetString("encode.uid_halt")
 	hd.MinLength = 30
 	h, _ := hashids.NewWithData(hd)
 	d, err := h.DecodeInt64WithError(encodedUid)
@@ -73,6 +74,41 @@ func DecodeUid(encodedUid string) (uid int64) {
 
 	return 0
 
+}
+
+// encode uid 为字符串
+func EncodeTopicId(topicId int64) string {
+	hd := hashids.NewData()
+	hd.Salt = viper.GetString("encode.topic_id_halt")
+	hd.MinLength = 24
+	hd.Alphabet = HashIds_Alphabet
+	h, _ := hashids.NewWithData(hd)
+	e, err := h.EncodeInt64([]int64{topicId})
+	if err != nil {
+		log.Warnf("encode topic_id: %d err: %+v", topicId, err)
+	}
+
+	return e
+}
+
+// decode topic_id 为int64
+func DecodeTopicId(encodedTopicId string) (topicId int64) {
+	hd := hashids.NewData()
+	hd.Salt = viper.GetString("encode.topic_id_halt")
+	hd.MinLength = 24
+	hd.Alphabet = HashIds_Alphabet
+	h, _ := hashids.NewWithData(hd)
+	d, err := h.DecodeInt64WithError(encodedTopicId)
+
+	if err != nil {
+		log.Warnf("decode topic_id: %s err: %+v", encodedTopicId, err)
+	}
+
+	if len(d) > 0 {
+		return d[0]
+	}
+
+	return 0
 }
 
 func GetUserId(ctx *gin.Context) uint64 {
