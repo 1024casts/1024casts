@@ -34,7 +34,7 @@ type TopicList struct {
 }
 
 type TopicInfo struct {
-	Id                uint64        `json:"id"`
+	Id                string        `json:"id"`
 	CategoryID        int           `json:"category_id"`
 	Title             string        `json:"title"`
 	Body              template.HTML `json:"body"`
