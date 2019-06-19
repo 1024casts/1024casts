@@ -24,7 +24,7 @@ func Section(c *gin.Context) {
 	courseId, _ := strconv.Atoi(c.Param("id"))
 
 	srv := service.NewCourseService()
-	infos, err := srv.GetCourseSectionList(uint64(courseId))
+	infos, err := srv.GetCourseSectionListWithVideo(uint64(courseId))
 	if err != nil {
 		app.Response(c, err, nil)
 		return
