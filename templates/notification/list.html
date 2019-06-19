@@ -3,169 +3,25 @@
 
 {{ define "content"}}
 
-<div class="notifications card">
-    <div class="card-header hide-ios clearfix">
-        所有通知
-
-        <span class="pull-right">
-      <a class="btn btn-sm btn-danger" id="btn-remove-all" data-remote="true" rel="nofollow" data-method="delete" href="/notifications/clean">清空</a>
-    </span>
-    </div>
-    <div class="card-body list item-list">
-        <div class="notification-group">
-            <div class="group-title"><i class="fa fa-clock-o"></i> 2019-03-25</div>
-            <div id="notification-2796207" data-id="2796207" class="media notification notification-topic_reply unread">
-                <div class="media-left mr-3">
-                    <a title="flowerwrong" class="user-avatar" href="/flowerwrong"><img src="https://l.ruby-china.com/user/avatar/9442.jpg!lg"></a>
-                </div>
-                <div class="media-body">
-
-                    <div class="media-heading">
-                        在帖子
-                        <a title="写给 Rails 开发者的 Spring boot 教程" href="/topics/38290#reply2">写给 Rails 开发者的 Spring boot 教程</a> 回复了：
-                    </div>
-                    <div class="media-content summary markdown">
-                        <p><a href="https://sdkman.io/" rel="nofollow" target="_blank" title="">sdkman</a>也不错。</p>
-                    </div>
-
-                </div>
-                <div class="media-right">
-                    15:37
-                </div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 col-md-offset-1 setting-menu">
+            <div class="card">
+                {{include "notification/sidebar"}}
             </div>
-            <div id="notification-2790200" data-id="2790200" class="media notification notification-topic_reply unread">
-                <div class="media-left mr-3">
-                    <a title="huacnlee" class="user-avatar" href="/huacnlee"><img src="https://l.ruby-china.com/user/avatar/2/de6df3.png!lg"></a>
-                </div>
-                <div class="media-body">
-
-                    <div class="media-heading">
-                        在帖子
-                        <a title="在搬瓦工 VPS 上个人项目部署后无法正常访问，Rails +  Nginx + Passenger" href="/topics/38286#reply1">在搬瓦工 VPS 上个人项目部署后无法正常访问，Rails +  Nginx + Passenger</a> 回复了：
-                    </div>
-                    <div class="media-content summary markdown">
-                        <p>应该是 VPS 的 80 端口防火墙没打开</p>
-                    </div>
-
-                </div>
-                <div class="media-right">
-                    10:42
-                </div>
-            </div>
-            <div id="notification-2789406" data-id="2789406" class="media notification notification-topic_reply unread">
-                <div class="media-left mr-3">
-                    <a title="huacnlee" class="user-avatar" href="/huacnlee"><img src="https://l.ruby-china.com/user/avatar/2/de6df3.png!lg"></a>
-                </div>
-                <div class="media-body">
-
-                    <div class="media-heading">
-                        在帖子
-                        <a title="Let's clone a Message Queue" href="/topics/38284#reply5">Let's clone a Message Queue</a> 回复了：
-                    </div>
-                    <div class="media-content summary markdown">
-                        <p>从此最小化的 Rails 应用架构仅需要 Rails App server 和 PostgreSQL</p>
-                    </div>
-
-                </div>
-                <div class="media-right">
-                    10:39
-                </div>
-            </div>
-
         </div>
-        <div class="notification-group">
-            <div class="group-title"><i class="fa fa-clock-o"></i> 2019-03-21</div>
-            <div id="notification-2786193" data-id="2786193" class="media notification notification-topic_reply">
-                <div class="media-left mr-3">
-                    <a title="nine" class="user-avatar" href="/nine"><img src="https://l.ruby-china.com/user/avatar/6361.jpg!lg"></a>
-                </div>
-                <div class="media-body">
 
-                    <div class="media-heading">
-                        在帖子
-                        <a title="浅谈跨平台框架 Flutter 的优势与结构" href="/topics/38268#reply1">浅谈跨平台框架 Flutter 的优势与结构</a> 回复了：
-                    </div>
-                    <div class="media-content summary markdown">
-                        <p>JIT的解释有误</p>
-                    </div>
 
-                </div>
-                <div class="media-right">
-                    16:13
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+
                 </div>
             </div>
-
         </div>
-        <div class="notification-group">
-            <div class="group-title"><i class="fa fa-clock-o"></i> 2019-03-18</div>
-            <div id="notification-2781997" data-id="2781997" class="media notification notification-topic_reply">
-                <div class="media-left mr-3">
-                    <a title="nine" class="user-avatar" href="/nine"><img src="https://l.ruby-china.com/user/avatar/6361.jpg!lg"></a>
-                </div>
-                <div class="media-body">
-
-                    <div class="media-heading">
-                        在帖子
-                        <a title="写码 2年，身体一天不如一天大佬们是怎么调节的" href="/topics/38245#reply5">写码 2年，身体一天不如一天大佬们是怎么调节的</a> 回复了：
-                    </div>
-                    <div class="media-content summary markdown">
-                        <p>每周固定踢足球1次（9人制对抗4节共2小时）。健身房办卡，虽然间歇性的，但是经常会集中上私教课。家里备可快速调节重量哑铃+卧推板，做哑铃深蹲卧推弓步蹲。
-                            <img src="https://l.ruby-china.com/photo/2019/fcc35d69-d00e-4c1d-ae82-ee6c4dcc83f9.jpg!large" title="" alt=""></p>
-                    </div>
-
-                </div>
-                <div class="media-right">
-                    01:14
-                </div>
-            </div>
-
-        </div>
-        <div class="notification-group">
-            <div class="group-title"><i class="fa fa-clock-o"></i> 2019-03-17</div>
-            <div id="notification-2781971" data-id="2781971" class="media notification notification-topic">
-                <div class="media-left mr-3">
-                    <a title="zzz6519003" class="user-avatar" href="/zzz6519003"><img src="https://l.ruby-china.com/user/avatar/6553.jpg!lg"></a>
-                </div>
-                <div class="media-body">
-                    <div class="media-heading">
-                        创建了帖子 <a title="范式的本质是啥？" href="/topics/38246">范式的本质是啥？</a>
-                    </div>
-
-                </div>
-                <div class="media-right">
-                    22:43
-                </div>
-            </div>
-
-        </div>
-        <div class="notification-group">
-            <div class="group-title"><i class="fa fa-clock-o"></i> 2019-03-16</div>
-            <div id="notification-2780079" data-id="2780079" class="media notification notification-topic_reply">
-                <div class="media-left mr-3">
-                    <a title="nine" class="user-avatar" href="/nine"><img src="https://l.ruby-china.com/user/avatar/6361.jpg!lg"></a>
-                </div>
-                <div class="media-body">
-
-                    <div class="media-heading">
-                        在帖子
-                        <a title="在 ruby 上能实现一个下面描述的这么一个网页吗。。。？" href="/topics/38242#reply1">在 ruby 上能实现一个下面描述的这么一个网页吗。。。？</a> 回复了：
-                    </div>
-                    <div class="media-content summary markdown">
-                        <p><a href="https://ruby-china.github.io/rails-guides/action_mailer_basics.html" rel="nofollow" target="_blank">https://ruby-china.github.io/rails-guides/action_mailer_basics.html</a></p>
-                    </div>
-
-                </div>
-                <div class="media-right">
-                    23:59
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <div class="card-footer hide-ios">
-
     </div>
 </div>
+
 
 {{ end }}
 
