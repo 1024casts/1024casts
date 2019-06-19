@@ -230,8 +230,8 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 
 	// wiki
 	router.GET("/wiki", wiki.Index)
-	router.GET("/wiki/:slug", wiki.Index)
-	router.GET("/wiki/:slug/comments", wiki.Index)
+	router.GET("/wiki/:slug", wiki.Detail)
+	//router.GET("/wiki/:slug/comments")
 
 	router.Run(":8888")
 
