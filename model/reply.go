@@ -12,7 +12,7 @@ type ReplyModel struct {
 	IsBlocked  string `gorm:"column:is_blocked" json:"is_blocked"`
 	OriginBody string `gorm:"column:origin_body" json:"origin_body"`
 	Source     string `gorm:"column:source" json:"source"`
-	TopicID    int    `gorm:"column:topic_id" json:"topic_id"`
+	TopicId    uint64 `gorm:"column:topic_id" json:"topic_id"`
 	LikeCount  int    `gorm:"column:like_count" json:"like_count"`
 }
 
@@ -28,7 +28,7 @@ type ReplyList struct {
 
 type ReplyInfo struct {
 	Id            uint64        `json:"id"`
-	TopicId       int           `json:"topic_id"`
+	TopicId       uint64        `json:"topic_id"`
 	Body          template.HTML `json:"body"`
 	IsBlocked     string        `json:"is_blocked"`
 	OriginBody    string        `json:"origin_body"`
