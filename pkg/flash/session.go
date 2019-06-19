@@ -9,7 +9,7 @@ import (
 )
 
 var Store = sessions.NewCookieStore([]byte("secret-password"))
-var flashName = "flash-session"
+var sessionName = "flash-session"
 
 //GetCurrentUserName returns the username of the logged in user
 func GetCurrentUserName(r *http.Request) string {
