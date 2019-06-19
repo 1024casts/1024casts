@@ -19,7 +19,7 @@ func Detail(c *gin.Context) {
 		log.Warnf("[course] get course list err: %v", err)
 	}
 
-	sections, err := courseSrv.GetCourseSectionList(course.Id)
+	sections, err := courseSrv.GetCourseSectionListWithVideo(course.Id)
 	if err != nil {
 		log.Warnf("[course] get video list err: %+v", err)
 	}
