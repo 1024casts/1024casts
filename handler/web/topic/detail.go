@@ -2,7 +2,6 @@ package topic
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/lexkong/log"
 
@@ -17,14 +16,10 @@ func Detail(c *gin.Context) {
 
 	user, _ := userSrv.GetUserById(userId)
 
-	topicId, err := strconv.Atoi(c.Param("id"))
-	if err != nil {
-		log.Warnf("[topic] get topic id err: %+v", err)
-		topicId = 0
-	}
+	topicId := util.DecodeTopicId(c.Param("id"))
 
 	srv := service.NewTopicService()
-	topic, err := srv.GetTopicById(topicId)
+	topic, err := srv.GetTopicById(uint64(topicId))
 	if err != nil {
 		log.Warnf("[topic] get topic detail err: %+v", err)
 	}
@@ -37,7 +32,7 @@ func Detail(c *gin.Context) {
 	}
 
 	// 增加view_count
-	err = srv.IncrTopicViewCount(topicId)
+	err = srv.IncrTopicViewCount(uint64(topicId))
 	if err != nil {
 		log.Warnf("[topic] incr topic view count err: %+v", err)
 	}
