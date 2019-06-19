@@ -121,7 +121,10 @@ REST 风格虽然适用于很多传输协议，但在实际开发中，REST 由�
 
 ## markdown 编辑器
 
+
+js markdown转html：https://github.com/markedjs/marked
+
 [Editor.md](https://pandao.github.io/editor.md/) 基于[marked](https://github.com/markedjs/marked)转换
-Go Markdown 转html 
+Go Markdown 转html (效果不如marked效果好)
     https://github.com/russross/blackfriday
     https://github.com/gomarkdown/markdown 
