@@ -79,8 +79,8 @@ func (srv *PlanService) GetPlanList(courseMap map[string]interface{}, offset, li
 			planList.Lock.Lock()
 			defer planList.Lock.Unlock()
 
-			plan.FormatCreatedAt = util.TimestampToString(plan.CreatedAt)
-			plan.FormatUpdatedAt = util.TimestampToString(plan.UpdatedAt)
+			plan.FormatCreatedAt = util.TimeToString(plan.CreatedAt)
+			plan.FormatUpdatedAt = util.TimeToString(plan.UpdatedAt)
 			planList.IdMap[plan.ID] = plan
 		}(c)
 	}
