@@ -72,6 +72,6 @@ func DoCreate(c *gin.Context) {
 		return
 	}
 
-	app.Response(c, errno.OK, topicId)
+	app.Response(c, errno.OK, util.EncodeTopicId(int64(topicId)))
 	return
 }
