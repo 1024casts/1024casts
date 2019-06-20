@@ -20,7 +20,6 @@ func NewPlanService() *PlanService {
 
 func (srv *PlanService) CreateCourse(plan model.PlanModel) (id uint64, err error) {
 	id, err = srv.repo.CreatePlan(plan)
-
 	if err != nil {
 		return id, err
 	}
@@ -30,7 +29,6 @@ func (srv *PlanService) CreateCourse(plan model.PlanModel) (id uint64, err error
 
 func (srv *PlanService) GetPlanById(id int) (*model.PlanModel, error) {
 	plan, err := srv.repo.GetPlanById(id)
-
 	if err != nil {
 		return plan, err
 	}
@@ -40,7 +38,6 @@ func (srv *PlanService) GetPlanById(id int) (*model.PlanModel, error) {
 
 func (srv *PlanService) GetPlanByAlias(alias string) (*model.PlanModel, error) {
 	plan, err := srv.repo.GetPlanByAlias(alias)
-
 	if err != nil {
 		return plan, err
 	}
@@ -105,7 +102,6 @@ func (srv *PlanService) GetPlanList(courseMap map[string]interface{}, offset, li
 
 func (srv *PlanService) UpdatePlan(courseMap map[string]interface{}, id int) error {
 	err := srv.repo.UpdatePlan(courseMap, id)
-
 	if err != nil {
 		return err
 	}
