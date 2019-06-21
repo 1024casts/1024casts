@@ -41,6 +41,13 @@ func (repo *UserRepo) GetUserByUsername(username string) (*model.UserModel, erro
 	return user, result.Error
 }
 
+func (repo *UserRepo) GetUserByUserNames(username []string) ([]*model.UserModel, error) {
+	user := make([]*model.UserModel, 0)
+	result := repo.db.Self.Where("username in (?)", username).First(&user)
+
+	return user, result.Error
+}
+
 func (repo *UserRepo) GetUserList(username string, offset, limit int) ([]*model.UserModel, uint64, error) {
 	if limit == 0 {
 		limit = constvar.DefaultLimit
