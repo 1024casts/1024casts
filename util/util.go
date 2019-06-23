@@ -8,9 +8,12 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/1024casts/1024casts/pkg/notification"
 
 	"github.com/1024casts/1024casts/pkg/constvar"
 
@@ -211,9 +214,16 @@ func GenerateOrderNo() (uint64, error) {
 func MarkdownToHtml(con string) string {
 	mdByte := []byte(con)
 	unsafe := blackfriday.Run(mdByte)
-	html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
+	p := bluemonday.UGCPolicy()
+	p.AllowAttrs("class").Matching(regexp.MustCompile("^language-[a-zA-Z0-9]+$")).OnElements("code")
+	html := p.SanitizeBytes(unsafe)
 
 	return string(html)
+}
+
+func ParseMentionUser(content string) string {
+	mentionParser := notification.NewMention()
+	return mentionParser.Parse(content)
 }
 
 // 随机生成字符串
@@ -261,7 +271,7 @@ func FormatTime(needTime time.Time) string {
 
 	var tempStr string
 
-	log.Infof("test: %+v", needTime.Unix())
+	log.Infof("need time: %+v", needTime.Unix())
 
 	// 时间差，单位：秒
 	switch t := curTime - needTimeTs; {
