@@ -1,4 +1,4 @@
-package mention
+package notification
 
 import (
 	"fmt"
@@ -26,7 +26,7 @@ func (m *Mention) Parse(content string) string {
 	m.originContent = content
 	m.getMentionedUsername()
 
-	// get users by username
+	// multi get users by username
 	if len(m.userNames) > 0 {
 		userRepo := repository.NewUserRepo()
 		users, err := userRepo.GetUserByUserNames(m.userNames)
@@ -47,12 +47,14 @@ func (m *Mention) replace() {
 
 	for _, user := range m.users {
 		search := "@" + user.Username
-		replace := fmt.Sprintf("[%s](/users/%s)", search, user.Username)
+		replace := fmt.Sprintf("[%s](/users/%s)", user.Username, user.Username)
+		log.Infof("[notification] replace, search: %s", search)
+		log.Infof("[notification] replace, replace: %s", replace)
 		m.parsedContent = strings.ReplaceAll(m.parsedContent, search, replace)
 	}
 }
 
-// get @test1, @test2... from content
+// get @test1, @test2... from originContent
 func (m *Mention) getMentionedUsername() {
 	reg := regexp.MustCompile(`(\S*)\@([^\r\n\s]*)`)
 	regRet := reg.FindAll([]byte(m.originContent), 100)
