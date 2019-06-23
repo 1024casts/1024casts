@@ -60,7 +60,7 @@ func DoCreate(c *gin.Context) {
 		CategoryID:  req.CategoryId,
 		Title:       req.Title,
 		OriginBody:  req.OriginBody,
-		Body:        req.Body,
+		Body:        util.MarkdownToHtml(req.OriginBody),
 		Source:      "PC",
 		IsBlocked:   "no",
 		IsExcellent: "no",
