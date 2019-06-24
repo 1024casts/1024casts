@@ -74,7 +74,7 @@ func DoEdit(c *gin.Context) {
 		CategoryID: req.CategoryId,
 		Title:      req.Title,
 		OriginBody: req.OriginBody,
-		Body:       req.Body,
+		Body:       util.MarkdownToHtml(req.OriginBody),
 	}
 
 	err = topicSrv.UpdateTopic(topicModel, uint64(topicId))
