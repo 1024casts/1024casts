@@ -3,26 +3,28 @@ package repository
 import (
 	"time"
 
+	"github.com/jinzhu/gorm"
+
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/pkg/constvar"
 )
 
 type TopicRepo struct {
-	db *model.Database
+	Db *model.Database
 }
 
 func NewTopicRepo() *TopicRepo {
 	return &TopicRepo{
-		db: model.DB,
+		Db: model.DB,
 	}
 }
 
 func (repo *TopicRepo) GetDb() *model.Database {
-	return repo.db
+	return repo.Db
 }
 
 func (repo *TopicRepo) CreateTopic(Topic model.TopicModel) (id uint64, err error) {
-	err = repo.db.Self.Create(&Topic).Error
+	err = repo.Db.Self.Create(&Topic).Error
 	if err != nil {
 		return 0, err
 	}
@@ -30,8 +32,8 @@ func (repo *TopicRepo) CreateTopic(Topic model.TopicModel) (id uint64, err error
 	return Topic.Id, nil
 }
 
-func (repo *TopicRepo) CreateReply(reply model.ReplyModel) (id uint64, err error) {
-	err = repo.db.Self.Create(&reply).Error
+func (repo *TopicRepo) AddReply(reply model.ReplyModel) (id uint64, err error) {
+	err = repo.Db.Self.Create(&reply).Error
 	if err != nil {
 		return 0, err
 	}
@@ -41,14 +43,14 @@ func (repo *TopicRepo) CreateReply(reply model.ReplyModel) (id uint64, err error
 
 func (repo *TopicRepo) GetReplyById(id int) (*model.ReplyModel, error) {
 	reply := model.ReplyModel{}
-	result := repo.db.Self.Where("id = ?", id).First(&reply)
+	result := repo.Db.Self.Where("id = ?", id).First(&reply)
 
 	return &reply, result.Error
 }
 
 func (repo *TopicRepo) GetTopicById(id uint64) (*model.TopicModel, error) {
 	Topic := model.TopicModel{}
-	result := repo.db.Self.Where("id = ?", id).First(&Topic)
+	result := repo.Db.Self.Where("id = ?", id).First(&Topic)
 
 	return &Topic, result.Error
 }
@@ -61,11 +63,11 @@ func (repo *TopicRepo) GetTopicList(TopicMap map[string]interface{}, offset, lim
 	Topics := make([]*model.TopicModel, 0)
 	var count int
 
-	if err := repo.db.Self.Model(&model.TopicModel{}).Where(TopicMap).Count(&count).Error; err != nil {
+	if err := repo.Db.Self.Model(&model.TopicModel{}).Where(TopicMap).Count(&count).Error; err != nil {
 		return Topics, count, err
 	}
 
-	if err := repo.db.Self.Where(TopicMap).Offset(offset).Limit(limit).Order("id desc").Find(&Topics).Error; err != nil {
+	if err := repo.Db.Self.Where(TopicMap).Offset(offset).Limit(limit).Order("id desc").Find(&Topics).Error; err != nil {
 		return Topics, count, err
 	}
 
@@ -80,11 +82,11 @@ func (repo *TopicRepo) GetReplyList(replyMap map[string]interface{}, offset, lim
 	replies := make([]*model.ReplyModel, 0)
 	var count int
 
-	if err := repo.db.Self.Model(&model.ReplyModel{}).Where(replyMap).Count(&count).Error; err != nil {
+	if err := repo.Db.Self.Model(&model.ReplyModel{}).Where(replyMap).Count(&count).Error; err != nil {
 		return replies, count, err
 	}
 
-	if err := repo.db.Self.Where(replyMap).Offset(offset).Limit(limit).Order("id desc").Find(&replies).Error; err != nil {
+	if err := repo.Db.Self.Where(replyMap).Offset(offset).Limit(limit).Order("id asc").Find(&replies).Error; err != nil {
 		return replies, count, err
 	}
 
@@ -94,7 +96,7 @@ func (repo *TopicRepo) GetReplyList(replyMap map[string]interface{}, offset, lim
 func (repo *TopicRepo) GetCategoryList() ([]*model.CategoryModel, error) {
 	categories := make([]*model.CategoryModel, 0)
 
-	if err := repo.db.Self.Order("weight desc").Find(&categories).Error; err != nil {
+	if err := repo.Db.Self.Order("weight desc").Find(&categories).Error; err != nil {
 		return categories, err
 	}
 
@@ -103,18 +105,14 @@ func (repo *TopicRepo) GetCategoryList() ([]*model.CategoryModel, error) {
 
 func (repo *TopicRepo) IncrTopicViewCount(topicId uint64) error {
 	topic := model.TopicModel{}
-	topicMap := make(map[string]interface{})
-	topicMap["view_count"] = topic.ViewCount + 1
-
-	return repo.db.Self.Model(&topic).Where("id=?", topicId).Updates(topicMap).Error
+	return repo.Db.Self.Model(&topic).Where("id=?", topicId).
+		UpdateColumn("view_count", gorm.Expr("view_count + ?", 1)).Error
 }
 
 func (repo *TopicRepo) IncrTopicReplyCount(topicId uint64) error {
 	topic := model.TopicModel{}
-	topicMap := make(map[string]interface{})
-	topicMap["reply_count"] = topic.ReplyCount + 1
-
-	return repo.db.Self.Model(&topic).Where("id=?", topicId).Updates(topicMap).Error
+	return repo.Db.Self.Model(&topic).Where("id=?", topicId).
+		UpdateColumn("reply_count", gorm.Expr("reply_count + ?", 1)).Error
 }
 
 func (repo *TopicRepo) UpdateTopicLastReplyUserId(topicId uint64, userId uint64) error {
@@ -123,15 +121,13 @@ func (repo *TopicRepo) UpdateTopicLastReplyUserId(topicId uint64, userId uint64)
 	topicMap["last_reply_user_id"] = userId
 	topicMap["last_reply_time_at"] = time.Now()
 
-	return repo.db.Self.Model(&topic).Where("id=?", topicId).Updates(topicMap).Error
+	return repo.Db.Self.Model(&topic).Where("id=?", topicId).Updates(topicMap).Error
 }
 
-func (repo *TopicRepo) IncrReplyLikeCount(id int) error {
+func (repo *TopicRepo) IncrReplyLikeCount(replyId int) error {
 	reply := model.ReplyModel{}
-	replyMap := make(map[string]interface{})
-	replyMap["like_count"] = reply.LikeCount + 1
-
-	return repo.db.Self.Model(&reply).Where("id=?", id).Updates(replyMap).Error
+	return repo.Db.Self.Model(&reply).Where("id=?", replyId).
+		UpdateColumn("like_count", gorm.Expr("like_count + ?", 1)).Error
 }
 
 func (repo *TopicRepo) UpdateTopic(topicModel model.TopicModel, id uint64) error {
@@ -140,7 +136,7 @@ func (repo *TopicRepo) UpdateTopic(topicModel model.TopicModel, id uint64) error
 		return err
 	}
 
-	return repo.db.Self.Model(Topic).Updates(topicModel).Error
+	return repo.Db.Self.Model(Topic).Updates(topicModel).Error
 }
 
 func (repo *TopicRepo) DeleteTopic(id uint64) error {
@@ -149,7 +145,7 @@ func (repo *TopicRepo) DeleteTopic(id uint64) error {
 		return err
 	}
 
-	return repo.db.Self.Delete(&Topic).Error
+	return repo.Db.Self.Delete(&Topic).Error
 }
 
 func (repo *TopicRepo) Store(Topic *model.TopicModel) (id uint64, err error) {

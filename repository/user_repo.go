@@ -3,6 +3,8 @@ package repository
 import (
 	"fmt"
 
+	"github.com/jinzhu/gorm"
+
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/pkg/constvar"
 )
@@ -43,7 +45,7 @@ func (repo *UserRepo) GetUserByUsername(username string) (*model.UserModel, erro
 
 func (repo *UserRepo) GetUserByUserNames(username []string) ([]*model.UserModel, error) {
 	user := make([]*model.UserModel, 0)
-	result := repo.db.Self.Where("username in (?)", username).First(&user)
+	result := repo.db.Self.Where("username in (?)", username).Find(&user)
 
 	return user, result.Error
 }
@@ -81,13 +83,18 @@ func (repo *UserRepo) FindByChangePasswordHash(hash string) (*model.UserModel, e
 }
 
 func (repo *UserRepo) Update(userMap map[string]interface{}, id uint64) error {
-
 	user, err := repo.GetUserById(id)
 	if err != nil {
 		return err
 	}
 
 	return repo.db.Self.Model(user).Updates(userMap).Error
+}
+
+func (repo *UserRepo) IncrReplyCount(userId uint64) error {
+	user := model.UserModel{}
+	return repo.db.Self.Model(&user).Where("id=?", userId).
+		UpdateColumn("reply_count", gorm.Expr("reply_count + ?", 1)).Error
 }
 
 func (repo *UserRepo) DeleteUser(id uint64) error {
