@@ -36,10 +36,22 @@ func (srv *TopicService) CreateTopic(topic model.TopicModel) (id uint64, err err
 	return id, nil
 }
 
-func (srv *TopicService) CreateReply(userId, topicId uint64, reply model.ReplyModel) (id uint64, err error) {
+func (srv *TopicService) AddReply(userId, topicId uint64, originBody string) (id uint64, err error) {
+	// todo: 使用事务进行批量处理
+
+	replyModel := model.ReplyModel{
+		TopicId:    topicId,
+		OriginBody: originBody,
+		Body:       util.MarkdownToHtml(util.ParseMentionUser(originBody)),
+		Source:     "PC",
+		IsBlocked:  "no",
+		UserId:     userId,
+	}
+
 	// create reply
-	id, err = srv.repo.CreateReply(reply)
+	id, err = srv.repo.AddReply(replyModel)
 	if err != nil {
+		log.Warnf("[topic] create reply err: %+v", err)
 		return id, err
 	}
 
@@ -56,6 +68,15 @@ func (srv *TopicService) CreateReply(userId, topicId uint64, reply model.ReplyMo
 		log.Warnf("[topic] incr last reply user id err: %+v", err)
 		return id, err
 	}
+
+	// update user
+	err = srv.userSrv.IncrReplyCount(userId)
+	if err != nil {
+		log.Warnf("[topic] incr user reply count err: %+v", err)
+		return id, err
+	}
+
+	// 发送通知
 
 	return id, nil
 }
