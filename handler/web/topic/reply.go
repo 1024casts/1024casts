@@ -1,10 +1,8 @@
 package topic
 
 import (
-	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/1024casts/1024casts/pkg/errno"
-	"github.com/1024casts/1024casts/pkg/mention"
 	"github.com/1024casts/1024casts/service"
 	"github.com/1024casts/1024casts/util"
 	"github.com/gin-gonic/gin"
@@ -31,19 +29,8 @@ func Reply(c *gin.Context) {
 		return
 	}
 
-	mentionParser := mention.NewMention()
-
-	replyModel := model.ReplyModel{
-		TopicId:    topicId,
-		OriginBody: req.OriginBody,
-		Body:       mentionParser.Parse(req.Body),
-		Source:     "PC",
-		IsBlocked:  "no",
-		UserId:     util.GetUserId(c),
-	}
-
 	userId := util.GetUserId(c)
-	_, err = topicSrv.CreateReply(userId, topicId, replyModel)
+	_, err = topicSrv.AddReply(userId, topicId, req.OriginBody)
 	if err != nil {
 		app.Response(c, errno.ErrDatabase, nil)
 		return
