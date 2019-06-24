@@ -133,7 +133,7 @@
                             <nav class="level">
                                 <div class="level-right">
                                     <div class="level-item">
-                                        <button class="button is-info" @click="submitComment">提交评论</button>
+                                        <button class="button is-info" @click="addComment">提交评论</button>
                                     </div>
                                 </div>
                             </nav>
@@ -175,7 +175,7 @@
     <script src="https://cdn.bootcss.com/marked/0.6.2/marked.min.js"></script>
     <script src="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
-        {{if ne .user_id 0}}
+        {{if or .user.IsVip (eq .video.IsFree 1) }}
         var video = videojs("video-player", {
             "fluid":!0,
             "playbackRates":[0.5,.75,1,1.25,1.5,1.75,2],
@@ -240,7 +240,7 @@
             },
             delimiters:['${', '}'],
             methods: {
-                submitComment: function (e) {
+                addComment: function (e) {
                     e.preventDefault();
                     if (this.content === '') {
                         swal("请正确填写评论！", "","warning");
