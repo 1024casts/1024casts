@@ -29,7 +29,7 @@ func Create(c *gin.Context) {
 		Type:          req.Type,
 		RelatedId:     req.RelatedId,
 		Ip:            "",
-		Content:       req.Content,
+		Content:       util.MarkdownToHtml(util.ParseMentionUser(req.OriginContent)),
 		OriginContent: req.OriginContent,
 		LikeCount:     0,
 		UserId:        util.GetUserId(c),
