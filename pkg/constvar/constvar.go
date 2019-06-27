@@ -10,3 +10,12 @@ const (
 	CommentTypeVideo = 1
 	CommentTypeWiki  = 2
 )
+
+const (
+	// pay
+	PayMethodWeiXin = "wechat"
+
+	OrderStatusPending  = "pending"
+	OrderStatusPaid     = "paid"
+	OrderStatusCanceled = "canceled"
+)
