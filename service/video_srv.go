@@ -32,10 +32,10 @@ func (srv *VideoService) GetVideoById(id int) (*model.VideoModel, error) {
 	return Video, nil
 }
 
-func (srv *VideoService) GetVideoList(courseId uint64) ([]*model.VideoModel, error) {
+func (srv *VideoService) GetVideoList(courseId uint64, isGroup bool) ([]*model.VideoModel, error) {
 	videos := make([]*model.VideoModel, 0)
 
-	videos, err := srv.repo.GetVideoList(courseId)
+	videos, err := srv.repo.GetVideoList(courseId, isGroup)
 	if err != nil {
 		log.Warnf("[video] get video list err, course_id: %d", courseId)
 		return nil, err
@@ -55,6 +55,7 @@ func (srv *VideoService) GetVideoByCourseIdAndEpisodeId(courseId uint64, episode
 
 	video.Mp4URL = util.GetQiNiuPrivateAccessUrl(video.Mp4URL, constvar.MediaTypeVideo)
 	video.DurationStr = util.ResolveVideoDuration(video.Duration)
+	video.PublishedAtStr = util.FormatTime(video.PublishedAt)
 
 	return video, nil
 }

@@ -55,7 +55,7 @@ func Detail(c *gin.Context) {
 	}
 
 	c.HTML(http.StatusOK, "video/detail", gin.H{
-		"title":         "视频详情",
+		"title":         video.Name + " - 视频详情",
 		"user_id":       util.GetUserId(c),
 		"user":          user,
 		"slug":          slug,

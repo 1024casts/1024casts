@@ -35,12 +35,18 @@ func (repo *VideoRepo) GetVideoByCourseIdAndEpisodeId(courseId uint64, episodeId
 	return video, nil
 }
 
-func (repo *VideoRepo) GetVideoList(courseId uint64) ([]*model.VideoModel, error) {
+func (repo *VideoRepo) GetVideoList(courseId uint64, isGroup bool) ([]*model.VideoModel, error) {
 
 	videos := make([]*model.VideoModel, 0)
 
-	if err := repo.db.Self.Where("course_id=?", courseId).Order("id asc").Find(&videos).Error; err != nil {
-		return videos, err
+	if isGroup {
+		if err := repo.db.Self.Where("course_id=?", courseId).Order("id asc").Find(&videos).Error; err != nil {
+			return videos, err
+		}
+	} else {
+		if err := repo.db.Self.Where("course_id=? and section_id=0", courseId).Order("id asc").Find(&videos).Error; err != nil {
+			return videos, err
+		}
 	}
 
 	return videos, nil

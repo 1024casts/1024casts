@@ -1,0 +1,89 @@
+{{ define "css"}}
+<style type="text/css">
+    body {background: #e5e5e5;}
+</style>
+<link href="/static/css/step.css" rel="stylesheet">
+{{end}}
+
+{{define "content"}}
+<div class="container">
+    <div class="columns has-text-centered">
+        <div class="column is-2"></div>
+        <div class="column is-8">
+            <div class="box" style="margin: 2rem;">
+{{/*                https://aramvisser.github.io/bulma-steps/*/}}
+                <h3 class="title is-3">购买会员流程</h3>
+                <ul class="steps is-narrow is-large is-centered has-content-centered">
+                    <li class="steps-segment is-active">
+                        <a href="#" class="has-text-dark">
+                          <span class="steps-marker">
+                            <span class="icon">
+                              <i class="fa fa-shopping-cart"></i>
+                            </span>
+                          </span>
+                            <div class="steps-content">
+                                <p class="heading">确认订单</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="steps-segment is-active has-gaps">
+                        <span class="steps-marker">
+                          <span class="icon">
+                            <i class="fa fa-qrcode"></i>
+                          </span>
+                        </span>
+                        <div class="steps-content">
+                            <p class="heading">扫码支付</p>
+                        </div>
+                    </li>
+                    <li class="steps-segment">
+                        <span class="steps-marker is-hollow">
+                          <span class="icon">
+                            <i class="fa fa-check"></i>
+                          </span>
+                        </span>
+                        <div class="steps-content">
+                            <p class="heading">支付成功</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="columns">
+                    <div class="column is-2"></div>
+                    <div class="column is-8">
+                        <table class="table is-bordered is-striped is-fullwidth">
+                            <tbody>
+                                <tr>
+                                    <td>商品名称</td>
+                                    <td>{{ .plan.Name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>商品价格</td>
+                                    <td>
+                                        <span class="tag is-danger is-medium">￥ {{ .plan.Price }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>支付方式</td>
+                                    <td><i class="fab fa-weixin has-text-success"></i>微信</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="column is-2"></div>
+                </div>
+
+                <a class="button is-link" href="/plans/{{ .plan.Alias }}/pay">立即支付</a>
+                <div class="notification" style="margin-top: 1rem;">
+                    请注意: 虚拟内容商品，购买后不支持退货、转让、退换，请斟酌确认。
+                </div>
+
+            </div>
+        </div>
+        <div class="column is-2"></div>
+
+    </div>
+</div>
+{{end}}
+
+{{ define "js"}}
+{{end}}

@@ -117,37 +117,11 @@
             <div class="column is-3">
                 <nav class="panel">
                     <p class="panel-heading">
-                        今日热门帖子
+                        热门帖子
                     </p>
-                    <a class="panel-block">
-    <span class="panel-icon">
-      <i class="fas fa-book" aria-hidden="true"></i>
-    </span>
-                        bulma
-                    </a>
-                    <a class="panel-block">
-    <span class="panel-icon">
-      <i class="fas fa-book" aria-hidden="true"></i>
-    </span>
-                        marksheet
-                    </a>
-                    <a class="panel-block">
-    <span class="panel-icon">
-      <i class="fas fa-book" aria-hidden="true"></i>
-    </span>
-                        minireset.css
-                    </a>
-                    <a class="panel-block">
-    <span class="panel-icon">
-      <i class="fas fa-book" aria-hidden="true"></i>
-    </span>
-                        jgthms.github.io
-                    </a>
-                    <div class="panel-block">
-                        <button class="button is-link is-outlined is-fullwidth">
-                            reset all filters
-                        </button>
-                    </div>
+                    {{range .topTopics}}
+                    <a class="panel-block" style="font-size: 0.9rem;" href="/topics/{{.Id}}">{{.Title}}</a>
+                    {{end}}
                 </nav>
             </div>
         </div>

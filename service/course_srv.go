@@ -146,6 +146,7 @@ func (srv *CourseService) GetCourseSectionListWithVideo(courseId uint64) ([]*mod
 	infos := make([]*model.SectionModel, 0)
 
 	sections, err := srv.repo.GetSectionList(courseId)
+	log.Infof("sections result: %v", sections)
 	if err != nil {
 		return nil, err
 	}
@@ -161,7 +162,7 @@ func (srv *CourseService) GetCourseSectionListWithVideo(courseId uint64) ([]*mod
 		IdMap: make(map[uint64]*model.SectionModel, len(sections)),
 	}
 
-	videos, err := srv.videoSrv.GetVideoList(courseId)
+	videos, err := srv.videoSrv.GetVideoList(courseId, true)
 	if err != nil {
 		log.Warnf("[course] get video list fail from video repo, course_id: %d", courseId)
 	}

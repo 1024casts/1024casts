@@ -1,8 +1,8 @@
 {{ define "css"}}
     <style type="text/css">
-        body {
-            background: #e5e5e5;
-        }
+        /*body {*/
+        /*    background: #e5e5e5;*/
+        /*}*/
         .topNav .container {
             border-bottom: 1px solid #E6EAEE;
         }
@@ -26,6 +26,11 @@
         .media + .media {
             margin-top: 0.3rem;
             padding-top: 0.3rem;
+        }
+
+        .panel-heading {
+            font-size: 1em;
+            padding: 0.3em 0.75em;
         }
     </style>
 {{ end }}
@@ -77,22 +82,27 @@
                     </div>
                 {{end}}
 
-                <div class="card">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            最新课程
-                        </p>
-                    </header>
-                    <div class="card-content">
-                        <div class="content">
-                            <dl class="is-lower-roman">
-                                <li><a href="#">Coffee</a></li>
-                                <li><a href="#">Coffee</a></li>
-                                <li><a href="#">Coffee</a></li>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
+                <nav class="panel">
+                    <p class="panel-heading">
+                        <strong>今日阅读排行</strong>
+                    </p>
+                    <a class="panel-block" style="font-size: 0.9rem;">哇哈哈</a>
+                </nav>
+
+
+{{/*                <nav class="panel">*/}}
+{{/*                    <p class="panel-heading">*/}}
+{{/*                        <strong>一周阅读排行</strong>*/}}
+{{/*                    </p>*/}}
+{{/*                    <a class="panel-block" style="font-size: 0.9rem;">哇哈哈</a>*/}}
+{{/*                </nav>*/}}
+
+{{/*                <nav class="panel">*/}}
+{{/*                    <p class="panel-heading">*/}}
+{{/*                        <strong>统计信息</strong>*/}}
+{{/*                    </p>*/}}
+{{/*                    <a class="panel-block" style="font-size: 0.9rem;">哇哈哈</a>*/}}
+{{/*                </nav>*/}}
             </div>
         </div>
 

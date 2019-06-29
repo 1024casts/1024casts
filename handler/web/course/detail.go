@@ -3,6 +3,8 @@ package course
 import (
 	"net/http"
 
+	"github.com/1024casts/1024casts/model"
+
 	"github.com/1024casts/1024casts/service"
 	"github.com/lexkong/log"
 
@@ -19,9 +21,22 @@ func Detail(c *gin.Context) {
 		log.Warnf("[course] get course list err: %v", err)
 	}
 
-	sections, err := courseSrv.GetCourseSectionListWithVideo(course.Id)
+	// 视频展示是否分组
+	isGroup := false
+	videoSrv := service.NewVideoService()
+	videos, err := videoSrv.GetVideoList(course.Id, false)
 	if err != nil {
-		log.Warnf("[course] get video list err: %+v", err)
+		log.Warnf("[course] get video list err: %v", err)
+	}
+
+	sections := make([]*model.SectionModel, 0)
+	// 无视频说明进行了分组
+	if len(videos) == 0 {
+		isGroup = true
+		sections, err = courseSrv.GetCourseSectionListWithVideo(course.Id)
+		if err != nil {
+			log.Warnf("[course] get video list err: %+v", err)
+		}
 	}
 
 	c.HTML(http.StatusOK, "course/detail", gin.H{
@@ -30,6 +45,8 @@ func Detail(c *gin.Context) {
 		"slug":     slug,
 		"ctx":      c,
 		"course":   course,
+		"isGroup":  isGroup,
 		"sections": sections,
+		"videos":   videos,
 	})
 }

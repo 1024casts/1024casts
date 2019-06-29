@@ -253,6 +253,26 @@ func GenPasswordToken() string {
 	return hex.EncodeToString(h.Sum(nil))
 }
 
+// gen order no, len: 19
+func GenOrderNo() uint64 {
+	dateStr := time.Now().Format("20060102150405")
+	log.Infof("data str: %s", dateStr)
+
+	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
+	randStr := fmt.Sprintf("%05v", rnd.Intn(10000))
+	log.Infof("rand str: %s", randStr)
+
+	orderNoStr := dateStr + randStr
+	orderNo, err := strconv.ParseUint(orderNoStr, 10, 64)
+	if err != nil {
+		log.Warnf("[util] convert: %s err: %+v", randStr, err)
+		return 0
+	}
+	log.Infof("orderNo: %d", orderNo)
+
+	return orderNo
+}
+
 // see: https://blog.csdn.net/haibo0668/article/details/77648875
 func FormatTime(needTime time.Time) string {
 	var timeText string

@@ -37,12 +37,19 @@ func Detail(c *gin.Context) {
 		log.Warnf("[topic] incr topic view count err: %+v", err)
 	}
 
+	// get top 15 by view_count
+	topTopics, err := srv.GetTopTopicList(20)
+	if err != nil {
+		log.Warnf("[topic] get top topic list err: %+v", err)
+	}
+
 	c.HTML(http.StatusOK, "topic/detail", gin.H{
-		"title":   topic.Title,
-		"user_id": userId,
-		"user":    user,
-		"topic":   topic,
-		"replies": replies,
-		"ctx":     c,
+		"title":     topic.Title,
+		"user_id":   userId,
+		"user":      user,
+		"topic":     topic,
+		"replies":   replies,
+		"ctx":       c,
+		"topTopics": topTopics,
 	})
 }

@@ -9,7 +9,7 @@
     <div class="box">
         <div class="columns is-multiline is-mobile">
         {{range .courses}}
-            <div class="column is-one-third">
+            <div class="column is-4">
                 <div class="card">
                     <div class="card-image">
                         <figure class="image is-4by3">
@@ -34,6 +34,8 @@
                             {{else if eq .UpdateStatus 3}}
                                 <span class="tag is-success">已完结</span>
                             {{end}}
+
+                            <a class="button is-link is-hovered is-pulled-right" href="/courses/{{.Slug}}">查看课程</a>
                         </div>
                     </div>
                 </div>

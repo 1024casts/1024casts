@@ -235,6 +235,11 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 		p.GET("/:alias/success", webPlan.Success)
 	}
 
+	pay := router.Group("/pay")
+	pay.Use(middleware.CookieMiddleware())
+	{
+		pay.GET("/:order_id/check", webPlan.Check)
+	}
 	// wiki
 	router.GET("/wiki", wiki.Index)
 	router.GET("/wiki/:slug", wiki.Detail)

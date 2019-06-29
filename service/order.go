@@ -19,6 +19,15 @@ func NewOrderService() *OrderService {
 	}
 }
 
+func (srv *OrderService) CreateOrder(orderModel model.OrderModel) (uint64, error) {
+	orderId, err := srv.orderRepo.CreateOrder(orderModel)
+	if err != nil {
+		return 0, err
+	}
+
+	return orderId, nil
+}
+
 func (srv *OrderService) GetOrderById(id int) (*model.OrderModel, error) {
 	order, err := srv.orderRepo.GetOrderById(id)
 

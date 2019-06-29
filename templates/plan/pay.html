@@ -1,0 +1,96 @@
+{{ define "css"}}
+    <style type="text/css">
+        body {background: #e5e5e5;}
+    </style>
+    <link href="/static/css/step.css" rel="stylesheet">
+{{end}}
+
+{{define "content"}}
+    <div class="container">
+        <div class="columns has-text-centered">
+            <div class="column is-2"></div>
+            <div class="column is-8">
+                <div class="box" style="margin: 2rem;">
+                    {{/*                https://aramvisser.github.io/bulma-steps/*/}}
+                    <h3 class="title is-3">购买会员流程</h3>
+                    <ul class="steps is-narrow is-large is-centered has-content-centered">
+                        <li class="steps-segment">
+                            <a href="#" class="has-text-dark">
+                          <span class="steps-marker">
+                            <span class="icon">
+                              <i class="fa fa-shopping-cart"></i>
+                            </span>
+                          </span>
+                                <div class="steps-content">
+                                    <p class="heading">确认订单</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="steps-segment is-active has-gaps">
+                        <span class="steps-marker">
+                          <span class="icon">
+                            <i class="fa fa-qrcode"></i>
+                          </span>
+                        </span>
+                            <div class="steps-content">
+                                <p class="heading">扫码支付</p>
+                            </div>
+                        </li>
+                        <li class="steps-segment">
+                        <span class="steps-marker is-hollow">
+                          <span class="icon">
+                            <i class="fa fa-check"></i>
+                          </span>
+                        </span>
+                            <div class="steps-content">
+                                <p class="heading">支付成功</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <h2>请使用 <span class="tag is-success">微信</span> 或 <span class="tag is-info">支付宝</span> 支付</h2>
+                    <img src="{{ .qrCode}}" alt="" />
+                    <h4>若支付完成后没有自动跳转页面，请点击</h4>
+                    <button class="button is-success" style="margin-top: 1rem;" id="paid-btn">已完成支付</button>
+
+                    <div class="notification" style="margin-top: 1rem;">
+                        注意：在支付过程中最好不要点击或者关闭页面，支付完成后会自动跳转页面！️
+                    </div>
+                </div>
+            </div>
+            <div class="column is-2"></div>
+
+        </div>
+    </div>
+{{end}}
+
+{{ define "js"}}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var checkOrder = function () {
+                $.ajax('/plans/{{.orderId}}/check', function( data ) {
+                    console.log('return', data);
+                    if (data.code == 0) {
+                        window.onbeforeunload = function(){};
+                        window.location.href = '/plans/{{ .plan.Alias }}/success';
+                    }
+                });
+            };
+
+            var msg = '支付过程中切忌离开页面，以免造成不必要的损失！';
+            window.onbeforeunload = function(){
+                return msg;
+            };
+
+            setInterval(function () {
+                checkOrder()
+            }, 3000);
+
+
+            $('#paid-btn').click(function () {
+                window.onbeforeunload = function(){};
+                checkOrder();
+            })
+        });
+    </script>
+{{end}}

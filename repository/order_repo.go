@@ -15,6 +15,15 @@ func NewOrderRepo() *OrderRepo {
 	}
 }
 
+func (repo *OrderRepo) CreateOrder(order model.OrderModel) (id uint64, err error) {
+	err = repo.db.Self.Create(&order).Error
+	if err != nil {
+		return 0, err
+	}
+
+	return order.Id, nil
+}
+
 func (repo *OrderRepo) GetOrderById(id int) (*model.OrderModel, error) {
 	order := model.OrderModel{}
 	result := repo.db.Self.Where("id = ?", id).First(&order)

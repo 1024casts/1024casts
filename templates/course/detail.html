@@ -33,33 +33,60 @@
                                 </thead>
                                 <tbody>
                                 {{$slug := .course.Slug}}
-                                {{range .sections}}
-                                    <tr class="is-info">
-                                        <th colspan="4">{{.Name}}</th>
-                                    </tr>
-                                    {{range .VideoItems}}
-                                    <tr>
-                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            {{if eq .Duration 0}}
-                                                {{.Name}}
-                                            {{else}}
-                                                <a href="/courses/{{$slug}}/episodes/{{.EpisodeID}}">{{.Name}}</a>
-                                            {{end}}
-                                        </td>
-                                        <td></td>
-                                        <td>
-                                            {{if eq .Duration 0}}
-                                                <span class="tag is-warning">录制中</span>
-                                            {{else}}
-                                                {{if eq .IsFree 1}}
-                                                    <span class="tag is-success">免费</span>
+                                {{if .isGroup}}
+                                    {{range .sections}}
+                                        <tr class="is-info">
+                                            <th colspan="4">{{.Name}}</th>
+                                        </tr>
+                                        {{range .VideoItems}}
+                                        <tr>
+                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                {{if eq .Duration 0}}
+                                                    {{.Name}}
                                                 {{else}}
-                                                    <span class="tag is-info">VIP专享</span>
+                                                    <a href="/courses/{{$slug}}/episodes/{{.EpisodeID}}">{{.Name}}</a>
                                                 {{end}}
-                                            {{end}}
-                                        </td>
-                                        <td>{{.DurationStr}}</td>
-                                    </tr>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                {{if eq .Duration 0}}
+                                                    <span class="tag is-warning">录制中</span>
+                                                {{else}}
+                                                    {{if eq .IsFree 1}}
+                                                        <span class="tag is-success">免费</span>
+                                                    {{else}}
+                                                        <span class="tag is-info">VIP专享</span>
+                                                    {{end}}
+                                                {{end}}
+                                            </td>
+                                            <td>{{.DurationStr}}</td>
+                                        </tr>
+                                        {{end}}
+                                    {{end}}
+                                {{else }}
+                                    {{range .videos}}
+                                        <tr>
+                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                {{if eq .Duration 0}}
+                                                    {{.Name}}
+                                                {{else}}
+                                                    <a href="/courses/{{$slug}}/episodes/{{.EpisodeID}}">{{.Name}}</a>
+                                                {{end}}
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                {{if eq .Duration 0}}
+                                                    <span class="tag is-warning">录制中</span>
+                                                {{else}}
+                                                    {{if eq .IsFree 1}}
+                                                        <span class="tag is-success">免费</span>
+                                                    {{else}}
+                                                        <span class="tag is-info">VIP专享</span>
+                                                    {{end}}
+                                                {{end}}
+                                            </td>
+                                            <td>{{.DurationStr}}</td>
+                                        </tr>
                                     {{end}}
                                 {{end}}
                                 </tbody>

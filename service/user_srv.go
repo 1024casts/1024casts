@@ -283,3 +283,11 @@ func (srv *UserService) DeleteResetPasswordByEmail(email string) error {
 	}
 	return nil
 }
+
+func (srv *UserService) IncrReplyCount(userId uint64) error {
+	err := srv.userRepo.IncrReplyCount(userId)
+	if err != nil {
+		return err
+	}
+	return nil
+}

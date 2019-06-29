@@ -92,6 +92,60 @@ func (srv *TopicService) GetTopicById(id uint64) (*model.TopicInfo, error) {
 	return topic, nil
 }
 
+// 获取热门topic
+func (srv *TopicService) GetTopTopicList(limit int) ([]*model.TopicInfo, error) {
+	infos := make([]*model.TopicInfo, 0)
+
+	Topics, err := srv.repo.GetTopTopicList(limit)
+	if err != nil {
+		return nil, err
+	}
+
+	ids := []uint64{}
+	for _, Topic := range Topics {
+		ids = append(ids, Topic.Id)
+	}
+
+	wg := sync.WaitGroup{}
+	TopicList := model.TopicList{
+		Lock:  new(sync.Mutex),
+		IdMap: make(map[uint64]*model.TopicInfo, len(Topics)),
+	}
+
+	errChan := make(chan error, 1)
+	finished := make(chan bool, 1)
+
+	// Improve query efficiency in parallel
+	for _, t := range Topics {
+		wg.Add(1)
+		go func(Topic *model.TopicModel) {
+			defer wg.Done()
+
+			TopicList.Lock.Lock()
+			defer TopicList.Lock.Unlock()
+
+			TopicList.IdMap[Topic.Id] = srv.trans(Topic)
+		}(t)
+	}
+
+	go func() {
+		wg.Wait()
+		close(finished)
+	}()
+
+	select {
+	case <-finished:
+	case err := <-errChan:
+		return nil, err
+	}
+
+	for _, id := range ids {
+		infos = append(infos, TopicList.IdMap[id])
+	}
+
+	return infos, nil
+}
+
 func (srv *TopicService) GetTopicList(TopicMap map[string]interface{}, offset, limit int) ([]*model.TopicInfo, int, error) {
 	infos := make([]*model.TopicInfo, 0)
 

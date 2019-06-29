@@ -1,6 +1,6 @@
 {{ define "css"}}
 <style type="text/css">
-    body {background: #e5e5e5;}
+    /*body {background: #e5e5e5;}*/
     .pricing-table {
         display: flex;
         align-items: stretch;
@@ -576,10 +576,19 @@
                 <div class="plan-item">{{.Description}}</div>
             </div>
             <div class="plan-footer">
-                <button class="button is-fullwidth">购买</button>
+                <a class="button is-fullwidth" href="/plans/{{.Alias}}/purchase">购买</a>
             </div>
         </div>
         {{end}}
+    </div>
+    <div class="notification" style="margin-top: 1rem;">
+        <div class="content">
+            <ol type="1">
+                <li>Coffee</li>
+                <li>Tea</li>
+                <li>Milk</li>
+            </ol>
+        </div>
     </div>
 </div>
 

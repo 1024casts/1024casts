@@ -74,6 +74,20 @@ func (repo *TopicRepo) GetTopicList(TopicMap map[string]interface{}, offset, lim
 	return Topics, count, nil
 }
 
+func (repo *TopicRepo) GetTopTopicList(limit int) ([]*model.TopicModel, error) {
+	if limit == 0 {
+		limit = constvar.DefaultLimit
+	}
+
+	Topics := make([]*model.TopicModel, 0)
+
+	if err := repo.Db.Self.Limit(limit).Order("view_count desc").Find(&Topics).Error; err != nil {
+		return Topics, err
+	}
+
+	return Topics, nil
+}
+
 func (repo *TopicRepo) GetReplyList(replyMap map[string]interface{}, offset, limit int) ([]*model.ReplyModel, int, error) {
 	if limit == 0 {
 		limit = constvar.DefaultLimit

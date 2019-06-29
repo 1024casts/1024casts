@@ -20,7 +20,7 @@ func Success(c *gin.Context) {
 		log.Warnf("[plan] get plan list err: %v", err)
 	}
 
-	c.HTML(http.StatusOK, "plan/purchase", gin.H{
+	c.HTML(http.StatusOK, "plan/success", gin.H{
 		"title":   "购买会员" + plan.Name,
 		"user_id": userId,
 		"user":    user,
