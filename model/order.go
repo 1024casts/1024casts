@@ -30,5 +30,23 @@ func (c *OrderModel) TableName() string {
 
 type OrderList struct {
 	Lock  *sync.Mutex
-	IdMap map[uint64]*OrderModel
+	IdMap map[uint64]*OrderInfo
+}
+
+type OrderInfo struct {
+	Id          uint64           `json:"id"`
+	OrderId     string           `json:"order_id"`
+	OrderAmount float64          `json:"order_amount"`
+	PayAmount   float64          `json:"pay_amount"`
+	PayMethod   string           `json:"pay_method"`
+	PaidAt      string           `json:"paid_at"`
+	CompletedAt time.Time        `json:"completed_at"`
+	CanceledAt  time.Time        `json:"canceled_at"`
+	QrcodeId    int              `json:"qrcode_id"`
+	TradeId     string           `json:"trade_id"`
+	Status      string           `json:"status"`
+	UserId      uint64           `json:"user_id"`
+	CreatedAt   string           `json:"created_at"`
+	UpdatedAt   string           `json:"updated_at"`
+	Items       []OrderItemModel `json:"items"`
 }

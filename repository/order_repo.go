@@ -50,6 +50,25 @@ func (repo *OrderRepo) GetOrderList(orderMap map[string]interface{}, offset, lim
 	return orders, count, nil
 }
 
+func (repo *OrderRepo) GetOrderListByUserId(userId uint64, offset, limit int) ([]*model.OrderModel, int, error) {
+	if limit == 0 {
+		limit = constvar.DefaultLimit
+	}
+
+	orders := make([]*model.OrderModel, 0)
+	var count int
+
+	if err := repo.db.Self.Model(&model.OrderModel{}).Where("user_id=?", userId).Count(&count).Error; err != nil {
+		return orders, count, err
+	}
+
+	if err := repo.db.Self.Where("user_id=?", userId).Offset(offset).Limit(limit).Order("id desc").Find(&orders).Error; err != nil {
+		return orders, count, err
+	}
+
+	return orders, count, nil
+}
+
 func (repo *OrderRepo) UpdateComment(commentMap map[string]interface{}, id int) error {
 
 	order, err := repo.GetOrderById(id)
