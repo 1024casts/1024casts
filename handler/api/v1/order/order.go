@@ -25,8 +25,8 @@ type ListRequest struct {
 }
 
 type ListResponse struct {
-	TotalCount uint64              `json:"totalCount"`
-	List       []*model.OrderModel `json:"list"`
+	TotalCount uint64             `json:"totalCount"`
+	List       []*model.OrderInfo `json:"list"`
 }
 
 type SwaggerListResponse struct {
