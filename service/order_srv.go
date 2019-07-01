@@ -164,17 +164,17 @@ func (srv *OrderService) trans(orderModel *model.OrderModel) *model.OrderInfo {
 		OrderId:     orderModel.OrderId,
 		OrderAmount: orderModel.OrderAmount,
 		PayAmount:   orderModel.PayAmount,
-		PayMethod:   orderModel.PayMethod,
+		PayMethod:   util.GetPayMethodText(orderModel.PayMethod),
 		PaidAt:      util.TimeToString(orderModel.PaidAt),
 		CompletedAt: time.Time{},
 		CanceledAt:  time.Time{},
 		QrcodeId:    0,
 		TradeId:     "",
-		Status:      orderModel.Status,
+		Status:      util.GetPayStatusText(orderModel.Status),
 		UserId:      orderModel.UserId,
 		CreatedAt:   util.TimeToString(orderModel.CreatedAt),
 		UpdatedAt:   util.TimeToString(orderModel.UpdatedAt),
-		Items:       nil,
+		OrderItems:  orderModel.Items,
 	}
 }
 
