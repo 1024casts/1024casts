@@ -420,7 +420,7 @@ func GetPayMethodText(payMethod string) string {
 		return "微信"
 	} else if payMethod == constvar.PayMethodAlipay {
 		return "支付宝"
-	} else if payMethod == constvar.PayMethodAlipay {
+	} else if payMethod == constvar.PayMethodYouzan {
 		return "有赞"
 	}
 
