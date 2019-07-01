@@ -1,8 +1,8 @@
 
 <nav class="navbar topNav" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-        <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+    <a class="navbar-item" href="/">
+        <img src="/static/images/logo-640×160.png">
     </a>
 
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -42,15 +42,15 @@
                     <a class="navbar-item" href="/users/{{.user.Username}}">
                         个人资料
                     </a>
-                    <a class="navbar-item" href="/settings/orders">
+                    <a class="navbar-item" href="/users/{{.user.Username}}/orders">
                         我的订单
                     </a>
-                    <a class="navbar-item" href="/settings/courses">
-                        已购课程
-                    </a>
-                    <a class="navbar-item" href="/settings/favorites">
-                        我的收藏
-                    </a>
+{{/*                    <a class="navbar-item" href="/users/{{.user.Username}}/courses">*/}}
+{{/*                        已购课程*/}}
+{{/*                    </a>*/}}
+{{/*                    <a class="navbar-item" href="/users/{{.user.Username}}/favorites">*/}}
+{{/*                        我的收藏*/}}
+{{/*                    </a>*/}}
                     <a class="navbar-item" href="/settings/basic">
                         设置
                     </a>
@@ -64,7 +64,7 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-primary" href="/register">
+                        <a class="button is-link" href="/register">
                             <strong>注册</strong>
                         </a>
                         <a class="button is-light" href="/login">
