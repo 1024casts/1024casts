@@ -1,0 +1,98 @@
+{{ define "css"}}
+    <style type="text/css">
+        /*body {*/
+        /*    background: #e5e5e5;*/
+        /*}*/
+        .topNav .container {
+            border-bottom: 1px solid #E6EAEE;
+        }
+        .container .columns {
+            margin: 1rem 0;
+        }
+        article.post {
+            margin: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E6EAEE;
+        }
+        .media-content strong a {
+            color: currentColor;
+        }
+        .media-content p {
+            font-size: 14px;
+            line-height: 2.3;
+            font-weight: 700;
+            color: #8F99A3;
+        }
+        .media + .media {
+            margin-top: 0.3rem;
+            padding-top: 0.3rem;
+        }
+
+        .panel-heading {
+            font-size: 1em;
+            padding: 0.3em 0.75em;
+        }
+    </style>
+{{ end }}
+
+{{define "content"}}
+    <section class="container">
+        <div class="columns">
+            <div class="column is-12">
+                <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+                    <ul>
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/users/{{.user.Username}}">个人中心</a></li>
+                        <li class="is-active"><a href="/users/{{.user.Username}}orders">我的订单</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-12">
+                <div class="box content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>订单号</th>
+                                <th>商品名称</th>
+                                <th>订单金额</th>
+                                <th>实际支付</th>
+                                <th>支付方式</th>
+                                <th>下单时间</th>
+                                <th>订单状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .orders}}
+                            <tr>
+                                <th>{{.Id}}</th>
+                                <td>
+                                    {{range .OrderItems}}
+                                    <strong>{{.Name}}</strong>
+                                    {{end}}
+                                </td>
+                                <td>{{.OrderAmount}}</td>
+                                <td>{{.PayAmount}}</td>
+                                <td>{{.PayMethod}}</td>
+                                <td>{{.CreatedAt}}</td>
+                                <td>{{.Status}}</td>
+                                <td>查看</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                </div>
+                <nav class="box pagination is-rounded" role="navigation" aria-label="pagination">
+                    {{.pages}}
+                </nav>
+            </div>
+        </div>
+
+    </section>
+{{end}}
+
+{{ define "js"}}
+{{ end }}
