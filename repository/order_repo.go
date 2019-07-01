@@ -62,7 +62,8 @@ func (repo *OrderRepo) GetOrderListByUserId(userId uint64, offset, limit int) ([
 		return orders, count, err
 	}
 
-	if err := repo.db.Self.Where("user_id=?", userId).Offset(offset).Limit(limit).Order("id desc").Find(&orders).Error; err != nil {
+	if err := repo.db.Self.Where("user_id=?", userId).Offset(offset).Limit(limit).Order("id desc").
+		Preload("Items").Find(&orders).Error; err != nil {
 		return orders, count, err
 	}
 
