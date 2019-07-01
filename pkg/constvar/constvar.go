@@ -14,6 +14,8 @@ const (
 const (
 	// pay
 	PayMethodWeiXin = "wechat"
+	PayMethodAlipay = "alipay"
+	PayMethodYouzan = "youzan"
 
 	OrderStatusPending  = "pending"
 	OrderStatusPaid     = "paid"
