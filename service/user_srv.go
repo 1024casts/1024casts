@@ -156,8 +156,9 @@ func (srv *UserService) GetUserNameById(id uint64) string {
 	return user.Username
 }
 
-func (srv *UserService) GetUserByUsername(username string) (*model.UserModel, error) {
-	user, err := srv.userRepo.GetUserByUsername(username)
+func (srv *UserService) GetUserByUsername(username string) (*model.UserInfo, error) {
+	userModel, err := srv.userRepo.GetUserByUsername(username)
+	user := srv.trans(userModel)
 
 	if err != nil {
 		return user, err
