@@ -72,7 +72,7 @@ func (srv *UserService) RegisterUser(user model.UserModel) (id uint64, err error
 
 	if err := tx.Commit().Error; err != nil {
 		tx.Rollback()
-		log.Warnf("[order] commit order fail, err: %+v", err)
+		log.Warnf("[user] register user commit fail, err: %+v", err)
 		return 0, err
 	}
 
