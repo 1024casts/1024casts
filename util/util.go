@@ -405,16 +405,6 @@ func ResolveVideoDuration(second int) string {
 	}
 }
 
-func GetPayStatusText(status string) string {
-	if status == constvar.OrderStatusPending {
-		return "待支付"
-	} else if status == constvar.OrderStatusPaid {
-		return "已支付"
-	} else {
-		return "未知"
-	}
-}
-
 func GetPayMethodText(payMethod string) string {
 	if payMethod == constvar.PayMethodWeiXin {
 		return "微信"
