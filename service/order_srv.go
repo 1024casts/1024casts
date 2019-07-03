@@ -27,6 +27,7 @@ func NewOrderService() *OrderService {
 	}
 }
 
+// 创建订单
 func (srv *OrderService) CreateOrder(userId uint64, plan *model.PlanModel) (id uint64, qrCodeUrl string, err error) {
 
 	db := model.DB.Self
@@ -77,14 +78,6 @@ func (srv *OrderService) CreateOrder(userId uint64, plan *model.PlanModel) (id u
 	if err := tx.Create(&orderItemModel).Error; err != nil {
 		tx.Rollback()
 		log.Warnf("[order] create order item err: %v", err)
-		return 0, "", err
-	}
-
-	// step4: 更新第三方平台订单号到order表里
-	if err := tx.Model(&model.OrderModel{}).Where("id = ?", orderId).
-		UpdateColumn("trade_id = ?", payResp.PayJSOrderID).Error; err != nil {
-		tx.Rollback()
-		log.Warnf("[order] update order err: %v", err)
 		return 0, "", err
 	}
 
