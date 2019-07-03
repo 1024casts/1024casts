@@ -13,8 +13,8 @@ type OrderModel struct {
 	PayAmount   float64          `json:"pay_amount" gorm:"column:pay_amount;" binding:"required"`
 	PayMethod   string           `json:"pay_method" gorm:"column:pay_method;" binding:"required"`
 	PaidAt      time.Time        `gorm:"column:paid_at" json:"paid_at"`
-	CompletedAt time.Time        `gorm:"column:completed_at" json:"completed_at"`
-	CanceledAt  time.Time        `gorm:"column:canceled_at" json:"canceled_at"`
+	CompletedAt *time.Time       `gorm:"column:completed_at" json:"completed_at"`
+	CanceledAt  *time.Time       `gorm:"column:canceled_at" json:"canceled_at"`
 	QrcodeId    int              `json:"qrcode_id" gorm:"column:qrcode_id" binding:"omitempty"`
 	TradeId     string           `json:"trade_id" gorm:"column:trade_id" binding:"omitempty"`
 	Status      string           `json:"status" gorm:"column:status" binding:"omitempty"`
