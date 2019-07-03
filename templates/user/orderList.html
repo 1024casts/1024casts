@@ -62,7 +62,7 @@
                                 <th>支付方式</th>
                                 <th>下单时间</th>
                                 <th>订单状态</th>
-                                <th>操作</th>
+{{/*                                <th>操作</th>*/}}
                             </tr>
                         </thead>
                         <tbody>
@@ -78,8 +78,16 @@
                                 <td>{{.PayAmount}}</td>
                                 <td>{{.PayMethod}}</td>
                                 <td>{{.CreatedAt}}</td>
-                                <td>{{.Status}}</td>
-                                <td>查看</td>
+                                <td>
+                                    {{if eq .Status "pending"}}
+                                    <span class="tag is-warning">待支付</span>
+                                    {{else if eq .Status "paid"}}
+                                        <span class="tag is-success">已支付</span>
+                                    {{else}}
+                                        <span class="tag is-danger">未知</span>
+                                    {{end}}
+                                </td>
+{{/*                                <td>查看</td>*/}}
                             </tr>
                             {{end}}
                         </tbody>
