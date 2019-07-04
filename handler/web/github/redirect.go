@@ -15,6 +15,7 @@ var gocial = gocialite.NewDispatcher()
 func RedirectHandler(c *gin.Context) {
 	authURL, err := gocial.New().
 		Driver("github"). // Set provider
+		Scopes([]string{"user:email"}).
 		Redirect(
 			viper.GetString("github.client_id"),     // Client ID
 			viper.GetString("github.client_secret"), // Client Secret
