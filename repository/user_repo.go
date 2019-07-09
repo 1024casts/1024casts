@@ -43,6 +43,13 @@ func (repo *UserRepo) GetUserByUsername(username string) (*model.UserModel, erro
 	return user, result.Error
 }
 
+func (repo *UserRepo) GetUserByGithubId(githubId string) (*model.UserModel, error) {
+	user := &model.UserModel{}
+	result := repo.db.Self.Where("github_id = ?", githubId).First(&user)
+
+	return user, result.Error
+}
+
 func (repo *UserRepo) GetUserByUserNames(username []string) ([]*model.UserModel, error) {
 	user := make([]*model.UserModel, 0)
 	result := repo.db.Self.Where("username in (?)", username).Find(&user)
