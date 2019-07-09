@@ -8,10 +8,8 @@ import (
 	"net/http"
 
 	"github.com/1024casts/1024casts/pkg/app"
-	"github.com/1024casts/1024casts/util"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
-	"github.com/spf13/viper"
 )
 
 func GetLogin(c *gin.Context) {
@@ -54,7 +52,7 @@ func DoLogin(c *gin.Context) {
 	}
 
 	// set cookie 24 hour
-	c.SetCookie(viper.GetString("cookie.name"), util.EncodeUid(int64(d.Id)), viper.GetInt("cookie.max_age"), "/", "http://localhost:8888", false, true)
+	srv.SetLoginCookie(c, d.Id)
 
 	app.Response(c, nil, nil)
 }
