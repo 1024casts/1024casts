@@ -4,6 +4,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/gin-gonic/gin"
+
 	"fmt"
 
 	"github.com/1024casts/1024casts/model"
@@ -177,6 +179,16 @@ func (srv *UserService) GetUserByEmail(email string) (*model.UserModel, error) {
 	return user, nil
 }
 
+func (srv *UserService) GetUserByGithubId(githubId string) (*model.UserModel, error) {
+	user, err := srv.userRepo.GetUserByGithubId(githubId)
+
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
+}
+
 func (srv *UserService) GetUserList(username string, offset, limit int) ([]*model.UserModel, uint64, error) {
 	infos := make([]*model.UserModel, 0)
 	users, count, err := srv.userRepo.GetUserList(username, offset, limit)
@@ -258,6 +270,19 @@ func (srv *UserService) UpdateUserPassword(id uint64, password string) error {
 	return nil
 }
 
+func (srv *UserService) UpdateLastLoginInfo(id uint64, ip string) error {
+	userMap := map[string]interface{}{
+		"last_login_time": time.Now(),
+		"last_login_ip":   ip,
+	}
+	err := srv.userRepo.Update(userMap, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (srv *UserService) DeleteUser(id uint64) error {
 	err := srv.userRepo.DeleteUser(id)
 
@@ -291,4 +316,9 @@ func (srv *UserService) IncrReplyCount(userId uint64) error {
 		return err
 	}
 	return nil
+}
+
+func (srv *UserService) SetLoginCookie(c *gin.Context, userId uint64) {
+	c.SetCookie(viper.GetString("cookie.name"), util.EncodeUid(int64(userId)), viper.GetInt("cookie.max_age"),
+		"/", "http://localhost:8888", false, true)
 }
