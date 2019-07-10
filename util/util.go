@@ -416,3 +416,12 @@ func GetPayMethodText(payMethod string) string {
 
 	return "--"
 }
+
+func SetLoginCookie(c *gin.Context, userId uint64) {
+	c.SetCookie(viper.GetString("cookie.name"), EncodeUid(int64(userId)), viper.GetInt("cookie.max_age"),
+		"/", viper.GetString("cookie.domain"), false, true)
+}
+
+func ClearLoginCookie(c *gin.Context) {
+	c.SetCookie(viper.GetString("cookie.name"), "", 0, "/", viper.GetString("cookie.domain"), false, true)
+}
