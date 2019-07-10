@@ -179,7 +179,7 @@ func InitWebRouter(g *gin.Engine) *gin.Engine {
 	// user profile route
 	router.GET("/users/:username", webUser.Index)                        // 个人首页
 	router.GET("/users/:username/activation/:token", webUser.ActiveUser) // 通过发送到邮箱中的链接激活
-	router.GET("/users/:username/topics", webUser.Logout)                // 发表过的主题
+	router.GET("/users/:username/topics", webUser.TopicList)             // 发表过的主题
 	router.GET("/users/:username/replies", webUser.Logout)               // 回复过的
 	router.GET("/users/:username/favorites", webUser.Logout)             // 收藏过的
 	router.GET("/users/:username/following", webUser.Following)          // 正在关注的人
