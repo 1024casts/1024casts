@@ -3,6 +3,12 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "b1KgRkWqz0RmrEBK6IJ8kOJva6w=",
+			"path": "cloud.google.com/go/compute/metadata",
+			"revision": "335e9e09b93e170ef8b409517495bb988e4f4279",
+			"revisionTime": "2019-07-02T19:49:18Z"
+		},
+		{
 			"checksumSHA1": "nJrp/CKnvpO+vzTfOeR8qmzRZ4c=",
 			"path": "github.com/PuerkitoBio/purell",
 			"revision": "975f53781597ed779763b7b65566e74c4004d8de",
@@ -25,6 +31,24 @@
 			"path": "github.com/Unknwon/com",
 			"revision": "41959bdd855fb7db467f78865d5f9044507df1cd",
 			"revisionTime": "2018-10-10T21:02:13Z"
+		},
+		{
+			"checksumSHA1": "dZP0gFp03f/Q070w1v5HX9rMYJw=",
+			"path": "github.com/danilopolani/gocialite",
+			"revision": "694de4457e57f0152209daec73ed33bc76035b4f",
+			"revisionTime": "2019-07-05T14:48:31Z"
+		},
+		{
+			"checksumSHA1": "T4DXRZVL46mOg5Ays1FkMA5GjFE=",
+			"path": "github.com/danilopolani/gocialite/drivers",
+			"revision": "694de4457e57f0152209daec73ed33bc76035b4f",
+			"revisionTime": "2019-07-05T14:48:31Z"
+		},
+		{
+			"checksumSHA1": "MP9G6aY88/HFwA950vt+GDrreoA=",
+			"path": "github.com/danilopolani/gocialite/structs",
+			"revision": "694de4457e57f0152209daec73ed33bc76035b4f",
+			"revisionTime": "2019-07-05T14:48:31Z"
 		},
 		{
 			"checksumSHA1": "4772zXrOaPVeDeSgdiV7Vp4KEjk=",
@@ -351,6 +375,96 @@
 			"revisionTime": "2018-06-20T02:27:46Z"
 		},
 		{
+			"checksumSHA1": "lMn98fbPrNtUIp4kG+XbYSqMO9M=",
+			"path": "github.com/qingwg/payjs",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "BEmcyevnKNLf5QLd8jrHA2ZmiuU=",
+			"path": "github.com/qingwg/payjs/bank",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "AdT0liF1TodLWpunrDYSzf3+2Ok=",
+			"path": "github.com/qingwg/payjs/cashier",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "d5ZQwuLQzHHsEpYNQ1uWCFGMe24=",
+			"path": "github.com/qingwg/payjs/context",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "DHGAXhKA+/AXHwLDTwUF5o+cIbk=",
+			"path": "github.com/qingwg/payjs/facepay",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "RRfDgdpXqkF+pZ+XBb+C72DlbeI=",
+			"path": "github.com/qingwg/payjs/ip",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "rYAXfYopRuaLfDZ2KGJHvCj0tC4=",
+			"path": "github.com/qingwg/payjs/js",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "hkiJcFldOeqI41L0B50YbvEQ/B4=",
+			"path": "github.com/qingwg/payjs/mch",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "JiYiSDVDU9dA9Qys5/GZwXA9izk=",
+			"path": "github.com/qingwg/payjs/micropay",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "A8lzm64YY+RiwWvYehfMaNNBiJM=",
+			"path": "github.com/qingwg/payjs/miniapp",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "13y73b9z9kEP1dA2cW8PyG1dERM=",
+			"path": "github.com/qingwg/payjs/native",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "bJl8KVidW5h0qNn0ASZF/1gQS+c=",
+			"path": "github.com/qingwg/payjs/notify",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "xKuEG/jnGqd/kCVJYNxZbUBf8i0=",
+			"path": "github.com/qingwg/payjs/order",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "USkED8Nr0pRblV86/IHoE3pINgI=",
+			"path": "github.com/qingwg/payjs/user",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
+			"checksumSHA1": "7b3BLZlEotn45DeCl/Ytbc+VRVg=",
+			"path": "github.com/qingwg/payjs/util",
+			"revision": "f7a64acdcf38b01b891a8be49c3fc1d84844c2bf",
+			"revisionTime": "2019-04-20T05:58:30Z"
+		},
+		{
 			"checksumSHA1": "S8HOwhDrcgqDyywBZHDVf0/8j0Q=",
 			"path": "github.com/qiniu/api.v7/auth/qbox",
 			"revision": "10e8409dc200604e26653f2bbd118f4d3d66b1ab",
@@ -549,6 +663,12 @@
 			"revisionTime": "2018-06-24T16:29:30Z"
 		},
 		{
+			"checksumSHA1": "aFpql3G+Nw8zkzfqLWQJNZC8pu0=",
+			"path": "golang.org/x/net/context/ctxhttp",
+			"revision": "eb5bcb51f2a31c7d5141d810b70815c05d9c9146",
+			"revisionTime": "2019-04-03T01:06:53Z"
+		},
+		{
 			"checksumSHA1": "Vj7GeUWk9nB69/MbXIbzm7fmKn4=",
 			"path": "golang.org/x/net/html",
 			"revision": "eb5bcb51f2a31c7d5141d810b70815c05d9c9146",
@@ -577,6 +697,78 @@
 			"path": "golang.org/x/net/webdav/internal/xml",
 			"revision": "32a936f46389aa10549d60bd7833e54b01685d09",
 			"revisionTime": "2018-06-24T16:29:30Z"
+		},
+		{
+			"checksumSHA1": "uRlaEkyMCxyjj57KBa81GEfvCwg=",
+			"path": "golang.org/x/oauth2",
+			"revision": "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33",
+			"revisionTime": "2019-05-07T23:52:07Z"
+		},
+		{
+			"checksumSHA1": "CySgWMQMbJCrV5QSafdVgPJlUZ4=",
+			"path": "golang.org/x/oauth2/amazon",
+			"revision": "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33",
+			"revisionTime": "2019-05-07T23:52:07Z"
+		},
+		{
+			"checksumSHA1": "fPBsIYI/Lmc9tftrQ/9h4LXUmLk=",
+			"path": "golang.org/x/oauth2/bitbucket",
+			"revision": "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33",
+			"revisionTime": "2019-05-07T23:52:07Z"
+		},
+		{
+			"checksumSHA1": "LxHKhaFy+BXtkUlQUjMEEIHNdzM=",
+			"path": "golang.org/x/oauth2/facebook",
+			"revision": "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33",
+			"revisionTime": "2019-05-07T23:52:07Z"
+		},
+		{
+			"checksumSHA1": "+XdQRp6JewOKrEpf6le3+HuH1Mg=",
+			"path": "golang.org/x/oauth2/foursquare",
+			"revision": "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33",
+			"revisionTime": "2019-05-07T23:52:07Z"
+		},
+		{
+			"checksumSHA1": "Yokz/Wl4zeuOZG2ev8LuaLtMotE=",
+			"path": "golang.org/x/oauth2/github",
+			"revision": "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33",
+			"revisionTime": "2019-05-07T23:52:07Z"
+		},
+		{
+			"checksumSHA1": "w5SmJwdVFlGE1KO4/AQjY+jvdsI=",
+			"path": "golang.org/x/oauth2/google",
+			"revision": "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33",
+			"revisionTime": "2019-05-07T23:52:07Z"
+		},
+		{
+			"checksumSHA1": "rnUL+5Yzlt+Ky2dlB61VqfhBOb8=",
+			"path": "golang.org/x/oauth2/internal",
+			"revision": "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33",
+			"revisionTime": "2019-05-07T23:52:07Z"
+		},
+		{
+			"checksumSHA1": "huVltYnXdRFDJLgp/ZP9IALzG7g=",
+			"path": "golang.org/x/oauth2/jws",
+			"revision": "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33",
+			"revisionTime": "2019-05-07T23:52:07Z"
+		},
+		{
+			"checksumSHA1": "HGS6ig1GfcE2CBHBsi965ZVn9Xw=",
+			"path": "golang.org/x/oauth2/jwt",
+			"revision": "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33",
+			"revisionTime": "2019-05-07T23:52:07Z"
+		},
+		{
+			"checksumSHA1": "Vy3IMVZSNHgHIo/zcBYv30jGKR8=",
+			"path": "golang.org/x/oauth2/linkedin",
+			"revision": "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33",
+			"revisionTime": "2019-05-07T23:52:07Z"
+		},
+		{
+			"checksumSHA1": "WNC31v2+qkesPJGHCC9Fll6lL2I=",
+			"path": "golang.org/x/oauth2/slack",
+			"revision": "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33",
+			"revisionTime": "2019-05-07T23:52:07Z"
 		},
 		{
 			"checksumSHA1": "4NsJa0C++kR8uYyMHdTwpyn98wI=",
@@ -643,6 +835,12 @@
 			"path": "gopkg.in/gomail.v2",
 			"revision": "81ebce5c23dfd25c6c67194b37d3dd3f338c98b1",
 			"revisionTime": "2016-04-11T21:29:32Z"
+		},
+		{
+			"checksumSHA1": "6Rfu8Y/96ALpk4VIC1dK3uo+WYc=",
+			"path": "gopkg.in/oleiade/reflections.v1",
+			"revision": "2b6ec3da648e3e834dc41bad8d9ed7f2dc6a9496",
+			"revisionTime": "2016-08-17T06:38:38Z"
 		},
 		{
 			"checksumSHA1": "tI/ToPDECF8HQlpJP/omBQF0igw=",
