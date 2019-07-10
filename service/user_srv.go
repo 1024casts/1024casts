@@ -320,5 +320,9 @@ func (srv *UserService) IncrReplyCount(userId uint64) error {
 
 func (srv *UserService) SetLoginCookie(c *gin.Context, userId uint64) {
 	c.SetCookie(viper.GetString("cookie.name"), util.EncodeUid(int64(userId)), viper.GetInt("cookie.max_age"),
-		"/", "http://localhost:8888", false, true)
+		"/", viper.GetString("domain"), false, true)
+}
+
+func (srv *UserService) ClearLoginCookie(c *gin.Context, userId uint64) {
+	c.SetCookie(viper.GetString("cookie.name"), "", 0, "/", viper.GetString("domain"), false, true)
 }
