@@ -4,8 +4,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gin-gonic/gin"
-
 	"fmt"
 
 	"github.com/1024casts/1024casts/model"
@@ -316,13 +314,4 @@ func (srv *UserService) IncrReplyCount(userId uint64) error {
 		return err
 	}
 	return nil
-}
-
-func (srv *UserService) SetLoginCookie(c *gin.Context, userId uint64) {
-	c.SetCookie(viper.GetString("cookie.name"), util.EncodeUid(int64(userId)), viper.GetInt("cookie.max_age"),
-		"/", viper.GetString("domain"), false, true)
-}
-
-func (srv *UserService) ClearLoginCookie(c *gin.Context, userId uint64) {
-	c.SetCookie(viper.GetString("cookie.name"), "", 0, "/", viper.GetString("domain"), false, true)
 }
