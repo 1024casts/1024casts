@@ -10,7 +10,6 @@ import (
 	"github.com/1024casts/1024casts/service"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
-	"github.com/spf13/viper"
 )
 
 func ShowResetForm(c *gin.Context) {
@@ -87,7 +86,7 @@ func ResetPassword(c *gin.Context) {
 	}
 
 	// 重新登录
-	c.SetCookie(viper.GetString("cookie.name"), "", 0, "/", "localhost:8888", false, true)
+	srv.ClearLoginCookie(c, user.Id)
 
 	app.Redirect(c, redirectPath, "密码重置成功")
 	return

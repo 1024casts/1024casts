@@ -3,8 +3,10 @@ package user
 import (
 	"net/http"
 
+	"github.com/1024casts/1024casts/service"
+	"github.com/1024casts/1024casts/util"
+
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 )
 
 // @Summary Login generates the authentication token
@@ -15,7 +17,9 @@ import (
 // @Router /login [post]
 func Logout(c *gin.Context) {
 
-	c.SetCookie(viper.GetString("cookie.name"), "", 0, "/", "localhost:8888", false, true)
+	srv := service.NewUserService()
+	userId := util.GetUserId(c)
+	srv.ClearLoginCookie(c, userId)
 
 	c.Redirect(http.StatusMovedPermanently, "/")
 	c.Abort()

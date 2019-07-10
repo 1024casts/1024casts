@@ -10,7 +10,6 @@ import (
 	"github.com/1024casts/1024casts/util"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
-	"github.com/spf13/viper"
 )
 
 func Password(c *gin.Context) {
@@ -89,7 +88,7 @@ func DoPassword(c *gin.Context) {
 	}
 
 	// 重新登录
-	c.SetCookie(viper.GetString("cookie.name"), "", 0, "/", "localhost:8888", false, true)
+	srv.ClearLoginCookie(c, userId)
 
 	app.Response(c, errno.OK, nil)
 	return
