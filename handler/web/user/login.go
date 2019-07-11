@@ -1,15 +1,16 @@
 package user
 
 import (
+	. "github.com/1024casts/1024casts/handler"
 	"github.com/1024casts/1024casts/pkg/auth"
 	"github.com/1024casts/1024casts/pkg/errno"
 	"github.com/1024casts/1024casts/service"
+	"github.com/lexkong/log"
 
 	"net/http"
 
 	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/gin-gonic/gin"
-	"github.com/lexkong/log"
 )
 
 func GetLogin(c *gin.Context) {
@@ -34,25 +35,23 @@ func DoLogin(c *gin.Context) {
 	}
 
 	srv := service.NewUserService()
-	log.Infof("login data: %+v", u)
 	// Get the user information by the login username.
 	d, err := srv.GetUserByEmail(u.Email)
 	if err != nil {
+		log.Warnf("[login] get user by email err: %v", err)
 		app.Response(c, errno.ErrUserNotFound, nil)
 		return
 	}
 
-	hashed, err := auth.Encrypt(u.Password)
-	log.Infof("password hashed: %s", hashed)
-
 	// Compare the login password with the user password.
 	if err := auth.Compare(d.Password, u.Password); err != nil {
+		log.Warnf("[login] compare user password err: %v", err)
 		app.Response(c, errno.ErrPasswordIncorrect, nil)
 		return
 	}
 
-	// set cookie 24 hour
-	srv.SetLoginCookie(c, d.Id)
+	// set cookie 30 day
+	SetLoginCookie(c, d.Id)
 
 	app.Response(c, nil, nil)
 }
