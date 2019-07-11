@@ -13,6 +13,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/1024casts/1024casts/handler"
+
 	"github.com/1024casts/1024casts/pkg/notification"
 
 	"github.com/1024casts/1024casts/pkg/constvar"
@@ -68,7 +70,7 @@ func DecodeUid(encodedUid string) (uid int64) {
 	d, err := h.DecodeInt64WithError(encodedUid)
 
 	if err != nil {
-		log.Warn("decode uid err")
+		log.Warnf("decode uid err, %v", err)
 	}
 
 	if len(d) > 0 {
@@ -115,13 +117,13 @@ func DecodeTopicId(encodedTopicId string) (topicId int64) {
 }
 
 func GetUserId(ctx *gin.Context) uint64 {
-	cookie, err := ctx.Cookie(viper.GetString("cookie.name"))
-	if err != nil {
+	session := handler.GetCookieSession(ctx)
+	userId, ok := session.Values["user_id"]
+	if !ok {
 		return 0
 	}
 
-	userId := DecodeUid(cookie)
-	return uint64(userId)
+	return userId.(uint64)
 }
 
 // 获取七牛资源的私有链接
@@ -417,11 +419,6 @@ func GetPayMethodText(payMethod string) string {
 	return "--"
 }
 
-func SetLoginCookie(c *gin.Context, userId uint64) {
-	c.SetCookie(viper.GetString("cookie.name"), EncodeUid(int64(userId)), viper.GetInt("cookie.max_age"),
-		"/", viper.GetString("cookie.domain"), false, true)
-}
-
 func ClearLoginCookie(c *gin.Context) {
-	c.SetCookie(viper.GetString("cookie.name"), "", 0, "/", viper.GetString("cookie.domain"), false, true)
+	c.SetCookie(viper.GetString("cookie.name"), "", -1, "/", viper.GetString("cookie.domain"), false, true)
 }
