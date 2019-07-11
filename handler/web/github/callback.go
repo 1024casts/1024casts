@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/1024casts/1024casts/handler"
+
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/service"
 	"github.com/gin-gonic/gin"
@@ -68,7 +70,7 @@ func CallbackHandler(c *gin.Context) {
 	}
 
 	// 执行登录操作
-	userSrv.SetLoginCookie(c, userId)
+	handler.SetLoginCookie(c, userId)
 
 	c.Redirect(http.StatusFound, "/")
 	return
