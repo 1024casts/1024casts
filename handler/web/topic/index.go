@@ -3,6 +3,7 @@ package topic
 import (
 	"html/template"
 	"net/http"
+	"time"
 
 	"github.com/1024casts/1024casts/pkg/constvar"
 
@@ -20,7 +21,7 @@ func Index(c *gin.Context) {
 	userId := util.GetUserId(c)
 	srv := service.NewTopicService()
 
-	page, err := strconv.Atoi(c.Query("page"))
+	page, err := strconv.Atoi(c.DefaultQuery("page", "1"))
 	if err != nil {
 		log.Error("get page error", err)
 	}
@@ -36,12 +37,21 @@ func Index(c *gin.Context) {
 	user, _ := userSrv.GetUserById(userId)
 
 	pagination := pagination.NewPagination(c.Request, count, limit)
+
+	todayTopicMap := make(map[string]interface{})
+	todayTopicMap["created_at >="] = util.TimeToString(time.Now())
+	todayTopics, count, err := srv.GetTopicList(todayTopicMap, offset, limit)
+	if err != nil {
+		log.Warnf("[topic] get today topic list err: %v", err)
+	}
+
 	c.HTML(http.StatusOK, "topic/index", gin.H{
-		"title":   "社区首页",
-		"user_id": userId,
-		"user":    user,
-		"ctx":     c,
-		"topics":  topics,
-		"pages":   template.HTML(pagination.Pages()),
+		"title":       "社区首页",
+		"user_id":     userId,
+		"user":        user,
+		"ctx":         c,
+		"topics":      topics,
+		"pages":       template.HTML(pagination.Pages()),
+		"todayTopics": todayTopics,
 	})
 }
