@@ -38,8 +38,7 @@ _testmain.go
 backend
 
 # vendor
-# vendor/*
-!vendor/vendor.json
+vendor/*
 
 conf/config.yaml
 public/uploads
