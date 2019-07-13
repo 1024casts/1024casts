@@ -4,7 +4,7 @@ web_addr: :8888                  # web 端口
 name: 1024casts         # API Server的名字
 url: http://127.0.0.1:8080      # pingServer函数请求的API服务器的ip:port
 max_ping_count: 10              # pingServer函数try的次数
-jwt_secret: Rtg9BPKNEf2mB4mgvKONGPZvQSaJWNLijxR42qRgq0iBv5
+jwt_secret: RONGPZvQSaJWNLijxR42qRgq0iBv5
 jwt_duration: 2 # token 有效时长，单位小时
 website:
   name: 1024课堂
@@ -43,12 +43,12 @@ docker_db:
   username: root
   password: 123456
 qiniu:
-  access_key: qvuNOgNkZMAJXYEPSHBT-6JEigk2AechM_fm57zS
-  secret_key: WYxjOwkXVaYJCMgeeX-h1765ArqnvcUKL-zH_9cm
+  access_key: access_key
+  secret_key: secret_key
   bucket: test
-  cdn_url: http://statics.phpcasts.org
+  cdn_url: http://statics.test.org
   public_bucket: public-phpcasts
-  public_cdn_url: http://s1.phpcasts.org
+  public_cdn_url: http://s1.test.org
 upload:
   dst: "/Users/qloog/Codes/Go/src/github.com/1024casts/1024casts/public/"  # 本地上传目录
 static: "/Users/qloog/Codes/Go/src/github.com/1024casts/1024casts/public/static"  # static目录
@@ -60,17 +60,17 @@ redis:
   db: 0 # use default DB
   pool_size: 60 #
 mail:
-  host: smtp.mxhichina.com
+  host: smtp.test.com
   port: 25
-  username: no-reply@phpcasts.org
-  password: WzTjNtn6WcuLfO591
+  username: no-reply@1024test.test
+  password: 123456
 encode:
-  uid_halt: 1024casts_uid
-  topic_id_halt: 1024casts_tid
+  uid_halt: uid_slat
+  topic_id_halt: tid_slat
 pay_js:
-  mch_id: 1541760081
-  secret_key: uJQztzlOyX3lqIXZ
+  mch_id: 123
+  secret_key: 456
 github:
-  client_id: f63091d8153390a44bd4
-  client_secret: 082532d1d946b3cf2a96936bd60d492bebc5a9d7
-  callback_url: http://1024casts.dev/login/oauth/github/callback
+  client_id: 123
+  client_secret: 456
+  callback_url: http://1024casts.test/login/oauth/github/callback
