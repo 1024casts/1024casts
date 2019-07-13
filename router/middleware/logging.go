@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
+	"regexp"
 	"time"
 
 	"github.com/1024casts/1024casts/pkg/errno"
@@ -30,10 +31,10 @@ func Logging() gin.HandlerFunc {
 		start := time.Now().UTC()
 		path := c.Request.URL.Path
 
-		//reg := regexp.MustCompile("(/v1/user|/login)")
-		//if !reg.MatchString(path) {
-		//	return
-		//}
+		reg := regexp.MustCompile("(/v1/login|/login)")
+		if !reg.MatchString(path) {
+			return
+		}
 
 		// Skip for the health check requests.
 		if path == "/sd/health" || path == "/sd/ram" || path == "/sd/cpu" || path == "/sd/disk" {
