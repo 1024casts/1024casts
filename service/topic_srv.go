@@ -146,10 +146,10 @@ func (srv *TopicService) GetTopTopicList(limit int) ([]*model.TopicInfo, error) 
 	return infos, nil
 }
 
-func (srv *TopicService) GetTopicList(TopicMap map[string]interface{}, offset, limit int) ([]*model.TopicInfo, int, error) {
+func (srv *TopicService) GetTopicList(topicMap map[string]interface{}, offset, limit int) ([]*model.TopicInfo, int, error) {
 	infos := make([]*model.TopicInfo, 0)
 
-	Topics, count, err := srv.repo.GetTopicList(TopicMap, offset, limit)
+	Topics, count, err := srv.repo.GetTopicList(topicMap, offset, limit)
 	if err != nil {
 		return nil, count, err
 	}

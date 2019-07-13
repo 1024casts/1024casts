@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
+	log "qiniupkg.com/x/log.v7"
 
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/pkg/constvar"
@@ -55,23 +56,31 @@ func (repo *TopicRepo) GetTopicById(id uint64) (*model.TopicModel, error) {
 	return &Topic, result.Error
 }
 
-func (repo *TopicRepo) GetTopicList(TopicMap map[string]interface{}, offset, limit int) ([]*model.TopicModel, int, error) {
+func (repo *TopicRepo) GetTopicList(topicMap map[string]interface{}, offset, limit int) ([]*model.TopicModel, int, error) {
 	if limit == 0 {
 		limit = constvar.DefaultLimit
 	}
 
-	Topics := make([]*model.TopicModel, 0)
+	topics := make([]*model.TopicModel, 0)
 	var count int
 
-	if err := repo.Db.Self.Model(&model.TopicModel{}).Where(TopicMap).Count(&count).Error; err != nil {
-		return Topics, count, err
+	cond, vals, err := model.WhereBuild(topicMap)
+	if err != nil {
+		log.Warnf("build where err: %+v", err)
+		return topics, count, err
 	}
 
-	if err := repo.Db.Self.Where(TopicMap).Offset(offset).Limit(limit).Order("id desc").Find(&Topics).Error; err != nil {
-		return Topics, count, err
+	log.Infof("where cond:%+v, vals: %+v", cond, vals)
+
+	if err := repo.Db.Self.Model(&model.TopicModel{}).Where(cond, vals...).Count(&count).Error; err != nil {
+		return topics, count, err
 	}
 
-	return Topics, count, nil
+	if err := repo.Db.Self.Model(&model.TopicModel{}).Where(cond, vals...).Offset(offset).Limit(limit).Order("id desc").Find(&topics).Error; err != nil {
+		return topics, count, err
+	}
+
+	return topics, count, nil
 }
 
 func (repo *TopicRepo) GetTopTopicList(limit int) ([]*model.TopicModel, error) {
