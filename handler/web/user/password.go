@@ -88,7 +88,7 @@ func DoPassword(c *gin.Context) {
 	}
 
 	// 重新登录
-	srv.ClearLoginCookie(c, userId)
+	util.ClearLoginCookie(c)
 
 	app.Response(c, errno.OK, nil)
 	return

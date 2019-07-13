@@ -3,6 +3,8 @@ package user
 import (
 	"net/http"
 
+	"github.com/1024casts/1024casts/util"
+
 	"fmt"
 
 	"github.com/1024casts/1024casts/pkg/app"
@@ -86,7 +88,7 @@ func ResetPassword(c *gin.Context) {
 	}
 
 	// 重新登录
-	srv.ClearLoginCookie(c, user.Id)
+	util.ClearLoginCookie(c)
 
 	app.Redirect(c, redirectPath, "密码重置成功")
 	return
