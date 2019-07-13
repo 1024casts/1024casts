@@ -120,6 +120,7 @@ func GetUserId(ctx *gin.Context) uint64 {
 	session := handler.GetCookieSession(ctx)
 	userId, ok := session.Values["user_id"]
 	if !ok {
+		log.Warnf("[util] get user_id from cookie err")
 		return 0
 	}
 
@@ -292,8 +293,6 @@ func FormatTime(needTime time.Time) string {
 	}
 
 	var tempStr string
-
-	log.Infof("need time: %+v", needTime.Unix())
 
 	// 时间差，单位：秒
 	switch t := curTime - needTimeTs; {
