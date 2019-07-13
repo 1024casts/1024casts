@@ -18,7 +18,7 @@ func OrderList(c *gin.Context) {
 	srv := service.NewUserService()
 	user, _ := srv.GetUserById(userId)
 
-	page, err := strconv.Atoi(c.Query("page"))
+	page, err := strconv.Atoi(c.DefaultQuery("page", "1"))
 	if err != nil {
 		log.Error("get page error", err)
 	}
