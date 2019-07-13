@@ -115,14 +115,28 @@
                 </div>
             </div>
             <div class="column is-3">
-                <nav class="panel">
-                    <p class="panel-heading">
-                        热门帖子
-                    </p>
-                    {{range .topTopics}}
-                    <a class="panel-block" style="font-size: 0.9rem;" href="/topics/{{.Id}}">{{.Title}}</a>
-                    {{end}}
-                </nav>
+{{/*                <nav class="panel">*/}}
+{{/*                    <p class="panel-heading">*/}}
+{{/*                        热门帖子*/}}
+{{/*                    </p>*/}}
+{{/*                    {{range .topTopics}}*/}}
+{{/*                    <a class="panel-block" style="font-size: 0.9rem;" href="/topics/{{.Id}}">{{.Title}}</a>*/}}
+{{/*                    {{end}}*/}}
+{{/*                </nav>*/}}
+
+                <article class="media box">
+                    <div class="media-content">
+                        <div class="content">
+                            <h2 class="title is-6">热门帖子</h2>
+                            <hr>
+                            {{range .topTopics}}
+                            <p>
+                                <a style="font-size: 0.9rem;" href="/topics/{{.Id}}">{{.Title}}</a> - <span class="has-text-grey">{{.ViewCount}}阅读</span>
+                            </p>
+                            {{end}}
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
     </div>

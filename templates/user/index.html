@@ -12,79 +12,7 @@
 <div class="container">
     <div class="columns" style="margin-top: 0.5rem;">
         <div class="column is-3" id="sidebar">
-            <div class="card profile">
-{{/*                <div class="card-image">*/}}
-{{/*                    <figure class="image is-128x128">*/}}
-{{/*                        <img src="{{.user.Avatar}}" alt="{{.user.Username}}">*/}}
-{{/*                    </figure>*/}}
-{{/*                </div>*/}}
-                <div class="card-content">
-                    <div class="media">
-                        <div class="media-left">
-                            <figure class="image is-64x64">
-                                <img src="{{.user.Avatar}}" alt="{{.user.Username}}">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-{{/*                            <p class="title is-4">{{.user.Username}} ({{if ne .user.RealName ""}}{{.user.RealName}}{{else}}{{.user.Username}}{{end}})</p>*/}}
-                            <p class="title is-4">{{.user.Username}}</p>
-                            <p class="subtitle is-6"></p>
-                        </div>
-                    </div>
-
-                    <div class="content">
-                        第 {{.user.Id}} 位会员
-                        <br>
-                        注册于 <span title="注册日期">{{.user.CreatedAt}}</span>
-                        <ul>
-                            <li>
-                                <span title="所在地">
-                                    <i class="fas fa-map-marker-alt"></i> {{.user.City}}
-                                </span>
-                            </li>
-                            {{if .user.GithubId}}
-                                <li>
-                                    <i class="fab fa-github"></i>
-                                    <a target="_blank" rel="nofollow" href="https://github.com/{{.user.GithubId}}">
-                                        https://github.com/{{.user.GithubId}}
-                                    </a>
-                                </li>
-                            {{end}}
-                            {{if .user.PersonalWebsite}}
-                                <li>
-                                    <i class="fa fa-globe"></i>
-                                    <a target="_blank" rel="nofollow" href="{{.user.PersonalWebsite}}">
-                                        {{.user.PersonalWebsite}}
-                                    </a>
-                                </li>
-                            {{end}}
-                            {{if .user.Email}}
-                                <li>
-                                    <i class="far fa-envelope"></i>
-                                    <a href="mailto: {{.user.Email}}">
-                                        {{.user.Email}}
-                                    </a>
-                                </li>
-                            {{end}}
-                        </ul>
-                    </div>
-                </div>
-
-{{/*                <div class="follow-info row hide-ios">*/}}
-{{/*                    <div class="col-sm-4 followers" data-login="gazeldx">*/}}
-{{/*                        <a class="counter" href="/users/{{.user.Username}}/followers">{{.user.FollowerCount}}</a>*/}}
-{{/*                        <a class="text" href="/users/{{.user.Username}}/followers">关注者</a>*/}}
-{{/*                    </div>*/}}
-{{/*                    <div class="col-sm-4 following">*/}}
-{{/*                        <a class="counter" href="/users/{{.user.Username}}/following">4</a>*/}}
-{{/*                        <a class="text" href="/users/{{.user.Username}}/following">正在关注</a>*/}}
-{{/*                    </div>*/}}
-{{/*                    <div class="col-sm-4 stars">*/}}
-{{/*                        <a class="counter" href="/users/{{.user_name}}/favorites">108</a>*/}}
-{{/*                        <a class="text" href="/users/{{.user_name}}/favorites">收藏</a>*/}}
-{{/*                    </div>*/}}
-{{/*                </div>*/}}
-            </div>
+            {{include "user/profile_sidebar"}}
         </div>
 
         <div class="column is-9">
@@ -92,10 +20,11 @@
                 <ul>
                     <li class="is-active"><a  href="/users/{{.user.Username}}/topics">话题</a></li>
                     <li><a href="/users/{{.user.Username}}/replies">回帖</a></li>
-                    <li><a href="/users/{{.user.Username}}/favorites/video">收藏的视频</a></li>
-                    <li><a href="/users/{{.user.Username}}/favorites/topics">收藏的话题</a></li>
-                    <li><a href="/users/{{.user.Username}}/following">正在关注</a></li>
-                    <li><a href="/users/{{.user.Username}}/followers">关注者</a></li>
+{{/*                    <li><a href="/users/{{.user.Username}}/replies">赞过的话题</a></li>*/}}
+{{/*                    <li><a href="/users/{{.user.Username}}/favorites/video">收藏的视频</a></li>*/}}
+{{/*                    <li><a href="/users/{{.user.Username}}/favorites/topics">收藏的话题</a></li>*/}}
+{{/*                    <li><a href="/users/{{.user.Username}}/following">正在关注</a></li>*/}}
+{{/*                    <li><a href="/users/{{.user.Username}}/followers">关注者</a></li>*/}}
                 </ul>
             </div>
 

@@ -22,17 +22,13 @@
 
 {{ define "content"}}
 
-    <section class="hero is-success is-fullheight">
+    <section class="hero is-success">
         <div class="hero-body">
             <div class="container">
                 <div class="column is-4 is-offset-4">
                     <h3 class="title has-text-grey has-text-centered">注册</h3>
-                    <p class="subtitle has-text-grey">.</p>
                     <div class="box">
                         {{include "partials/error"}}
-                        <figure class="avatar has-text-centered">
-                            <img src="/uploads/avatar/avataaars.png" width="128" height="128">
-                        </figure>
                         <form id="app" class="form-signin">
                             <div class="field">
                                 <div class="control has-icons-left has-icons-right">
@@ -63,7 +59,7 @@
                                 </div>
                                 <p class="help is-danger" id="confirm_password-tip" style="display: none"></p>
                             </div>
-                            <button class="button is-block is-info is-large is-fullwidth loginBtn" @click="doRegister">注册</button>
+                            <button class="button is-block is-link is-large is-fullwidth loginBtn" @click="doRegister">注册</button>
                         </form>
                     </div>
                     <p class="has-text-grey has-text-centered">

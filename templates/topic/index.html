@@ -9,28 +9,18 @@
         .container .columns {
             margin: 1rem 0;
         }
-        article.post {
-            margin: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #E6EAEE;
-        }
-        .media-content strong a {
+        #topic-list .media-content strong a {
             color: currentColor;
         }
-        .media-content p {
+        #topic-list .media-content p {
             font-size: 14px;
             line-height: 2.3;
-            font-weight: 700;
+            /*font-weight: 700;*/
             color: #8F99A3;
         }
-        .media + .media {
+        #topic-list .media + .media {
             margin-top: 0.3rem;
             padding-top: 0.3rem;
-        }
-
-        .panel-heading {
-            font-size: 1em;
-            padding: 0.3em 0.75em;
         }
     </style>
 {{ end }}
@@ -39,7 +29,7 @@
     <section class="container">
         <div class="columns">
             <div class="column is-9">
-                <div class="box content">
+                <div class="box content" id="topic-list">
                     {{ range $index, $value := .topics}}
                     <article class="media">
                             <div class="media-left">
@@ -78,31 +68,23 @@
             <div class="column is-3">
                 {{if gt .user_id 0}}
                     <div class="box">
-                        <a class="button is-primary is-block is-alt is-medium" href="/topic/new">新建话题</a>
+                        <a class="button is-link is-block is-alt is-medium" href="/topic/new">新建话题</a>
                     </div>
                 {{end}}
 
-                <nav class="panel">
-                    <p class="panel-heading">
-                        <strong>今日阅读排行</strong>
-                    </p>
-                    <a class="panel-block" style="font-size: 0.9rem;">哇哈哈</a>
-                </nav>
-
-
-{{/*                <nav class="panel">*/}}
-{{/*                    <p class="panel-heading">*/}}
-{{/*                        <strong>一周阅读排行</strong>*/}}
-{{/*                    </p>*/}}
-{{/*                    <a class="panel-block" style="font-size: 0.9rem;">哇哈哈</a>*/}}
-{{/*                </nav>*/}}
-
-{{/*                <nav class="panel">*/}}
-{{/*                    <p class="panel-heading">*/}}
-{{/*                        <strong>统计信息</strong>*/}}
-{{/*                    </p>*/}}
-{{/*                    <a class="panel-block" style="font-size: 0.9rem;">哇哈哈</a>*/}}
-{{/*                </nav>*/}}
+                <article class="media box">
+                    <div class="media-content">
+                        <div class="content">
+                            <h2 class="title is-6">今日阅读排行</h2>
+                            <hr>
+                            {{range .todayTopics}}
+                                <p>
+                                    <a style="font-size: 0.9rem;" href="/topics/{{.Id}}">{{.Title}}</a> - <span class="has-text-grey">{{.ViewCount}}阅读</span>
+                                </p>
+                            {{end}}
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
 
