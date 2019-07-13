@@ -76,6 +76,10 @@ func main() {
 		middleware.RequestId(),
 	)
 
+	webG := gin.Default()
+	// load web routes
+	router.LoadWebRouter(webG)
+
 	// Ping the server to make sure the router is working.
 	go func() {
 		if err := pingServer(); err != nil {
@@ -94,11 +98,13 @@ func main() {
 		}()
 	}
 
-	// init web routes
-	go func(engine *gin.Engine) {
-		router.InitWebRouter(engine)
-	}(g)
+	// run web
+	go func() {
+		log.Infof("Start to listening the incoming requests on http address for web: %s", viper.GetString("web_addr"))
+		log.Info(http.ListenAndServe(viper.GetString("web_addr"), webG).Error())
+	}()
 
+	// run api
 	log.Infof("Start to listening the incoming requests on http address: %s", viper.GetString("addr"))
 	log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error())
 
