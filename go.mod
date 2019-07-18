@@ -70,4 +70,6 @@ require (
 	qiniupkg.com/x v7.0.8+incompatible
 )
 
-replace gopkg.in/russross/blackfriday.v2 v2.0.1 => github.com/russross/blackfriday/v2 v2.0.1
+replace (
+    gopkg.in/russross/blackfriday.v2 v2.0.1 => github.com/russross/blackfriday/v2 v2.0.1
+)
