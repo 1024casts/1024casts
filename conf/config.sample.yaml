@@ -36,7 +36,7 @@ db:
   name: phpcasts
   addr: 127.0.0.1:3306
   username: root
-  password: 123456
+  password: "123456"              # 必须用引号引起来，不然如果是字符串时解析会报错
 docker_db:
   name: db_apiserver
   addr: 127.0.0.1:3306
