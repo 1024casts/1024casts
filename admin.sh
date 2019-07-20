@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SERVER="backend"
+SERVER="1024casts"
 BASE_DIR=$PWD
 INTERVAL=2
 
