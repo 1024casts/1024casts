@@ -15,17 +15,20 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
-type UserService struct {
+// 直接初始化，可以避免在使用时再实例化
+var UserService = NewUserService()
+
+type userService struct {
 	userRepo *repository.UserRepo
 }
 
-func NewUserService() *UserService {
-	return &UserService{
+func NewUserService() *userService {
+	return &userService{
 		repository.NewUserRepo(),
 	}
 }
 
-func (srv *UserService) CreateUser(user model.UserModel) (id uint64, err error) {
+func (srv *userService) CreateUser(user model.UserModel) (id uint64, err error) {
 	id, err = srv.userRepo.CreateUser(user)
 
 	if err != nil {
@@ -35,7 +38,7 @@ func (srv *UserService) CreateUser(user model.UserModel) (id uint64, err error) 
 	return id, nil
 }
 
-func (srv *UserService) RegisterUser(user model.UserModel) (id uint64, err error) {
+func (srv *userService) RegisterUser(user model.UserModel) (id uint64, err error) {
 	token, err := util.GenShortId()
 	if err != nil {
 		log.Warnf("[user] gen user activation token err: %v", err)
@@ -104,7 +107,7 @@ func sendActiveMail(username, toMail, activeCode string) {
 	}
 }
 
-func (srv *UserService) GetUserById(id uint64) (*model.UserInfo, error) {
+func (srv *userService) GetUserById(id uint64) (*model.UserInfo, error) {
 	userModel, err := srv.userRepo.GetUserById(id)
 	user := srv.trans(userModel)
 
@@ -115,7 +118,7 @@ func (srv *UserService) GetUserById(id uint64) (*model.UserInfo, error) {
 	return user, nil
 }
 
-func (srv *UserService) trans(user *model.UserModel) *model.UserInfo {
+func (srv *userService) trans(user *model.UserModel) *model.UserInfo {
 	return &model.UserInfo{
 		Id:                user.Id,
 		Username:          user.Username,
@@ -145,7 +148,7 @@ func (srv *UserService) trans(user *model.UserModel) *model.UserInfo {
 	}
 }
 
-func (srv *UserService) GetUserNameById(id uint64) string {
+func (srv *userService) GetUserNameById(id uint64) string {
 	user, err := srv.userRepo.GetUserById(id)
 
 	if err != nil {
@@ -156,7 +159,7 @@ func (srv *UserService) GetUserNameById(id uint64) string {
 	return user.Username
 }
 
-func (srv *UserService) GetUserByUsername(username string) (*model.UserInfo, error) {
+func (srv *userService) GetUserByUsername(username string) (*model.UserInfo, error) {
 	userModel, err := srv.userRepo.GetUserByUsername(username)
 	user := srv.trans(userModel)
 
@@ -167,7 +170,7 @@ func (srv *UserService) GetUserByUsername(username string) (*model.UserInfo, err
 	return user, nil
 }
 
-func (srv *UserService) GetUserByEmail(email string) (*model.UserModel, error) {
+func (srv *userService) GetUserByEmail(email string) (*model.UserModel, error) {
 	user, err := srv.userRepo.GetUserByEmail(email)
 
 	if err != nil {
@@ -177,7 +180,7 @@ func (srv *UserService) GetUserByEmail(email string) (*model.UserModel, error) {
 	return user, nil
 }
 
-func (srv *UserService) GetUserByGithubId(githubId string) (*model.UserModel, error) {
+func (srv *userService) GetUserByGithubId(githubId string) (*model.UserModel, error) {
 	user, err := srv.userRepo.GetUserByGithubId(githubId)
 
 	if err != nil {
@@ -187,7 +190,7 @@ func (srv *UserService) GetUserByGithubId(githubId string) (*model.UserModel, er
 	return user, nil
 }
 
-func (srv *UserService) GetUserList(username string, offset, limit int) ([]*model.UserModel, uint64, error) {
+func (srv *userService) GetUserList(username string, offset, limit int) ([]*model.UserModel, uint64, error) {
 	infos := make([]*model.UserModel, 0)
 	users, count, err := srv.userRepo.GetUserList(username, offset, limit)
 	if err != nil {
@@ -240,7 +243,7 @@ func (srv *UserService) GetUserList(username string, offset, limit int) ([]*mode
 	return infos, count, nil
 }
 
-func (srv *UserService) UpdateUser(userMap map[string]interface{}, id uint64) error {
+func (srv *userService) UpdateUser(userMap map[string]interface{}, id uint64) error {
 	err := srv.userRepo.Update(userMap, id)
 
 	if err != nil {
@@ -250,7 +253,7 @@ func (srv *UserService) UpdateUser(userMap map[string]interface{}, id uint64) er
 	return nil
 }
 
-func (srv *UserService) UpdateUserPassword(id uint64, password string) error {
+func (srv *userService) UpdateUserPassword(id uint64, password string) error {
 	hashedPassword, err := auth.Encrypt(password)
 	if err != nil {
 		log.Warnf("[user] Encrypt user password err: %v", err)
@@ -268,7 +271,7 @@ func (srv *UserService) UpdateUserPassword(id uint64, password string) error {
 	return nil
 }
 
-func (srv *UserService) UpdateLastLoginInfo(id uint64, ip string) error {
+func (srv *userService) UpdateLastLoginInfo(id uint64, ip string) error {
 	userMap := map[string]interface{}{
 		"last_login_time": time.Now(),
 		"last_login_ip":   ip,
@@ -281,7 +284,7 @@ func (srv *UserService) UpdateLastLoginInfo(id uint64, ip string) error {
 	return nil
 }
 
-func (srv *UserService) DeleteUser(id uint64) error {
+func (srv *userService) DeleteUser(id uint64) error {
 	err := srv.userRepo.DeleteUser(id)
 
 	if err != nil {
@@ -291,7 +294,7 @@ func (srv *UserService) DeleteUser(id uint64) error {
 	return nil
 }
 
-func (srv *UserService) GetResetPasswordTokenByEmail(email string) (string, error) {
+func (srv *userService) GetResetPasswordTokenByEmail(email string) (string, error) {
 	pwdResetInfo, err := srv.userRepo.GetResetPasswordInfoByEmail(email)
 	if err != nil {
 		return "", err
@@ -300,7 +303,7 @@ func (srv *UserService) GetResetPasswordTokenByEmail(email string) (string, erro
 	return pwdResetInfo.Token, nil
 }
 
-func (srv *UserService) DeleteResetPasswordByEmail(email string) error {
+func (srv *userService) DeleteResetPasswordByEmail(email string) error {
 	err := srv.userRepo.DeleteResetPasswordByEmail(email)
 	if err != nil {
 		return err
@@ -308,7 +311,7 @@ func (srv *UserService) DeleteResetPasswordByEmail(email string) error {
 	return nil
 }
 
-func (srv *UserService) IncrReplyCount(userId uint64) error {
+func (srv *userService) IncrReplyCount(userId uint64) error {
 	err := srv.userRepo.IncrReplyCount(userId)
 	if err != nil {
 		return err
