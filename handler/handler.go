@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var Store = sessions.NewCookieStore([]byte("cookie-secret"))
+var Store = sessions.NewCookieStore([]byte("cookie-secret-1024casts"))
 
 func SetLoginCookie(ctx *gin.Context, userId uint64) {
 	Store.Options.HttpOnly = true
@@ -24,7 +24,7 @@ func SetLoginCookie(ctx *gin.Context, userId uint64) {
 	}
 	// 浏览器关闭，cookie删除，否则保存30天(github.com/gorilla/sessions 包的默认值)
 	val, ok := ctx.GetPostForm("remember_me")
-	log.Infof("[handler] val: %s, ok: %v", val, ok)
+	log.Infof("[handler] remember_me val: %s, ok: %v", val, ok)
 	if ok && val == "1" {
 		session.Options.MaxAge = 86400 * 30
 	}
