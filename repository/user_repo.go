@@ -29,23 +29,23 @@ func (repo *UserRepo) CreateUser(user model.UserModel) (id uint64, err error) {
 }
 
 func (repo *UserRepo) GetUserById(id uint64) (*model.UserModel, error) {
-	user := model.UserModel{}
-	result := repo.db.Self.Where("id = ?", id).First(&user)
+	user := &model.UserModel{}
+	result := repo.db.Self.Where("id = ?", id).First(user)
 
-	return &user, result.Error
+	return user, result.Error
 }
 
 // GetUser gets an user by the user identifier.
 func (repo *UserRepo) GetUserByUsername(username string) (*model.UserModel, error) {
 	user := &model.UserModel{}
-	result := repo.db.Self.Where("username = ?", username).First(&user)
+	result := repo.db.Self.Where("username = ?", username).First(user)
 
 	return user, result.Error
 }
 
 func (repo *UserRepo) GetUserByGithubId(githubId string) (*model.UserModel, error) {
 	user := &model.UserModel{}
-	result := repo.db.Self.Where("github_id = ?", githubId).First(&user)
+	result := repo.db.Self.Where("github_id = ?", githubId).First(user)
 
 	return user, result.Error
 }
