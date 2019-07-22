@@ -15,7 +15,7 @@ import (
 type TopicService struct {
 	repo     *repository.TopicRepo
 	videoSrv *VideoService
-	userSrv  *UserService
+	userSrv  *userService
 }
 
 func NewTopicService() *TopicService {

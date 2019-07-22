@@ -12,7 +12,7 @@ import (
 
 type CommentService struct {
 	repo    *repository.CommentRepo
-	userSrv *UserService
+	userSrv *userService
 }
 
 func NewCommentService() *CommentService {
