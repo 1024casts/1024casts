@@ -40,6 +40,7 @@ func LoadWebRouter(g *gin.Engine) *gin.Engine {
 
 	router.Use(static.Serve("/static", static.LocalFile(viper.GetString("static"), false)))
 	router.Use(static.Serve("/uploads/avatar", static.LocalFile(viper.GetString("avatar"), false)))
+	router.Use(static.Serve("/uploads/images", static.LocalFile(viper.GetString("images"), false)))
 
 	//new template engine
 	router.HTMLRender = gintemplate.New(gintemplate.TemplateConfig{
