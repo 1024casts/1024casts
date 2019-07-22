@@ -12,8 +12,7 @@ import (
 
 func Index(c *gin.Context) {
 	userId := util.GetUserId(c)
-	srv := service.NewUserService()
-	user, _ := srv.GetUserById(userId)
+	user, _ := service.UserService.GetUserById(userId)
 
 	planMap := make(map[string]interface{})
 	planMap["status"] = 1
