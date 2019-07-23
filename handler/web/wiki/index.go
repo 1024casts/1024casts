@@ -12,6 +12,7 @@ import (
 
 func Index(c *gin.Context) {
 	userId := util.GetUserId(c)
+	log.Infof("[wiki] get user id from util, uid: %v", userId)
 	srv := service.NewUserService()
 	user, _ := srv.GetUserById(userId)
 
