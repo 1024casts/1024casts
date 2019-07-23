@@ -14,7 +14,10 @@ func Index(c *gin.Context) {
 	userId := util.GetUserId(c)
 	log.Infof("[wiki] get user id from util, uid: %v", userId)
 	srv := service.NewUserService()
-	user, _ := srv.GetUserById(userId)
+	user, err := srv.GetUserById(userId)
+	if err != nil {
+		log.Warnf("[wiki] get user info err, %v", err)
+	}
 
 	wikiSrv := service.NewWikiService()
 	homeSlug := "index"
