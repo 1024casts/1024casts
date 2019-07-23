@@ -3,14 +3,20 @@ package handler
 import (
 	"net/http"
 
+	"github.com/gorilla/securecookie"
+
 	"github.com/lexkong/log"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/gorilla/securecookie"
 	"github.com/gorilla/sessions"
 	"github.com/spf13/viper"
 )
 
-var Store = sessions.NewCookieStore([]byte("cookie-secret-1024casts"))
+// It is recommended to use an authentication key with 32 or 64 bytes.
+// The encryption key, if set, must be either 16, 24, or 32 bytes to select
+// AES-128, AES-192, or AES-256 modes.
+var Store = sessions.NewCookieStore([]byte(securecookie.GenerateRandomKey(32)))
 
 func SetLoginCookie(ctx *gin.Context, userId uint64) {
 	Store.Options.HttpOnly = true
