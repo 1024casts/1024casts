@@ -47,12 +47,12 @@ qiniu:
   secret_key: secret_key
   bucket: test
   cdn_url: http://statics.test.org
-  public_bucket: public-phpcasts
+  public_bucket: public-bucket
   public_cdn_url: http://s1.test.org
 upload:
-  dst: "/Users/qloog/Codes/Go/src/github.com/1024casts/1024casts/public/"  # 本地上传目录
-static: "/Users/qloog/Codes/Go/src/github.com/1024casts/1024casts/public/static"  # static目录
-avatar: "/Users/qloog/Codes/Go/src/github.com/1024casts/1024casts/public/uploads/avatar"  # static目录
+  dst: "/home/work/go/src/github.com/1024casts/1024casts/public/"  # 本地上传目录
+static: "/home/work/go/src/github.com/1024casts/1024casts/public/static"  # static目录
+avatar: "/home/work/go/src/github.com/1024casts/1024casts/public/uploads/avatar"  # static目录
 image_domain: http://localhost:8888
 redis:
   addr: "127.0.0.1:6379"
