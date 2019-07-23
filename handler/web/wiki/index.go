@@ -19,6 +19,8 @@ func Index(c *gin.Context) {
 		log.Warnf("[wiki] get user info err, %v", err)
 	}
 
+	log.Infof("[wiki] get user info: %v", user)
+
 	wikiSrv := service.NewWikiService()
 	homeSlug := "index"
 	wiki, err := wikiSrv.GetWikiPageBySlug(homeSlug)
