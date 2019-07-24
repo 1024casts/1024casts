@@ -4,6 +4,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/1024casts/1024casts/pkg/constvar"
+
 	"fmt"
 
 	"github.com/1024casts/1024casts/model"
@@ -124,7 +126,7 @@ func (srv *userService) trans(user *model.UserModel) *model.UserInfo {
 		Username:          user.Username,
 		Password:          user.Password,
 		Email:             user.Email,
-		Avatar:            util.GetAvatarUrl(user.Avatar),
+		Avatar:            util.GetQiNiuPrivateAccessUrl(user.Avatar, constvar.MediaTypeImage),
 		RealName:          user.RealName,
 		City:              user.City,
 		Company:           user.Company,
