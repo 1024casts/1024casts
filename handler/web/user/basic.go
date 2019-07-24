@@ -23,8 +23,6 @@ func Basic(c *gin.Context) {
 		return
 	}
 
-	user.Avatar = util.GetQiNiuPublicAccessUrl(user.Avatar)
-
 	c.HTML(http.StatusOK, "user/basic", gin.H{
 		"title":   "个人资料",
 		"user_id": userId,
@@ -54,7 +52,7 @@ func DoBasic(c *gin.Context) {
 	userId := util.GetUserId(c)
 	srv := service.NewUserService()
 
-	log.Warnf("basic, info: %v", c.Request.RequestURI)
+	log.Warnf("[basic] info: %v", c.Request.RequestURI)
 
 	_, err := srv.GetUserById(userId)
 	if err != nil {
@@ -71,7 +69,7 @@ func DoBasic(c *gin.Context) {
 	}
 
 	qiNiuSrv := service.NewQiNiuService()
-	uploadRet, err := qiNiuSrv.UploadImage(c, avatar, true)
+	uploadRet, err := qiNiuSrv.UploadImage(c, avatar, false)
 	if err != nil {
 		log.Warnf("[basic] upload avatar err: %v", err)
 		app.Response(c, errno.ErrUploadingFile, nil)
@@ -81,11 +79,11 @@ func DoBasic(c *gin.Context) {
 	userMap := map[string]interface{}{
 		"real_name":    req.RealName,
 		"introduction": req.Introduction,
-		"avatar":       "/" + uploadRet.Key,
+		"avatar":       uploadRet.Key,
 	}
 	err = srv.UpdateUser(userMap, userId)
 	if err != nil {
-		log.Warnf("[register] update user is_activation err: %v", err)
+		log.Warnf("[basic] update user is_activation err: %v", err)
 		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
