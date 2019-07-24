@@ -138,8 +138,8 @@ func GetQiNiuPrivateAccessUrl(path string, mediaType string) string {
 
 	if mediaType == constvar.MediaTypeImage {
 		//imageStyle := "imageView2/2/w/200/h/200/q/75|imageslim"
-		imageStyle := "imageView2/2/w/200/h/200/q/75"
-		key = key + "?" + imageStyle
+		//imageStyle := "imageView2/2/w/200/h/200/q/75"
+		//key = key + "?" + imageStyle
 	}
 
 	deadline := time.Now().Add(time.Second * 3600).Unix() //1小时有效期
