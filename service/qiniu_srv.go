@@ -36,7 +36,7 @@ type UploadResponse struct {
 
 func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader, isPublicBucket bool) (resp UploadResponse, err error) {
 	saveRootPath := viper.GetString("upload.dst")
-	imagePrefix := "/uploads/images/" + util.GetDate() + "/"
+	imagePrefix := "uploads/images/" + util.GetDate() + "/"
 	imagePath := saveRootPath + imagePrefix
 	if err = os.MkdirAll(imagePath, 0777); err != nil {
 		log.Fatal("[qiniu] create dir err", err)
