@@ -58,6 +58,7 @@ func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader,
 		return
 	}
 	localFile := dst
+	log.Infof("[qiniu] local_file: %s", localFile)
 
 	accessKey := viper.GetString("qiniu.access_key")
 	secretKey := viper.GetString("qiniu.secret_key")
@@ -67,7 +68,7 @@ func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader,
 	}
 
 	putPolicy := storage.PutPolicy{
-		Scope: bucket + ":" + key,
+		Scope: bucket,
 	}
 
 	mac := qbox.NewMac(accessKey, secretKey)
@@ -83,6 +84,7 @@ func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader,
 	// 构建表单上传的对象
 	formUploader := storage.NewFormUploader(&cfg)
 	ret := storage.PutRet{}
+
 	// 可选配置
 	putExtra := storage.PutExtra{
 		Params: map[string]string{
@@ -95,7 +97,7 @@ func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader,
 		return
 	}
 
-	log.Infof("uploaded file ret: %v", ret)
+	log.Infof("[qiniu] uploaded file ret: %v", ret)
 
 	resp.Key = ret.Key
 	resp.Hash = ret.Hash
