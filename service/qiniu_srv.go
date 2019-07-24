@@ -3,6 +3,12 @@ package service
 import (
 	"context"
 	"mime/multipart"
+	"path/filepath"
+
+	"github.com/1024casts/1024casts/model"
+	"github.com/1024casts/1024casts/repository"
+
+	"github.com/1024casts/1024casts/pkg/constvar"
 
 	"fmt"
 	"os"
@@ -29,6 +35,29 @@ type UploadResponse struct {
 }
 
 func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader, isPublicBucket bool) (resp UploadResponse, err error) {
+	saveRootPath := viper.GetString("upload.dst")
+	imagePrefix := "/uploads/images/" + util.GetDate() + "/"
+	imagePath := saveRootPath + imagePrefix
+	if err = os.MkdirAll(imagePath, 0777); err != nil {
+		log.Fatal("[qiniu] create dir err", err)
+		return
+	}
+
+	fileNameWithoutExt, err := util.GenShortId()
+	if err != nil {
+		log.Warnf("[qiniu] gen filename err, %v", err)
+		return
+	}
+	filename := fileNameWithoutExt + filepath.Ext(file.Filename)
+	key := imagePrefix + filename
+
+	// Upload the file to specific dst.
+	dst := saveRootPath + key
+	if err = c.SaveUploadedFile(file, dst); err != nil {
+		log.Fatal("[qiniu] upload file err", err)
+		return
+	}
+	localFile := dst
 
 	accessKey := viper.GetString("qiniu.access_key")
 	secretKey := viper.GetString("qiniu.secret_key")
@@ -37,24 +66,6 @@ func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader,
 		bucket = viper.GetString("qiniu.public_bucket")
 	}
 
-	saveRootPath := viper.GetString("upload.dst")
-	imagePrefix := "uploads/avatar/" + util.GetDate() + "/"
-	imagePath := saveRootPath + imagePrefix
-	if err = os.MkdirAll(imagePath, 0777); err != nil {
-		log.Fatal("[qiniu] create dir err", err)
-		return
-	}
-
-	key := imagePrefix + file.Filename
-
-	// Upload the file to specific dst.
-	dst := saveRootPath + key
-	if err = c.SaveUploadedFile(file, dst); err != nil {
-		log.Fatal("[qiniu] upload file err", err)
-		return
-	}
-
-	localFile := dst
 	putPolicy := storage.PutPolicy{
 		Scope: bucket + ":" + key,
 	}
@@ -88,7 +99,22 @@ func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader,
 
 	resp.Key = ret.Key
 	resp.Hash = ret.Hash
-	resp.Url = util.GetQiNiuPublicAccessUrl(ret.Key)
+	if isPublicBucket {
+		resp.Url = util.GetQiNiuPublicAccessUrl(ret.Key)
+	} else {
+		resp.Url = util.GetQiNiuPrivateAccessUrl(ret.Key, constvar.MediaTypeImage)
+	}
+
+	// write to image table
+	imageRepo := repository.NewImageRepo()
+	imgModel := model.ImageModel{}
+	imgModel.UserID = util.GetUserId(c)
+	imgModel.ImageName = fileNameWithoutExt
+	imgModel.ImagePath = ret.Key
+	_, err = imageRepo.CreateImage(imgModel)
+	if err != nil {
+		log.Warnf("[qiniu] add to image table err, %v", err)
+	}
 
 	return resp, nil
 
