@@ -88,7 +88,7 @@ func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader,
 	// 可选配置
 	putExtra := storage.PutExtra{
 		Params: map[string]string{
-			"x:name": key,
+			"x:name": filename,
 		},
 	}
 	//putExtra.NoCrc32Check = true
