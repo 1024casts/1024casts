@@ -267,6 +267,6 @@
 }
 
 /*主题内容中文自动折行*/
-.content pre {
+.media-content .content pre {
     white-space: pre-wrap;
 }
