@@ -265,3 +265,8 @@
     text-align: center;
     width: 1em
 }
+
+/*主题内容中文自动折行*/
+.content pre {
+    white-space: pre-wrap;
+}
