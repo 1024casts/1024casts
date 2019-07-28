@@ -119,6 +119,26 @@ func (srv *VideoService) GetVideoListPagination(courseId uint64, name string, of
 	return infos, count, nil
 }
 
+// get video total count
+func (srv *VideoService) GetVideoTotalCount() (int, error) {
+	count, err := srv.repo.GetVideoTotalCount()
+	if err != nil {
+		return 0, err
+	}
+
+	return count, nil
+}
+
+// get video total duration 总秒数
+func (srv *VideoService) GetVideoTotalDuration() (int, error) {
+	count, err := srv.repo.GetVideoTotalDuration()
+	if err != nil {
+		return 0, err
+	}
+
+	return count, nil
+}
+
 func (srv *VideoService) UpdateVideo(VideoMap map[string]interface{}, id int) error {
 	err := srv.repo.UpdateVideo(VideoMap, id)
 

@@ -208,6 +208,16 @@ func (srv *CourseService) GetCourseSectionListWithVideo(courseId uint64) ([]*mod
 	return infos, nil
 }
 
+// get course total count
+func (srv *CourseService) GetCourseTotalCount(courseMap map[string]interface{}) (int, error) {
+	count, err := srv.repo.GetCourseTotalCount(courseMap)
+	if err != nil {
+		return 0, err
+	}
+
+	return count, nil
+}
+
 func (srv *CourseService) UpdateCourse(courseMap map[string]interface{}, id int) error {
 	err := srv.repo.UpdateCourse(courseMap, id)
 

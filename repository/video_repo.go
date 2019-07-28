@@ -72,6 +72,27 @@ func (repo *VideoRepo) GetVideoListPagination(courseId uint64, name string, offs
 	return Videos, count, nil
 }
 
+func (repo *VideoRepo) GetVideoTotalCount() (int, error) {
+	var count int
+	if err := repo.db.Self.Model(&model.VideoModel{}).Where("is_publish=1").Count(&count).Error; err != nil {
+		return 0, err
+	}
+
+	return count, nil
+}
+
+func (repo *VideoRepo) GetVideoTotalDuration() (int, error) {
+	type Result struct {
+		Total int
+	}
+	var result Result
+	if err := repo.db.Self.Model(&model.VideoModel{}).Select("sum(duration) as total").Where("is_publish=1").Scan(&result).Error; err != nil {
+		return 0, err
+	}
+
+	return result.Total, nil
+}
+
 func (repo *VideoRepo) UpdateVideo(VideoMap map[string]interface{}, id int) error {
 
 	Video, err := repo.GetVideoById(id)

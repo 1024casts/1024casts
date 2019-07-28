@@ -57,6 +57,16 @@ func (repo *CourseRepo) GetCourseList(courseMap map[string]interface{}, offset, 
 	return courses, count, nil
 }
 
+func (repo *CourseRepo) GetCourseTotalCount(courseMap map[string]interface{}) (int, error) {
+	var count int
+
+	if err := repo.db.Self.Model(&model.CourseModel{}).Where(courseMap).Count(&count).Error; err != nil {
+		return count, err
+	}
+
+	return count, nil
+}
+
 func (repo *CourseRepo) GetSectionList(courseId uint64) ([]*model.SectionModel, error) {
 	sections := make([]*model.SectionModel, 0)
 
