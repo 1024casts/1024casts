@@ -29,35 +29,21 @@
             </div>
 
             <div class="box">
+                {{range .topics}}
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
                             <p>
-                                <time datetime="2019-04-30 15:37:45.86 +0800 CST">2019-04-30 15:37</time>
-                                回复了
-                                <a href="/member/tudoukp">tudoukp</a>
-                                创建的主题: <a href="/t/51a47353320b52148f00008e">html/template 怎么样才能直接输出HTML</a>
+                                <a href="/topics/{{.Id}}">{{.Title}}</a>  创建于{{.CreatedAt}}
                             </p>
-                            <p>@jimmykuu 受用了</p>
-
                         </div>
                     </div>
                 </article>
-                <article class="media">
-                    <div class="media-content">
-                        <div class="content">
-                            <p>
-                                <time datetime="2019-04-25 18:39:23.13 +0800 CST">2019-04-25 18:39</time>
-                                回复了
-                                <a href="/member/writethesky">writethesky</a>
-                                创建的主题: <a href="/t/542f7389421aa97f1d00003c">go语言如何实现HMAC-SHA1</a>
-                            </p>
-                            <p>最后的 <code data-backticks="1">hex.EncodeToString</code> 很关键，不然会乱码</p>
-
-                        </div>
-                    </div>
-                </article>
+                {{end}}
             </div>
+            <nav class="pagination is-rounded" role="navigation" aria-label="pagination"  style="margin-bottom: 1rem;">
+                {{.pages}}
+            </nav>
         </div>
 
     </div>
