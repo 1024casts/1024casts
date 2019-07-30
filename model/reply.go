@@ -28,7 +28,7 @@ type ReplyList struct {
 
 type ReplyInfo struct {
 	Id            uint64        `json:"id"`
-	TopicId       uint64        `json:"topic_id"`
+	TopicId       string        `json:"topic_id"`
 	Body          template.HTML `json:"body"`
 	IsBlocked     string        `json:"is_blocked"`
 	OriginBody    string        `json:"origin_body"`
