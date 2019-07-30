@@ -18,8 +18,8 @@
             <div class="column is-9">
                 <div class="tabs">
                     <ul>
-                        <li class="is-active"><a  href="/users/{{.user.Username}}/topics">发布的话题</a></li>
-                        <li><a href="/users/{{.user.Username}}/replies">发表的回复</a></li>
+                        <li><a  href="/users/{{.user.Username}}/topics">发布的话题</a></li>
+                        <li class="is-active"><a href="/users/{{.user.Username}}/replies">发表的回复</a></li>
                         {{/*                    <li><a href="/users/{{.user.Username}}/replies">赞过的话题</a></li>*/}}
                         {{/*                    <li><a href="/users/{{.user.Username}}/favorites/video">收藏的视频</a></li>*/}}
                         {{/*                    <li><a href="/users/{{.user.Username}}/favorites/topics">收藏的话题</a></li>*/}}
@@ -29,12 +29,17 @@
                 </div>
 
                 <div class="box">
-                    {{range .topics}}
+                    {{range .replies}}
                         <article class="media">
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <a href="/topics/{{.Id}}">{{.Title}}</a> at {{.CreatedAt}}
+                                        <a href="/users/{{.ReplyUserInfo.Username}}">{{.ReplyUserInfo.Username}}</a> 在话题
+                                        <a class="title is-6" href="/topics/{{.TopicId}}">{{.TopicInfo.Title}}</a> 中回复了
+                                        at {{.CreatedAt}}
+                                    </p>
+                                    <p>
+                                        {{.Body}}
                                     </p>
                                 </div>
                             </div>
