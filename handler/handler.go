@@ -3,8 +3,6 @@ package handler
 import (
 	"net/http"
 
-	"github.com/gorilla/securecookie"
-
 	"github.com/lexkong/log"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +14,7 @@ import (
 // It is recommended to use an authentication key with 32 or 64 bytes.
 // The encryption key, if set, must be either 16, 24, or 32 bytes to select
 // AES-128, AES-192, or AES-256 modes.
-var Store = sessions.NewCookieStore([]byte(securecookie.GenerateRandomKey(32)))
+var Store = sessions.NewCookieStore([]byte(viper.GetString("cookie.secret")))
 
 func SetLoginCookie(ctx *gin.Context, userId uint64) {
 	Store.Options.HttpOnly = true
