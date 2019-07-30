@@ -99,7 +99,7 @@ func LoadWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/users/:username", webUser.Index)                        // 个人首页
 	router.GET("/users/:username/activation/:token", webUser.ActiveUser) // 通过发送到邮箱中的链接激活
 	router.GET("/users/:username/topics", webUser.TopicList)             // 发表过的主题
-	router.GET("/users/:username/replies", webUser.TopicList)            // 回复过的
+	router.GET("/users/:username/replies", webUser.ReplyList)            // 回复过的
 	router.GET("/users/:username/favorites", webUser.TopicList)          // 收藏过的
 	router.GET("/users/:username/following", webUser.Following)          // 正在关注的人
 	router.GET("/users/:username/followers", webUser.Follower)           // 关注者(粉丝)
