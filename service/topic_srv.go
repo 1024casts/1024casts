@@ -225,9 +225,11 @@ func (srv *TopicService) trans(topic *model.TopicModel) *model.TopicInfo {
 
 func (srv *TopicService) transReply(reply *model.ReplyModel) *model.ReplyInfo {
 	replyUser, _ := srv.userSrv.GetUserById(reply.UserId)
+	topic, _ := srv.GetTopicById(reply.TopicId)
 	return &model.ReplyInfo{
 		Id:            reply.Id,
-		TopicId:       reply.TopicId,
+		TopicId:       util.EncodeTopicId(int64(reply.TopicId)),
+		TopicInfo:     topic,
 		Body:          template.HTML(reply.Body),
 		IsBlocked:     reply.IsBlocked,
 		OriginBody:    reply.OriginBody,
