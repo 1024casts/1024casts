@@ -3,7 +3,6 @@ package topic
 import (
 	"html/template"
 	"net/http"
-	"time"
 
 	"github.com/1024casts/1024casts/pkg/constvar"
 
@@ -38,20 +37,26 @@ func Index(c *gin.Context) {
 
 	pagination := pagination.NewPagination(c.Request, count, limit)
 
-	todayTopicMap := make(map[string]interface{})
-	todayTopicMap["created_at >="] = util.TimeToString(time.Now())
-	todayTopics, count, err := srv.GetTopicList(todayTopicMap, offset, limit)
+	//weekTopicMap := make(map[string]interface{})
+	//weekTopicMap["created_at >="] = util.TimeToString(time.Now().Add(-time.Second * 86400 * 7))
+	//weekTopics, count, err := srv.GetTopicList(weekTopicMap, offset, limit)
+	//if err != nil {
+	//	log.Warnf("[topic] get today topic list err: %v", err)
+	//}
+
+	// get top 15 by view_count
+	topTopics, err := srv.GetTopTopicList(20)
 	if err != nil {
-		log.Warnf("[topic] get today topic list err: %v", err)
+		log.Warnf("[topic] get top topic list err: %+v", err)
 	}
 
 	c.HTML(http.StatusOK, "topic/index", gin.H{
-		"title":       "社区首页",
-		"user_id":     userId,
-		"user":        user,
-		"ctx":         c,
-		"topics":      topics,
-		"pages":       template.HTML(pagination.Pages()),
-		"todayTopics": todayTopics,
+		"title":     "社区首页",
+		"user_id":   userId,
+		"user":      user,
+		"ctx":       c,
+		"topics":    topics,
+		"pages":     template.HTML(pagination.Pages()),
+		"topTopics": topTopics,
 	})
 }
