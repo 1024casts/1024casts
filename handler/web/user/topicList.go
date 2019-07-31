@@ -18,7 +18,26 @@ import (
 
 func TopicList(c *gin.Context) {
 	userId := util.GetUserId(c)
-	srv := service.NewTopicService()
+	srv := service.NewUserService()
+	user, err := srv.GetUserById(userId)
+	if err != nil {
+		c.HTML(http.StatusNotFound, "error/404", gin.H{
+			"title": "404错误",
+			"ctx":   c,
+		})
+		return
+	}
+
+	userName := c.Param("username")
+	userInfo, err := srv.GetUserByUsername(userName)
+	if err != nil {
+		c.HTML(http.StatusNotFound, "error/404", gin.H{
+			"title": "404错误",
+			"ctx":   c,
+		})
+		return
+	}
+	topicSrv := service.NewTopicService()
 
 	page, err := strconv.Atoi(c.Query("page"))
 	if err != nil {
@@ -27,23 +46,21 @@ func TopicList(c *gin.Context) {
 	limit := constvar.DefaultLimit
 	offset := (page - 1) * limit
 	topicMap := make(map[string]interface{})
-	topicMap["user_id"] = userId
-	topics, count, err := srv.GetTopicList(topicMap, offset, limit)
+	topicMap["user_id"] = userInfo.Id
+	topics, count, err := topicSrv.GetTopicList(topicMap, offset, limit)
 	if err != nil {
 		log.Warnf("[topic] get topic list err: %v", err)
 	}
 
-	userSrv := service.NewUserService()
-	user, _ := userSrv.GetUserById(userId)
-
 	pagination := pagination.NewPagination(c.Request, count, limit)
 
 	c.HTML(http.StatusOK, "user/topicList", gin.H{
-		"title":   "我发布的话题",
-		"user_id": userId,
-		"user":    user,
-		"ctx":     c,
-		"topics":  topics,
-		"pages":   template.HTML(pagination.Pages()),
+		"title":    "我发布的话题",
+		"user_id":  userId,
+		"user":     user,
+		"userInfo": userInfo,
+		"ctx":      c,
+		"topics":   topics,
+		"pages":    template.HTML(pagination.Pages()),
 	})
 }
