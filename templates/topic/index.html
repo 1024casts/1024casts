@@ -75,9 +75,9 @@
                 <article class="media box">
                     <div class="media-content">
                         <div class="content">
-                            <h2 class="title is-6">今日阅读排行</h2>
+                            <h2 class="title is-6">阅读排行</h2>
                             <hr>
-                            {{range .todayTopics}}
+                            {{range .topTopics}}
                                 <p>
                                     <a style="font-size: 0.9rem;" href="/topics/{{.Id}}">{{.Title}}</a> - <span class="has-text-grey">{{.ViewCount}}阅读</span>
                                 </p>
