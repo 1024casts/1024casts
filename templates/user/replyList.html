@@ -18,8 +18,8 @@
             <div class="column is-9">
                 <div class="tabs">
                     <ul>
-                        <li><a  href="/users/{{.user.Username}}/topics">发布的话题</a></li>
-                        <li class="is-active"><a href="/users/{{.user.Username}}/replies">发表的回复</a></li>
+                        <li><a  href="/users/{{.userInfo.Username}}/topics">发布的话题</a></li>
+                        <li class="is-active"><a href="/users/{{.userInfo.Username}}/replies">发表的回复</a></li>
                         {{/*                    <li><a href="/users/{{.user.Username}}/replies">赞过的话题</a></li>*/}}
                         {{/*                    <li><a href="/users/{{.user.Username}}/favorites/video">收藏的视频</a></li>*/}}
                         {{/*                    <li><a href="/users/{{.user.Username}}/favorites/topics">收藏的话题</a></li>*/}}
@@ -46,7 +46,7 @@
                         </article>
                     {{end}}
                 </div>
-                <nav class="box pagination is-rounded" role="navigation" aria-label="pagination">
+                <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
                     {{.pages}}
                 </nav>
             </div>

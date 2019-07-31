@@ -3,47 +3,47 @@
         <div class="media">
             <div class="media-left">
                 <figure class="image is-64x64">
-                    <img class="is-rounded" src="{{.user.Avatar}}" alt="{{.user.Username}}">
+                    <img class="is-rounded" src="{{.userInfo.Avatar}}" alt="{{.userInfo.Username}}">
                 </figure>
             </div>
             <div class="media-content">
                 {{/*                            <p class="title is-4">{{.user.Username}} ({{if ne .user.RealName ""}}{{.user.RealName}}{{else}}{{.user.Username}}{{end}})</p>*/}}
-                <p class="title is-4">{{.user.Username}}</p>
+                <p class="title is-4">{{.userInfo.Username}}</p>
                 <p class="subtitle is-6"></p>
             </div>
         </div>
 
         <div class="content"  style="font-size: 13px;">
-            第 {{.user.Id}} 位会员
+            第 {{.userInfo.Id}} 位会员
             <br>
-            注册于 <span title="注册日期">{{.user.CreatedAt}}</span>
+            注册于 <span title="注册日期">{{.userInfo.CreatedAt}}</span>
             <ul>
                 <li>
                                 <span title="所在地">
-                                    <i class="fas fa-map-marker-alt"></i> {{.user.City}}
+                                    <i class="fas fa-map-marker-alt"></i> {{.userInfo.City}}
                                 </span>
                 </li>
                 {{if .user.GithubId}}
                     <li>
                         <i class="fab fa-github"></i>
                         <a target="_blank" rel="nofollow" href="https://github.com/{{.user.GithubId}}">
-                            https://github.com/{{.user.GithubId}}
+                            https://github.com/{{.userInfo.GithubId}}
                         </a>
                     </li>
                 {{end}}
-                {{if .user.PersonalWebsite}}
+                {{if .userInfo.PersonalWebsite}}
                     <li>
                         <i class="fa fa-globe"></i>
-                        <a target="_blank" rel="nofollow" href="{{.user.PersonalWebsite}}">
-                            {{.user.PersonalWebsite}}
+                        <a target="_blank" rel="nofollow" href="{{.userInfo.PersonalWebsite}}">
+                            {{.userInfo.PersonalWebsite}}
                         </a>
                     </li>
                 {{end}}
-                {{if .user.Email}}
+                {{if .userInfo.Email}}
                     <li>
                         <i class="far fa-envelope"></i>
                         <a href="mailto: {{.user.Email}}">
-                            {{.user.Email}}
+                            {{.userInfo.Email}}
                         </a>
                     </li>
                 {{end}}
