@@ -1,6 +1,7 @@
 package service
 
 import (
+	"strings"
 	"sync"
 	"time"
 
@@ -18,6 +19,7 @@ import (
 )
 
 // 直接初始化，可以避免在使用时再实例化
+// see: https://github.com/mlogclub/mlog/blob/master/services/user_service.go
 var UserService = NewUserService()
 
 type userService struct {
@@ -121,12 +123,18 @@ func (srv *userService) GetUserById(id uint64) (*model.UserInfo, error) {
 }
 
 func (srv *userService) trans(user *model.UserModel) *model.UserInfo {
+
+	// 不是完整url时，则处理为七牛链接
+	if !strings.Contains(user.Avatar, "https") {
+		user.Avatar = util.GetQiNiuPrivateAccessUrl(user.Avatar, constvar.MediaTypeImage)
+	}
+
 	return &model.UserInfo{
 		Id:                user.Id,
 		Username:          user.Username,
 		Password:          user.Password,
 		Email:             user.Email,
-		Avatar:            util.GetQiNiuPrivateAccessUrl(user.Avatar, constvar.MediaTypeImage),
+		Avatar:            user.Avatar,
 		RealName:          user.RealName,
 		City:              user.City,
 		Company:           user.Company,
