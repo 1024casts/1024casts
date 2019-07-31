@@ -14,9 +14,6 @@ import (
 func Basic(c *gin.Context) {
 	userId := util.GetUserId(c)
 	srv := service.NewUserService()
-
-	log.Warnf("basic, info: %v", c.Request.RequestURI)
-
 	user, err := srv.GetUserById(userId)
 	if err != nil {
 		c.HTML(http.StatusNotFound, "error/404", gin.H{})
