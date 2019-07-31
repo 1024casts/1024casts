@@ -2,6 +2,7 @@ package service
 
 import (
 	"html/template"
+	"strings"
 	"sync"
 
 	"github.com/lexkong/log"
@@ -226,6 +227,10 @@ func (srv *TopicService) trans(topic *model.TopicModel) *model.TopicInfo {
 func (srv *TopicService) transReply(reply *model.ReplyModel) *model.ReplyInfo {
 	replyUser, _ := srv.userSrv.GetUserById(reply.UserId)
 	topic, _ := srv.GetTopicById(reply.TopicId)
+
+	// 把 phpcasts.org 替换为 1024casts.com
+	reply.Body = strings.Replace(reply.Body, "phpcasts.org", "1024casts.com", 5)
+
 	return &model.ReplyInfo{
 		Id:            reply.Id,
 		TopicId:       util.EncodeTopicId(int64(reply.TopicId)),
