@@ -21,11 +21,7 @@ func Index(c *gin.Context) {
 	srv := service.NewUserService()
 	user, err := srv.GetUserById(userId)
 	if err != nil {
-		c.HTML(http.StatusNotFound, "error/404", gin.H{
-			"title": "404错误",
-			"ctx":   c,
-		})
-		return
+		log.Warnf("[user] get user info err, %v", err)
 	}
 
 	userName := c.Param("username")
