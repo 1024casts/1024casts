@@ -3,6 +3,8 @@ package user
 import (
 	"net/http"
 
+	"github.com/spf13/viper"
+
 	. "github.com/1024casts/1024casts/handler"
 
 	"github.com/gorilla/sessions"
@@ -17,7 +19,11 @@ func Logout(c *gin.Context) {
 
 	// 删除cookie信息
 	session := GetCookieSession(c)
-	session.Options = &sessions.Options{Path: "/", MaxAge: -1}
+	session.Options = &sessions.Options{
+		Domain: viper.GetString("cookie.domain"),
+		Path:   "/",
+		MaxAge: -1,
+	}
 	err := session.Save(Request(c), ResponseWriter(c))
 	if err != nil {
 		log.Warnf("[user] logout save session err: %v", err)
