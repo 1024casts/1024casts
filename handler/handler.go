@@ -45,7 +45,6 @@ func SetLoginCookie(ctx *gin.Context, userId uint64) {
 
 func GetCookieSession(ctx *gin.Context) *sessions.Session {
 	session, err := Store.Get(ctx.Request, viper.GetString("cookie.name"))
-	log.Infof("[handler] get session from cookie: %#v", session)
 	if err != nil {
 		log.Warnf("[handler] store get err, %v", err)
 	}
