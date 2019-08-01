@@ -26,8 +26,6 @@ func Detail(c *gin.Context) {
 		log.Warnf("[wiki] get category with pages err: %v", err)
 	}
 
-	log.Infof("wiki detail: %+v", wiki)
-
 	c.HTML(http.StatusOK, "wiki/detail", gin.H{
 		"title":      wiki.Title,
 		"user_id":    userId,
