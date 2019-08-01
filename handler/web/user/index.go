@@ -36,9 +36,9 @@ func Index(c *gin.Context) {
 
 	// get topic list
 	topicSrv := service.NewTopicService()
-	page, err := strconv.Atoi(c.Query("page"))
+	page, err := strconv.Atoi(c.DefaultQuery("page", "1"))
 	if err != nil {
-		log.Error("get page error", err)
+		log.Warnf("get page error", err)
 	}
 	limit := constvar.DefaultLimit
 	offset := (page - 1) * limit
