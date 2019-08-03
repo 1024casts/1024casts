@@ -1,8 +1,11 @@
 package user
 
 import (
+	"fmt"
+
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/pkg/errno"
+	"github.com/1024casts/1024casts/pkg/notification"
 	"github.com/1024casts/1024casts/service"
 	"github.com/1024casts/1024casts/util"
 
@@ -54,6 +57,17 @@ func DoRegister(c *gin.Context) {
 		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
+
+	// send to slack
+	go func() {
+		msg := fmt.Sprintf("welcome new user: %s[%s]", r.Username, r.Email)
+		err := notification.SendSlackNotification(msg)
+		if err != nil {
+			log.Warnf("[register] send msg to slack err, %v", err)
+		}
+	}()
+
+	flash.SetMessage(c.Writer, "已发送激活链接,请检查您的邮箱。")
 
 	resp := CreateResponse{
 		Id: userId,
