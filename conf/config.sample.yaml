@@ -74,3 +74,5 @@ github:
   client_id: 123
   client_secret: 456
   callback_url: http://1024casts.test/login/oauth/github/callback
+slack:
+  webhook_url: https://hooks.slack.com/services/foo/bar/foo
