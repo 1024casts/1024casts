@@ -10,6 +10,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+// from: https://golangcode.com/send-slack-messages-without-a-library/
 type SlackRequestBody struct {
 	Text    string `json:"text"`
 	Channel string `json:"channel"`
