@@ -14,9 +14,6 @@ import (
 )
 
 func Logout(c *gin.Context) {
-
-	log.Infof("[user] entry logout...")
-
 	// 删除cookie信息
 	session := GetCookieSession(c)
 	session.Options = &sessions.Options{
