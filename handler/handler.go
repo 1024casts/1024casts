@@ -27,9 +27,9 @@ func SetLoginCookie(ctx *gin.Context, userId uint64) {
 		HttpOnly: true,
 	}
 	// 浏览器关闭，cookie删除，否则保存30天(github.com/gorilla/sessions 包的默认值)
-	val, ok := ctx.GetPostForm("remember_me")
-	log.Infof("[handler] remember_me val: %s, ok: %v", val, ok)
-	if ok && val == "1" {
+	val := ctx.DefaultPostForm("remember_me", "0")
+	log.Infof("[handler] remember_me val: %s", val)
+	if val == "1" {
 		session.Options.MaxAge = 86400 * 30
 	}
 
