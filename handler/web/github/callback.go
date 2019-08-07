@@ -25,7 +25,7 @@ func CallbackHandler(c *gin.Context) {
 	githubUser, _, err := gocial.Handle(state, code)
 	if err != nil {
 		log.Warnf("[github] callback err: %v", err)
-		c.Redirect(http.StatusFound, "/login/oauth/github")
+		c.Redirect(http.StatusFound, "/login")
 		return
 	}
 
@@ -50,6 +50,7 @@ func CallbackHandler(c *gin.Context) {
 			GithubId:      githubUser.ID,
 			LastLoginTime: time.Now(),
 			LastLoginIp:   c.ClientIP(),
+			IsActivated:   1,
 		}
 		userId, err = userSrv.CreateUser(u)
 		if err != nil {
@@ -59,8 +60,9 @@ func CallbackHandler(c *gin.Context) {
 		}
 	} else {
 		// get github info, err is nil
+		userId = user.Id
 		if err == nil {
-			err := userSrv.UpdateLastLoginInfo(user.Id, c.ClientIP())
+			err := userSrv.UpdateLastLoginInfo(userId, c.ClientIP())
 			if err != nil {
 				log.Warnf("[github] update user login info err: %v", err)
 				c.Redirect(http.StatusFound, "/login")
