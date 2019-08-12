@@ -184,6 +184,10 @@ func GetImageFullUrl(uri string) string {
 	return viper.GetString("image_domain") + uri
 }
 
+func GetDefaultAvatarUrl() string {
+	return viper.GetString("image_domain") + constvar.DefaultAvatar
+}
+
 func GetAvatarUrl(uri string) string {
 	if uri == "" {
 		uri = constvar.DefaultAvatar
