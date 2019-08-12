@@ -128,7 +128,7 @@ func (srv *userService) trans(user *model.UserModel) *model.UserInfo {
 		user.Avatar = util.GetDefaultAvatarUrl()
 	}
 	// 不是完整url时，则处理为七牛链接
-	if !strings.Contains(user.Avatar, "https") {
+	if !strings.Contains(user.Avatar, "http") {
 		user.Avatar = util.GetQiNiuPrivateAccessUrl(user.Avatar, constvar.MediaTypeImage)
 	}
 
