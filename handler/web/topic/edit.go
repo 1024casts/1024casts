@@ -38,8 +38,15 @@ func Edit(c *gin.Context) {
 		return
 	}
 
+	// check 用户是否有权限修改该topic
+	if topic.UserInfo.Id != util.GetUserId(c) {
+		log.Warnf("[topic] no have edit right for topic_id: %d", topic.Id)
+		app.Redirect(c, "/topics/"+topicIdStr, errno.ErrNoRightEdit.Message)
+		return
+	}
+
 	c.HTML(http.StatusOK, "topic/edit", gin.H{
-		"title":      "发布心话题",
+		"title":      "编辑话题",
 		"user_id":    util.GetUserId(c),
 		"user":       user,
 		"ctx":        c,
@@ -64,9 +71,15 @@ func DoEdit(c *gin.Context) {
 
 	topicSrv := service.NewTopicService()
 	topicId := util.DecodeTopicId(c.Param("id"))
-	_, err := topicSrv.GetTopicById(uint64(topicId))
+	topic, err := topicSrv.GetTopicById(uint64(topicId))
 	if err != nil {
 		app.Response(c, errno.ErrDataIsNotExist, nil)
+		return
+	}
+
+	// check 用户是否有权限修改该topic
+	if topic.UserInfo.Id != util.GetUserId(c) {
+		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
 
@@ -79,7 +92,7 @@ func DoEdit(c *gin.Context) {
 
 	err = topicSrv.UpdateTopic(topicModel, uint64(topicId))
 	if err != nil {
-		app.Response(c, errno.ErrDatabase, nil)
+		app.Response(c, errno.ErrNoRightEdit, nil)
 		return
 	}
 
