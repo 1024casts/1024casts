@@ -41,5 +41,5 @@ backend
 vendor/*
 
 conf/config.yaml
-public/uploads
+public/uploads/images
 1024casts
