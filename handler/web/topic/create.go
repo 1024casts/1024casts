@@ -45,7 +45,6 @@ type CreateTopicReq struct {
 	Title      string `json:"title" form:"title"`
 	CategoryId int    `json:"category_id" form:"category_id"`
 	OriginBody string `json:"origin_body" form:"origin_body"`
-	Body       string `json:"body" form:"body"`
 }
 
 func DoCreate(c *gin.Context) {
