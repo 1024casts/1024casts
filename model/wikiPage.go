@@ -13,6 +13,7 @@ type WikiPageModel struct {
 	Summary       string `gorm:"column:summary" json:"summary"`
 	OriginContent string `gorm:"column:origin_content" json:"origin_content"`
 	Content       string `gorm:"column:content" json:"content"`
+	Weight        int    `gorm:"column:weight" json:"weight"`
 	ViewCount     int    `gorm:"column:view_count" json:"view_count"`
 	CommentCount  int    `gorm:"column:comment_count" json:"comment_count"`
 	FixCount      int    `gorm:"column:fix_count" json:"fix_count"`
@@ -39,6 +40,7 @@ type WikiPageInfo struct {
 	Summary       string        `json:"summary"`
 	OriginContent string        `json:"origin_content"`
 	Content       template.HTML `json:"content"`
+	Weight        int           `json:"weight"`
 	ViewCount     int           `json:"view_count"`
 	CommentCount  int           `json:"comment_count"`
 	FixCount      int           `json:"fix_count"`
