@@ -4,19 +4,20 @@
 <script src="/static/js/codemirror-4.inline-attachment.js"></script>
 <script src="https://cdn.bootcss.com/marked/0.6.2/marked.min.js"></script>
 <script src="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
+<script src="/static/js/form.js"></script>
+<script src="/static/js/error.js"></script>
 <script type="text/javascript">
     // 图片拖拽上传参考：
     // 1. https://github.com/Rovak/InlineAttachment
     // 2. https://learnku.com/articles/25988
+    var simplemde;
     $(document).ready(function () {
-        // $('.ui.dropdown').dropdown();
-
-        var simplemde = new SimpleMDE({
-            element: document.getElementById("body"),
+        simplemde = new SimpleMDE({
+            element: document.getElementById("editor"),
             autosave: {
                 enabled: true,
                 delay: 1,
-                unique_id: "body"
+                uniqueId: "#editor",
             },
             blockStyles: {
                 bold: "__",
@@ -24,6 +25,7 @@
             },
             forceSync: true,
             hideIcons: ["guide", "heading"],
+            showIcons: ['code', 'table'],
             indentWithTabs: false,
             insertTexts: {
                 horizontalRule: ["", "\n\n-----\n\n"],
@@ -36,7 +38,7 @@
                 strikethrough: false,
                 underscoresBreakWords: true,
             },
-            placeholder: "支持Markdown格式",
+            placeholder: "请使用Markdown格式书写:), 代码片段黏贴时请注意使用高亮语法，图片支持拖拽和粘贴上传。",
             // 在编辑页面生成预览
             previewRender: function(plainText, preview) { // Returns HTML from a custom parser, Async method
                 setTimeout(function(){
