@@ -184,7 +184,7 @@ func LoadWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/wiki/:slug", wiki.Detail)
 	//router.GET("/wiki/:slug/comments")
 
-	router.GET("/test", wiki.Test)
+	//router.GET("/test", wiki.Test)
 
 	return router
 }
