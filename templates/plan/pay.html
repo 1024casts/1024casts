@@ -68,7 +68,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             var checkOrder = function () {
-                $.ajax('/plans/{{.orderId}}/check', function( data ) {
+                $.ajax('/pay/{{.orderId}}/check', function( data ) {
                     console.log('return', data);
                     if (data.code == 0) {
                         window.onbeforeunload = function(){};
