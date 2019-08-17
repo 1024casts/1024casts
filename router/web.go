@@ -83,7 +83,11 @@ func LoadWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/", web.Index)
 
 	// web upload
-	router.Use(middleware.CookieMiddleware()).POST("/upload", qiniu.WebUpload)
+	image := router.Group("/image")
+	image.Use(middleware.CookieMiddleware())
+	{
+		image.POST("/upload", qiniu.WebUpload)
+	}
 
 	// auth route
 	router.GET("/login", webUser.GetLogin)
