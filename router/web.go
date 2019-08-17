@@ -82,13 +82,6 @@ func LoadWebRouter(g *gin.Engine) *gin.Engine {
 
 	router.GET("/", web.Index)
 
-	// web upload
-	image := router.Group("/image")
-	image.Use(middleware.CookieMiddleware())
-	{
-		image.POST("/upload", qiniu.WebUpload)
-	}
-
 	// auth route
 	router.GET("/login", webUser.GetLogin)
 	router.POST("/login", webUser.DoLogin)
@@ -187,6 +180,13 @@ func LoadWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/wiki", wiki.Index)
 	router.GET("/wiki/:slug", wiki.Detail)
 	//router.GET("/wiki/:slug/comments")
+
+	// web upload
+	image := router.Group("/image")
+	image.Use(middleware.CookieMiddleware())
+	{
+		image.POST("/upload", qiniu.WebUpload)
+	}
 
 	//router.GET("/test", wiki.Test)
 
