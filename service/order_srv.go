@@ -1,6 +1,7 @@
 package service
 
 import (
+	"strconv"
 	"sync"
 	"time"
 
@@ -100,7 +101,7 @@ func (srv *OrderService) CreatePayOrder(orderId uint64, plan *model.PlanModel) (
 	pay := payjs.New(payJsConfig)
 	payNative := pay.GetNative()
 	payAmount := plan.Price * 100
-	resp, err := payNative.Create(int64(payAmount), plan.Name, string(orderId), "", "")
+	resp, err := payNative.Create(int64(payAmount), plan.Name, strconv.Itoa(int(orderId)), "", "")
 	if err != nil {
 		log.Warnf("[plans] create pay order err: %v", err)
 		return native.CreateResponse{}, err
