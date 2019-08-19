@@ -68,9 +68,9 @@
     <script type="text/javascript">
         $(document).ready(function(){
             var checkOrder = function () {
-                $.ajax('/pay/{{.orderId}}/check', function( data ) {
+                $.ajax('/pay/check?order_id={{.orderId}}', function( data ) {
                     console.log('return', data);
-                    if (data.code == 0) {
+                    if (data.code === 0) {
                         window.onbeforeunload = function(){};
                         window.location.href = '/plans/{{ .plan.Alias }}/success';
                     }
