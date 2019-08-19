@@ -35,46 +35,51 @@ func Callback(c *gin.Context) {
 		log.Infof("[callback] msg info: %#v", msg)
 
 		// 支付成功
-		if msg.ReturnCode == 1 {
-			// step1: get order id
-			orderId, err := strconv.Atoi(msg.OutTradeNo)
-			if err != nil {
-				log.Warnf("[plan] get order info err, %v", err)
-				fmt.Printf("error")
-				return
-			}
+		// step1: get order id
+		orderId, err := strconv.Atoi(msg.OutTradeNo)
+		if err != nil {
+			log.Warnf("[plan] get order info err, %v", err)
+			fmt.Printf("error")
+			return
+		}
 
-			// step2: check order is exist
-			orderSrv := service.NewOrderService()
-			order, err := orderSrv.GetOrderById(orderId)
-			if err != nil {
-				log.Warnf("[plan] get order info err, %v", err)
-				fmt.Printf("error")
-				return
-			}
+		// step2: check order is exist
+		orderSrv := service.NewOrderService()
+		order, err := orderSrv.GetOrderById(orderId)
+		if err != nil {
+			log.Warnf("[plan] get order info err, %v", err)
+			fmt.Printf("error")
+			return
+		}
 
-			// step3: check order status is paid
-			if order.Status == constvar.OrderStatusPaid {
-				fmt.Printf("success")
-				return
-			}
+		// step3: check order status is paid
+		if order.Status == constvar.OrderStatusPaid {
+			fmt.Printf("success")
+			return
+		}
 
-			// step4: update order status to paid
-			err = orderSrv.ConfirmOrderPaid(orderId, msg.TimeEnd)
-			if err != nil {
-				log.Warnf("[plan] update order status to paid err, %v", err)
-				fmt.Printf("error")
-				return
-			}
-
-			//处理消息接收以及回复
-			err = PayNotify.Serve()
-			if err != nil {
-				fmt.Println(err)
-				return
-			}
+		// step4: update order status to paid
+		err = orderSrv.ConfirmOrderPaid(orderId, msg.TimeEnd)
+		if err != nil {
+			log.Warnf("[plan] update order status to paid err, %v", err)
+			fmt.Printf("error")
+			return
 		}
 	})
+
+	//处理消息接收以及回复
+	err := PayNotify.Serve()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	//发送回复的消息
+	err = PayNotify.SendResponseMsg()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	return
 }
