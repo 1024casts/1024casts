@@ -176,7 +176,7 @@ func LoadWebRouter(g *gin.Engine) *gin.Engine {
 	pay.Use(middleware.CookieMiddleware())
 	{
 		pay.GET("/check", webPlan.Check)
-		pay.GET("/callback", webPlan.Callback)
+		pay.POST("/callback", webPlan.Callback)
 	}
 	// wiki
 	router.GET("/wiki", wiki.Index)
