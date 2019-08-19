@@ -16,6 +16,7 @@ import (
 )
 
 func Callback(c *gin.Context) {
+	log.Infof("entry pay callback...")
 	payJsConfig := &payjs.Config{
 		Key:       viper.GetString("pay_js.secret_key"),
 		MchID:     viper.GetString("pay_js.mch_id"),
