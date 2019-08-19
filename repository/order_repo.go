@@ -70,21 +70,10 @@ func (repo *OrderRepo) GetOrderListByUserId(userId uint64, offset, limit int) ([
 	return orders, count, nil
 }
 
-func (repo *OrderRepo) UpdateComment(commentMap map[string]interface{}, id int) error {
+// update order status
+func (repo *OrderRepo) UpdateStatus(id int, orderMap map[string]interface{}) error {
 
-	order, err := repo.GetOrderById(id)
-	if err != nil {
-		return err
-	}
+	order := model.OrderModel{}
 
-	return repo.db.Self.Model(order).Updates(commentMap).Error
-}
-
-func (repo *OrderRepo) DeleteComment(id int) error {
-	order, err := repo.GetOrderById(id)
-	if err != nil {
-		return err
-	}
-
-	return repo.db.Self.Delete(&order).Error
+	return repo.db.Self.Model(order).Where("id=?", id).Updates(orderMap).Error
 }
