@@ -31,6 +31,8 @@ func Callback(c *gin.Context) {
 		//这里处理支付成功回调，一般是修改数据库订单信息等等
 		//msg即为支付成功异步通知过来的内容
 
+		log.Infof("[callback] msg info: %#v", msg)
+
 		// 支付成功
 		if msg.ReturnCode == 1 {
 			// step1: get order id
