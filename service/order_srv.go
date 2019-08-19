@@ -257,3 +257,20 @@ func (srv *OrderService) trans(orderModel *model.OrderModel) *model.OrderInfo {
 		OrderItems:  orderModel.Items,
 	}
 }
+
+// 确认订单已支付
+func (srv *OrderService) ConfirmOrderPaid(id int, payTime string) (err error) {
+
+	orderMap := map[string]interface{}{
+		"status": constvar.OrderStatusPaid,
+		"PaidAt": payTime,
+	}
+
+	err = srv.orderRepo.UpdateStatus(id, orderMap)
+	if err != nil {
+		log.Warnf("[order] update order err: %+v", err)
+		return err
+	}
+
+	return nil
+}
