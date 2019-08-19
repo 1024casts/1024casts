@@ -74,12 +74,5 @@ func Callback(c *gin.Context) {
 		return
 	}
 
-	//发送回复的消息
-	err = PayNotify.SendResponseMsg()
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
 	return
 }
