@@ -172,6 +172,16 @@ func TimeToDateString(ts time.Time) string {
 	return time.Unix(ts.Unix(), 00).Format("2006年01月02日")
 }
 
+// 时间戳转日期
+func StringToTime(str string) (time.Time, error) {
+	t, err := time.ParseInLocation(TimeLayout(), str, time.Local)
+	if err != nil {
+		return time.Time{}, err
+	}
+
+	return t, nil
+}
+
 func TimeToInt64(ts time.Time) int64 {
 	return ts.Unix()
 }
