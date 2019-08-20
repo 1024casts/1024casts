@@ -70,7 +70,7 @@
             var checkOrder = function () {
                 $.ajax('/pay/check?order_id={{.orderId}}', function( data ) {
                     console.log('return', data);
-                    if (data.code === 0) {
+                    if (data.code == 0) {
                         window.onbeforeunload = function(){};
                         window.location.href = '/plans/{{ .plan.Alias }}/success';
                     }
