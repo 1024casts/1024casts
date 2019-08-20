@@ -8,6 +8,7 @@ import (
 type WikiPageModel struct {
 	BaseModel
 	CategoryId    uint64 `gorm:"column:category_id" json:"category_id"`
+	IsParent      int    `gorm:"column:is_parent" json:"is_parent"`
 	Slug          string `gorm:"column:slug" json:"slug"`
 	Title         string `gorm:"column:title" json:"title"`
 	Summary       string `gorm:"column:summary" json:"summary"`
@@ -17,7 +18,6 @@ type WikiPageModel struct {
 	ViewCount     int    `gorm:"column:view_count" json:"view_count"`
 	CommentCount  int    `gorm:"column:comment_count" json:"comment_count"`
 	FixCount      int    `gorm:"column:fix_count" json:"fix_count"`
-	IsShow        int    `gorm:"column:is_show" json:"is_show"`
 	Status        int    `gorm:"column:status" json:"status"`
 	UserId        int    `gorm:"column:user_id" json:"user_id"`
 }
@@ -35,6 +35,7 @@ type WikiList struct {
 type WikiPageInfo struct {
 	Id            uint64        `json:"id"`
 	CategoryId    uint64        `json:"category_id"`
+	IsParent      int           `json:"is_parent"`
 	Slug          string        `json:"slug"`
 	Title         string        `json:"title"`
 	Summary       string        `json:"summary"`
@@ -44,7 +45,6 @@ type WikiPageInfo struct {
 	ViewCount     int           `json:"view_count"`
 	CommentCount  int           `json:"comment_count"`
 	FixCount      int           `json:"fix_count"`
-	IsShow        int           `json:"is_show"`
 	Status        int           `json:"status"`
 	UserId        int           `json:"user_id"`
 	CreatedAt     string        `json:"created_at"`
