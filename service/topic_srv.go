@@ -203,24 +203,26 @@ func (srv *TopicService) GetTopicList(topicMap map[string]interface{}, offset, l
 func (srv *TopicService) trans(topic *model.TopicModel) *model.TopicInfo {
 	lastReplyUser, _ := srv.userSrv.GetUserById(topic.LastReplyUserID)
 	creator, _ := srv.userSrv.GetUserById(topic.UserID)
+	category, _ := srv.GetCategoryByCId(topic.CategoryID)
+
 	return &model.TopicInfo{
-		Id:                util.EncodeTopicId(int64(topic.Id)),
-		CategoryID:        topic.CategoryID,
-		Title:             topic.Title,
-		Body:              template.HTML(topic.Body),
-		OriginBody:        topic.OriginBody,
-		Source:            topic.Source,
-		IsBlocked:         topic.IsBlocked,
-		IsExcellent:       topic.IsExcellent,
-		LastReplyTimeAt:   util.FormatTime(topic.LastReplyTimeAt),
-		LastReplyUserId:   topic.LastReplyUserID,
-		LastReplyUserInfo: lastReplyUser,
-		UserInfo:          creator,
-		ViewCount:         topic.ViewCount,
-		VoteCount:         topic.VoteCount,
-		ReplyCount:        topic.ReplyCount,
-		CreatedAt:         util.TimeToDateString(topic.CreatedAt),
-		UpdatedAt:         util.TimeToString(topic.UpdatedAt),
+		Id:              util.EncodeTopicId(int64(topic.Id)),
+		Category:        category,
+		Title:           topic.Title,
+		Body:            template.HTML(topic.Body),
+		OriginBody:      topic.OriginBody,
+		Source:          topic.Source,
+		IsBlocked:       topic.IsBlocked,
+		IsExcellent:     topic.IsExcellent,
+		LastReplyTimeAt: util.FormatTime(topic.LastReplyTimeAt),
+		LastReplyUserId: topic.LastReplyUserID,
+		LastReplyUser:   lastReplyUser,
+		User:            creator,
+		ViewCount:       topic.ViewCount,
+		VoteCount:       topic.VoteCount,
+		ReplyCount:      topic.ReplyCount,
+		CreatedAt:       util.TimeToDateString(topic.CreatedAt),
+		UpdatedAt:       util.TimeToString(topic.UpdatedAt),
 	}
 }
 
@@ -360,4 +362,13 @@ func (srv *TopicService) GetCategoryList() ([]*model.CategoryModel, error) {
 	}
 
 	return categories, nil
+}
+
+func (srv *TopicService) GetCategoryByCId(id int) (*model.CategoryModel, error) {
+	category, err := srv.repo.GetCategoryByCId(id)
+	if err != nil {
+		return nil, err
+	}
+
+	return category, nil
 }
