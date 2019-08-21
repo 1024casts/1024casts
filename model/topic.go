@@ -34,21 +34,21 @@ type TopicList struct {
 }
 
 type TopicInfo struct {
-	Id                string        `json:"id"`
-	CategoryID        int           `json:"category_id"`
-	Title             string        `json:"title"`
-	Body              template.HTML `json:"body"`
-	OriginBody        string        `json:"origin_body"`
-	Source            string        `json:"source"`
-	IsBlocked         string        `json:"is_blocked"`
-	IsExcellent       string        `json:"is_excellent"`
-	LastReplyTimeAt   string        `json:"last_reply_time_at"`
-	LastReplyUserId   uint64        `json:"last_reply_user_id"`
-	LastReplyUserInfo *UserInfo     `json:"last_reply_user_info"`
-	UserInfo          *UserInfo     `json:"user_info"`
-	ViewCount         int           `json:"view_count"`
-	VoteCount         int           `json:"vote_count"`
-	ReplyCount        int           `json:"reply_count"`
-	CreatedAt         string        `json:"created_at"`
-	UpdatedAt         string        `json:"updated_at"`
+	Id              string         `json:"id"`
+	Category        *CategoryModel `json:"category"`
+	Title           string         `json:"title"`
+	Body            template.HTML  `json:"body"`
+	OriginBody      string         `json:"origin_body"`
+	Source          string         `json:"source"`
+	IsBlocked       string         `json:"is_blocked"`
+	IsExcellent     string         `json:"is_excellent"`
+	LastReplyTimeAt string         `json:"last_reply_time_at"`
+	LastReplyUserId uint64         `json:"last_reply_user_id"`
+	LastReplyUser   *UserInfo      `json:"last_reply_user"`
+	User            *UserInfo      `json:"user"`
+	ViewCount       int            `json:"view_count"`
+	VoteCount       int            `json:"vote_count"`
+	ReplyCount      int            `json:"reply_count"`
+	CreatedAt       string         `json:"created_at"`
+	UpdatedAt       string         `json:"updated_at"`
 }
