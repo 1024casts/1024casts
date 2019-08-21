@@ -126,6 +126,16 @@ func (repo *TopicRepo) GetCategoryList() ([]*model.CategoryModel, error) {
 	return categories, nil
 }
 
+func (repo *TopicRepo) GetCategoryByCId(id int) (*model.CategoryModel, error) {
+	category := model.CategoryModel{}
+
+	if err := repo.Db.Self.Where("id=?", id).Order("weight desc").First(&category).Error; err != nil {
+		return &category, err
+	}
+
+	return &category, nil
+}
+
 func (repo *TopicRepo) IncrTopicViewCount(topicId uint64) error {
 	topic := model.TopicModel{}
 	return repo.Db.Self.Model(&topic).Where("id=?", topicId).
