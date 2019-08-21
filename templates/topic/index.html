@@ -34,7 +34,7 @@
                     <article class="media">
                             <div class="media-left">
                                 <p class="image is-48x48">
-                                    <img class="is-rounded" style="width: 48px;height: 48px;" src="{{.UserInfo.Avatar}}">
+                                    <img class="is-rounded" style="width: 48px;height: 48px;" src="{{.User.Avatar}}">
                                 </p>
                             </div>
                             <div class="media-content">
@@ -42,11 +42,13 @@
                                     <p>
                                         <strong><a href="/topics/{{.Id}}">{{.Title}}</a></strong>
                                         <br>
-                                        <span class="tag">Question</span>
-                                        <a href="/users/{{.UserInfo.Username}}">@{{.UserInfo.Username}}</a> •
+                                        <span class="tag">
+                                            {{.Category.Name}}
+                                        </span>
+                                        <a href="/users/{{.User.Username}}">@{{.User.Username}}</a> •
                                         {{if gt .LastReplyUserId 0}} 最后由
-                                            <a class="user-name" data-name="{{.LastReplyUserInfo.Username}}" href="/users/{{.LastReplyUserInfo.Username}}">
-                                                {{.LastReplyUserInfo.Username}}
+                                            <a class="user-name" data-name="{{.LastReplyUser.Username}}" href="/users/{{.LastReplyUser.Username}}">
+                                                {{.LastReplyUser.Username}}
                                             </a> •
                                             回复于 <abbr class="timeago" title="{{.LastReplyTimeAt}}">{{.LastReplyTimeAt}}</abbr>
                                         {{else}}
@@ -56,6 +58,7 @@
                                 </div>
                             </div>
                             <div class="media-right">
+                                <span class="has-text-grey-light"><i class="fa fa-eye"></i> {{.ViewCount}}</span>&nbsp;&nbsp;
                                 <span class="has-text-grey-light"><i class="fa fa-comments"></i> {{.ReplyCount}}</span>
                             </div>
                     </article>

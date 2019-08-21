@@ -30,19 +30,22 @@
                                 {{.topic.Title}}
                             </h1>
                             <p class="subtitle">
-                                <a data-author="true" data-name="{{.topic.UserInfo.Username}}" href="/users/{{.topic.UserInfo.Username}}">
-                                    {{.topic.UserInfo.Username}}
+                                <span class="tag">
+                                    {{.topic.Category.Name}}
+                                </span>
+                                <a data-author="true" data-name="{{.topic.User.Username}}" href="/users/{{.topic.User.Username}}">
+                                    {{.topic.User.Username}}
                                 </a>
                                 ·
                                 <abbr class="timeago" title="{{.topic.CreatedAt}}">{{.topic.CreatedAt}}</abbr>
                                 {{if gt .topic.LastReplyUserId 0}}
                                     <span class="hidden-mobile"> ·
-                                        最后由 <a class="subtitle is-6" data-name="{{.topic.LastReplyUserInfo.Username}}" href="/users/{{.topic.LastReplyUserInfo.Username}}">{{.topic.LastReplyUserInfo.Username}}</a>
+                                        最后由 <a class="subtitle is-6" data-name="{{.topic.LastReplyUser.Username}}" href="/users/{{.topic.LastReplyUser.Username}}">{{.topic.LastReplyUserInfo.Username}}</a>
                                         回复于 <abbr class="timeago" title="{{.topic.LastReplyTimeAt}}">{{.topic.LastReplyTimeAt}}</abbr>
                                         </span>
                                 {{end}}
                                 · {{.topic.ViewCount}} 次阅读
-                                {{if eq .user_id .topic.UserInfo.Id}}
+                                {{if eq .user_id .topic.User.Id}}
                                 · <a href="/topic/edit/{{.topic.Id}}">编辑</a>
                                 {{end}}
                             </p>
