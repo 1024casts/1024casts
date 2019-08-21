@@ -21,6 +21,11 @@ func Detail(c *gin.Context) {
 		log.Warnf("[wiki] get wiki page info err: %v", err)
 	}
 
+	err = wikiSrv.IncrViewCount(wiki.Id)
+	if err != nil {
+		log.Warnf("[wiki] incr wiki view count err: %v", err)
+	}
+
 	categories, err := wikiSrv.GetWikiCategoryListWithPage()
 	if err != nil {
 		log.Warnf("[wiki] get category with pages err: %v", err)

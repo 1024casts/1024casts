@@ -146,3 +146,11 @@ func (srv *WikiService) UpdateWiki(WikiMap map[string]interface{}, id int) error
 
 	return nil
 }
+
+func (srv *WikiService) IncrViewCount(id uint64) error {
+	err := srv.repo.IncrViewCount(id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
