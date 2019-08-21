@@ -39,7 +39,7 @@ func Edit(c *gin.Context) {
 	}
 
 	// check 用户是否有权限修改该topic
-	if topic.UserInfo.Id != util.GetUserId(c) {
+	if topic.User.Id != util.GetUserId(c) {
 		log.Warnf("[topic] no have edit right for topic_id: %d", topic.Id)
 		app.Redirect(c, "/topics/"+topicIdStr, errno.ErrNoRightEdit.Message)
 		return
@@ -78,7 +78,7 @@ func DoEdit(c *gin.Context) {
 	}
 
 	// check 用户是否有权限修改该topic
-	if topic.UserInfo.Id != util.GetUserId(c) {
+	if topic.User.Id != util.GetUserId(c) {
 		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
