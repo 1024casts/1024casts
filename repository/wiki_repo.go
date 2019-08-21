@@ -3,6 +3,8 @@ package repository
 import (
 	"fmt"
 
+	"github.com/jinzhu/gorm"
+
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/pkg/constvar"
 )
@@ -79,6 +81,11 @@ func (repo *WikiRepo) UpdateWiki(WikiMap map[string]interface{}, id int) error {
 	}
 
 	return repo.db.Self.Model(page).Updates(WikiMap).Error
+}
+
+func (repo *WikiRepo) IncrViewCount(id uint64) error {
+	wiki := model.WikiPageModel{}
+	return repo.db.Self.Model(&wiki).Where("id=?", id).UpdateColumn("view_count", gorm.Expr("view_count + ?", 1)).Error
 }
 
 func (repo *WikiRepo) DeleteWiki(id int) error {
