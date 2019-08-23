@@ -40,7 +40,7 @@
                                 <abbr class="timeago" title="{{.topic.CreatedAt}}">{{.topic.CreatedAt}}</abbr>
                                 {{if gt .topic.LastReplyUserId 0}}
                                     <span class="hidden-mobile"> ·
-                                        最后由 <a class="subtitle is-6" data-name="{{.topic.LastReplyUser.Username}}" href="/users/{{.topic.LastReplyUser.Username}}">{{.topic.LastReplyUserInfo.Username}}</a>
+                                        最后由 <a class="subtitle is-6" data-name="{{.topic.LastReplyUser.Username}}" href="/users/{{.topic.LastReplyUser.Username}}">{{.topic.LastReplyUser.Username}}</a>
                                         回复于 <abbr class="timeago" title="{{.topic.LastReplyTimeAt}}">{{.topic.LastReplyTimeAt}}</abbr>
                                         </span>
                                 {{end}}
