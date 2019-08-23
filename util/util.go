@@ -30,7 +30,7 @@ import (
 	"gopkg.in/russross/blackfriday.v2"
 )
 
-const HashIds_Alphabet = "abcdefghijklmnopqrstuvwxyz1234567890"
+//const HashIds_Alphabet = "abcdefghijklmnopqrstuvwxyz1234567890"
 
 func GenShortId() (string, error) {
 	return shortid.Generate()
@@ -86,7 +86,7 @@ func EncodeTopicId(topicId int64) string {
 	hd := hashids.NewData()
 	hd.Salt = viper.GetString("encode.topic_id_halt")
 	hd.MinLength = 24
-	hd.Alphabet = HashIds_Alphabet
+	//hd.Alphabet = HashIds_Alphabet
 	h, _ := hashids.NewWithData(hd)
 	e, err := h.EncodeInt64([]int64{topicId})
 	if err != nil {
@@ -101,7 +101,7 @@ func DecodeTopicId(encodedTopicId string) (topicId int64) {
 	hd := hashids.NewData()
 	hd.Salt = viper.GetString("encode.topic_id_halt")
 	hd.MinLength = 24
-	hd.Alphabet = HashIds_Alphabet
+	//hd.Alphabet = HashIds_Alphabet
 	h, _ := hashids.NewWithData(hd)
 	d, err := h.DecodeInt64WithError(encodedTopicId)
 
