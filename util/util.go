@@ -85,7 +85,7 @@ func DecodeUid(encodedUid string) (uid int64) {
 func EncodeTopicId(topicId int64) string {
 	hd := hashids.NewData()
 	hd.Salt = viper.GetString("encode.topic_id_halt")
-	hd.MinLength = 24
+	hd.MinLength = 30
 	//hd.Alphabet = HashIds_Alphabet
 	h, _ := hashids.NewWithData(hd)
 	e, err := h.EncodeInt64([]int64{topicId})
@@ -100,7 +100,7 @@ func EncodeTopicId(topicId int64) string {
 func DecodeTopicId(encodedTopicId string) (topicId int64) {
 	hd := hashids.NewData()
 	hd.Salt = viper.GetString("encode.topic_id_halt")
-	hd.MinLength = 24
+	hd.MinLength = 30
 	//hd.Alphabet = HashIds_Alphabet
 	h, _ := hashids.NewWithData(hd)
 	d, err := h.DecodeInt64WithError(encodedTopicId)
