@@ -23,14 +23,14 @@
                                     <i class="fas fa-map-marker-alt"></i> {{.userInfo.City}}
                                 </span>
                 </li>
-                {{if .user.GithubId}}
-                    <li>
-                        <i class="fab fa-github"></i>
-                        <a target="_blank" rel="nofollow" href="https://github.com/{{.user.GithubId}}">
-                            https://github.com/{{.userInfo.GithubId}}
-                        </a>
-                    </li>
-                {{end}}
+{{/*                {{if .user.GithubId}}*/}}
+{{/*                    <li>*/}}
+{{/*                        <i class="fab fa-github"></i>*/}}
+{{/*                        <a target="_blank" rel="nofollow" href="https://github.com/{{.user.GithubId}}">*/}}
+{{/*                            https://github.com/{{.userInfo.GithubId}}*/}}
+{{/*                        </a>*/}}
+{{/*                    </li>*/}}
+{{/*                {{end}}*/}}
                 {{if .userInfo.PersonalWebsite}}
                     <li>
                         <i class="fa fa-globe"></i>
@@ -39,14 +39,14 @@
                         </a>
                     </li>
                 {{end}}
-                {{if .userInfo.Email}}
-                    <li>
-                        <i class="far fa-envelope"></i>
-                        <a href="mailto: {{.user.Email}}">
-                            {{.userInfo.Email}}
-                        </a>
-                    </li>
-                {{end}}
+{{/*                {{if .userInfo.Email}}*/}}
+{{/*                    <li>*/}}
+{{/*                        <i class="far fa-envelope"></i>*/}}
+{{/*                        <a href="mailto: {{.user.Email}}">*/}}
+{{/*                            {{.userInfo.Email}}*/}}
+{{/*                        </a>*/}}
+{{/*                    </li>*/}}
+{{/*                {{end}}*/}}
             </ul>
         </div>
     </div>
