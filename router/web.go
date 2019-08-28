@@ -41,6 +41,9 @@ func LoadWebRouter(g *gin.Engine) *gin.Engine {
 	router.NoRoute(func(c *gin.Context) {
 		web.Error404(c)
 	})
+	router.NoMethod(func(c *gin.Context) {
+		web.Error404(c)
+	})
 
 	router.Use(static.Serve("/static", static.LocalFile(viper.GetString("static"), false)))
 	router.Use(static.Serve("/uploads/avatar", static.LocalFile(viper.GetString("avatar"), false)))
@@ -182,6 +185,12 @@ func LoadWebRouter(g *gin.Engine) *gin.Engine {
 	router.GET("/wiki", wiki.Index)
 	router.GET("/wiki/:slug", wiki.Detail)
 	//router.GET("/wiki/:slug/comments")
+	wk := router.Group("/wk")
+	wk.Use(middleware.CookieMiddleware())
+	{
+		wk.GET("/edit/:slug", wiki.Edit)
+		wk.POST("/edit/:id", wiki.DoEdit)
+	}
 
 	// web upload
 	image := router.Group("/image")
