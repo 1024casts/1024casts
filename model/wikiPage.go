@@ -19,7 +19,7 @@ type WikiPageModel struct {
 	CommentCount  int    `gorm:"column:comment_count" json:"comment_count"`
 	FixCount      int    `gorm:"column:fix_count" json:"fix_count"`
 	Status        int    `gorm:"column:status" json:"status"`
-	UserId        int    `gorm:"column:user_id" json:"user_id"`
+	UserId        uint64 `gorm:"column:user_id" json:"user_id"`
 }
 
 // TableName sets the insert table name for this struct type
@@ -46,7 +46,7 @@ type WikiPageInfo struct {
 	CommentCount  int           `json:"comment_count"`
 	FixCount      int           `json:"fix_count"`
 	Status        int           `json:"status"`
-	UserId        int           `json:"user_id"`
+	UserId        uint64        `json:"user_id"`
 	CreatedAt     string        `json:"created_at"`
 	UpdatedAt     string        `json:"updated_at"`
 }
