@@ -73,14 +73,13 @@ func (repo *WikiRepo) GetWikiListPagination(courseId uint64, name string, offset
 	return pages, count, nil
 }
 
-func (repo *WikiRepo) UpdateWiki(WikiMap map[string]interface{}, id int) error {
-
+func (repo *WikiRepo) UpdateWiki(id int, wikiModel model.WikiPageModel) error {
 	page, err := repo.GetWikiById(id)
 	if err != nil {
 		return err
 	}
 
-	return repo.db.Self.Model(page).Updates(WikiMap).Error
+	return repo.db.Self.Model(page).Updates(wikiModel).Error
 }
 
 func (repo *WikiRepo) IncrViewCount(id uint64) error {
