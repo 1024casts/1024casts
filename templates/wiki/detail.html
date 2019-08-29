@@ -20,6 +20,9 @@
                             </h1>
                             <p class="subtitle is-6">
                                 {{.wiki.FixCount}} 次修正 · {{.wiki.ViewCount}} 次阅读 · 最后更新于{{.wiki.UpdatedAt}}
+                                {{if eq .user_id .wiki.UserId}}
+                                    · <a href="/wk/edit//{{.wiki.Slug}}">编辑</a>
+                                {{end}}
                             </p>
                             <hr>
                         </div>
