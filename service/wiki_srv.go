@@ -38,14 +38,15 @@ func (srv *WikiService) GetCategoryList() ([]*model.WikiCategoryModel, error) {
 	return categories, nil
 }
 
-func (srv *WikiService) GetWikiById(id int) (*model.WikiPageModel, error) {
-	Wiki, err := srv.repo.GetWikiById(id)
+func (srv *WikiService) GetWikiById(id int) (*model.WikiPageInfo, error) {
+	wikiModel, err := srv.repo.GetWikiById(id)
+	wiki := srv.trans(wikiModel)
 
 	if err != nil {
-		return Wiki, err
+		return wiki, err
 	}
 
-	return Wiki, nil
+	return wiki, nil
 }
 
 func (srv *WikiService) GetWikiPageBySlug(slug string) (*model.WikiPageInfo, error) {
@@ -125,21 +126,22 @@ func (srv *WikiService) GetWikiCategoryListWithPage() ([]*model.WikiCategoryMode
 
 func (srv *WikiService) trans(page *model.WikiPageModel) *model.WikiPageInfo {
 	return &model.WikiPageInfo{
-		Id:         page.Id,
-		CategoryId: page.CategoryId,
-		Slug:       page.Slug,
-		Title:      page.Title,
-		Content:    template.HTML(page.Content),
-		ViewCount:  page.ViewCount,
-		FixCount:   page.FixCount,
-		CreatedAt:  util.TimeToDateString(page.CreatedAt),
-		UpdatedAt:  util.TimeToString(page.UpdatedAt),
+		Id:            page.Id,
+		CategoryId:    page.CategoryId,
+		Slug:          page.Slug,
+		Title:         page.Title,
+		OriginContent: page.OriginContent,
+		Content:       template.HTML(page.Content),
+		ViewCount:     page.ViewCount,
+		FixCount:      page.FixCount,
+		UserId:        page.UserId,
+		CreatedAt:     util.TimeToDateString(page.CreatedAt),
+		UpdatedAt:     util.TimeToString(page.UpdatedAt),
 	}
 }
 
-func (srv *WikiService) UpdateWiki(WikiMap map[string]interface{}, id int) error {
-	err := srv.repo.UpdateWiki(WikiMap, id)
-
+func (srv *WikiService) UpdateWiki(id int, wikiModel model.WikiPageModel) error {
+	err := srv.repo.UpdateWiki(id, wikiModel)
 	if err != nil {
 		return err
 	}
