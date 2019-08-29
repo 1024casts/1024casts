@@ -1,0 +1,96 @@
+{{ define "css"}}
+    <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {background: #e5e5e5;}
+        /*解决光标错位的问题*/
+        /*参考自：https://github.com/sparksuite/simplemde-markdown-editor/issues/595 */
+        .CodeMirror pre{
+            margin-bottom: 0em !important;
+        }
+    </style>
+{{ end }}
+
+{{define "content"}}
+    <div class="container" style="padding: 2rem 0rem;">
+        <div class="columns">
+            <div class="column is-full">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <form id="app" method="POST" action="" @submit.prevent="onSubmit">
+                                <div class="field">
+                                    <label class="label">标题</label>
+                                    <div class="control">
+                                        <input type="text" class="input" name="title" id="title" placeholder="请填写标题" v-model="form.title" required>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control">
+                                        <textarea id="editor" v-model="form.editor"></textarea>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control">
+                                        <button class="button is-link" :disabled="form.errors.any()">更新帖子</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{end}}}
+
+{{define "js"}}
+    {{include "topic/editor"}}
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                form: new Form({
+                    title: {{.wiki.Title}},
+                    {{/*category_id: {{.topic.Category.Id}},*/}}
+                    editor: {{.wiki.OriginContent}},
+                    origin_content: {{.wiki.OriginContent}}
+                }),
+            },
+            delimiters:['${', '}'],
+            methods: {
+                onSubmit() {
+                    if (this.form.title === '') {
+                        swal("请正确填写标题！", "","warning");
+                        return false;
+                    }
+                    // if (this.form.category_id === 0) {
+                    //     swal("请选择正确的分类", "","warning");
+                    //     return false;
+                    // }
+                    this.form.editor = simplemde.value();
+                    if (this.form.editor === '') {
+                        swal("请正确填写wiki内容！", "","warning");
+                        return false;
+                    }
+
+                    // this.form.category_id = parseInt(this.form.category_id);
+                    this.form.origin_content = this.form.editor;
+
+                    // post, default use json
+                    this.form.post("/wk/edit/{{.wiki.Id}}")
+                        .then(response => {
+                            if (response.code === 0) {
+                                window.location.href = "/wiki/{{.wiki.Slug}}";
+                            } else {
+                                swal("发布失败！", "","error");
+                            }
+                        })
+                        .catch(errors => {
+                            console.log(errors);
+                        });
+
+                },
+            }
+        });
+    </script>
+{{end}}}
