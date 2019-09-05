@@ -128,7 +128,7 @@ func GetUserId(ctx *gin.Context) uint64 {
 }
 
 // 获取七牛资源的私有链接
-func GetQiNiuPrivateAccessUrl(path string, mediaType string) string {
+func GetQiNiuPrivateAccessUrl(path string, mediaType string, width int) string {
 	accessKey := viper.GetString("qiniu.access_key")
 	secretKey := viper.GetString("qiniu.secret_key")
 	mac := qbox.NewMac(accessKey, secretKey)
@@ -137,9 +137,8 @@ func GetQiNiuPrivateAccessUrl(path string, mediaType string) string {
 	key := strings.TrimPrefix(path, "/")
 
 	if mediaType == constvar.MediaTypeImage {
-		//imageStyle := "imageView2/2/w/200/h/200/q/75|imageslim"
-		//imageStyle := "imageView2/2/w/200/h/200/q/75"
-		//key = key + "?" + imageStyle
+		imageStyle := fmt.Sprintf("imageView2/2/w/%d/q/75|imageslim", width)
+		key = key + "?" + imageStyle
 	}
 
 	deadline := time.Now().Add(time.Second * 3600).Unix() //1小时有效期
@@ -147,6 +146,24 @@ func GetQiNiuPrivateAccessUrl(path string, mediaType string) string {
 	privateAccessURL := storage.MakePrivateURL(mac, domain, key, deadline)
 
 	return privateAccessURL
+}
+
+func GetVideoUrl(uri string) string {
+	return GetQiNiuPrivateAccessUrl(uri, constvar.MediaTypeVideo, 0)
+}
+
+func GetCourseCover(uri string) string {
+	return GetQiNiuPrivateAccessUrl(uri, constvar.MediaTypeImage, 355)
+}
+
+func GetAvatarUrl(uri string) string {
+	if uri == "" {
+		uri = constvar.DefaultAvatar
+	}
+	if strings.HasPrefix(uri, "https://") {
+		return uri
+	}
+	return GetQiNiuPrivateAccessUrl(uri, constvar.MediaTypeImage, 200)
 }
 
 // 获取七牛资源的公有链接
@@ -196,16 +213,6 @@ func GetImageFullUrl(uri string) string {
 
 func GetDefaultAvatarUrl() string {
 	return viper.GetString("image_domain") + constvar.DefaultAvatar
-}
-
-func GetAvatarUrl(uri string) string {
-	if uri == "" {
-		uri = constvar.DefaultAvatar
-	}
-	if strings.HasPrefix(uri, "https://") {
-		return uri
-	}
-	return viper.GetString("image_domain") + uri
 }
 
 func GenerateOrderNo() (uint64, error) {
