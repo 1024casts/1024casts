@@ -140,9 +140,9 @@ func GetQiNiuPrivateAccessUrl(path string, mediaType string, width, height int) 
 		var imageStyle string
 		// avatar
 		if width > 0 && height > 0 {
-			imageStyle = fmt.Sprintf("imageView2/2/w/%d/h/%d", width, height)
+			imageStyle = fmt.Sprintf("imageView2/2/w/%d/h/%d/interlace/1", width, height)
 		} else if width > 0 {
-			imageStyle = fmt.Sprintf("imageView2/2/w/%d", width)
+			imageStyle = fmt.Sprintf("imageView2/2/w/%d/interlace/1", width)
 		}
 
 		if imageStyle != "" {
