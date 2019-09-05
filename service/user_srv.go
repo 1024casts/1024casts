@@ -5,8 +5,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/1024casts/1024casts/pkg/constvar"
-
 	"fmt"
 
 	"github.com/1024casts/1024casts/model"
@@ -129,7 +127,7 @@ func (srv *userService) trans(user *model.UserModel) *model.UserInfo {
 	}
 	// 不是完整url时，则处理为七牛链接
 	if !strings.Contains(user.Avatar, "http") {
-		user.Avatar = util.GetQiNiuPrivateAccessUrl(user.Avatar, constvar.MediaTypeImage)
+		user.Avatar = util.GetAvatarUrl(user.Avatar)
 	}
 
 	return &model.UserInfo{

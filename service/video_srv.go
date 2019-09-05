@@ -3,7 +3,6 @@ package service
 import (
 	"sync"
 
-	"github.com/1024casts/1024casts/pkg/constvar"
 	"github.com/1024casts/1024casts/util"
 
 	"github.com/1024casts/1024casts/model"
@@ -53,7 +52,7 @@ func (srv *VideoService) GetVideoByCourseIdAndEpisodeId(courseId uint64, episode
 		return nil, err
 	}
 
-	video.Mp4URL = util.GetQiNiuPrivateAccessUrl(video.Mp4URL, constvar.MediaTypeVideo)
+	video.Mp4URL = util.GetVideoUrl(video.Mp4URL)
 	video.DurationStr = util.ResolveVideoDuration(video.Duration)
 	video.PublishedAtStr = util.FormatTime(video.PublishedAt)
 
