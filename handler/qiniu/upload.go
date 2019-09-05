@@ -45,7 +45,7 @@ func WebUpload(c *gin.Context) {
 	}
 
 	qiNiuSrv := service.NewQiNiuService()
-	uploadRet, err := qiNiuSrv.UploadImage(c, file, false)
+	uploadRet, err := qiNiuSrv.UploadImage(c, file, true)
 	if err != nil {
 		log.Warnf("[upload] upload file err: %v", err)
 		app.Response(c, errno.ErrUploadingFile, nil)
