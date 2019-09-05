@@ -104,7 +104,7 @@ func (srv *QiNiuService) UploadImage(c *gin.Context, file *multipart.FileHeader,
 	if isPublicBucket {
 		resp.Url = util.GetQiNiuPublicAccessUrl(ret.Key)
 	} else {
-		resp.Url = util.GetQiNiuPrivateAccessUrl(ret.Key, constvar.MediaTypeImage, 300)
+		resp.Url = util.GetQiNiuPrivateAccessUrl(ret.Key, constvar.MediaTypeImage, 300, 0)
 	}
 
 	// write to image table
