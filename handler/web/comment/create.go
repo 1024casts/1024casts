@@ -1,12 +1,16 @@
 package comment
 
 import (
+	"fmt"
+
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/1024casts/1024casts/pkg/errno"
+	"github.com/1024casts/1024casts/pkg/notification"
 	"github.com/1024casts/1024casts/service"
 	"github.com/1024casts/1024casts/util"
 	"github.com/gin-gonic/gin"
+	"github.com/lexkong/log"
 )
 
 type CreateCommentReq struct {
@@ -40,6 +44,15 @@ func Create(c *gin.Context) {
 		app.Response(c, errno.ErrDatabase, nil)
 		return
 	}
+
+	// send to slack notification
+	go func() {
+		msg := fmt.Sprintf("new comment: %s[%d]", req.OriginContent, cmtId)
+		err := notification.SendNewCommentSlackNotification(msg)
+		if err != nil {
+			log.Warnf("[comment] send new comment to slack err, %v", err)
+		}
+	}()
 
 	app.Response(c, nil, cmtId)
 }
