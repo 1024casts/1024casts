@@ -61,7 +61,7 @@ func DoRegister(c *gin.Context) {
 	// send to slack
 	go func() {
 		msg := fmt.Sprintf("welcome new user: %s[%s]", r.Username, r.Email)
-		err := notification.SendSlackNotification(msg)
+		err := notification.SendNewRegisterUserNotification(msg)
 		if err != nil {
 			log.Warnf("[register] send msg to slack err, %v", err)
 		}
