@@ -18,7 +18,10 @@ require (
 	github.com/jinzhu/gorm v1.9.10
 	github.com/leodido/go-urn v1.1.0 // indirect
 	github.com/lexkong/log v0.0.0-20180607165131-972f9cd951fc
+	github.com/lusis/go-slackbot v0.0.0-20180109053408-401027ccfef5 // indirect
+	github.com/lusis/slack-test v0.0.0-20190426140909-c40012f20018 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.2
+	github.com/nlopes/slack v0.5.0
 	github.com/oleiade/reflections v1.0.0 // indirect
 	github.com/qingwg/payjs v0.0.0-20190712025927-45615e48578f
 	github.com/qiniu/api.v7 v7.2.5+incompatible
