@@ -131,7 +131,7 @@ func (srv *userService) trans(user *model.UserModel) *model.UserInfo {
 	}
 
 	isVip := 0
-	if user.Id == 1561 {
+	if user.Id == 1561 || user.Id == 1 {
 		isVip = 1
 	}
 
