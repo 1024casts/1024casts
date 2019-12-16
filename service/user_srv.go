@@ -130,6 +130,11 @@ func (srv *userService) trans(user *model.UserModel) *model.UserInfo {
 		user.Avatar = util.GetAvatarUrl(user.Avatar)
 	}
 
+	isVip := 0
+	if user.Id == 1561 {
+		isVip = 1
+	}
+
 	return &model.UserInfo{
 		Id:                user.Id,
 		Username:          user.Username,
@@ -153,7 +158,7 @@ func (srv *userService) trans(user *model.UserModel) *model.UserInfo {
 		GithubId:          user.GithubId,
 		RememberToken:     user.RememberToken,
 		IsActivated:       user.IsActivated,
-		IsVip:             0,
+		IsVip:             isVip,
 		CreatedAt:         util.TimeToString(user.CreatedAt),
 		UpdatedAt:         util.TimeToString(user.UpdatedAt),
 	}
