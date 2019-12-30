@@ -18,13 +18,30 @@ import (
 	"github.com/1024casts/1024casts/repository"
 )
 
+const (
+	UserMemberStatusNormal = 1 // 正常
+	UserMemberStatusDelete = 2 // 删除
+
+	// 会员类型
+	UserMemberTypeMonth     = 1 // 一个月
+	UserMemberTypeQuarter   = 2 // 3个月
+	UserMemberTypeHalfYear  = 3 // 半年
+	UserMemberTypeYear      = 4 // 一年
+	UserMemberTypeTwoYear   = 5 // 2年
+	UserMemberTypeThreeYear = 6 // 3年
+
+	UserMemberTypeTest = 15 // 测试商品 1个月
+)
+
 type OrderService struct {
 	orderRepo *repository.OrderRepo
+	userRepo  *repository.UserRepo
 }
 
 func NewOrderService() *OrderService {
 	return &OrderService{
-		repository.NewOrderRepo(),
+		orderRepo: repository.NewOrderRepo(),
+		userRepo:  repository.NewUserRepo(),
 	}
 }
 
@@ -118,6 +135,16 @@ func (srv *OrderService) GetOrderById(id int) (*model.OrderModel, error) {
 	}
 
 	return order, nil
+}
+
+func (srv *OrderService) GetOrderItemById(orderId int) (*model.OrderItemModel, error) {
+	orderItem, err := srv.orderRepo.GetOrderItemById(orderId)
+
+	if err != nil {
+		return orderItem, err
+	}
+
+	return orderItem, nil
 }
 
 func (srv *OrderService) GetOrderList(orderMap map[string]interface{}, offset, limit int) ([]*model.OrderInfo, uint64, error) {
@@ -260,18 +287,128 @@ func (srv *OrderService) trans(orderModel *model.OrderModel) *model.OrderInfo {
 }
 
 // 确认订单已支付
-func (srv *OrderService) ConfirmOrderPaid(id int, payTime string) (err error) {
+func (srv *OrderService) ConfirmOrderPaid(order *model.OrderModel, orderItem *model.OrderItemModel, payTime string) (err error) {
+
+	db := model.DB.Self
+	tx := db.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			log.Warnf("[order] recover begin tx err: %+v", err)
+			tx.Rollback()
+		}
+	}()
+	if tx.Error != nil {
+		log.Warnf("[order] begin tx err: %+v", err)
+		return err
+	}
 
 	orderMap := map[string]interface{}{
 		"status": constvar.OrderStatusPaid,
 		"PaidAt": payTime,
 	}
-
-	err = srv.orderRepo.UpdateStatus(id, orderMap)
+	err = srv.orderRepo.UpdateStatus(tx, order.Id, orderMap)
 	if err != nil {
-		log.Warnf("[order] update order err: %+v", err)
+		tx.Rollback()
+		log.Warnf("[order] update order status err: %+v", err)
+		return err
+	}
+
+	// 给用户写入会员信息 user_members
+	userMember, err := srv.userRepo.GetUserMember(order.UserId, UserMemberStatusNormal)
+	if err != nil {
+		tx.Rollback()
+		log.Warnf("[order] get user member err: %+v", err)
+		return err
+	}
+
+	startTime, err := util.StringToTime(payTime)
+	if err != nil {
+		tx.Rollback()
+		log.Warnf("[order] string to time err: %+v", err)
+		return err
+	}
+	// 如果不存在，则为首次购买会员
+	if userMember.Id == 0 {
+		userMemberModel := model.UserMemberModel{
+			EndTime:   srv.getUserMemberEndTime(startTime, orderItem.ItemID),
+			StartTime: startTime,
+			Status:    UserMemberStatusNormal,
+			Type:      orderItem.ItemID, // 目前只有获取结束时间有用
+			UserID:    order.UserId,
+		}
+		if err := tx.Create(&userMemberModel).Error; err != nil {
+			tx.Rollback()
+			log.Warnf("[order] create user member err: %v", err)
+			return err
+		}
+	} else {
+		// 续期
+		// a. 如果会员还未到期就续费, 则在结束时间上再加对应的时间段即可
+		if time.Now().Unix() <= userMember.EndTime.Unix() {
+			// 更新到期时间为最新
+			endTime := srv.getUserMemberEndTime(startTime, orderItem.ItemID)
+			err = srv.userRepo.UpdateUserMemberEndTime(tx, order.UserId, endTime)
+			if err != nil {
+				tx.Rollback()
+				log.Warnf("[order] update user member end time err: %v", err)
+				return err
+			}
+		} else {
+			// b. 如果购买的会员已经过期再次购买, 则直接更新现有记录为最新的会员时间
+			endTime := srv.getUserMemberEndTime(startTime, orderItem.ItemID)
+			err = srv.userRepo.UpdateUserMember(tx, order.UserId, startTime, endTime)
+			if err != nil {
+				tx.Rollback()
+				log.Warnf("[order] update user member err: %v", err)
+				return err
+			}
+		}
+	}
+
+	if err := tx.Commit().Error; err != nil {
+		tx.Rollback()
+		log.Warnf("[order] tx commit err: %+v", err)
 		return err
 	}
 
 	return nil
+}
+
+// 获取会员的结束时间
+func (srv *OrderService) getUserMemberEndTime(startTime time.Time, level uint64) time.Time {
+	endTime := time.Time{}
+	// 一个月按31天算
+	monthDuration := 24 * 3600 * 31 * time.Second
+	switch level {
+	// 一个月
+	case UserMemberTypeMonth:
+		endTime = startTime.Add(monthDuration)
+		break
+	// 3个月
+	case UserMemberTypeQuarter:
+		endTime = startTime.Add(monthDuration * 3)
+		break
+	// 半年
+	case UserMemberTypeHalfYear:
+		endTime = startTime.Add(monthDuration * 6)
+		break
+	// 一年
+	case UserMemberTypeYear:
+		endTime = startTime.Add(monthDuration * 12)
+		break
+	// 2年
+	case UserMemberTypeTwoYear:
+		endTime = startTime.Add(monthDuration * 24 * 2)
+		break
+	// 3年
+	case UserMemberTypeThreeYear:
+		endTime = startTime.Add(monthDuration * 24 * 3)
+		break
+	// 测试商品
+	case UserMemberTypeTest:
+		endTime = startTime.Add(monthDuration)
+		break
+	}
+
+	return endTime
 }

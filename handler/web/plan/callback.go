@@ -58,8 +58,16 @@ func Callback(c *gin.Context) {
 			return
 		}
 
-		// step4: update order status to paid
-		err = orderSrv.ConfirmOrderPaid(orderId, msg.TimeEnd)
+		// step4: get order item
+		orderItem, err := orderSrv.GetOrderItemById(orderId)
+		if err != nil {
+			log.Warnf("[plan] get order item err, %v", err)
+			fmt.Printf("error")
+			return
+		}
+
+		// step5: update order status to paid
+		err = orderSrv.ConfirmOrderPaid(order, orderItem, msg.TimeEnd)
 		if err != nil {
 			log.Warnf("[plan] update order status to paid err, %v", err)
 			fmt.Printf("error")

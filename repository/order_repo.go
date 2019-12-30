@@ -3,6 +3,7 @@ package repository
 import (
 	"github.com/1024casts/1024casts/model"
 	"github.com/1024casts/1024casts/pkg/constvar"
+	"github.com/jinzhu/gorm"
 )
 
 type OrderRepo struct {
@@ -29,6 +30,13 @@ func (repo *OrderRepo) GetOrderById(id int) (*model.OrderModel, error) {
 	result := repo.db.Self.Where("id = ?", id).First(&order)
 
 	return &order, result.Error
+}
+
+func (repo *OrderRepo) GetOrderItemById(orderId int) (*model.OrderItemModel, error) {
+	orderItem := model.OrderItemModel{}
+	result := repo.db.Self.Where("order_id = ?", orderId).First(&orderItem)
+
+	return &orderItem, result.Error
 }
 
 func (repo *OrderRepo) GetOrderList(orderMap map[string]interface{}, offset, limit int) ([]*model.OrderModel, uint64, error) {
@@ -71,9 +79,9 @@ func (repo *OrderRepo) GetOrderListByUserId(userId uint64, offset, limit int) ([
 }
 
 // update order status
-func (repo *OrderRepo) UpdateStatus(id int, orderMap map[string]interface{}) error {
+func (repo *OrderRepo) UpdateStatus(db *gorm.DB, id uint64, orderMap map[string]interface{}) error {
 
 	order := model.OrderModel{}
 
-	return repo.db.Self.Model(order).Where("id=?", id).Updates(orderMap).Error
+	return db.Model(order).Where("id=?", id).Updates(orderMap).Error
 }

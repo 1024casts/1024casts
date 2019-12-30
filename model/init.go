@@ -13,6 +13,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
+// 支持多数据库
 type Database struct {
 	Self   *gorm.DB
 	Docker *gorm.DB
@@ -78,6 +79,10 @@ func (db *Database) Init() {
 		Self:   GetSelfDB(),
 		Docker: GetDockerDB(),
 	}
+}
+
+func GetDB() *gorm.DB {
+	return DB.Self
 }
 
 func (db *Database) Close() {

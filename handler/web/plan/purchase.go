@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 购买会员
 func Purchase(c *gin.Context) {
 	userId := util.GetUserId(c)
 	srv := service.NewUserService()

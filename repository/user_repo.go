@@ -2,6 +2,7 @@ package repository
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/jinzhu/gorm"
 
@@ -101,7 +102,7 @@ func (repo *UserRepo) Update(userMap map[string]interface{}, id uint64) error {
 func (repo *UserRepo) IncrReplyCount(userId uint64) error {
 	user := model.UserModel{}
 	return repo.db.Self.Model(&user).Where("id=?", userId).
-		UpdateColumn("reply_count", gorm.Expr("reply_count + ?", 1)).Error
+		Update("reply_count", gorm.Expr("reply_count + ?", 1)).Error
 }
 
 func (repo *UserRepo) DeleteUser(id uint64) error {
@@ -123,4 +124,32 @@ func (repo *UserRepo) GetResetPasswordInfoByEmail(email string) (*model.Password
 func (repo *UserRepo) DeleteResetPasswordByEmail(email string) error {
 	user := model.PasswordResetModel{}
 	return repo.db.Self.Where("email = ?", email).Delete(&user).Error
+}
+
+func (repo *UserRepo) GetUserMember(userId uint64, status int) (*model.UserMemberModel, error) {
+	userMember := model.UserMemberModel{}
+	result := repo.db.Self.Where("user = ? and status=?", userId, status).Order("id desc").First(&userMember)
+	if result.Error == gorm.ErrRecordNotFound {
+		return &userMember, nil
+	}
+
+	return &userMember, result.Error
+}
+
+func (repo *UserRepo) UpdateUserMemberStatus(userId uint64) error {
+	userMember := model.UserMemberModel{}
+	return repo.db.Self.Model(&userMember).Where("user_id=?", userId).
+		Update("status", gorm.Expr("reply_count + ?", 1)).Error
+}
+
+func (repo *UserRepo) UpdateUserMemberEndTime(db *gorm.DB, userId uint64, endTime time.Time) error {
+	userMember := model.UserMemberModel{}
+	return db.Model(&userMember).Where("user_id=?", userId).
+		Update("end_time", endTime).Error
+}
+
+func (repo *UserRepo) UpdateUserMember(db *gorm.DB, userId uint64, startTime, endTime time.Time) error {
+	userMember := model.UserMemberModel{}
+	return db.Model(&userMember).Where("user_id=?", userId).
+		Updates(model.UserMemberModel{StartTime: startTime, EndTime: endTime}).Error
 }
