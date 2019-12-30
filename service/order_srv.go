@@ -346,7 +346,7 @@ func (srv *OrderService) ConfirmOrderPaid(order *model.OrderModel, orderItem *mo
 		// a. 如果会员还未到期就续费, 则在结束时间上再加对应的时间段即可
 		if time.Now().Unix() <= userMember.EndTime.Unix() {
 			// 更新到期时间为最新
-			endTime := srv.getUserMemberEndTime(startTime, orderItem.ItemID)
+			endTime := srv.getUserMemberEndTime(userMember.EndTime, orderItem.ItemID)
 			err = srv.userRepo.UpdateUserMemberEndTime(tx, order.UserId, endTime)
 			if err != nil {
 				tx.Rollback()
@@ -379,6 +379,7 @@ func (srv *OrderService) getUserMemberEndTime(startTime time.Time, level uint64)
 	endTime := time.Time{}
 	// 一个月按31天算
 	monthDuration := 24 * 3600 * 31 * time.Second
+	yearDuration := monthDuration * 12
 	switch level {
 	// 一个月
 	case UserMemberTypeMonth:
@@ -394,15 +395,15 @@ func (srv *OrderService) getUserMemberEndTime(startTime time.Time, level uint64)
 		break
 	// 一年
 	case UserMemberTypeYear:
-		endTime = startTime.Add(monthDuration * 12)
+		endTime = startTime.Add(yearDuration)
 		break
 	// 2年
 	case UserMemberTypeTwoYear:
-		endTime = startTime.Add(monthDuration * 24 * 2)
+		endTime = startTime.Add(yearDuration * 2)
 		break
 	// 3年
 	case UserMemberTypeThreeYear:
-		endTime = startTime.Add(monthDuration * 24 * 3)
+		endTime = startTime.Add(yearDuration * 3)
 		break
 	// 测试商品
 	case UserMemberTypeTest:
