@@ -128,7 +128,7 @@ func (repo *UserRepo) DeleteResetPasswordByEmail(email string) error {
 
 func (repo *UserRepo) GetUserMember(userId uint64, status int) (*model.UserMemberModel, error) {
 	userMember := model.UserMemberModel{}
-	result := repo.db.Self.Where("user = ? and status=?", userId, status).Order("id desc").First(&userMember)
+	result := repo.db.Self.Where("user_id = ? and status=?", userId, status).Order("id desc").First(&userMember)
 	if result.Error == gorm.ErrRecordNotFound {
 		return &userMember, nil
 	}
