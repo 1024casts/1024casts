@@ -38,19 +38,15 @@
                                         <input class="input" style="width: 400px" type="text" name="company" v-model="company" value="{{.user.Company}}" id="company">
                                     </div>
                                 </div>
-{{/*                                <div class="field has-addons">*/}}
-{{/*                                    <div class="control">*/}}
-{{/*                                        <label class="label">GitHub</label>*/}}
-{{/*                                        <p class="control">*/}}
-{{/*                                            <a class="button is-static">*/}}
-{{/*                                                https://github.com/*/}}
-{{/*                                            </a>*/}}
-{{/*                                        </p>*/}}
-{{/*                                        <p class="control is-expanded">*/}}
-{{/*                                            <input class="input" type="text" name="github_id" v-model="github_id" value="{{.user.GithubId}}" id="github_id">*/}}
-{{/*                                        </p>*/}}
-{{/*                                    </div>*/}}
-{{/*                                </div>*/}}
+                                <div class="field has-addons">
+                                    <p class="control">
+                                        <label class="label">GitHub</label>
+                                        <a class="button is-static">
+                                            https://github.com/
+                                        </a>
+                                        <input class="input" type="text" name="github_name" style="width: 230px;" v-model="github_name" value="{{.user.GithubName}}" id="github_name">
+                                    </p>
+                                </div>
                                 <div class="field">
                                     <div class="control">
                                         <label class="label">个人主页</label>
@@ -77,7 +73,7 @@
             message: 'Hello Vue!',
             city: {{.user.City}},
             company: {{.user.Company}},
-            github_id: {{.user.GithubId}},
+            github_name: {{.user.GithubName}},
             personal_website: {{.user.PersonalWebsite}},
         },
         delimiters:['${', '}'],
@@ -87,7 +83,7 @@
                 var bodyFormData = new FormData();
                 bodyFormData.set('city', this.city);
                 bodyFormData.set('company', this.company);
-                bodyFormData.set('github_id', this.github_id);
+                bodyFormData.set('github_name', this.github_name);
                 bodyFormData.set('personal_website', this.personal_website);
                 let config = {
                     headers: {

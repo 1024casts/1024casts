@@ -35,7 +35,7 @@ func Profile(c *gin.Context) {
 type ProfileRequest struct {
 	City            string `json:"city" form:"city"`
 	Company         string `json:"company" form:"company"`
-	GithubId        string `json:"github_id" form:"github_id"`
+	GithubName      string `json:"github_name" form:"github_name"`
 	PersonalWebsite string `json:"personal_website" form:"personal_website"`
 }
 
@@ -61,7 +61,7 @@ func DoProfile(c *gin.Context) {
 	userMap := map[string]interface{}{
 		"city":             req.City,
 		"company":          req.Company,
-		"github_id":        req.GithubId,
+		"github_name":      req.GithubName,
 		"personal_website": req.PersonalWebsite,
 	}
 	err = srv.UpdateUser(userMap, userId)
