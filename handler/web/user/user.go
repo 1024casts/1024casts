@@ -22,7 +22,7 @@ type RegisterRequest struct {
 	ConfirmPassword string `json:"confirm_password" form:"confirm_password"`
 }
 
-type CreateResponse struct {
+type RegisterResponse struct {
 	Id uint64 `json:"id"`
 }
 

@@ -81,6 +81,7 @@ func (db *Database) Init() {
 	}
 }
 
+// 默认数据库
 func GetDB() *gorm.DB {
 	return DB.Self
 }

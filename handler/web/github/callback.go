@@ -33,7 +33,8 @@ func CallbackHandler(c *gin.Context) {
 	//fmt.Printf("%#v", token)
 	//fmt.Printf("%#v", user)
 
-	fmt.Printf("user_id: %s", githubUser.ID)
+	fmt.Printf("github user_id: %s", githubUser.ID)
+	fmt.Printf("github username: %s", githubUser.Username)
 
 	// 如果用户存在，则更新最后登录时间和ip
 	userSrv := service.NewUserService()
@@ -48,6 +49,7 @@ func CallbackHandler(c *gin.Context) {
 			Password:      "",
 			Email:         githubUser.Email,
 			GithubId:      githubUser.ID,
+			GithubName:    githubUser.Username,
 			LastLoginTime: time.Now(),
 			LastLoginIp:   c.ClientIP(),
 			IsActivated:   1,

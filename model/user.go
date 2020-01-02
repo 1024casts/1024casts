@@ -31,6 +31,7 @@ type UserModel struct {
 	LastLoginTime     time.Time `json:"last_login_time" gorm:"column:last_login_time" binding:"omitempty"`
 	LastLoginIp       string    `json:"last_login_ip" gorm:"column:last_login_ip" binding:"omitempty"`
 	GithubId          string    `json:"github_id" gorm:"column:github_id" binding:"omitempty"`
+	GithubName        string    `json:"github_name" gorm:"column:github_name" binding:"omitempty"`
 	RememberToken     string    `json:"remember_token" gorm:"column:remember_token" binding:"omitempty"`
 	IsActivated       int       `json:"is_activated" gorm:"column:is_activated" binding:"omitempty"`
 	Roles             []string  `json:"roles" gorm:"-"`
@@ -51,32 +52,35 @@ func (c *UserModel) TableName() string {
 }
 
 type UserInfo struct {
-	Id                uint64   `json:"id"`
-	Username          string   `json:"username"`
-	Password          string   `json:"password"`
-	Email             string   `json:"email"`
-	Avatar            string   `json:"avatar"`
-	RealName          string   `json:"real_name"`
-	City              string   `json:"city"`
-	Company           string   `json:"company"`
-	WeiboUrl          string   `json:"weibo_url"`
-	WechatId          string   `json:"wechat_id"`
-	PersonalWebsite   string   `json:"personal_website"`
-	Introduction      string   `json:"introduction"`
-	TopicCount        int      `json:"topic_count"`
-	ReplyCount        int      `json:"reply_count"`
-	FollowerCount     int      `json:"follower_count"`
-	NotificationCount int      `json:"notification_count"`
-	Status            int      `json:"status"`
-	LastLoginTime     string   `json:"last_login_time"`
-	LastLoginIp       string   `json:"last_login_ip"`
-	GithubId          string   `json:"github_id"`
-	RememberToken     string   `json:"remember_token"`
-	IsActivated       int      `json:"is_activated"`
-	CreatedAt         string   `json:"created_at"`
-	UpdatedAt         string   `json:"updated_at"`
-	IsVip             int      `json:"is_vip"`
-	Roles             []string `json:"roles"`
+	Id                uint64           `json:"id"`
+	Username          string           `json:"username"`
+	Password          string           `json:"password"`
+	Email             string           `json:"email"`
+	Avatar            string           `json:"avatar"`
+	RealName          string           `json:"real_name"`
+	City              string           `json:"city"`
+	Company           string           `json:"company"`
+	WeiboUrl          string           `json:"weibo_url"`
+	WechatId          string           `json:"wechat_id"`
+	PersonalWebsite   string           `json:"personal_website"`
+	Introduction      string           `json:"introduction"`
+	TopicCount        int              `json:"topic_count"`
+	ReplyCount        int              `json:"reply_count"`
+	FollowerCount     int              `json:"follower_count"`
+	NotificationCount int              `json:"notification_count"`
+	Status            int              `json:"status"`
+	LastLoginTime     string           `json:"last_login_time"`
+	LastLoginIp       string           `json:"last_login_ip"`
+	GithubId          string           `json:"github_id"`
+	GithubName        string           `json:"github_name"`
+	RememberToken     string           `json:"remember_token"`
+	IsActivated       int              `json:"is_activated"`
+	CreatedAt         string           `json:"created_at"`
+	UpdatedAt         string           `json:"updated_at"`
+	IsVip             int              `json:"is_vip"`
+	Member            *UserMemberModel `json:"member"`
+	ExpiredAt         string           `json:"expired_at"`
+	Roles             []string         `json:"roles"`
 }
 
 // Compare with the plain text password. Returns true if it's the same as the encrypted one (in the `User` struct).

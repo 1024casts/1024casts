@@ -104,7 +104,7 @@ func LoadWebRouter(g *gin.Engine) *gin.Engine {
 	router.POST("/password/reset", webUser.ResetPassword)       // 重置密码
 	// user profile route
 	router.GET("/users/:username", webUser.Index)                        // 个人首页
-	router.GET("/users/:username/activation/:token", webUser.ActiveUser) // 通过发送到邮箱中的链接激活
+	router.GET("/users/:username/activation/:token", webUser.ActiveUser) // 通过发送到邮箱中的激活链接
 	router.GET("/users/:username/topics", webUser.TopicList)             // 发表过的主题
 	router.GET("/users/:username/replies", webUser.ReplyList)            // 回复过的
 	router.GET("/users/:username/favorites", webUser.TopicList)          // 收藏过的

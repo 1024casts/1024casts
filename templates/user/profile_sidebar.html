@@ -10,27 +10,38 @@
                 {{/*                            <p class="title is-4">{{.user.Username}} ({{if ne .user.RealName ""}}{{.user.RealName}}{{else}}{{.user.Username}}{{end}})</p>*/}}
                 <p class="title is-4">{{.userInfo.Username}}</p>
                 <p class="subtitle is-6"></p>
+                {{if .user.IsVip}}
+                    <i class="far fa-gem has-text-success"></i>
+                {{else}}
+                    <i class="far fa-gem has-text-grey-light"></i>
+                {{end}}
             </div>
         </div>
 
         <div class="content"  style="font-size: 13px;">
-            第 {{.userInfo.Id}} 位会员
+            第 <span class="tag is-light">{{.userInfo.Id}}</span> 位会员
             <br>
-            注册于 <span title="注册日期">{{.userInfo.CreatedAt}}</span>
+            注册时间： {{.userInfo.CreatedAt}}
+            <br>
+            {{if .user.IsVip}}
+                到期时间：<span class="tag is-success">{{.userInfo.ExpiredAt}}</span>
+            {{else}}
+                到期时间：<span class="tag is-danger">已过期</span>
+            {{end}}
             <ul>
                 <li>
                                 <span title="所在地">
                                     <i class="fas fa-map-marker-alt"></i> {{.userInfo.City}}
                                 </span>
                 </li>
-{{/*                {{if .user.GithubId}}*/}}
-{{/*                    <li>*/}}
-{{/*                        <i class="fab fa-github"></i>*/}}
-{{/*                        <a target="_blank" rel="nofollow" href="https://github.com/{{.user.GithubId}}">*/}}
-{{/*                            https://github.com/{{.userInfo.GithubId}}*/}}
-{{/*                        </a>*/}}
-{{/*                    </li>*/}}
-{{/*                {{end}}*/}}
+                {{if .userInfo.GithubName}}
+                    <li>
+                        <i class="fab fa-github"></i>
+                        <a target="_blank" rel="nofollow" href="https://github.com/{{.userInfo.GithubName}}">
+                            https://github.com/{{.userInfo.GithubName}}
+                        </a>
+                    </li>
+                {{end}}
                 {{if .userInfo.PersonalWebsite}}
                     <li>
                         <i class="fa fa-globe"></i>

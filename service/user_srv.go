@@ -5,6 +5,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/1024casts/1024casts/pkg/notification"
+
 	"fmt"
 
 	"github.com/1024casts/1024casts/model"
@@ -14,6 +16,11 @@ import (
 	"github.com/lexkong/log"
 	"github.com/spf13/viper"
 	"gopkg.in/gomail.v2"
+)
+
+const (
+	UserActivationYes = 1 // 激活
+	UserActivationNo  = 0 // 未激活
 )
 
 // 直接初始化，可以避免在使用时再实例化
@@ -73,6 +80,7 @@ func (srv *userService) RegisterUser(user model.UserModel) (id uint64, err error
 	if err := tx.Create(&userActivationModel).Error; err != nil {
 		tx.Rollback()
 		log.Warnf("[user] add user activation err: %v", err)
+		return 0, err
 	}
 
 	if err := tx.Commit().Error; err != nil {
@@ -83,6 +91,15 @@ func (srv *userService) RegisterUser(user model.UserModel) (id uint64, err error
 
 	// 2、发送激活邮件
 	go sendActiveMail(user.Username, user.Email, token)
+
+	// send to slack
+	go func() {
+		msg := fmt.Sprintf("welcome new user: %s[%s]", user.Username, user.Email)
+		err := notification.SendNewRegisterUserNotification(msg)
+		if err != nil {
+			log.Warnf("[register] send msg to slack err, %v", err)
+		}
+	}()
 
 	return user.Id, nil
 }
@@ -130,10 +147,22 @@ func (srv *userService) trans(user *model.UserModel) *model.UserInfo {
 		user.Avatar = util.GetAvatarUrl(user.Avatar)
 	}
 
-	isVip := 0
-	if user.Id == 1561 || user.Id == 1 {
-		isVip = 1
+	userMember, err := srv.userRepo.GetUserMember(user.Id, UserMemberStatusNormal)
+	if err != nil {
+		log.Warnf("[order] get user member err: %+v", err)
 	}
+	isVip := 0
+	if userMember.Id > 0 {
+		if time.Now().Unix() >= userMember.StartTime.Unix() && time.Now().Unix() <= userMember.EndTime.Unix() {
+			isVip = 1
+		}
+	}
+
+	// 特殊处理
+	//
+	//if user.Id == 1561 || user.Id == 1 {
+	//	isVip = 1
+	//}
 
 	return &model.UserInfo{
 		Id:                user.Id,
@@ -156,9 +185,12 @@ func (srv *userService) trans(user *model.UserModel) *model.UserInfo {
 		LastLoginTime:     util.TimeToString(user.LastLoginTime),
 		LastLoginIp:       user.LastLoginIp,
 		GithubId:          user.GithubId,
+		GithubName:        user.GithubName,
 		RememberToken:     user.RememberToken,
 		IsActivated:       user.IsActivated,
 		IsVip:             isVip,
+		Member:            userMember,
+		ExpiredAt:         util.TimeToString(userMember.EndTime),
 		CreatedAt:         util.TimeToString(user.CreatedAt),
 		UpdatedAt:         util.TimeToString(user.UpdatedAt),
 	}

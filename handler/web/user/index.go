@@ -33,6 +33,13 @@ func Index(c *gin.Context) {
 		})
 		return
 	}
+	if userInfo.Id == 0 {
+		c.HTML(http.StatusNotFound, "error/404", gin.H{
+			"title": "404错误",
+			"ctx":   c,
+		})
+		return
+	}
 
 	// get topic list
 	topicSrv := service.NewTopicService()
