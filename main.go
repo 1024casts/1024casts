@@ -9,13 +9,14 @@ import (
 	"os"
 	"time"
 
+	"github.com/1024casts/1024casts/schedule"
+
 	"github.com/1024casts/1024casts/config"
 	"github.com/1024casts/1024casts/model"
 	v "github.com/1024casts/1024casts/pkg/version"
 	"github.com/1024casts/1024casts/router"
 	"github.com/1024casts/1024casts/router/middleware"
 
-	"github.com/1024casts/1024casts/schedule"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 	"github.com/spf13/pflag"
@@ -109,7 +110,7 @@ func main() {
 	log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error())
 
 	// 调度任务初始化
-	schedule.Setup()
+	go schedule.Setup()
 }
 
 // pingServer pings the http server to make sure the router is working.
