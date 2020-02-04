@@ -1,3 +1,5 @@
+# 主要用于release
+# see: https://www.qikqiak.com/post/use-github-actions-build-go-app/
 name: Release
 on:
   create:
@@ -9,6 +11,7 @@ jobs:
     name: Release on GitHub
     runs-on: ubuntu-latest
     steps:
+      # 切换分支
       - name: Check out code
         uses: actions/checkout@v1
 
