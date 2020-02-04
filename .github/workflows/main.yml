@@ -1,6 +1,7 @@
 name: Build and Test
-
+# see: https://www.qikqiak.com/post/use-github-actions-build-go-app/
 # This workflow will run on master branch and on any pull requests targeting master
+# 主要用于 pull request
 on:
   push:
     branches:
@@ -43,7 +44,7 @@ jobs:
         run: make test-coverage
 
       - name: Upload Coverage report to CodeCov
-        uses: codecov/codecov-action@v1.0.0
+        uses: codecov/codecov-action@v1.0.5
         with:
           token: ${{secrets.CODECOV_TOKEN}}
           file: ./coverage.txt
@@ -61,14 +62,22 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
 
-#      - name: Get dependencies
-#        run: |
-#          go get -v -t -d ./...
-#          if [ -f Gopkg.toml ]; then
-#              curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-#              dep ensure
-#          fi
+      - name: Download dependencies
+        run: go mod download
+        env:
+          GOPROXY: https://proxy.golang.org
 
       - name: Build
         # or run: go build -v .
         run: make build
+  deploy:
+    # Deploy
+    - name: Deploy to Server
+      uses: easingthemes/ssh-deploy@v2.0.7
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
+        ARGS: "-avz --delete"
+        SOURCE: "[Current File Dir]"
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        TARGET: ${{ secrets.REMOTE_TARGET }}
