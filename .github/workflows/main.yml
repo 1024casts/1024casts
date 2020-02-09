@@ -1,5 +1,6 @@
 name: Build and Test
 # see: https://www.qikqiak.com/post/use-github-actions-build-go-app/
+# see: https://blog.wu-boy.com/2019/12/deploy-golang-app-using-github-actions/
 # This workflow will run on master branch and on any pull requests targeting master
 # 主要用于 pull request
 on:
@@ -51,13 +52,17 @@ jobs:
 
   build:
     name: Build
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [1.13.x, 1.12.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
     needs: [lint, test]
     steps:
       - name: Set up Go
         uses: actions/setup-go@v1
         with:
-          go-version: 1.12
+          go-version: ${{ matrix.go-version }}
 
       - name: Check out code
         uses: actions/checkout@v1
@@ -73,11 +78,15 @@ jobs:
   deploy:
     # Deploy
     - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v2.0.7
+      uses: appleboy/ssh-action@master
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
-        ARGS: "-avz --delete"
-        SOURCE: "[Current File Dir]"
-        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USER }}
-        TARGET: ${{ secrets.REMOTE_TARGET }}
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script_stop: true
+        script: |
+          cd /home/work/go/src/github.com/1024casts/1024casts
+          git pull
+          go build
+          ./admin.sh restart
