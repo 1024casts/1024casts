@@ -20,7 +20,7 @@ func Index(c *gin.Context) {
 	// get course list
 	courseMap := make(map[string]interface{})
 	courseMap["is_publish"] = 1
-	courses, _, err := courseSrv.GetCourseList(courseMap, 0, 6)
+	courses, _, err := courseSrv.GetCourseList(courseMap, 0, 8)
 	if err != nil {
 		log.Warnf("[index] get course list err: %v", err)
 	}
