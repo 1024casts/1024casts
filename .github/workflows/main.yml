@@ -78,16 +78,16 @@ jobs:
         run: make build
   deploy:
     # Deploy
-    - name: Deploy to Server
-      uses: appleboy/ssh-action@master
-      env:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        port: ${{ secrets.SSH_PORT }}
-        script_stop: true
-        script: |
-          cd /home/work/go/src/github.com/1024casts/1024casts
-          git pull
-          go build
-          ./admin.sh restart
+    name: Deploy to Server
+    uses: appleboy/ssh-action@master
+    env:
+      host: ${{ secrets.SSH_HOST }}
+      username: ${{ secrets.SSH_USERNAME }}
+      key: ${{ secrets.SSH_KEY }}
+      port: ${{ secrets.SSH_PORT }}
+      script_stop: true
+      script: |
+        cd /home/work/go/src/github.com/1024casts/1024casts
+        git pull
+        go build
+        ./admin.sh restart
