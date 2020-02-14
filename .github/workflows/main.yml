@@ -3,6 +3,7 @@ name: Build and Test
 # see: https://blog.wu-boy.com/2019/12/deploy-golang-app-using-github-actions/
 # This workflow will run on master branch and on any pull requests targeting master
 # 主要用于 pull request
+
 on:
   push:
     branches:
