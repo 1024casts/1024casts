@@ -78,6 +78,7 @@ jobs:
         run: make build
   deploy:
     # Deploy
+    runs-on: ubuntu-latest
     steps:
     - name: Deploy to Server
       uses: appleboy/ssh-action@master
