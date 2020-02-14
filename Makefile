@@ -21,7 +21,10 @@ gotool:
 	gofmt -w .
 	goimports -w . | grep -v vendor;true
 	go tool vet . | grep -v vendor;true
-
+lint:
+	@echo "start go lint"
+test-coverage:
+	@echo "start test-coverage"
 swag-init:
 	swag init
 	@echo "swag init done"
