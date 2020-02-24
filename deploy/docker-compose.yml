@@ -1,0 +1,49 @@
+version: "3"
+
+# Define services
+services:
+  # App Service
+  app:
+    container_name: app
+    # Configuration for building the docker image for the service
+    build:
+      context: .. # Use an image built from the specified dockerfile in the current directory.
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    # 避免当机
+    restart: always
+    links:
+      - "mysql"
+      - "redis"
+    volumes:
+      - $GOPATH/src/github.com/1024casts/1024casts:/go/src/app
+    tty: true
+    environment: # Pass environment variables to the service
+      REDIS_URL: redis:6379
+
+  mysql:
+    container_name: mysql
+    image: "mysql:5.6.47"
+    restart: always
+    volumes:
+      - /Users/qloog/tmp:/var/lib/mysql
+      - ./build/docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    command: mkdir -p /data/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: phpcasts
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+
+  # Redis Service
+  redis:
+    image: redis:5.0
+    restart: always
+    hostname: redis
+    container_name: redis
+    ports:
+      - '6379:6379'
+    command: redis-server --requirepass adminadmin
