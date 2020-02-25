@@ -20,7 +20,7 @@ clean:
 gotool:
 	gofmt -w .
 	goimports -w . | grep -v vendor;true
-	go tool vet . | grep -v vendor;true
+	go vet . | grep -v vendor;true
 lint:
 	golint
 test:
