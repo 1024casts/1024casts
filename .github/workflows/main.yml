@@ -71,10 +71,10 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
 
-      - name: Download dependencies
-        run: go mod download
-        env:
-          GOPROXY: https://proxy.golang.org
+#      - name: Download dependencies
+#        run: go mod download
+#        env:
+#          GOPROXY: https://proxy.golang.org
 
       - name: Build
         # or run: go build -v .
