@@ -23,6 +23,8 @@ gotool:
 	go tool vet . | grep -v vendor;true
 lint:
 	@echo "start go lint"
+test:
+	go test -v ./util
 test-coverage:
 	@echo "start test-coverage"
 swag-init:
