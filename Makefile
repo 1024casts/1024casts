@@ -22,7 +22,7 @@ gotool:
 	goimports -w . | grep -v vendor;true
 	go tool vet . | grep -v vendor;true
 lint:
-	@echo "start go lint"
+	golint
 test:
 	go test -v ./util
 test-coverage:
