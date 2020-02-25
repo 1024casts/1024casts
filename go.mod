@@ -5,14 +5,15 @@ go 1.13
 require (
 	github.com/Unknwon/com v0.0.0-20190321035513-0fed4efef755
 	github.com/danilopolani/gocialite v1.0.2
-	github.com/dgrijalva/jwt-go v3.2.0
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/foolin/gin-template v0.0.0-20190415034731-41efedfb393b
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/gin-contrib/static v0.0.0-20190511124741-c1cdf9c9ec7b
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-playground/locales v0.12.1 // indirect
 	github.com/go-playground/universal-translator v0.16.0 // indirect
-	github.com/go-redis/redis/v7 v7.2.0
+	github.com/go-redis/redis v6.15.7+incompatible
+	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/gorilla/securecookie v1.1.1
 	github.com/gorilla/sessions v1.2.0
 	github.com/jinzhu/gorm v1.9.10
@@ -23,26 +24,33 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.2
 	github.com/nlopes/slack v0.5.0
 	github.com/oleiade/reflections v1.0.0 // indirect
+	github.com/onsi/ginkgo v1.10.1 // indirect
+	github.com/onsi/gomega v1.7.0 // indirect
 	github.com/qingwg/payjs v0.0.0-20190712025927-45615e48578f
-	github.com/qiniu/api.v7 v7.2.5
-	github.com/qiniu/x v7.0.8 // indirect
+	github.com/qiniu/api.v7 v7.2.5+incompatible
+	github.com/qiniu/x v7.0.8+incompatible // indirect
 	github.com/robfig/cron v1.2.0
 	github.com/shirou/gopsutil v2.19.6+incompatible
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
-	github.com/speps/go-hashids v2.0.0
+	github.com/speps/go-hashids v2.0.0+incompatible
 	github.com/spf13/pflag v1.0.3
 	github.com/spf13/viper v1.4.0
 	github.com/swaggo/swag v1.6.2
 	github.com/teris-io/shortid v0.0.0-20171029131806-771a37caa5cf
 	github.com/willf/pad v0.0.0-20190207183901-eccfe5d84172
 	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4
+	golang.org/x/net v0.0.0-20190923162816-aa69164e4478 // indirect
+	golang.org/x/sys v0.0.0-20191010194322-b09406accb47 // indirect
+	golang.org/x/text v0.3.2 // indirect
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
+	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/go-playground/validator.v9 v9.29.0
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 	gopkg.in/oleiade/reflections.v1 v1.0.0 // indirect
 	gopkg.in/russross/blackfriday.v2 v2.0.1
-	qiniupkg.com/x v7.0.8
+	gopkg.in/yaml.v2 v2.2.4 // indirect
+	qiniupkg.com/x v7.0.8+incompatible
 )
 
 replace gopkg.in/russross/blackfriday.v2 v2.0.1 => github.com/russross/blackfriday/v2 v2.0.1
