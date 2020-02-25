@@ -86,7 +86,7 @@ jobs:
     steps:
     - name: deploy to remote server using ssh key
       uses: appleboy/ssh-action@master
-      env:
+      with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         # ssh-keygen -t rsa -b 4096 -C "test@gmail.com"
