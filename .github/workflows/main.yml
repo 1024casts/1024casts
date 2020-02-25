@@ -85,7 +85,7 @@ jobs:
     needs: [build]
     steps:
     - name: deploy to remote server using ssh key
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v0.0.7
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
