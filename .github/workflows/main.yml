@@ -99,5 +99,5 @@ jobs:
         script: |
           cd /home/work/go/src/github.com/1024casts/1024casts
           git pull
-          go build
+          /usr/local/go/bin/go build
           ./admin.sh restart
