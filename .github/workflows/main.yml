@@ -90,6 +90,7 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         # ssh-keygen -t rsa -b 4096 -C "test@gmail.com"
+        # key 为密钥，不是公钥
         # see: https://github.com/appleboy/ssh-action/issues/16
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
