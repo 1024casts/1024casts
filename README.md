@@ -3,8 +3,6 @@
 主要是提供API
 
 ## 技术栈
-
-### 后端
 - 框架路由使用 [gin](https://github.com/gin-gonic/gin) 路由
 - 中间件使用 [gin](https://github.com/gin-gonic/gin) 框架的中间件
 - 数据库组件 [gorm](https://github.com/jinzhu/gorm)
@@ -16,7 +14,6 @@
 - 测试框架 [goConvey](http://goconvey.co/)
 
 #### 路由中间件
-
 - [限速](https://github.com/didip/tollbooth)
     - [如何限制HTTP请求的速率](https://www.alexedwards.net/blog/how-to-rate-limit-http-requests)
 
@@ -83,7 +80,7 @@ REST 风格虽然适用于很多传输协议，但在实际开发中，REST 由�
 }
 ```
 错误代码说明：
-
+<detail>
 | 1 | 00 | 02 |
 | :------ | :------ | :------ |
 | 服务级错误（1为系统级错误） | 服务模块代码 | 具体错误代码 |
@@ -96,9 +93,9 @@ REST 风格虽然适用于很多传输协议，但在实际开发中，REST 由�
 - 建议代码中按服务模块将错误分类
 - 错误码均为 >= 0 的数
 - 在本项目中 HTTP Code 固定为 http.StatusOK，错误码通过 code 来表示。
+</detail>
 
 ## 模块
-
 - 用户模块
     - 用户列表
 - 课程模块
@@ -121,10 +118,23 @@ REST 风格虽然适用于很多传输协议，但在实际开发中，REST 由�
 
 ## markdown 编辑器
 
-
 js markdown转html：https://github.com/markedjs/marked
 
 [Editor.md](https://pandao.github.io/editor.md/) 基于[marked](https://github.com/markedjs/marked)转换
 Go Markdown 转html (效果不如marked效果好)
     https://github.com/russross/blackfriday
     https://github.com/gomarkdown/markdown 
+    
+## Reference
+
+https://github.com/golang-standards/project-layout
+https://github.com/sagikazarmark/modern-go-application
+https://github.com/bilibili/sniper
+
+https://github.com/LyricTian/gin-admin
+https://github.com/bydmm/singo
+
+https://github.com/EDDYCJY/go-gin-example
+
+https://hacpai.com/top
+编辑器：https://github.com/b3log/vditor/tree/master/demo
