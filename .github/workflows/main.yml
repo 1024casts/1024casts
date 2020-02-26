@@ -97,7 +97,4 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script_stop: true
         script: |
-          cd /home/work/go/src/github.com/1024casts/1024casts
-          git pull
-          /usr/local/go/bin/go build
-          ./admin.sh restart
+          cd /home/work/go/src/github.com/1024casts/1024casts && git pull && go build && ./admin.sh restart
