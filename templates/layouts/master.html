@@ -9,14 +9,16 @@
     <!-- Bulma CSS -->
     <link href="https://cdn.bootcss.com/bulma/0.7.4/css/bulma.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/5.8.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/limonte-sweetalert2/8.11.8/sweetalert2.min.css" rel="stylesheet">
     <link href="/static/css/app.css" rel="stylesheet">
+{{/*    <link href="/static/css/bulma-debug.css" rel="stylesheet">*/}}
     <link rel="shortcut icon" href="/static/images/favicon.ico" />
     {{block "css" .}}
     {{end}}
 </head>
 <body>
     {{if eq (isActive .ctx "/") "is-active"}}
-    <section class="hero is-light is-fullheight">
+    <section class="hero is-light is-medium">
         <div class="hero-head">
             <div class="container">
                 {{include "layouts/header"}}
@@ -25,11 +27,11 @@
         <div class="hero-body">
             <div class="container has-text-centered">
                 <p class="title">
-                    终生学习
+                    终生学习，提高技能
                 </p>
-{{/*                <p class="subtitle">*/}}
-{{/*                    “学习的最好方法就是做” - P.R. Halmos*/}}
-{{/*                </p>*/}}
+                <p class="subtitle">
+                    “学习的最好方法就是做” - P.R. Halmos
+                </p>
             </div>
         </div>
     </section>
