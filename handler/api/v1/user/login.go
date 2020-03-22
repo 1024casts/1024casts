@@ -46,5 +46,5 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	app.Response(c, nil, model.Token{Token: t})
+	app.Response(c, nil, model.Token{Name: u.Username, Uuid: d.Id, Token: t})
 }

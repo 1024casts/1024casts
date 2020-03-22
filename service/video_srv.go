@@ -1,7 +1,10 @@
 package service
 
 import (
+	"strings"
 	"sync"
+
+	"github.com/1024casts/1024casts/pkg/constvar"
 
 	"github.com/1024casts/1024casts/util"
 
@@ -19,6 +22,19 @@ func NewVideoService() *VideoService {
 	return &VideoService{
 		repository.NewVideoRepo(),
 	}
+}
+
+func (srv *VideoService) CreateVideo(video model.VideoModel) (id uint64, err error) {
+	if video.CoverKey != "" && !strings.HasPrefix(video.CoverKey, "/") {
+		video.CoverKey = "/" + video.CoverKey
+	}
+	id, err = srv.repo.CreateVideo(video)
+
+	if err != nil {
+		return id, err
+	}
+
+	return id, nil
 }
 
 func (srv *VideoService) GetVideoById(id int) (*model.VideoModel, error) {
@@ -40,6 +56,13 @@ func (srv *VideoService) GetVideoList(courseId uint64, isGroup bool) ([]*model.V
 		return nil, err
 	}
 
+	for _, video := range videos {
+		video.CoverUrl = util.GetVideoCover(video.CoverKey)
+		video.Mp4URL = util.GetVideoUrl(video.Mp4Key)
+		video.DurationStr = util.ResolveVideoDuration(video.Duration)
+		video.PublishedAtStr = util.FormatTime(video.PublishedAt)
+	}
+
 	return videos, nil
 }
 
@@ -52,7 +75,7 @@ func (srv *VideoService) GetVideoByCourseIdAndEpisodeId(courseId uint64, episode
 		return nil, err
 	}
 
-	video.Mp4URL = util.GetVideoUrl(video.Mp4URL)
+	video.Mp4URL = util.GetVideoUrl(video.Mp4Key)
 	video.DurationStr = util.ResolveVideoDuration(video.Duration)
 	video.PublishedAtStr = util.FormatTime(video.PublishedAt)
 
@@ -95,6 +118,8 @@ func (srv *VideoService) GetVideoListPagination(courseId uint64, name string, of
 
 			VideoList.Lock.Lock()
 			defer VideoList.Lock.Unlock()
+
+			Video.Mp4URL = util.GetQiNiuPrivateAccessUrl(Video.Mp4Key, constvar.MediaTypeVideo, 0, 0)
 
 			VideoList.IdMap[Video.Id] = Video
 		}(c)

@@ -13,16 +13,20 @@ func Endpoint(parentRoute *gin.RouterGroup) {
 	router.GET("", List)
 	router.GET("/:id", Get)
 	router.GET("/:id/sections", Section)
+	router.GET("/:id/videos", Video)
 }
 
 type CreateRequest struct {
-	Name        string `json:"name"`
-	Type        string `json:"type"`
-	Description string `json:"description"`
-	Slug        string `json:"slug"`
-	CoverImage  string `json:"cover_image"`
-	UserId      int    `json:"user_id"`
-	IsPublish   int    `json:"is_publish"`
+	Name         string `json:"name"`
+	Type         string `json:"type"`
+	Keywords     string `json:"keywords"`
+	Description  string `json:"description"`
+	Slug         string `json:"slug"`
+	CoverKey     string `json:"cover_key"`
+	Content      string `json:"content"`
+	UserId       int    `json:"user_id"`
+	UpdateStatus int    `json:"update_status"`
+	IsPublish    int    `json:"is_publish"`
 }
 
 type CreateResponse struct {
@@ -52,6 +56,11 @@ type ListResponse struct {
 type SectionListResponse struct {
 	TotalCount uint64                `json:"totalCount"`
 	List       []*model.SectionModel `json:"list"`
+}
+
+type VideoListResponse struct {
+	TotalCount uint64              `json:"totalCount"`
+	List       []*model.VideoModel `json:"list"`
 }
 
 type SwaggerListResponse struct {

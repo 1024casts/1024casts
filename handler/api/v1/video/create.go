@@ -1,4 +1,4 @@
-package course
+package video
 
 import (
 	"github.com/1024casts/1024casts/model"
@@ -12,46 +12,45 @@ import (
 	"github.com/lexkong/log/lager"
 )
 
-// @Summary Add new course to the database
+// @Summary Add new video to the database
 // @Description Add a new course
 // @Tags course
 // @Accept  json
 // @Produce  json
 // @Param course body course.CreateRequest true "Create a new course"
 // @Success 200 {object} course.CreateResponse "{"code":0,"message":"OK","data":{"name":"test"}}"
-// @Router /courses [post]
+// @Router /videos [post]
 func Create(c *gin.Context) {
-	log.Info("Course Create function called.", lager.Data{"X-Request-Id": util.GetReqID(c)})
+	log.Info("Video Create function called.", lager.Data{"X-Request-Id": util.GetReqID(c)})
 	var r CreateRequest
 	if err := c.Bind(&r); err != nil {
 		app.Response(c, errno.ErrBind, nil)
 		return
 	}
 
-	course := model.CourseModel{
-		Name:         r.Name,
-		Type:         r.Type,
-		Keywords:     r.Keywords,
-		Description:  r.Description,
-		Slug:         r.Slug,
-		Content:      r.Content,
-		CoverKey:     r.CoverKey,
-		UserId:       r.UserId,
-		UpdateStatus: r.UpdateStatus,
-		IsPublish:    r.IsPublish,
+	item := model.VideoModel{
+		CourseID:    r.CourseID,
+		SectionID:   r.SectionID,
+		EpisodeID:   r.EpisodeID,
+		Name:        r.Name,
+		Description: r.Description,
+		Mp4Key:      r.Mp4Key,
+		Duration:    r.Duration,
+		CoverKey:    r.CoverKey,
+		IsFree:      r.IsFree,
+		IsPublish:   r.IsPublish,
 	}
 
-	srv := service.NewCourseService()
-	//user, err := model.GetUserById(userId)
-	id, err := srv.CreateCourse(course)
+	srv := service.NewVideoService()
+	id, err := srv.CreateVideo(item)
 	if err != nil {
-		app.Response(c, errno.ErrCourseCreateFail, nil)
-		log.Warn("course info", lager.Data{"id": id})
+		app.Response(c, errno.ErrVideoCreateFail, nil)
+		log.Warn("video info", lager.Data{"id": id})
 		return
 	}
 
 	resp := CreateResponse{
-		Id: course.Id,
+		Id: item.Id,
 	}
 
 	// Show the user information.

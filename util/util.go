@@ -161,8 +161,12 @@ func GetVideoUrl(uri string) string {
 	return GetQiNiuPrivateAccessUrl(uri, constvar.MediaTypeVideo, 0, 0)
 }
 
-func GetCourseCover(uri string) string {
-	return GetQiNiuPrivateAccessUrl(uri, constvar.MediaTypeImage, 355, 0)
+func GetCourseCover(key string) string {
+	return GetQiNiuPrivateAccessUrl(key, constvar.MediaTypeImage, 355, 0)
+}
+
+func GetVideoCover(key string) string {
+	return GetQiNiuPrivateAccessUrl(key, constvar.MediaTypeImage, 355, 0)
 }
 
 func GetAvatarUrl(uri string) string {

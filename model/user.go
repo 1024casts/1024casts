@@ -44,6 +44,8 @@ type UserList struct {
 
 // Token represents a JSON web token.
 type Token struct {
+	Name  string `json:"name"`
+	Uuid  uint64 `json:"uuid"`
 	Token string `json:"token"`
 }
 

@@ -17,6 +17,15 @@ func NewVideoRepo() *VideoRepo {
 	}
 }
 
+func (repo *VideoRepo) CreateVideo(video model.VideoModel) (id uint64, err error) {
+	err = repo.db.Self.Create(&video).Error
+	if err != nil {
+		return 0, err
+	}
+
+	return video.Id, nil
+}
+
 func (repo *VideoRepo) GetVideoById(id int) (*model.VideoModel, error) {
 	video := model.VideoModel{}
 	result := repo.db.Self.Where("id = ?", id).First(&video)

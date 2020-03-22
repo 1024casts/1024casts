@@ -1,4 +1,4 @@
-package course
+package video
 
 import (
 	"strconv"
@@ -22,25 +22,25 @@ import (
 // @Param id path uint64 true "The course's database id index num"
 // @Param user body model.CourseModel true "The course info"
 // @Success 200 {object} handler.Response "{"code":0,"message":"OK","data":null}"
-// @Router /courses/{id} [put]
+// @Router /videos/{id} [put]
 func Update(c *gin.Context) {
 	log.Info("Update function called.", lager.Data{"X-Request-Id": util.GetReqID(c)})
 	// Get the course id from the url parameter.
-	courseId, _ := strconv.Atoi(c.Param("id"))
+	videoId, _ := strconv.Atoi(c.Param("id"))
 
 	// Binding the course data.
-	var course CreateRequest
-	if err := c.Bind(&course); err != nil {
+	var video CreateRequest
+	if err := c.Bind(&video); err != nil {
 		app.Response(c, errno.ErrBind, nil)
 		return
 	}
 
-	srv := service.NewCourseService()
+	srv := service.NewVideoService()
 	//user, err := model.GetUserById(userId)
-	_, err := srv.GetCourseById(courseId)
+	_, err := srv.GetVideoById(videoId)
 	if err != nil {
-		app.Response(c, errno.ErrCourseNotFound, nil)
-		log.Warn("course info", lager.Data{"id": courseId})
+		app.Response(c, errno.ErrVideoNotFound, nil)
+		log.Warn("video info", lager.Data{"id": videoId})
 		return
 	}
 
@@ -51,18 +51,19 @@ func Update(c *gin.Context) {
 	//}
 
 	// Save changed fields.
-	courseMap := make(map[string]interface{}, 0)
-	courseMap["name"] = course.Name
-	courseMap["type"] = course.Type
-	courseMap["keywords"] = course.Keywords
-	courseMap["description"] = course.Description
-	courseMap["slug"] = course.Slug
-	courseMap["content"] = course.Content
-	courseMap["cover_key"] = course.CoverKey
-	courseMap["is_publish"] = course.IsPublish
-	courseMap["update_status"] = course.UpdateStatus
+	itemMap := make(map[string]interface{}, 0)
+	itemMap["episode_id"] = video.EpisodeID
+	itemMap["section_id"] = video.SectionID
+	itemMap["name"] = video.Name
+	itemMap["keywords"] = video.Keywords
+	itemMap["description"] = video.Description
+	itemMap["cover_key"] = video.CoverKey
+	itemMap["mp4_key"] = video.Mp4Key
+	itemMap["duration"] = video.Duration
+	itemMap["is_publish"] = video.IsPublish
+	itemMap["is_free"] = video.IsFree
 
-	if err := srv.UpdateCourse(courseMap, courseId); err != nil {
+	if err := srv.UpdateVideo(itemMap, videoId); err != nil {
 		app.Response(c, errno.InternalServerError, nil)
 		return
 	}

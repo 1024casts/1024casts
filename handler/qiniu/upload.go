@@ -11,7 +11,7 @@ import (
 	"github.com/lexkong/log"
 )
 
-func Upload(c *gin.Context) {
+func UploadImage(c *gin.Context) {
 
 	// single file
 	file, err := c.FormFile("file")
@@ -23,6 +23,29 @@ func Upload(c *gin.Context) {
 
 	qiNiuSrv := service.NewQiNiuService()
 	uploadRet, err := qiNiuSrv.UploadImage(c, file, false)
+	if err != nil {
+		log.Warnf("[upload] upload file err: %v", err)
+		app.Response(c, errno.ErrUploadingFile, nil)
+		return
+	}
+	fmt.Println(uploadRet)
+
+	app.Response(c, nil, uploadRet)
+
+}
+
+func UploadVideo(c *gin.Context) {
+
+	// single file
+	file, err := c.FormFile("file")
+	if err != nil {
+		log.Warnf("[upload] get file err: %v", err)
+		app.Response(c, errno.ErrGetUploadFile, nil)
+		return
+	}
+
+	qiNiuSrv := service.NewQiNiuService()
+	uploadRet, err := qiNiuSrv.UploadVideo(c, file, false)
 	if err != nil {
 		log.Warnf("[upload] upload file err: %v", err)
 		app.Response(c, errno.ErrUploadingFile, nil)

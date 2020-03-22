@@ -27,19 +27,17 @@ func List(c *gin.Context) {
 		return
 	}
 
-	page, err := strconv.Atoi(c.Query("page"))
+	page, err := strconv.Atoi(c.DefaultQuery("page", "1"))
 	if err != nil {
 		log.Error("get page error", err)
 	}
-	limit, err := strconv.Atoi(c.Query("limit"))
+	limit, err := strconv.Atoi(c.DefaultQuery("page_size", "10"))
 	if err != nil {
 		log.Error("get limit error", err)
 	}
 
 	offset := (page - 1) * limit
-
 	srv := service.NewCourseService()
-
 	courseMap := make(map[string]interface{})
 
 	name := c.Query("name")

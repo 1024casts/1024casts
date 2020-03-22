@@ -72,11 +72,13 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	}
 
 	// The plan handlers, requiring authentication
+	g.POST("/v1/upload/image", qiniu.UploadImage)
+	g.POST("/v1/upload/video", qiniu.UploadVideo)
 	q := g.Group("/v1/qiniu")
 	q.Use(middleware.AuthMiddleware())
 	{
 		q.GET("", qiniu.List)
-		q.POST("/upload", qiniu.Upload)
+		q.POST("/upload", qiniu.UploadImage)
 	}
 
 	// The health check handlers

@@ -8,6 +8,8 @@ import (
 func Endpoint(parentRoute *gin.RouterGroup) {
 	router := parentRoute.Group("/videos")
 	router.GET("/:course_id", List)
+	router.POST("", Create)
+	router.PUT("/:id", Update)
 }
 
 type CreateRequest struct {

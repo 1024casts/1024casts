@@ -1,6 +1,7 @@
 package service
 
 import (
+	"strings"
 	"sync"
 
 	"github.com/1024casts/1024casts/model"
@@ -22,8 +23,11 @@ func NewCourseService() *CourseService {
 	}
 }
 
-func (srv *CourseService) CreateCourse(user model.CourseModel) (id uint64, err error) {
-	id, err = srv.repo.CreateCourse(user)
+func (srv *CourseService) CreateCourse(course model.CourseModel) (id uint64, err error) {
+	if course.CoverKey != "" && !strings.HasPrefix(course.CoverKey, "/") {
+		course.CoverKey = "/" + course.CoverKey
+	}
+	id, err = srv.repo.CreateCourse(course)
 
 	if err != nil {
 		return id, err
@@ -58,9 +62,12 @@ func (srv *CourseService) trans(course *model.CourseModel) *model.CourseInfo {
 		Id:           course.Id,
 		Name:         course.Name,
 		Type:         course.Type,
+		Keywords:     course.Keywords,
 		Description:  course.Description,
 		Slug:         course.Slug,
-		CoverImage:   util.GetCourseCover(course.CoverImage),
+		Content:      course.Content,
+		CoverKey:     course.CoverKey,
+		CoverUrl:     util.GetCourseCover(course.CoverKey),
 		UserId:       course.UserId,
 		IsPublish:    course.IsPublish,
 		UpdateStatus: course.UpdateStatus,

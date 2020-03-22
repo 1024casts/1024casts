@@ -24,6 +24,10 @@ var (
 	ErrCourseNotFound   = &Errno{Code: 20201, Message: "The course was not found."}
 	ErrCourseCreateFail = &Errno{Code: 20202, Message: "The course create fail."}
 
+	// video errors
+	ErrVideoNotFound   = &Errno{Code: 20401, Message: "The video create fail."}
+	ErrVideoCreateFail = &Errno{Code: 20402, Message: "The video create fail."}
+
 	// topic errors
-	ErrNoRightEdit = &Errno{Code: 20301, Message: "你没有编辑该文章的权限哦~"}
+	ErrNoRightEdit = &Errno{Code: 20501, Message: "你没有编辑该文章的权限哦~"}
 )
