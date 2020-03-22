@@ -19,7 +19,7 @@
                 <div class="card">
                     {{if eq .user_id 0}}
                         <div class="has-text-centered">
-                            <div style="text-align: center; background: url({{.video.CoverImage}}) 50% 70% no-repeat #080808;padding: 22% 0;">
+                            <div style="text-align: center; background: url({{.video.CoverUrl}}) 50% 70% no-repeat #080808;padding: 22% 0;">
                                 <h3 style="color: #fff;">&nbsp;&nbsp;&nbsp;&nbsp;观看视频需要登录</h3>
                                 <ul class="">
                                     <li><a href="/register" class="button is-link">马上加入 1024课堂</a></li>
@@ -30,7 +30,7 @@
                     {{else}}
                         {{if eq .video.IsFree 1}}
                             <video id="video-player" class="video-js vjs-fluid vjs-big-play-centered placeholder"
-                                   poster="{{ .video.CoverImage }}" data-setup='{}'>
+                                   poster="{{ .video.CoverUrl }}" data-setup='{}'>
                                 <source src="{{ .video.Mp4URL }}" type='video/mp4' data-default="true">
                                 <p class="vjs-no-js">
                                     To view this video please enable JavaScript, and consider upgrading to a web browser that
@@ -40,7 +40,7 @@
                         {{else}}
                             {{if .user.IsVip}}
                                 <video id="video-player" class="video-js vjs-fluid vjs-big-play-centered placeholder"
-                                       poster="{{ .video.CoverImage }}" data-setup='{}'>
+                                       poster="{{ .video.CoverUrl }}" data-setup='{}'>
                                     <source src="{{ .video.Mp4URL }}" type='video/mp4' data-default="true">
                                     <p class="vjs-no-js">
                                         To view this video please enable JavaScript, and consider upgrading to a web browser that
