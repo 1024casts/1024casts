@@ -5,8 +5,6 @@ import (
 
 	"github.com/1024casts/1024casts/pkg/app"
 	"github.com/1024casts/1024casts/pkg/errno"
-	"github.com/1024casts/1024casts/util"
-
 	"github.com/1024casts/1024casts/service"
 
 	"github.com/gin-gonic/gin"
@@ -22,9 +20,9 @@ import (
 // @Param id path uint64 true "The course's database id index num"
 // @Param user body model.CourseModel true "The course info"
 // @Success 200 {object} handler.Response "{"code":0,"message":"OK","data":null}"
-// @Router /courses/{id} [put]
-func Update(c *gin.Context) {
-	log.Info("Update function called.", lager.Data{"X-Request-Id": util.GetReqID(c)})
+// @Router /courses/{id}/updatePublish [put]
+func UpdatePublish(c *gin.Context) {
+	log.Info("UpdatePublish function called.")
 	// Get the course id from the url parameter.
 	courseId, _ := strconv.Atoi(c.Param("id"))
 
@@ -44,22 +42,9 @@ func Update(c *gin.Context) {
 		return
 	}
 
-	// Validate the data.
-	//if err := u.Validate(); err != nil {
-	//	app.Response(c, errno.ErrValidation, nil)
-	//	return
-	//}
-
 	// Save changed fields.
 	courseMap := make(map[string]interface{}, 0)
-	courseMap["name"] = course.Name
-	courseMap["type"] = course.Type
-	courseMap["keywords"] = course.Keywords
-	courseMap["description"] = course.Description
-	courseMap["slug"] = course.Slug
-	courseMap["content"] = course.Content
-	courseMap["cover_key"] = course.CoverKey
-	courseMap["update_status"] = course.UpdateStatus
+	courseMap["is_publish"] = course.IsPublish
 
 	if err := srv.UpdateCourse(courseMap, courseId); err != nil {
 		app.Response(c, errno.InternalServerError, nil)

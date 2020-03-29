@@ -2,7 +2,7 @@ package qiniu
 
 import (
 	"github.com/1024casts/1024casts/model"
-	"github.com/qiniu/api.v7/storage"
+	"github.com/qiniu/api.v7/v7/storage"
 )
 
 type CreateRequest struct {

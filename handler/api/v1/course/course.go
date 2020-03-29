@@ -10,6 +10,7 @@ func Endpoint(parentRoute *gin.RouterGroup) {
 
 	router.POST("", Create)
 	router.PUT("/:id", Update)
+	router.PUT("/:id/updatePublish", UpdatePublish)
 	router.GET("", List)
 	router.GET("/:id", Get)
 	router.GET("/:id/sections", Section)

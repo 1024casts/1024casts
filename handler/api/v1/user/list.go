@@ -50,6 +50,6 @@ func List(c *gin.Context) {
 
 	app.Response(c, nil, ListResponse{
 		TotalCount: count,
-		UserList:   infos,
+		List:       infos,
 	})
 }

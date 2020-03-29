@@ -43,7 +43,7 @@ type ListRequest struct {
 
 type ListResponse struct {
 	TotalCount uint64             `json:"totalCount"`
-	UserList   []*model.UserModel `json:"userList"`
+	List       []*model.UserModel `json:"list"`
 }
 
 type SwaggerListResponse struct {

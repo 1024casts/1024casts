@@ -16,8 +16,8 @@ import (
 	"github.com/1024casts/1024casts/util"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
-	"github.com/qiniu/api.v7/auth/qbox"
-	"github.com/qiniu/api.v7/storage"
+	"github.com/qiniu/api.v7/v7/auth/qbox"
+	"github.com/qiniu/api.v7/v7/storage"
 	"github.com/spf13/viper"
 )
 
@@ -207,5 +207,4 @@ func (srv *QiNiuService) UploadVideo(c *gin.Context, file *multipart.FileHeader,
 	}
 
 	return resp, nil
-
 }

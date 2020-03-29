@@ -28,6 +28,7 @@ require (
 	github.com/onsi/gomega v1.7.0 // indirect
 	github.com/qingwg/payjs v0.0.0-20190712025927-45615e48578f
 	github.com/qiniu/api.v7 v7.2.5+incompatible
+	github.com/qiniu/api.v7/v7 v7.4.1
 	github.com/qiniu/x v7.0.8+incompatible // indirect
 	github.com/robfig/cron v1.2.0
 	github.com/shirou/gopsutil v2.19.6+incompatible
@@ -47,6 +48,7 @@ require (
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/go-playground/validator.v9 v9.29.0
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
+	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gopkg.in/oleiade/reflections.v1 v1.0.0 // indirect
 	gopkg.in/russross/blackfriday.v2 v2.0.1
 	gopkg.in/yaml.v2 v2.2.4 // indirect
