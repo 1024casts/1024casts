@@ -169,9 +169,10 @@ func GetVideoCover(key string) string {
 	return GetQiNiuPrivateAccessUrl(key, constvar.MediaTypeImage, 355, 0)
 }
 
+// user's avatar, if empty, use default avatar
 func GetAvatarUrl(uri string) string {
 	if uri == "" {
-		uri = constvar.DefaultAvatar
+		uri = GetQiNiuPublicAccessUrl(constvar.DefaultAvatar)
 	}
 	if strings.HasPrefix(uri, "https://") {
 		return uri
@@ -218,14 +219,6 @@ func TimeToInt64(ts time.Time) int64 {
 
 func GetDate() string {
 	return time.Now().Format("2006/01/02")
-}
-
-func GetImageFullUrl(uri string) string {
-	return viper.GetString("image_domain") + uri
-}
-
-func GetDefaultAvatarUrl() string {
-	return viper.GetString("image_domain") + constvar.DefaultAvatar
 }
 
 func GenerateOrderNo() (uint64, error) {

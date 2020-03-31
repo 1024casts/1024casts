@@ -2,7 +2,7 @@ package constvar
 
 const (
 	DefaultLimit  = 20
-	DefaultAvatar = "/uploads/avatar/avataaars.png"
+	DefaultAvatar = "1024_default_avatar.png"
 
 	MediaTypeImage = "image"
 	MediaTypeVideo = "video"
