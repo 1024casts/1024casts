@@ -183,6 +183,8 @@ func GetAvatarUrl(uri string) string {
 // 无需配置bucket, 域名会自动到域名所绑定的bucket去查找
 func GetQiNiuPublicAccessUrl(path string) string {
 	domain := viper.GetString("qiniu.public_cdn_url")
+	// 将原有的http替换为https
+	domain = strings.ReplaceAll(domain, "http://s1.phpcasts.org", "https://s1.phpcasts.org")
 	key := strings.TrimPrefix(path, "/")
 
 	publicAccessURL := storage.MakePublicURL(domain, key)
