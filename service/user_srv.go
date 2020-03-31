@@ -138,10 +138,6 @@ func (srv *userService) GetUserById(id uint64) (*model.UserInfo, error) {
 }
 
 func (srv *userService) trans(user *model.UserModel) *model.UserInfo {
-
-	if user.Avatar == "" {
-		user.Avatar = util.GetDefaultAvatarUrl()
-	}
 	// 不是完整url时，则处理为七牛链接
 	if !strings.Contains(user.Avatar, "http") {
 		user.Avatar = util.GetAvatarUrl(user.Avatar)
