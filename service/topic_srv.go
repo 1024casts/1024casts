@@ -205,6 +205,10 @@ func (srv *TopicService) trans(topic *model.TopicModel) *model.TopicInfo {
 	creator, _ := srv.userSrv.GetUserById(topic.UserID)
 	category, _ := srv.GetCategoryByCId(topic.CategoryID)
 
+	// 将原有的http替换为https
+	topic.Body = strings.ReplaceAll(topic.Body, "http://s1.phpcasts.org", "https://s1.phpcasts.org")
+	topic.OriginBody = strings.ReplaceAll(topic.OriginBody, "http://s1.phpcasts.org", "https://s1.phpcasts.org")
+
 	return &model.TopicInfo{
 		Id:              util.EncodeTopicId(int64(topic.Id)),
 		Category:        category,
