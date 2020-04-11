@@ -21,8 +21,9 @@ var (
 	ErrPasswordIncorrect = &Errno{Code: 20104, Message: "The password was incorrect."}
 
 	// course errors
-	ErrCourseNotFound   = &Errno{Code: 20201, Message: "The course was not found."}
-	ErrCourseCreateFail = &Errno{Code: 20202, Message: "The course create fail."}
+	ErrCourseNotFound    = &Errno{Code: 20201, Message: "The course was not found."}
+	ErrCourseCreateFail  = &Errno{Code: 20202, Message: "The course create fail."}
+	ErrSectionCreateFail = &Errno{Code: 20203, Message: "The section create fail."}
 
 	// video errors
 	ErrVideoNotFound   = &Errno{Code: 20401, Message: "The video create fail."}

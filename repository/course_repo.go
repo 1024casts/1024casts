@@ -96,6 +96,32 @@ func (repo *CourseRepo) DeleteCourse(id int) error {
 	return repo.db.Self.Delete(&course).Error
 }
 
+func (repo *CourseRepo) GetSectionById(id int) (*model.SectionModel, error) {
+	section := model.SectionModel{}
+	result := repo.db.Self.Where("id = ?", id).First(&section)
+
+	return &section, result.Error
+}
+
+func (repo *CourseRepo) CreateSection(section model.SectionModel) (id uint64, err error) {
+	err = repo.db.Self.Create(&section).Error
+	if err != nil {
+		return 0, err
+	}
+
+	return section.Id, nil
+}
+
+func (repo *CourseRepo) UpdateSection(userMap map[string]interface{}, id int) error {
+
+	section, err := repo.GetSectionById(id)
+	if err != nil {
+		return err
+	}
+
+	return repo.db.Self.Model(section).Updates(userMap).Error
+}
+
 func (repo *CourseRepo) Store(course *model.CourseModel) (id uint64, err error) {
 	//users := model.CourseModel{}
 

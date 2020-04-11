@@ -76,8 +76,8 @@ func (srv *PlanService) GetPlanList(courseMap map[string]interface{}, offset, li
 			planList.Lock.Lock()
 			defer planList.Lock.Unlock()
 
-			plan.FormatCreatedAt = util.TimeToString(plan.CreatedAt)
-			plan.FormatUpdatedAt = util.TimeToString(plan.UpdatedAt)
+			plan.FormatPromoStart = util.TimeToString(plan.PromoStart)
+			plan.FormatPromoEnd = util.TimeToString(plan.PromoEnd)
 			planList.IdMap[plan.ID] = plan
 		}(c)
 	}
@@ -100,8 +100,8 @@ func (srv *PlanService) GetPlanList(courseMap map[string]interface{}, offset, li
 	return infos, count, nil
 }
 
-func (srv *PlanService) UpdatePlan(courseMap map[string]interface{}, id int) error {
-	err := srv.repo.UpdatePlan(courseMap, id)
+func (srv *PlanService) UpdatePlan(planMap map[string]interface{}, id int) error {
+	err := srv.repo.UpdatePlan(planMap, id)
 	if err != nil {
 		return err
 	}

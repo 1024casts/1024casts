@@ -13,7 +13,6 @@ func Endpoint(parentRoute *gin.RouterGroup) {
 	router.PUT("/:id/updatePublish", UpdatePublish)
 	router.GET("", List)
 	router.GET("/:id", Get)
-	router.GET("/:id/sections", Section)
 	router.GET("/:id/videos", Video)
 }
 

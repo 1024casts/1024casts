@@ -232,3 +232,34 @@ func (srv *CourseService) UpdateCourse(courseMap map[string]interface{}, id int)
 
 	return nil
 }
+
+func (srv *CourseService) GetSectionById(id int) (*model.SectionModel, error) {
+	section, err := srv.repo.GetSectionById(id)
+
+	if err != nil {
+		return section, err
+	}
+
+	return section, nil
+}
+
+func (srv *CourseService) CreateSection(section model.SectionModel) (id uint64, err error) {
+
+	id, err = srv.repo.CreateSection(section)
+
+	if err != nil {
+		return id, err
+	}
+
+	return id, nil
+}
+
+func (srv *CourseService) UpdateSection(sectionMap map[string]interface{}, id int) error {
+	err := srv.repo.UpdateSection(sectionMap, id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

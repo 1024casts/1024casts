@@ -1,17 +1,20 @@
 package plan
 
 import (
+	"time"
+
 	"github.com/1024casts/1024casts/model"
 )
 
 type CreateRequest struct {
-	Name        string `json:"name"`
-	Type        string `json:"type"`
-	Description string `json:"description"`
-	Slug        string `json:"slug"`
-	CoverImage  string `json:"cover_image"`
-	UserId      int    `json:"user_id"`
-	IsPublish   int    `json:"is_publish"`
+	Name        string    `json:"name"`
+	Alias       string    `json:"alias"`
+	Description string    `json:"description"`
+	Price       float32   `json:"price"`
+	PromoPrice  float32   `json:"promo_price"`
+	PromoStart  time.Time `json:"promo_start"`
+	PromoEnd    time.Time `json:"promo_end"`
+	Status      int       `json:"status"`
 }
 
 type CreateResponse struct {

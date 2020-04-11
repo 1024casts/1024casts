@@ -6,7 +6,7 @@ import "sync"
 type SectionModel struct {
 	BaseModel
 	Name       string        `json:"name" gorm:"column:name;not null" binding:"required" validate:"min=1,max=32"`
-	CourseId   int           `json:"course_id" gorm:"column:course_id" binding:"omitempty"`
+	CourseId   uint64        `json:"course_id" gorm:"column:course_id" binding:"omitempty"`
 	Weight     int           `json:"weight" gorm:"column:weight" binding:"omitempty"`
 	VideoItems []*VideoModel `json:"video_items" gorm:"-"`
 }
