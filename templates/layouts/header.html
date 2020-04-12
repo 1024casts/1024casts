@@ -1,18 +1,18 @@
 
 <nav class="navbar topNav" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-    <a class="navbar-item" href="/">
-        <img src="/static/images/logo-640×160.png">
-    </a>
+        <a class="navbar-item" href="/">
+            <img src="/static/images/logo-640×160.png">
+        </a>
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-    </a>
-</div>
+        <div id="navbarBurger" class="navbar-burger burger" data-target="navMenuIndex">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div id="navMenuIndex" class="navbar-menu">
     <div class="navbar-start is-white">
         <a class="navbar-item {{isActive .ctx "/"}}" href="/">
             首页
@@ -26,9 +26,9 @@
         <a class="navbar-item {{isActive .ctx "/vip"}}" href="/vip">
             订阅
         </a>
-        <a class="navbar-item {{isActive .ctx "/wiki"}}" href="/wiki">
-            Wiki
-        </a>
+{{/*        <a class="navbar-item {{isActive .ctx "/wiki"}}" href="/wiki">*/}}
+{{/*            Wiki*/}}
+{{/*        </a>*/}}
     </div>
 
     <div class="navbar-end">
@@ -61,16 +61,14 @@
                 </div>
             </div>
         {{else}}
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-link" href="/register">
-                            <strong>注册</strong>
-                        </a>
-                        <a class="button is-light" href="/login">
-                            登录
-                        </a>
-                    </div>
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-link" href="/register">
+                        <strong>注册</strong>
+                    </a>
+                    <a class="button is-light" href="/login">
+                        登录
+                    </a>
                 </div>
             </div>
         {{end}}
