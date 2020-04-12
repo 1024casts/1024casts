@@ -137,4 +137,23 @@
 <script src="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
 <script type="text/javascript">
     Vue.prototype.$http = axios
+
+    // Functions
+    function getAll(selector) {
+        return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
+    }
+
+    // Toggles
+    var $burgers = getAll('.burger');
+
+    if ($burgers.length > 0) {
+        $burgers.forEach(function ($el) {
+            $el.addEventListener('click', function () {
+                var target = $el.dataset.target;
+                var $target = document.getElementById(target);
+                $el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+            });
+        });
+    }
 </script>
