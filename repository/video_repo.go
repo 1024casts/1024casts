@@ -53,7 +53,7 @@ func (repo *VideoRepo) GetVideoList(courseId uint64, isGroup bool) ([]*model.Vid
 			return videos, err
 		}
 	} else {
-		if err := repo.db.Self.Where("course_id=? and section_id=0", courseId).Order("id asc").Find(&videos).Error; err != nil {
+		if err := repo.db.Self.Where("course_id=? and is_publish=1", courseId).Order("id asc").Find(&videos).Error; err != nil {
 			return videos, err
 		}
 	}
