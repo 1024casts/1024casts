@@ -31,12 +31,15 @@ func Detail(c *gin.Context) {
 
 	sections := make([]*model.SectionModel, 0)
 	// 无视频说明进行了分组
-	if len(videos) == 0 {
+	//if len(videos) == 0 {
+	//	isGroup = true
+	sections, err = courseSrv.GetCourseSectionListWithVideo(course.Id)
+	if err != nil {
+		log.Warnf("[course] get video list err: %+v", err)
+	}
+	//}
+	if len(sections) > 0 {
 		isGroup = true
-		sections, err = courseSrv.GetCourseSectionListWithVideo(course.Id)
-		if err != nil {
-			log.Warnf("[course] get video list err: %+v", err)
-		}
 	}
 
 	c.HTML(http.StatusOK, "course/detail", gin.H{
